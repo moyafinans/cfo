@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kredi Analizi & Risk Değerlendirme — Finans Akademi</title>
+<link rel="stylesheet" href="fa-system.css">
+<style>
+.fa-main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 32px 80px;
+}
+
+/* Kategori renk bağlamaları */
+.cat-ozkaynak   { --cat-color: var(--cat-kredi);      --cat-bg: var(--cat-kredi-bg); }
+.cat-karlilik   { --cat-color: var(--cat-butce);      --cat-bg: var(--cat-butce-bg); }
+.cat-nakit      { --cat-color: var(--cat-analiz);     --cat-bg: var(--cat-analiz-bg); }
+.cat-likidite   { --cat-color: var(--cat-raporlama);  --cat-bg: var(--cat-raporlama-bg); }
+.cat-borclanma  { --cat-color: var(--cat-vergi);      --cat-bg: var(--cat-vergi-bg); }
+.cat-operasyonel{ --cat-color: var(--cat-cfo);        --cat-bg: var(--cat-cfo-bg); }
+.cat-yonetim    { --cat-color: #7C3AED;               --cat-bg: #F5F3FF; }
+
+.fa-section-dot  { background: var(--cat-color); }
+.fa-section-count { background: var(--cat-bg); color: var(--cat-color); }
+
+.fa-scenario-card { border-top: 3px solid var(--cat-color, var(--accent)); }
+.fa-badge-cat {
+  background: var(--cat-bg);
+  color: var(--cat-color);
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.yorum-label-color { color: var(--cat-color); }
+
+@media (max-width: 640px) {
+  .fa-main { padding: 0 16px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="fa-nav">
+  <a href="index.html" class="fa-nav-logo">
+    <div class="fa-nav-logo-mark">FA</div>
+    Finans Akademi
+  </a>
+  <a href="index.html" class="fa-nav-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M10 12L6 8l4-4"/>
+    </svg>
+    Tüm Konular
+  </a>
+</nav>
+
+<!-- FİLTRE -->
+<div class="fa-filter-bar">
+  <div class="fa-filter-inner">
+    <button class="fa-filter-btn active" data-cat="Tümü">Tümü</button>
+    <button class="fa-filter-btn" data-cat="ozkaynak">Özkaynak</button>
+    <button class="fa-filter-btn" data-cat="karlilik">Kârlılık</button>
+    <button class="fa-filter-btn" data-cat="nakit">Nakit Akışı</button>
+    <button class="fa-filter-btn" data-cat="likidite">Likidite</button>
+    <button class="fa-filter-btn" data-cat="borclanma">Borçlanma</button>
+    <button class="fa-filter-btn" data-cat="operasyonel">Operasyonel</button>
+    <button class="fa-filter-btn" data-cat="yonetim">Yönetim & Risk</button>
+  </div>
+</div>
+
+<div class="fa-main">
+
+  <!-- SAYFA BAŞLIĞI -->
+  <div class="fa-page-header">
+    <div class="fa-page-eyebrow">Kredi Analizi</div>
+    <h1 class="fa-page-title">Bilanço Sinyallerini<br>Doğru Okumak</h1>
+    <p class="fa-page-desc">Finansal tablolarda gizlenen risk göstergeleri ve bankacı perspektifinden yorumlar. 78 senaryo, 7 kategori.</p>
+  </div>
+
+  <!-- ═══ ÖZKAYNAK ═══ -->
+  <div class="fa-section cat-ozkaynak" data-section="ozkaynak">
+    <div class="fa-section-header">
+      <div class="fa-section-dot"></div>
+      <span class="fa-section-title">Özkaynak Kalitesi</span>
+      <span class="fa-section-count">8 sinyal</span>
+    </div>
+    <div class="fa-grid-2">
+
+      <div class="fa-scenario-card" data-cat="ozkaynak">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Özkaynak</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Maddi duran varlıklar içindeki Yeniden Değerleme Artışı kalemi ödenmiş sermayenin üzerindedir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Özkaynaklar kâğıt üzerinde güçlü görünse de bu güç sadece değerleme farkından gelmektedir ve nakit karşılığı yoktur. Borç ödeme kapasitesine doğrudan katkı sağlamaz.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="ozkaynak">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Özkaynak</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Şirket elde ettiği kârı özkaynaklara eklemek yerine tamamen temettü olarak dağıtmaktadır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Yönetim şirketi güçlendirmek yerine ortakların kısa vadeli beklentilerine odaklanmıştır. Sermaye yapısı zayıflar.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="ozkaynak">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Özkaynak</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Şirketin ödenmiş sermayesini uzun süredir artırmamış olsa da her yıl düzenli ve yüksek yasal yedek akçe ayırmaktadır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">✓ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Yönetim kârlılığını dışarı çıkarmak yerine yasal yedeklerle içsel olarak güçlendirmeyi seçmiştir. Muhafazakâr politikadır.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="ozkaynak">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Özkaynak</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Şirketin özkaynak kârlılığı (ROE) artarken toplam varlık kârlılığı (ROA) sınırlı kalmakta veya düşmektedir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Özkaynak kârlılığının yükselmesi verimlilikten değil, borç kullanımının (kaldıraç) agresif şekilde artmasından kaynaklanmaktadır.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="ozkaynak">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Özkaynak</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Özkaynaklar büyümesine rağmen dağıtılmamış geçmiş yıl kârları yerine sermaye benzeri borçlar yükselmektedir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Şirket gerçek operasyonel kârlılık yerine dışsal finansman teknikleriyle özkaynak büyütmektedir.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="ozkaynak">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Özkaynak</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Özkaynak artışına rağmen dağıtılmamış geçmiş yıl zararları bilançoda yüksek kalmaya devam etmektedir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Sermaye enjeksiyonu yapılmış olsa da operasyonel performans henüz toparlanamamıştır; ortaklar sürekli fon sağlamaktadır.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="ozkaynak">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Özkaynak</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Yeniden değerlemeye tabi tutulan arsa ve binaların değer artış oranları piyasa ortalamalarının üzerindedir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Şirket ilişkili ekspertiz firmaları vasıtasıyla aktifini ve özkaynağını suni olarak şişirerek rasyoları kurtarma çabasındadır.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="ozkaynak">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Özkaynak</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Dönen varlıklar içinde Ortaklardan Alacaklar kalemi ticari alacakların %50'sini aşmıştır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Ana işten elde edilen nakit ve likidite, kendi faaliyetini büyütmek yerine ortağın şahsi harcamalarına veya zarardaki şirketlere gitmiştir.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ KÂRLILIK ═══ -->
+  <div class="fa-section cat-karlilik" data-section="karlilik">
+    <div class="fa-section-header">
+      <div class="fa-section-dot"></div>
+      <span class="fa-section-title">Kârlılık Kalitesi</span>
+      <span class="fa-section-count">10 sinyal</span>
+    </div>
+    <div class="fa-grid-2">
+
+      <div class="fa-scenario-card" data-cat="karlilik">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Kârlılık</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Net dönem kârı artarken esas faaliyet kârı (EBIT) zayıf kalmaktadır. Diğer faaliyet gelirleri kârın ana kaynağıdır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Şirket ana faaliyet dışı gelirlerle kârlılığını desteklemektedir. Geçici veya tek seferlik gelirler sürdürülebilir değildir.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="karlilik">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Kârlılık</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Net Kâr Marjı yükseliyor ancak bu artış tamamen yüksek kur farkı gelirlerinden kaynaklanmaktadır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Kârlılık spekülatif döviz hareketleriyle sağlanmıştır. Kur tersine dönerse operasyonel nakit akışı yetersiz kalabilir.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="karlilik">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Kârlılık</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Peşin ödenmiş giderler ve gelecek aylara ait giderler kalemi dönemsel olarak hızla büyümektedir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Cari dönemde yazılması gereken operasyonel giderler bilançoda aktifleştirilerek mevcut dönem kârı yapay yükseltilmiştir.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="karlilik">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Kârlılık</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Amortisman giderleri önceki dönemlere göre belirgin şekilde azalmış, kârlılık bu sayede artmıştır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Şirket amortisman süresini uzatarak veya yöntem değiştirerek net kârını kâğıt üzerinde yüksek göstermektedir.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="karlilik">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Kârlılık</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Araştırma ve geliştirme giderlerinin tamamı doğrudan aktifleştirilerek duran varlığa dönüştürülmüştür.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Normalde gider yazılması gereken harcamalar aktife alınarak dönem zararı gizlenmiş olabilir.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="karlilik">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Kârlılık</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Ana ortaklığa ait net kâr düşükken, azınlık paylarına giden kâr yüksek gösterilmektedir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Kârlı faaliyetler ana şirketin dışındaki iştiraklerde kalmaktadır. Ana şirketin borç ödeme kapasitesi zayıflar.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="karlilik">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Kârlılık</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Brüt kâr marjı sektörün üzerindeyken, faaliyet giderlerinin yüksekliği sebebiyle operasyonel kâr marjı dip yapmıştır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Şirket üretimde başarılı olsa da yönetim, pazarlama ve organizasyon süreçlerinde ciddi bir maliyet kontrol zafiyeti yaşamaktadır.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="karlilik">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Kârlılık</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Dönem kârı fabrika binası veya arsa satışı ile rekor kırmıştır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Bu kâr süreklilik arz etmez. Gelecek dönem aynı nakit akışının üretilmesi imkânsızdır.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="karlilik">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Kârlılık</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Geçmiş dönemlerde kârlılığı uçuran kur garantili devlet veya müşteri kontratlarının süresi dolmuştur.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Gelecek dönemlerde kârlılık marjlarının hızla aşağı gelmesi ve operasyonel daralma riski yüksektir.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="karlilik">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Kârlılık</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Gelir tablosunda yüksek miktarda Ar-Ge teşvik ve hibe gelirleri yazılmasına rağmen kasaya giren net fon sınırlıdır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Teşvikler bürokratik süreçler veya hak ediş kısıtları nedeniyle nakde uzak vadede dönecektir ya da kâğıt üzerindedir.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ NAKİT AKIŞI ═══ -->
+  <div class="fa-section cat-nakit" data-section="nakit">
+    <div class="fa-section-header">
+      <div class="fa-section-dot"></div>
+      <span class="fa-section-title">Nakit Akışı Analizi</span>
+      <span class="fa-section-count">10 sinyal</span>
+    </div>
+    <div class="fa-grid-2">
+
+      <div class="fa-scenario-card" data-cat="nakit">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Nakit Akışı</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Nakit ve nakit benzerleri bakiyesi artarken, aynı dönemde kısa vadeli finansal borçlar da paralel yükselmiştir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Nakit artışı operasyonel fazlalıktan değil, borçlanmadan kaynaklanmaktadır. Kredi bağımlılığı yüksektir.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="nakit">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Nakit Akışı</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Net dönem kârı veya FAVÖK pozitif ve güçlü görünmesine rağmen faaliyetlerden sağlanan nakit akışı negatiftir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Muhasebe kârı ile nakit üretimi arasındaki kopukluk en kritik erken uyarı sinyalidir. Kredi geri ödemesi kârla değil nakitle yapılır.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="nakit">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Nakit Akışı</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Nakit Akım Tablosunda faaliyetlerden nakit akışı negatif seyrederken, finansman faaliyetlerinde yoğun yeni kredi kullanımı görülmektedir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Şirket operasyonel açığını kapatmak ve hayatta kalabilmek için sürekli borçlanmaktadır. Krediler verimsizliği finanse etmektedir.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="nakit">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Nakit Akışı</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">FAVÖK yüksek olmasına rağmen, yüksek yatırım harcamaları sebebiyle serbest nakit akışı negatife geçmiştir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Şirket ürettiği nakdin tamamını ve fazlasını yatırımlara harcamaktadır. Borç ödemek için dış kaynağa muhtaçtır.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="nakit">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Nakit Akışı</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Hazır değerlerin %90'ı tek bir mevduat bankasında tutulmaktadır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">İlgili bankayla yaşanabilecek operasyonel veya hukuki bir blokaj durumunda şirketin tüm nakit akışı felç olabilir.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="nakit">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Nakit Akışı</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Nakit varlıklar içinde vadeli mevduat veya likit fon yerine vadesiz hesap bakiyesi olağan dışı yüksektir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Şirket nakit yönetiminde verimsizdir veya çok yakın tarihte çok büyük bir nakit çıkışı planlamaktadır.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="nakit">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Nakit Akışı</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Hazır değerler yüksek görünmekte ancak bu nakdin büyük kısmı alınan kredilerin teminatı olarak blokelidir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Kâğıt üzerinde var görünen likidite serbestçe kullanılamaz, acil durumlarda can simidi olamaz.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="nakit">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Nakit Akışı</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Şirket işletme sermayesi açığı yaşarken kısa vadeli finansal yatırımlar (hisse senedi, fon vb.) kalemi büyümektedir.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Şirket ana işini fonlamak yerine nakdi spekülatif piyasalara yönlendirmiştir. Risk seviyesi yüksektir.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="nakit">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Nakit Akışı</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Uzun vadeli ertelenmiş gelirler muhasebe oyunlarıyla kısa vadeli dönen varlık segmentine veya doğrudan gelire yansıtılmıştır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Gelecek dönemlerin likiditesi ve kârı cari döneme çekilerek bilanço makyajlanmıştır.</div>
+        </div>
+      </div>
+
+      <div class="fa-scenario-card" data-cat="nakit">
+        <div class="fa-scenario-top">
+          <div class="fa-badge-cat">Nakit Akışı</div>
+          <div class="fa-scenario-label">Durum</div>
+          <div class="fa-scenario-text">Şirket rotatif kredilerin üç aylık dönem faizlerini ödemek için her defasında aynı bankadan ek limit açtırmaktadır.</div>
+        </div>
+        <div class="fa-scenario-bottom">
+          <div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div>
+          <div class="fa-scenario-yorum-text">Şirket faiz ödemelerini bile kendi yarattığı nakitle yapamamaktadır. Ponzi benzeri tehlikeli bir borçlanma sarmalıdır.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ LİKİDİTE ═══ -->
+  <div class="fa-section cat-likidite" data-section="likidite">
+    <div class="fa-section-header">
+      <div class="fa-section-dot"></div>
+      <span class="fa-section-title">İşletme Sermayesi & Likidite</span>
+      <span class="fa-section-count">14 sinyal</span>
+    </div>
+    <div class="fa-grid-2">
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Şirketin Net İşletme Sermayesi pozitif olmasına rağmen operasyonel nakit akışında ciddi daralma mevcuttur.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Muhasebe bazlı likidite göstergeleri olumlu görünse bile nakit akışındaki zayıflama tahsilat sorunlarına veya stok tıkanmalarına işaret eder.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Net Çalışma Sermayesi pozitiftir ancak bu pozitiflik büyük ölçüde yüksek vergi teşviklerinden kaynaklanmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Sağlıklı görünen finansal yapı teşviklerin sürekliliğine bağlıdır. Teşvikler bittiğinde çalışma sermayesi negatife dönebilir.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Dönen varlıklar içindeki en büyük payı Gelecek Aylara Ait Giderler ve Stoklar oluşturmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirketin likiditesi nakde uzak, muhasebeleşmiş peşin ödemelerde kilitlenmiştir. Acil nakit ihtiyaçlarını karşılamada zafiyet yaratır.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Kısa vadeli yükümlülükler içinde yer alan Ertelenmiş Gelirler kalemi hızla artmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket tahsilatı erken yapmış ancak henüz teslimat gerçekleştirmemiştir. Gelecekte yüksek teslimat maliyeti baskısı yaratır.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Net işletme sermayesi pozitif bölgede olmasına rağmen son üç dönemdir düzenli ve keskin şekilde azalmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">İşletme sermayesindeki erime genellikle kontrolsüz büyümenin finansman baskısı yarattığını gösterir. Likidite tamponu incelmektedir.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Şirketin nakit çevrim süresi (stok + alacak - borç vadesi) geçen yıla göre 45 gün uzamıştır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirketin nakit üretme hızı yavaşlamıştır. Aynı ciroyu döndürmek için çok daha fazla banka kredisine ihtiyaç duyacaktır.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Kısa vadeli diğer borçlar içinde vadesi geçmiş vergi ve SGK yükümlülükleri sürekli yapılandırılmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket banka kredisi bulamadığı için devleti fon kaynağı olarak kullanmaya başlamıştır. Likidite krizinin açık ilanıdır.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Alınan sipariş avansları dönemsel olarak patlama yapmıştır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Kasaya nakit girmiştir ancak bu nakit gelecekteki üretim maliyetlerini karşılamak zorundadır. Erken harcanırsa üretim aşamasında kriz çıkar.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Net satışlar büyürken, ticari alacaklar satış artış hızından çok daha belirgin şekilde yükselmektedir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Satış büyümesi nakde dönüşmemektedir. Şirket pazar payını korumak için vadeleri kontrolsüzce esnetiyor olabilir.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Ticari alacakların ortalama tahsil süresi uzarken, ticari borçların ödeme süresi tam aksine kısalmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket müşterilerine finansman sağlama mecburiyetinde kalırken, tedarikçilerine karşı pazarlık gücünü kaybetmiştir. Nakit açığı büyür.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Sektör ortalama 60 günde tahsilat yaparken, şirketin tahsilat süresi 150 günü bulmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket ya finansman gücü olmayan zayıf bir müşteri kitlesine satış yapmakta ya da gizli bir grup finansmanı yürütmektedir.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Ticari alacakların toplam satışlara oranı düzenli artarken, ayrılan şüpheli alacak karşılıkları bilanço dönemleri boyunca sabit kalmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Tahsilat kalitesi bozulmasına rağmen şirket kârı yüksek göstermek adına karşılık ayırmaktan kaçınmaktadır.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Alacak devir hızı aniden yükselmiş (tahsil süresi kısalmış), ancak aynı dönemde satışlar düşüş göstermiştir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket kötüleşen satışları ve nakit sıkışıklığı telafi etmek için mevcut müşterilerine agresif tahsilat baskısı uyguluyor olabilir.</div></div></div>
+
+      <div class="fa-scenario-card" data-cat="likidite"><div class="fa-scenario-top"><div class="fa-badge-cat">Likidite</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Memzuç verilerine göre şirketin bankalardaki gayrinakdi ve nakdi limitlerinin tamamı ağzına kadar doludur.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirketin acil bir nakit ihtiyacında kullanabileceği hiçbir yedek kredi tamponu kalmamıştır.</div></div></div>
+
+    </div>
+  </div>
+
+  <!-- ═══ BORÇLANMA ═══ -->
+  <div class="fa-section cat-borclanma" data-section="borclanma">
+    <div class="fa-section-header">
+      <div class="fa-section-dot"></div>
+      <span class="fa-section-title">Borç Yapısı & Finansman</span>
+      <span class="fa-section-count">14 sinyal</span>
+    </div>
+    <div class="fa-grid-2">
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Kısa vadeli finansal borçlar hızla artarken, uzun vadeli duran varlık yatırımları da büyümektedir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Geri dönüşü yıllar alacak yatırımlar kısa vadeli kredilerle finanse edilmektedir. En tehlikeli vade uyumsuzluğudur.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Şirketin Faaliyet Kârı (EBIT) pozitif ve artıştadır ancak Finansman Giderleri EBIT tutarını aşarak net zarar doğurmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket işinde başarılıdır ancak borçluluk seviyesi ve faiz yükü şirketin taşıyabileceği kapasitenin üzerindedir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Kısa Vadeli Finansal Borçlar son iki yılda %70 artarken, Net Satış büyümesi nominal %15'te kalmıştır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Finansman yükünün artış hızı operasyonel büyümenin önüne geçmiştir. Borçla şişirilmiş yapay bir büyümedir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Şirket yüksek miktarda döviz kredisi kullanmıştır ancak gelir tablosundaki satışların tamamı TL cinsindendir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirketin Doğal Hedge mekanizması bulunmamaktadır. Kurlardaki volatilite şirketi devasa kur zararlarıyla çökertebilir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Mevcut finansal borçların büyük bir kısmı değişken faizli veya rotatif nitelikli kredilerden oluşmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Faizlerin yükseldiği dönemlerde borç maliyeti hızla yukarı tırmanacaktır. Operasyonel nakit akışı faiz yüküne hassastır.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Mali borçlar sabit kalırken, ticari borçlar eritilmiş ve yerine tamamen kısa vadeli banka kredileri ikame edilmiştir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Piyasa firmaya vadeli mal vermeyi kesmiştir; şirket tedarikçilerini peşin ödemeyle tutabilmek için bankalara sığınmıştır.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Banka kredileri düşük görünmekte ancak Kısa Vadeli Diğer Borçlar / Ortaklara Borçlar kalemi devasa büyümektedir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket gerçek finansal borçluluğunu ve kaldıraç rasyolarını gizlemek için ortaklardan alınan paraları burada tutmaktadır.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Uzun vadeli finansal borçlar artmasına rağmen bilançoda duran varlıklarda hiçbir artış gerçekleşmemiştir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Uzun vadeli alınan yatırım kredileri amaca uygun kullanılmamış, işletme sermayesi açıklarına veya grup şirketlerine gitmiştir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Şirketin tüm fabrikaları, arsaları ve araçları bankalar lehine birinci ve ikinci dereceden ipoteklidir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirketin bankacılık sisteminden yeni teminatlı kredi bulma veya limit artırma marjı sıfırlanmıştır.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Şirket banka kredisi yerine piyasadan çok yüksek faiz oranları ile kısa vadeli finansman bonosu ihraç etmektedir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Bankacılık sistemi firmaya kredi vermeyi kısıtlamış veya durdurmuştur. Şirket yüksek maliyetli piyasa fonlamasına mecburdur.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Bilanço dışı yükümlülüklerde yer alan grup şirketlerine verilen kefalet ve garantiler özkaynak büyüklüğüne yaklaşmıştır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket kendi performansından bağımsız olarak ilişkili firmaların riskini üstlenmiştir. Grubun batışı bu şirketi de batırabilir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Bilançoda İştirakler kalemi yüksek tutarlardadır ancak bu iştiraklerden gelen temettü gelirleri sıfır veya negatiftir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket ana faaliyetinden kazandığı kaynakları verimsiz ve kâr üretmeyen iştiraklere bağlamıştır. Sermaye etkin kullanılmamaktadır.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Bilanço dışı yükümlülüklerde yer alan türev işlemlerden doğan taahhütler korunma amacını aşan agresif opsiyonları içermektedir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket risk yönetimi yapmak yerine spekülatif kazanç elde etme yolunu seçmiştir. Ters piyasa hareketinde iflas getirebilir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="borclanma"><div class="fa-scenario-top"><div class="fa-badge-cat">Borçlanma</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Kısa vadeli ticari borçlar içindeki borç senetlerinin vadeleri sürekli yeni senetlerle uzatılmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket tedarikçilerine karşı yükümlülüklerini yerine getirememekte ve borç yapılandırmasına gitmektedir.</div></div></div>
+    </div>
+  </div>
+
+  <!-- ═══ OPERASYONEL ═══ -->
+  <div class="fa-section cat-operasyonel" data-section="operasyonel">
+    <div class="fa-section-header">
+      <div class="fa-section-dot"></div>
+      <span class="fa-section-title">Operasyonel Verimlilik & Stok</span>
+      <span class="fa-section-count">12 sinyal</span>
+    </div>
+    <div class="fa-grid-2">
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Satış büyümesi sınırlı kalırken, bilançoda stoklar oransal olarak hızla artmakta ve stok devir hızı düşmektedir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Satış planlaması hataları veya ani talep daralması stok birikimine yol açmıştır. Stokların depoda beklemesi nakdi kilitler.</div></div></div>
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Ticari borçlar ödeme süresi sektör ortalamasının oldukça üzerindedir ve kısa vadeli ticari borçlar hızla artmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket finansman modelini tedarikçilerinin üzerine yıkmıştır. Ticari ilişkilerde güven kaybına ve mal tedarikinde aksamalara yol açar.</div></div></div>
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Stokların önemli bir bölümü veya artışın tamamı yarı mamul ürünlerden oluşmaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Yarı mamul ağırlıklı yapı üretim sürecinde teknik bir darboğaz yaşandığını veya sipariş iptalleri nedeniyle üretimin yarıda kaldığını gösterir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Şirketin ticari borçları artarken, tedarikçi portföyü veya alım hacmi sadece birkaç baskın firmada yoğunlaşmıştır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Yüksek konsantrasyon riski mevcuttur. Belirli tedarikçilerle yaşanabilecek en ufak ticari anlaşmazlık üretimi durdurabilir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Yabancı para cinsinden ticari alacaklar dönem sonu kurları ile değerlenmemiş veya eksik değerlenmiştir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket kur zararı yazmamak veya vergi matrahını değiştirmek için bilerek değerleme yapmamış olabilir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Satış hacmi (ton/adet) aynı kalmasına rağmen stokların bilançodaki değeri enflasyonun çok üzerinde artmıştır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Stoklar maliyet revizyonları veya yapay değerlemelerle şişirilerek aktif kalitesi yüksek gösterilmeye çalışılmaktadır.</div></div></div>
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Toplam ticari alacakların ve cironun %70'i tek bir kurumsal müşteriye aittir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div><div class="fa-scenario-yorum-text">İlgili müşterinin mal alımını durdurması veya mali krize girmesi şirketin doğrudan iflasına yol açabilir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Olağan dışı gider ve zararlar altında yüksek stok zayiatı veya sigorta tazminat gelirleri yer almaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirketin stok yönetim ve depo güvenliği süreçlerinde ciddi zafiyet veya suiistimal riskleri mevcuttur.</div></div></div>
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Net satışlar artarken, Faaliyet Giderleri satış artış hızından çok daha yüksek oranda büyümektedir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirkette ölçek ekonomisi oluşmamaktadır. Büyüme beraberinde kontrolsüz maliyet artışlarını getirmektedir. Marjlar erimektedir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Maddi Duran Varlık yatırımları hızla artarken, fabrikanın kapasite kullanım oranı (KKO) sabit kalmakta veya düşmektedir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Yapılan yatırımlar satışa ve üretime dönüşmemiştir. Şirket atıl kapasite yaratmıştır ve nakit sıkışmaktadır.</div></div></div>
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Satılan Malın Maliyeti (SMM) artış hızı, toplam üretim miktarı artış hızından belirgin şekilde yüksektir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirkette üretim verimliliği düşmektedir. Birim maliyetler kontrolden çıkmış veya girdi maliyetleri müşteriye yansıtılamamaktadır.</div></div></div>
+      <div class="fa-scenario-card" data-cat="operasyonel"><div class="fa-scenario-top"><div class="fa-badge-cat">Operasyonel</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Aktifte büyük bir kalem olan Şerefiye için cari dönemde yüksek değer düşüklüğü karşılığı ayrılmıştır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirketin geçmişte yüksek paralar ödeyerek satın aldığı markalar başarısız olmuştur. Özkaynak üzerinde aşınma yaratır.</div></div></div>
+    </div>
+  </div>
+
+  <!-- ═══ YÖNETİM & RİSK ═══ -->
+  <div class="fa-section cat-yonetim" data-section="yonetim">
+    <div class="fa-section-header">
+      <div class="fa-section-dot"></div>
+      <span class="fa-section-title">Yönetim & Kurumsal Risk</span>
+      <span class="fa-section-count">10 sinyal</span>
+    </div>
+    <div class="fa-grid-2">
+      <div class="fa-scenario-card" data-cat="yonetim"><div class="fa-scenario-top"><div class="fa-badge-cat">Yönetim & Risk</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Son iki yılda CFO, Finans Müdürü veya Genel Müdür seviyesinde 4 kez isim değişikliği yaşanmıştır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket içinde yönetimsel istikrarsızlık, vizyon kopukluğu veya kurumsal yönetim ilkelerine aykırı bir baskı ortamı mevcuttur.</div></div></div>
+      <div class="fa-scenario-card" data-cat="yonetim"><div class="fa-scenario-top"><div class="fa-badge-cat">Yönetim & Risk</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Şirket bilançosundaki gayrimenkulleri veya makineleri sık sık ilişkili diğer grup firmalarına satıp geri kiralamaktadır (Sale and Leaseback).</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Grup içinde nakit sıkışıklığı yaşayan firmaları fonlamak amacıyla duran varlıklar bir finansman aracı olarak hırpalanmaktadır.</div></div></div>
+      <div class="fa-scenario-card" data-cat="yonetim"><div class="fa-scenario-top"><div class="fa-badge-cat">Yönetim & Risk</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Şirket aleyhine açılmış çok sayıda büyük montanlı dava bulunmasına rağmen bilançoda Kısa Vadeli Karşılıklar kalemi sıfırdır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket gelecekteki olası nakit çıkışlarını ve zararlarını gizleyerek cari dönem bilançosunu temiz göstermeye çalışmaktadır.</div></div></div>
+      <div class="fa-scenario-card" data-cat="yonetim"><div class="fa-scenario-top"><div class="fa-badge-cat">Yönetim & Risk</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Gelir tablosunun alt satırlarında yer alan Kıdem Tazminatı Karşılığı Giderleri dönemsel olağan dışı büyüme göstermiştir.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket toplu işten çıkarmalar planlamakta veya küçülme sürecindedir. Kıdem tazminatı nakit çıkış baskısını artırır.</div></div></div>
+      <div class="fa-scenario-card" data-cat="yonetim"><div class="fa-scenario-top"><div class="fa-badge-cat">Yönetim & Risk</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Maddi duran varlıkların (fabrika, makine) sigorta poliçe değerleri güncel ikame maliyetlerinin çok altındadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Olası bir yangın, deprem veya afet durumunda şirket faaliyetlerini yeniden ayağa kaldıracak finansal güvenceden yoksundur.</div></div></div>
+      <div class="fa-scenario-card" data-cat="yonetim"><div class="fa-scenario-top"><div class="fa-badge-cat">Yönetim & Risk</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Şirketin KKB ve Memzuç kayıtlarında son 6 ayda protesto edilen senet veya arkası yazılan çek adetlerinde zıplama mevcuttur.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">🚨 Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirketin piyasadaki ödeme disiplini ve likidite yönetimi tamamen kırılmıştır. Temerrüde giden yolun en net göstergesidir.</div></div></div>
+      <div class="fa-scenario-card" data-cat="yonetim"><div class="fa-scenario-top"><div class="fa-badge-cat">Yönetim & Risk</div><div class="fa-scenario-label">Durum</div><div class="fa-scenario-text">Şirket aktifinde çok sayıda lüks makam aracı, yat veya ticari faaliyetle ilgisi olmayan gayrimenkuller yer almaktadır.</div></div><div class="fa-scenario-bottom"><div class="fa-scenario-yorum-label yorum-label-color">⚠ Bankacı Yorumu</div><div class="fa-scenario-yorum-text">Şirket kaynakları ortakların kişisel konforu için israf edilmekte ve işletme sermayesi gereksiz yere kurutulmaktadır.</div></div></div>
+    </div>
+  </div>
+
+</div><!-- end fa-main -->
+
+<!-- FOOTER -->
+<footer class="fa-footer">
+  <div class="fa-footer-logo">Finans <span>Akademi</span></div>
+  <div class="fa-footer-copy">© 2026 · moyafinans.github.io/cfo · Hazırlayan: Burak Altun</div>
+</footer>
+
+<script>
+const btns = document.querySelectorAll('.fa-filter-btn');
+const cards = document.querySelectorAll('.fa-scenario-card[data-cat]');
+const sections = document.querySelectorAll('.fa-section[data-section]');
+
+btns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    if (cat === 'Tümü') {
+      cards.forEach(c => c.style.display = '');
+      sections.forEach(s => s.style.display = '');
+      return;
+    }
+    cards.forEach(c => {
+      c.style.display = c.dataset.cat === cat ? '' : 'none';
+    });
+    sections.forEach(s => {
+      const visible = [...s.querySelectorAll('.fa-scenario-card')].some(c => c.dataset.cat === cat);
+      s.style.display = visible ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
