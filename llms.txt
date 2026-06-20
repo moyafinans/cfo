@@ -1,0 +1,27 @@
+# Finans Akademi
+
+> Finans profesyonelleri için Türkçe eğitim platformu. CFO'lardan kredi analistlerine, muhasebecilerden finansal direktörlere sahadan gelen bilgi, sade ve ücretsiz.
+
+## Platform Hakkında
+
+Finans Akademi, gerçek iş hayatından derlenen finansal senaryoları ve bankacı yorumlarını herkesin erişebileceği formatta sunar.
+
+## Mevcut İçerikler
+
+- [Kredi Analizi & Risk Değerlendirme](https://moyafinans.github.io/cfo/kredi-analizi.html): Bilanço sinyallerini doğru okuma, 78 senaryo, 7 kategori. Özkaynak kalitesi, kârlılık, nakit akışı, likidite, borçlanma, operasyonel verimlilik ve yönetim riski konularını kapsar.
+
+## Yakında
+
+- Bütçe Planlama, Hazırlama & Takip
+- Finansal Analiz Teknikleri  
+- Yönetim Raporlaması & Sunum
+- Vergi & Mevzuat Rehberi
+- CFO Yetkinlik Envanteri
+
+## Hedef Kitle
+
+CFO, Finans Müdürü, Kredi Analisti, Muhasebeci, Finansal Analist, Finans Direktörü
+
+## Dil
+
+Türkçe
