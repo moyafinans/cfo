@@ -1,0 +1,355 @@
+/*
+ * ============================================================
+ *  FINANS AKADEMİ — Design System v1.0
+ *  Her sayfada bu dosya import edilir. Hiçbir şey burada
+ *  tanımlanmadan ayrı sayfada kullanılmaz.
+ * ============================================================
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ── TOKENS ── */
+:root {
+  /* Renkler */
+  --white:       #FFFFFF;
+  --bg:          #FAFAFA;
+  --border:      #E5E7EB;
+  --border-hover:#C7D2DC;
+  --text-primary:#0A0A0A;
+  --text-body:   #374151;
+  --text-muted:  #6B7280;
+  --text-faint:  #9CA3AF;
+  --accent:      #0F4C81;
+  --accent-light:#EFF6FF;
+  --accent-hover:#0D3F6C;
+
+  /* Kategori renkleri — tüm sayfalarda tutarlı */
+  --cat-kredi:      #0F4C81;
+  --cat-kredi-bg:   #EFF6FF;
+  --cat-butce:      #047857;
+  --cat-butce-bg:   #ECFDF5;
+  --cat-analiz:     #6D28D9;
+  --cat-analiz-bg:  #F5F3FF;
+  --cat-raporlama:  #B45309;
+  --cat-raporlama-bg:#FFFBEB;
+  --cat-vergi:      #B91C1C;
+  --cat-vergi-bg:   #FEF2F2;
+  --cat-cfo:        #0369A1;
+  --cat-cfo-bg:     #F0F9FF;
+
+  /* Tipografi */
+  --font:        'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Ölçüler */
+  --radius-sm:   6px;
+  --radius:      10px;
+  --radius-lg:   14px;
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow:      0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg:   0 10px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.05);
+
+  /* Layout */
+  --max-width:   1120px;
+  --nav-h:       60px;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-body);
+  background: var(--white);
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ── NAV ── */
+.fa-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+.fa-nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
+}
+.fa-nav-logo-mark {
+  width: 30px; height: 30px;
+  background: var(--accent);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+.fa-nav-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.15s;
+}
+.fa-nav-back:hover { color: var(--accent); }
+.fa-nav-back svg { width: 14px; height: 14px; }
+
+/* ── KAPSAYICI ── */
+.fa-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ── SAYFA BAŞLIĞI (iç sayfalar) ── */
+.fa-page-header {
+  border-bottom: 1px solid var(--border);
+  padding: 56px 0 48px;
+  margin-bottom: 56px;
+}
+.fa-page-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+.fa-page-eyebrow::before {
+  content: '';
+  display: block;
+  width: 16px; height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.fa-page-title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+.fa-page-desc {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+/* ── KARTlar ── */
+.fa-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+}
+.fa-card:hover {
+  box-shadow: var(--shadow);
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+}
+
+/* ── ETİKETLER ── */
+.fa-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.2px;
+}
+.fa-badge-blue   { background: var(--cat-kredi-bg);     color: var(--cat-kredi); }
+.fa-badge-green  { background: var(--cat-butce-bg);     color: var(--cat-butce); }
+.fa-badge-purple { background: var(--cat-analiz-bg);    color: var(--cat-analiz); }
+.fa-badge-amber  { background: var(--cat-raporlama-bg); color: var(--cat-raporlama); }
+.fa-badge-red    { background: var(--cat-vergi-bg);     color: var(--cat-vergi); }
+.fa-badge-sky    { background: var(--cat-cfo-bg);       color: var(--cat-cfo); }
+
+/* ── FİLTRE ÇUBUĞU ── */
+.fa-filter-bar {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 90;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 32px;
+  overflow-x: auto;
+}
+.fa-filter-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.fa-filter-btn {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font);
+  background: var(--white);
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.fa-filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.fa-filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ── DURUM — YORUM BLOĞU (kredi sayfası gibi) ── */
+.fa-scenario-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.fa-scenario-card:hover {
+  box-shadow: var(--shadow);
+  border-color: var(--border-hover);
+}
+.fa-scenario-top {
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.fa-scenario-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-faint);
+  margin-bottom: 6px;
+}
+.fa-scenario-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.55;
+}
+.fa-scenario-bottom {
+  padding: 16px 22px 20px;
+  background: var(--bg);
+}
+.fa-scenario-yorum-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.fa-scenario-yorum-text {
+  font-size: 13.5px;
+  color: var(--text-body);
+  line-height: 1.6;
+}
+
+/* ── SECTION ── */
+.fa-section {
+  margin-bottom: 64px;
+}
+.fa-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.fa-section-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.fa-section-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+.fa-section-count {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: auto;
+}
+
+/* ── GRID ── */
+.fa-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+.fa-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* ── FOOTER ── */
+.fa-footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 32px;
+  text-align: center;
+  background: var(--bg);
+}
+.fa-footer-logo {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
+  margin-bottom: 6px;
+}
+.fa-footer-logo span { color: var(--accent); }
+.fa-footer-copy {
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+/* ── YARDIMCI ── */
+.fa-hidden { display: none !important; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .fa-nav { padding: 0 16px; }
+  .fa-container { padding: 0 16px; }
+  .fa-filter-bar { padding: 10px 16px; }
+  .fa-grid-2, .fa-grid-3 { grid-template-columns: 1fr; }
+  .fa-page-header { padding: 40px 0 32px; margin-bottom: 40px; }
+  .fa-footer { padding: 32px 16px; }
+}
