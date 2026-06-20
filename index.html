@@ -3,1552 +3,465 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CFO Yetkinlik Yol Haritası — Finslide</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<title>Finans Akademi</title>
+<link rel="stylesheet" href="fa-system.css">
 <style>
-  :root {
-    --bg: #0a0c10;
-    --surface: #13161d;
-    --surface2: #1c2029;
-    --border: rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.12);
-    --text: #e8eaf0;
-    --text-muted: #8b90a0;
-    --text-dim: #555b6b;
-    --accent: #4f7fff;
-    --accent2: #7c5cfc;
-    --accent3: #00c9a7;
-    --accent4: #ff6b6b;
-    --accent5: #ffb347;
-    --cat1: #4f7fff;
-    --cat2: #7c5cfc;
-    --cat3: #00c9a7;
-    --cat4: #ff6b6b;
-    --cat5: #ffb347;
-    --cat6: #f06292;
-    --cat7: #4dd0e1;
-    --cat8: #aed581;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* HEADER */
-  header {
-    padding: 48px 60px 0;
-    position: relative;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 56px;
-  }
-
-  .brand-logo {
-    width: 32px;
-    height: 32px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: -0.5px;
-  }
-
-  .brand-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: -0.5px;
-  }
-
-  .hero {
-    max-width: 720px;
-    margin-bottom: 64px;
-  }
-
-  .hero-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
-  }
-
-  .hero-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(36px, 5vw, 58px);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -2px;
-    color: #fff;
-    margin-bottom: 20px;
-  }
-
-  .hero-title span {
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-sub {
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--text-muted);
-    max-width: 580px;
-  }
-
-  /* STATS BAR */
-  .stats-bar {
-    display: flex;
-    gap: 0;
-    border: 1px solid var(--border2);
-    border-radius: 16px;
-    overflow: hidden;
-    margin: 0 60px 56px;
-  }
-
-  .stat-item {
-    flex: 1;
-    padding: 24px 28px;
-    border-right: 1px solid var(--border2);
-    position: relative;
-  }
-  .stat-item:last-child { border-right: none; }
-
-  .stat-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 36px;
-    font-weight: 800;
-    letter-spacing: -2px;
-    color: #fff;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .stat-num.colored { color: var(--accent); }
-
-  .stat-label {
-    font-size: 12px;
-    color: var(--text-muted);
-    font-weight: 400;
-  }
-
-  /* PROGRESS OVERVIEW */
-  .section {
-    padding: 0 60px;
-    margin-bottom: 56px;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 24px;
-  }
-
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .section-count {
-    font-size: 12px;
-    color: var(--text-dim);
-  }
-
-  /* CATEGORY OVERVIEW GRID */
-  .categories-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-  }
-
-  .cat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cat-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--cat-color);
-    opacity: 0.8;
-  }
-
-  .cat-card:hover {
-    border-color: var(--border2);
-    transform: translateY(-2px);
-    background: var(--surface2);
-  }
-
-  .cat-card.active {
-    border-color: var(--cat-color);
-    background: var(--surface2);
-  }
-
-  .cat-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    margin-bottom: 12px;
-  }
-
-  .cat-name {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text);
-    line-height: 1.3;
-    margin-bottom: 10px;
-  }
-
-  .cat-meta {
-    font-size: 11px;
-    color: var(--text-dim);
-    margin-bottom: 10px;
-  }
-
-  .cat-progress-bar {
-    height: 3px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .cat-progress-fill {
-    height: 100%;
-    background: var(--cat-color);
-    border-radius: 2px;
-    width: 0%;
-    transition: width 1s ease;
-  }
-
-  /* FILTER BAR */
-  .filter-bar {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 24px;
-  }
-
-  .filter-btn {
-    padding: 7px 14px;
-    border-radius: 20px;
-    border: 1px solid var(--border2);
-    background: transparent;
-    color: var(--text-muted);
-    font-size: 12px;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-weight: 500;
-  }
-
-  .filter-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .filter-btn.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
-
-  /* MAIN CONTENT AREA */
-  .main-area {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding: 0 60px;
-    margin-bottom: 80px;
-  }
-
-  /* CATEGORY BLOCK */
-  .cat-block {
-    margin-bottom: 40px;
-    display: none;
-  }
-  .cat-block.visible { display: block; }
-
-  .cat-block-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 20px 24px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px 14px 0 0;
-    border-bottom: none;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .cat-block-header:hover { background: var(--surface2); }
-
-  .cat-badge {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .cat-block-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #fff;
-    flex: 1;
-    letter-spacing: -0.3px;
-  }
-
-  .cat-block-stats {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .cat-block-count {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  .cat-block-pct {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--cat-color);
-  }
-
-  .cat-toggle {
-    font-size: 18px;
-    color: var(--text-dim);
-    transition: transform 0.2s;
-  }
-
-  .cat-block.collapsed .cat-toggle { transform: rotate(-90deg); }
-
-  .cat-body {
-    border: 1px solid var(--border);
-    border-radius: 0 0 14px 14px;
-    overflow: hidden;
-  }
-
-  .cat-block.collapsed .cat-body { display: none; }
-
-  /* SUBCATEGORY */
-  .sub-header {
-    padding: 12px 24px;
-    background: rgba(255,255,255,0.02);
-    border-bottom: 1px solid var(--border);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--text-dim);
-  }
-
-  /* ITEM ROW */
-  .item-row {
-    display: grid;
-    grid-template-columns: 32px 28px 1fr 100px 180px;
-    align-items: center;
-    gap: 0;
-    padding: 0;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
-    min-height: 52px;
-  }
-
-  .item-row:last-child { border-bottom: none; }
-  .item-row:hover { background: rgba(255,255,255,0.02); }
-
-  .item-num {
-    padding: 0 0 0 20px;
-    font-size: 11px;
-    color: var(--text-dim);
-    font-weight: 500;
-  }
-
-  .item-check {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 4px;
-  }
-
-  .check-box {
-    width: 18px;
-    height: 18px;
-    border-radius: 5px;
-    border: 1.5px solid var(--border2);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-    flex-shrink: 0;
-  }
-
-  .check-box:hover { border-color: var(--cat-color); }
-
-  .check-box.checked {
-    background: var(--cat-color);
-    border-color: var(--cat-color);
-  }
-
-  .check-box.checked::after {
-    content: '✓';
-    font-size: 10px;
-    color: #fff;
-    font-weight: 700;
-  }
-
-  .item-text {
-    padding: 14px 16px 14px 12px;
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.5;
-    font-weight: 400;
-  }
-
-  .item-row.done .item-text {
-    color: var(--text-dim);
-    text-decoration: line-through;
-    text-decoration-color: var(--text-dim);
-  }
-
-  .item-priority {
-    padding: 0 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .priority-pill {
-    padding: 3px 8px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-  }
-
-  .priority-high {
-    background: rgba(255,107,107,0.12);
-    color: #ff8a8a;
-  }
-
-  .priority-mid {
-    background: rgba(255,179,71,0.12);
-    color: #ffb347;
-  }
-
-  .item-note {
-    padding: 8px 20px 8px 0;
-  }
-
-  .note-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid transparent;
-    color: var(--text-muted);
-    font-size: 12px;
-    font-family: 'Inter', sans-serif;
-    padding: 4px 0;
-    outline: none;
-    transition: border-color 0.15s;
-    font-style: italic;
-  }
-
-  .note-input::placeholder { color: var(--text-dim); font-style: italic; }
-  .note-input:focus { border-color: var(--border2); color: var(--text); }
-
-  /* PROGRESS RING */
-  .progress-section {
-    padding: 0 60px;
-    margin-bottom: 56px;
-  }
-
-  .progress-ring-wrap {
-    display: flex;
-    align-items: center;
-    gap: 48px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 36px 40px;
-  }
-
-  .ring-container {
-    position: relative;
-    width: 140px;
-    height: 140px;
-    flex-shrink: 0;
-  }
-
-  .ring-svg {
-    transform: rotate(-90deg);
-    width: 140px;
-    height: 140px;
-  }
-
-  .ring-track {
-    fill: none;
-    stroke: rgba(255,255,255,0.06);
-    stroke-width: 8;
-  }
-
-  .ring-fill {
-    fill: none;
-    stroke: url(#ringGrad);
-    stroke-width: 8;
-    stroke-linecap: round;
-    stroke-dasharray: 377;
-    stroke-dashoffset: 377;
-    transition: stroke-dashoffset 1s ease;
-  }
-
-  .ring-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-
-  .ring-pct {
-    font-family: 'Syne', sans-serif;
-    font-size: 28px;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: -1px;
-    line-height: 1;
-  }
-
-  .ring-label {
-    font-size: 10px;
-    color: var(--text-dim);
-    margin-top: 2px;
-  }
-
-  .ring-info {
-    flex: 1;
-  }
-
-  .ring-info h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.5px;
-    margin-bottom: 10px;
-  }
-
-  .ring-info p {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
-
-  .mini-stats {
-    display: flex;
-    gap: 24px;
-  }
-
-  .mini-stat {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .mini-stat-val {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: -1px;
-  }
-
-  .mini-stat-val.green { color: var(--accent3); }
-  .mini-stat-val.orange { color: var(--accent5); }
-
-  .mini-stat-label {
-    font-size: 11px;
-    color: var(--text-dim);
-  }
-
-  /* ROADMAP PHASES */
-  .phases-section {
-    padding: 0 60px;
-    margin-bottom: 56px;
-  }
-
-  .phases-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 24px;
-  }
-
-  .phases-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  .phase-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .phase-card::after {
-    content: '';
-    position: absolute;
-    bottom: -30px;
-    right: -30px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: var(--phase-color);
-    opacity: 0.05;
-  }
-
-  .phase-num {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--phase-color);
-    margin-bottom: 8px;
-  }
-
-  .phase-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.5px;
-    margin-bottom: 6px;
-  }
-
-  .phase-period {
-    font-size: 12px;
-    color: var(--text-dim);
-    margin-bottom: 16px;
-  }
-
-  .phase-items {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .phase-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.4;
-  }
-
-  .phase-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--phase-color);
-    flex-shrink: 0;
-    margin-top: 4px;
-  }
-
-  /* FOOTER */
-  footer {
-    padding: 40px 60px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .footer-brand {
-    font-size: 12px;
-    color: var(--text-dim);
-  }
-
-  .footer-brand strong { color: var(--text-muted); }
-
-  .export-btn {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: 1px solid var(--border2);
-    background: transparent;
-    color: var(--text-muted);
-    font-size: 13px;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .export-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* TOAST */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: var(--surface2);
-    border: 1px solid var(--border2);
-    border-radius: 10px;
-    padding: 12px 18px;
-    font-size: 13px;
-    color: var(--text);
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s;
-    z-index: 1000;
-    pointer-events: none;
-  }
-
-  .toast.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* SEARCH */
-  .search-wrap {
-    position: relative;
-    margin-bottom: 20px;
-  }
-
-  .search-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 14px;
-    color: var(--text-dim);
-  }
-
-  .search-input {
-    width: 100%;
-    padding: 11px 16px 11px 38px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
-    font-size: 13px;
-    font-family: 'Inter', sans-serif;
-    outline: none;
-    transition: border-color 0.15s;
-  }
-
-  .search-input:focus { border-color: var(--accent); }
-  .search-input::placeholder { color: var(--text-dim); }
-
-  /* PRINT */
-  @media print {
-    body { background: white; color: #111; }
-    .filter-bar, .search-wrap, .export-btn, footer { display: none; }
-  }
-
-  @media (max-width: 900px) {
-    header, .stats-bar, .section, .main-area, .progress-section, .phases-section, footer {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-    .categories-grid { grid-template-columns: repeat(2, 1fr); }
-    .phases-grid { grid-template-columns: 1fr; }
-    .stats-bar { flex-direction: column; }
-    .stat-item { border-right: none; border-bottom: 1px solid var(--border2); }
-    .stat-item:last-child { border-bottom: none; }
-    .item-row { grid-template-columns: 28px 28px 1fr 80px; }
-    .item-note { display: none; }
-    .progress-ring-wrap { flex-direction: column; }
-  }
+/* ── HERO ── */
+.hero {
+  padding: 96px 32px 80px;
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+}
+.hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.3px;
+  margin-bottom: 20px;
+  background: var(--accent-light);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+.hero h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -2px;
+  line-height: 1.05;
+  margin-bottom: 20px;
+  max-width: 720px;
+}
+.hero h1 span {
+  color: var(--accent);
+}
+.hero-sub {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 520px;
+  line-height: 1.7;
+  font-weight: 400;
+  margin-bottom: 48px;
+}
+.hero-stats {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  width: fit-content;
+}
+.hero-stat {
+  padding: 20px 36px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -1px;
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-stat-label {
+  font-size: 11px;
+  color: var(--text-faint);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── KONULAR ── */
+.topics {
+  padding: 72px 32px 80px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.topics-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.topics-header {
+  margin-bottom: 40px;
+}
+.topics-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+}
+.topics-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+/* Büyük kart grid */
+.big-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.big-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  text-decoration: none;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.big-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--accent));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.big-card:hover::before { opacity: 1; }
+.big-card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+.big-card.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.big-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.big-card-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.big-card-status {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+.status-live   { background: #ECFDF5; color: #047857; }
+.status-soon   { background: #FFFBEB; color: #B45309; }
+.status-coming { background: var(--bg); color: var(--text-faint); border: 1px solid var(--border); }
+
+.big-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+.big-card-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 24px;
+  flex: 1;
+}
+.big-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.big-card-meta {
+  font-size: 12px;
+  color: var(--text-faint);
+  font-weight: 500;
+}
+.big-card-arrow {
+  font-size: 16px;
+  color: var(--text-faint);
+  transition: color 0.15s, transform 0.15s;
+}
+.big-card:hover .big-card-arrow {
+  color: var(--accent);
+  transform: translateX(3px);
+}
+
+/* Renk varyantları */
+.card-blue   { --card-accent: var(--cat-kredi); }
+.card-blue   .big-card-icon { background: var(--cat-kredi-bg); }
+.card-green  { --card-accent: var(--cat-butce); }
+.card-green  .big-card-icon { background: var(--cat-butce-bg); }
+.card-purple { --card-accent: var(--cat-analiz); }
+.card-purple .big-card-icon { background: var(--cat-analiz-bg); }
+.card-amber  { --card-accent: var(--cat-raporlama); }
+.card-amber  .big-card-icon { background: var(--cat-raporlama-bg); }
+.card-red    { --card-accent: var(--cat-vergi); }
+.card-red    .big-card-icon { background: var(--cat-vergi-bg); }
+.card-sky    { --card-accent: var(--cat-cfo); }
+.card-sky    .big-card-icon { background: var(--cat-cfo-bg); }
+
+/* ── NEDEN ── */
+.why {
+  padding: 72px 32px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+.why-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: start;
+}
+.why-left h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.why-left p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.why-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.why-pillar {}
+.why-pillar-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.why-pillar-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+}
+.why-pillar-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .big-grid { grid-template-columns: 1fr 1fr; }
+  .why-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 600px) {
+  .hero { padding: 64px 16px 56px; }
+  .topics { padding: 56px 16px; }
+  .why { padding: 56px 16px; }
+  .big-grid { grid-template-columns: 1fr; }
+  .why-pillars { grid-template-columns: 1fr; gap: 24px; }
+  .hero-stats { width: 100%; flex-direction: column; }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--border); }
+  .hero-stat:last-child { border-bottom: none; }
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="brand">
-    <div class="brand-logo">F</div>
-    <span class="brand-name">Finslide</span>
-  </div>
+<!-- NAV -->
+<nav class="fa-nav">
+  <a href="index.html" class="fa-nav-logo">
+    <div class="fa-nav-logo-mark">FA</div>
+    Finans Akademi
+  </a>
+</nav>
 
-  <div class="hero">
-    <div class="hero-label">CFO Yetkinlik Envanteri</div>
-    <h1 class="hero-title">Liderlik için<br><span>yol haritanız</span></h1>
-    <p class="hero-sub">
-      126 kritik yetkinlik, 8 ana alan. Her maddede ilerlemenizi işaretleyin,
-      notlarınızı ekleyin ve gelişim hızınızı gerçek zamanlı izleyin.
-    </p>
-  </div>
-</header>
-
-<div class="stats-bar">
-  <div class="stat-item">
-    <div class="stat-num" id="total-count">126</div>
-    <div class="stat-label">Toplam yetkinlik</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num colored" id="done-count">0</div>
-    <div class="stat-label">Tamamlanan</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num" id="remaining-count">126</div>
-    <div class="stat-label">Devam eden</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num" id="pct-count">0%</div>
-    <div class="stat-label">Genel ilerleme</div>
-  </div>
-</div>
-
-<!-- PROGRESS RING -->
-<div class="progress-section">
-  <div class="progress-ring-wrap">
-    <div class="ring-container">
-      <svg class="ring-svg" viewBox="0 0 140 140">
-        <defs>
-          <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#4f7fff"/>
-            <stop offset="100%" stop-color="#7c5cfc"/>
-          </linearGradient>
-        </defs>
-        <circle class="ring-track" cx="70" cy="70" r="60"/>
-        <circle class="ring-fill" id="ringFill" cx="70" cy="70" r="60"/>
-      </svg>
-      <div class="ring-center">
-        <div class="ring-pct" id="ringPct">0%</div>
-        <div class="ring-label">tamamlandı</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Profesyonel Finans Eğitimi</div>
+    <h1>Finansı sahadan <span>öğrenin</span></h1>
+    <p class="hero-sub">CFO'lardan kredi analistlerine, muhasebecilerden finansal direktörlere — gerçek iş hayatından derlenen bilgi, sade ve ücretsiz.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">6+</span>
+        <span class="hero-stat-label">Konu</span>
       </div>
-    </div>
-    <div class="ring-info">
-      <h3>Genel Gelişim Durumu</h3>
-      <p>Her yetkinliği öğrenip uyguladıkça kutucukları işaretleyin. Özel notlarınızı ekleyin. İlerlemeniz otomatik kaydedilir.</p>
-      <div class="mini-stats">
-        <div class="mini-stat">
-          <span class="mini-stat-val green" id="mini-done">0</span>
-          <span class="mini-stat-label">Tamamlandı</span>
-        </div>
-        <div class="mini-stat">
-          <span class="mini-stat-val orange" id="mini-remaining">126</span>
-          <span class="mini-stat-label">Kalan</span>
-        </div>
-        <div class="mini-stat">
-          <span class="mini-stat-val" id="mini-high">98</span>
-          <span class="mini-stat-label">Yüksek öncelik</span>
-        </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">100+</span>
+        <span class="hero-stat-label">Senaryo</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">Ücretsiz</span>
+        <span class="hero-stat-label">Erişim</span>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- PHASES -->
-<div class="phases-section">
-  <div class="phases-title">Önerilen Gelişim Yol Haritası</div>
-  <div class="phases-grid">
-    <div class="phase-card" style="--phase-color: #4f7fff">
-      <div class="phase-num">Aşama 01</div>
-      <div class="phase-name">Temel Inşa</div>
-      <div class="phase-period">0–6 ay · Kritik öncelik</div>
-      <ul class="phase-items">
-        <li class="phase-item"><span class="phase-dot"></span>Bütçe hazırlama & takip süreçleri</li>
-        <li class="phase-item"><span class="phase-dot"></span>Nakit akış yönetimi temelleri</li>
-        <li class="phase-item"><span class="phase-dot"></span>Muhasebe standartları (VUK/TFRS)</li>
-        <li class="phase-item"><span class="phase-dot"></span>Temel maliyet analizi</li>
-        <li class="phase-item"><span class="phase-dot"></span>Aylık yönetim raporlaması (MIS)</li>
-      </ul>
+<!-- KONULAR -->
+<section class="topics">
+  <div class="topics-inner">
+    <div class="topics-header">
+      <div class="topics-label">Konu Alanları</div>
+      <div class="topics-title">Ne öğrenmek istiyorsunuz?</div>
     </div>
-    <div class="phase-card" style="--phase-color: #7c5cfc">
-      <div class="phase-num">Aşama 02</div>
-      <div class="phase-name">Derinleşme</div>
-      <div class="phase-period">6–18 ay · İleri düzey</div>
-      <ul class="phase-items">
-        <li class="phase-item"><span class="phase-dot"></span>Finansman & değerleme modelleri (DCF)</li>
-        <li class="phase-item"><span class="phase-dot"></span>IFRS/TFRS raporlama standartları</li>
-        <li class="phase-item"><span class="phase-dot"></span>İç kontrol & risk yönetimi (SOX/COSO)</li>
-        <li class="phase-item"><span class="phase-dot"></span>ERP & analitik araçlar (SAP, Power BI)</li>
-        <li class="phase-item"><span class="phase-dot"></span>M&A süreçleri & due diligence</li>
-      </ul>
+
+    <div class="big-grid">
+
+      <!-- KREDİ — LIVE -->
+      <a href="kredi-analizi.html" class="big-card card-blue">
+        <div class="big-card-top">
+          <div class="big-card-icon">🔍</div>
+          <span class="big-card-status status-live">Yayında</span>
+        </div>
+        <div class="big-card-title">Kredi Analizi & Risk Değerlendirme</div>
+        <div class="big-card-desc">Bilanço sinyallerini doğru okuma, erken uyarı göstergeleri ve bankacı perspektifinden finansal tablo yorumları.</div>
+        <div class="big-card-footer">
+          <span class="big-card-meta">78 senaryo · 7 kategori</span>
+          <span class="big-card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- BÜTÇE — SOON -->
+      <div class="big-card card-green disabled">
+        <div class="big-card-top">
+          <div class="big-card-icon">📊</div>
+          <span class="big-card-status status-soon">Yakında</span>
+        </div>
+        <div class="big-card-title">Bütçe Planlama, Hazırlama & Takip</div>
+        <div class="big-card-desc">Kurumsal bütçe süreçleri, senaryo analizi, revizyon metodolojileri ve yöneticilere etkin raporlama.</div>
+        <div class="big-card-footer">
+          <span class="big-card-meta">Hazırlanıyor</span>
+          <span class="big-card-arrow">→</span>
+        </div>
+      </div>
+
+      <!-- FİNANSAL ANALİZ — SOON -->
+      <div class="big-card card-purple disabled">
+        <div class="big-card-top">
+          <div class="big-card-icon">📈</div>
+          <span class="big-card-status status-soon">Yakında</span>
+        </div>
+        <div class="big-card-title">Finansal Analiz Teknikleri</div>
+        <div class="big-card-desc">Oran analizi, trend değerlendirme, sektör karşılaştırmaları ve çok dönemli performans ölçümleri.</div>
+        <div class="big-card-footer">
+          <span class="big-card-meta">Hazırlanıyor</span>
+          <span class="big-card-arrow">→</span>
+        </div>
+      </div>
+
+      <!-- RAPORLAMA — COMING -->
+      <div class="big-card card-amber disabled">
+        <div class="big-card-top">
+          <div class="big-card-icon">📋</div>
+          <span class="big-card-status status-coming">Planlandı</span>
+        </div>
+        <div class="big-card-title">Yönetim Raporlaması & Sunum</div>
+        <div class="big-card-desc">Yönetim kuruluna etkin finansal sunum, dashboard tasarımı ve hikâye anlatımı teknikleri.</div>
+        <div class="big-card-footer">
+          <span class="big-card-meta">Planlandı</span>
+          <span class="big-card-arrow">→</span>
+        </div>
+      </div>
+
+      <!-- VERGİ — COMING -->
+      <div class="big-card card-red disabled">
+        <div class="big-card-top">
+          <div class="big-card-icon">⚖️</div>
+          <span class="big-card-status status-coming">Planlandı</span>
+        </div>
+        <div class="big-card-title">Vergi & Mevzuat Rehberi</div>
+        <div class="big-card-desc">Kurumlar vergisi, KDV uygulamaları, transfer fiyatlandırması ve güncel vergi mevzuatı rehberi.</div>
+        <div class="big-card-footer">
+          <span class="big-card-meta">Planlandı</span>
+          <span class="big-card-arrow">→</span>
+        </div>
+      </div>
+
+      <!-- CFO — COMING -->
+      <div class="big-card card-sky disabled">
+        <div class="big-card-top">
+          <div class="big-card-icon">🎯</div>
+          <span class="big-card-status status-coming">Planlandı</span>
+        </div>
+        <div class="big-card-title">CFO Yetkinlik Envanteri</div>
+        <div class="big-card-desc">Modern CFO'nun teknik ve liderlik yetkinlikleri, kariyer gelişim çerçevesi ve değerlendirme araçları.</div>
+        <div class="big-card-footer">
+          <span class="big-card-meta">Planlandı</span>
+          <span class="big-card-arrow">→</span>
+        </div>
+      </div>
+
     </div>
-    <div class="phase-card" style="--phase-color: #00c9a7">
-      <div class="phase-num">Aşama 03</div>
-      <div class="phase-name">Liderlik</div>
-      <div class="phase-period">18+ ay · Stratejik CFO</div>
-      <ul class="phase-items">
-        <li class="phase-item"><span class="phase-dot"></span>3–5 yıllık stratejik finansal planlama</li>
-        <li class="phase-item"><span class="phase-dot"></span>Yönetim kurulu & yatırımcı sunumları</li>
-        <li class="phase-item"><span class="phase-dot"></span>Ekip yönetimi & mentörlük programları</li>
-        <li class="phase-item"><span class="phase-dot"></span>Mevzuat & uyum liderliği</li>
-        <li class="phase-item"><span class="phase-dot"></span>Finans iş ortaklığı (business partnering)</li>
-      </ul>
+  </div>
+</section>
+
+<!-- NEDEN -->
+<section class="why">
+  <div class="why-inner">
+    <div class="why-left">
+      <h2>Neden Finans Akademi?</h2>
+      <p>Finans dünyasındaki bilgi kitaplarda değil, sahada kazanılır. Bu platform gerçek iş hayatından derlenen senaryoları herkesin erişebileceği formatta sunar.</p>
+    </div>
+    <div class="why-pillars">
+      <div class="why-pillar">
+        <div class="why-pillar-num">01</div>
+        <div class="why-pillar-title">Sahadan Gelen Bilgi</div>
+        <div class="why-pillar-desc">Her senaryo gerçek vaka deneyimlerine dayanır. Teorik değil, uygulanabilir.</div>
+      </div>
+      <div class="why-pillar">
+        <div class="why-pillar-num">02</div>
+        <div class="why-pillar-title">Sade & Erişilebilir</div>
+        <div class="why-pillar-desc">Karmaşık finansal kavramlar anlaşılır dil ve görsel yapıyla aktarılır.</div>
+      </div>
+      <div class="why-pillar">
+        <div class="why-pillar-num">03</div>
+        <div class="why-pillar-title">Ücretsiz</div>
+        <div class="why-pillar-desc">Tüm içeriklere kayıt olmadan, reklamsız ve tamamen ücretsiz erişilir.</div>
+      </div>
+      <div class="why-pillar">
+        <div class="why-pillar-num">04</div>
+        <div class="why-pillar-title">Sürekli Güncellenen</div>
+        <div class="why-pillar-desc">Yeni konular ve senaryolar düzenli olarak platforma eklenir.</div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- MAIN CHECKLIST -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-title">Yetkinlik Checklist</div>
-    <div class="section-count" id="visible-count">126 madde görüntüleniyor</div>
-  </div>
-
-  <div class="search-wrap">
-    <span class="search-icon">🔍</span>
-    <input type="text" class="search-input" id="searchInput" placeholder="Yetkinlik ara... (örn: bütçe, DCF, IFRS)">
-  </div>
-
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterItems('all', this)">Tümü</button>
-    <button class="filter-btn" onclick="filterItems('high', this)">⭐⭐⭐ Yüksek Öncelik</button>
-    <button class="filter-btn" onclick="filterItems('mid', this)">⭐⭐ Orta Öncelik</button>
-    <button class="filter-btn" onclick="filterItems('done', this)">✓ Tamamlanan</button>
-    <button class="filter-btn" onclick="filterItems('pending', this)">Bekleyen</button>
-  </div>
-</div>
-
-<div class="main-area" id="mainArea">
-  <!-- Generated by JS -->
-</div>
-
-<!-- CATEGORY OVERVIEW -->
-<div class="section" style="margin-top: 20px;">
-  <div class="section-header">
-    <div class="section-title">Alan Bazlı İlerleme</div>
-  </div>
-  <div class="categories-grid" id="catGrid">
-    <!-- Generated by JS -->
-  </div>
-</div>
-
-<footer>
-  <div class="footer-brand">
-    <strong>Finslide</strong> · CFO Yetkinlik Yol Haritası · 2025
-  </div>
-  <button class="export-btn" onclick="exportProgress()">
-    📋 İlerleme Raporu
-  </button>
+<!-- FOOTER -->
+<footer class="fa-footer">
+  <div class="fa-footer-logo">Finans <span>Akademi</span></div>
+  <div class="fa-footer-copy">© 2026 · moyafinans.github.io/cfo</div>
 </footer>
 
-<div class="toast" id="toast"></div>
-
-<script>
-const DATA = [
-  {
-    id: 'butce',
-    name: 'Bütçe Yönetimi',
-    color: '#4f7fff',
-    icon: '📊',
-    subs: [
-      {
-        name: 'Bütçe Hazırlama & Planlama',
-        items: [
-          { id: 1, text: 'Yıllık bütçe takvimini oluşturabilmek ve tüm departmanlara iletmek', priority: 'high' },
-          { id: 2, text: 'Top-down & bottom-up bütçe metodolojilerini uygulayabilmek', priority: 'high' },
-          { id: 3, text: 'Satış hacmi, fiyat, maliyet varsayımlarını modele entegre etmek', priority: 'high' },
-          { id: 4, text: 'Bütçe senaryo analizi (optimistik / baz / pesimistik) hazırlamak', priority: 'high' },
-          { id: 5, text: 'Departman bazlı bütçe formlarını tasarlamak ve konsolide etmek', priority: 'high' },
-          { id: 6, text: 'Sabit & değişken maliyet ayrımına göre esnek bütçe oluşturmak', priority: 'high' },
-          { id: 7, text: 'Sermaye harcaması (CAPEX) bütçesi hazırlamak', priority: 'high' },
-          { id: 8, text: 'İnsan kaynakları & headcount bütçesi planlamak', priority: 'high' },
-          { id: 9, text: 'Bütçe sunum dosyasını (yönetim kurulu formatında) hazırlamak', priority: 'high' },
-        ]
-      },
-      {
-        name: 'Bütçe Takip & Revizyon',
-        items: [
-          { id: 10, text: 'Aylık bütçe vs. gerçekleşme (Budget vs. Actual) raporları üretmek', priority: 'high' },
-          { id: 11, text: 'Sapma analizi (Variance Analysis) yaparak kök neden raporlamak', priority: 'high' },
-          { id: 12, text: 'Re-forecast / Rolling Forecast süreçlerini yönetmek', priority: 'high' },
-          { id: 13, text: 'Bütçe revizyonu (rebudget) sürecini başlatmak ve sonuçlandırmak', priority: 'high' },
-          { id: 14, text: 'Departman müdürlerine bütçe geri bildirim sunumları yapmak', priority: 'high' },
-          { id: 15, text: 'Taahhüt (commitment) takibini bütçeyle karşılaştırmak', priority: 'high' },
-        ]
-      }
-    ]
-  },
-  {
-    id: 'finansal',
-    name: 'Finansal Yönetim',
-    color: '#7c5cfc',
-    icon: '💰',
-    subs: [
-      {
-        name: 'Nakit & Likidite Yönetimi',
-        items: [
-          { id: 16, text: 'Haftalık & aylık nakit akış tahmini (cash flow forecast) hazırlamak', priority: 'high' },
-          { id: 17, text: 'İşletme sermayesi (Working Capital) optimizasyonu yapmak', priority: 'high' },
-          { id: 18, text: 'Banka hesapları arası fon transferlerini yönetmek', priority: 'high' },
-          { id: 19, text: 'Kısa vadeli yatırım araçlarını değerlendirmek (mevduat, BIST, vb.)', priority: 'high' },
-          { id: 20, text: 'Akreditif, teminat mektubu ve banka garantisi süreçlerini yürütmek', priority: 'high' },
-          { id: 21, text: 'Factoring & finansman bonosu kullanım kararlarını değerlendirmek', priority: 'high' },
-          { id: 22, text: 'Net Debt pozisyonunu izlemek ve raporlamak', priority: 'high' },
-        ]
-      },
-      {
-        name: 'Finansman & Kredi Yönetimi',
-        items: [
-          { id: 23, text: 'Kısa ve uzun vadeli kredi yapılandırmasını tasarlamak', priority: 'high' },
-          { id: 24, text: 'Banka müzakerelerinde (faiz oranı, limit, vade) temsil etmek', priority: 'high' },
-          { id: 25, text: 'Kredi sözleşmesi koşullarını (covenant) izlemek', priority: 'high' },
-          { id: 26, text: 'Leasing ve finansal kiralama analizleri yapmak', priority: 'high' },
-          { id: 27, text: 'Sermaye artırımı / öz kaynak finansman süreçlerine destek vermek', priority: 'high' },
-          { id: 28, text: 'Tedarikçi finansmanı (supply chain finance) programları kurmak', priority: 'high' },
-          { id: 29, text: 'Döviz riski yönetimi: forward, opsiyon, swap işlemlerini anlamak', priority: 'high' },
-          { id: 30, text: 'Faiz riski yönetimi: sabit/değişken faiz dengesini yönetmek', priority: 'high' },
-        ]
-      },
-      {
-        name: 'Yatırım & Değerleme',
-        items: [
-          { id: 31, text: 'DCF (İndirgenmiş Nakit Akışı) modeli kurmak ve yorumlamak', priority: 'high' },
-          { id: 32, text: 'NPV, IRR, Payback Period hesaplamak ve yatırım kararı vermek', priority: 'high' },
-          { id: 33, text: 'Proje fizibilite raporu hazırlamak', priority: 'high' },
-          { id: 34, text: 'M&A (birleşme & satın alma) finansal due diligence sürecini yönetmek', priority: 'high' },
-          { id: 35, text: 'Şirket değerleme yöntemlerini (EV/EBITDA, P/E, vb.) uygulamak', priority: 'high' },
-          { id: 36, text: 'Yatırım portföyünü takip etmek ve performans ölçmek', priority: 'high' },
-        ]
-      }
-    ]
-  },
-  {
-    id: 'muhasebe',
-    name: 'Muhasebe',
-    color: '#00c9a7',
-    icon: '📒',
-    subs: [
-      {
-        name: 'Genel Muhasebe',
-        items: [
-          { id: 37, text: 'Türk Ticaret Kanunu (TTK) çerçevesinde defter tutmak', priority: 'high' },
-          { id: 38, text: 'TEKDÜZEN Hesap Planı\'nı tam olarak uygulamak', priority: 'high' },
-          { id: 39, text: 'Mizan analizi yapabilmek ve hataları tespit etmek', priority: 'high' },
-          { id: 40, text: 'Dönem sonu kapanış işlemlerini (year-end close) yönetmek', priority: 'high' },
-          { id: 41, text: 'Enflasyon muhasebesi (VUK/TFRS farkları) uygulamak', priority: 'high' },
-          { id: 42, text: 'Yabancı para işlemleri: kur farkı gelir/gider muhasebeleştirme', priority: 'high' },
-          { id: 43, text: 'Konsolidasyon eliminasyon kayıtlarını yapmak', priority: 'high' },
-          { id: 44, text: 'İlişkili taraf işlemlerini kayıt altına almak', priority: 'high' },
-        ]
-      },
-      {
-        name: 'Vergi Muhasebesi',
-        items: [
-          { id: 45, text: 'Kurumlar Vergisi matrahını hesaplamak ve beyan etmek', priority: 'high' },
-          { id: 46, text: 'KDV iade süreçlerini yönetmek (2A, 2B listeleri dahil)', priority: 'high' },
-          { id: 47, text: 'Geçici vergi beyannameleri hazırlamak', priority: 'high' },
-          { id: 48, text: 'Muhasebe kârı – vergi matrahı uzlaştırması (tax reconciliation) yapmak', priority: 'high' },
-          { id: 49, text: 'Transfer fiyatlandırması belgelerini (TP documentation) hazırlamak', priority: 'high' },
-          { id: 50, text: 'Ertelenmiş vergi (deferred tax) hesaplamak ve muhasebeleştirmek', priority: 'high' },
-          { id: 51, text: 'Stopaj vergisi (temettü, kira, hizmet) uygulamalarını bilmek', priority: 'high' },
-          { id: 52, text: 'SGK ve bordro muhasebesi kayıtlarını kontrol etmek', priority: 'high' },
-        ]
-      },
-      {
-        name: 'Bilanço & Gelir Tablosu Yönetimi',
-        items: [
-          { id: 53, text: 'Bilanço kalemlerini analiz etmek (likidite, kaldıraç oranları)', priority: 'high' },
-          { id: 54, text: 'Gelir tablosunu satır satır yorumlamak (gross margin, EBITDA, vb.)', priority: 'high' },
-          { id: 55, text: 'Öz kaynak değişim tablosunu hazırlamak', priority: 'high' },
-          { id: 56, text: 'Dipnotları kaleme almak ve mali tablolara eklemek', priority: 'high' },
-          { id: 57, text: 'Bağımsız denetçilerle (Big4 / mid-tier) çalışma sürecini yönetmek', priority: 'high' },
-        ]
-      }
-    ]
-  },
-  {
-    id: 'maliyet',
-    name: 'Maliyet Muhasebesi',
-    color: '#ff6b6b',
-    icon: '⚖️',
-    subs: [
-      {
-        name: 'Maliyet Sistemleri',
-        items: [
-          { id: 58, text: 'Standart maliyet sistemi kurmak ve standartları güncellemek', priority: 'high' },
-          { id: 59, text: 'Fiili maliyet sistemi ile standart maliyet karşılaştırması yapmak', priority: 'high' },
-          { id: 60, text: 'Sipariş bazlı (job costing) ve süreç bazlı (process costing) maliyet yöntemlerini uygulamak', priority: 'high' },
-          { id: 61, text: 'Faaliyet tabanlı maliyetleme (Activity Based Costing – ABC) modellemek', priority: 'high' },
-          { id: 62, text: 'Marjinal maliyet analizini üretim kararlarında kullanmak', priority: 'high' },
-          { id: 63, text: 'Break-even (başabaş noktası) analizini ürün/hizmet bazında yapmak', priority: 'high' },
-        ]
-      },
-      {
-        name: 'Ürün & Hizmet Maliyeti',
-        items: [
-          { id: 64, text: 'Ürün reçetelerini (BOM – Bill of Materials) maliyet sistemine entegre etmek', priority: 'high' },
-          { id: 65, text: 'Direkt ilk madde, direkt işçilik, genel üretim giderleri ayrıştırmak', priority: 'high' },
-          { id: 66, text: 'Genel üretim giderlerini (overhead) dağıtım anahtarıyla ürünlere yüklemek', priority: 'high' },
-          { id: 67, text: 'Kapasite maliyeti ve boş kapasite analizini yapmak', priority: 'high' },
-          { id: 68, text: 'Fire, ıskarta, hurda maliyetlerini izlemek ve raporlamak', priority: 'high' },
-          { id: 69, text: 'Hizmet/proje bazında maliyet izleme (cost tracking) sistemi kurmak', priority: 'high' },
-        ]
-      },
-      {
-        name: 'Maliyet Kontrol & Optimizasyon',
-        items: [
-          { id: 70, text: 'Maliyet sapma analizini (Price, Quantity, Efficiency Variance) yapmak', priority: 'high' },
-          { id: 71, text: 'Tedarikçi maliyet müzakerelerine finansal destekte bulunmak', priority: 'high' },
-          { id: 72, text: 'Make or Buy kararlarında maliyet modeli oluşturmak', priority: 'high' },
-          { id: 73, text: 'Ürün karlılık analizini (Product Profitability) düzenli raporlamak', priority: 'high' },
-          { id: 74, text: 'Maliyet azaltım projelerini (cost reduction initiatives) izlemek', priority: 'high' },
-          { id: 75, text: 'SKU/segment bazında katkı payı (contribution margin) tablosu çıkarmak', priority: 'high' },
-        ]
-      }
-    ]
-  },
-  {
-    id: 'raporlama',
-    name: 'Raporlama & Analiz',
-    color: '#ffb347',
-    icon: '📈',
-    subs: [
-      {
-        name: 'Yönetim Raporlaması (MIS)',
-        items: [
-          { id: 76, text: 'Aylık Yönetim Raporunu (Board Pack) tasarlamak ve sunmak', priority: 'high' },
-          { id: 77, text: 'KPI dashboard\'ı tasarlamak ve otomatik güncellemek', priority: 'high' },
-          { id: 78, text: 'CEO / CFO özet (executive summary) raporunu hazırlamak', priority: 'high' },
-          { id: 79, text: 'Segment / iş kolu bazında P&L raporlaması yapmak', priority: 'high' },
-          { id: 80, text: 'Müşteri ve ürün karlılık raporlarını düzenlemek', priority: 'high' },
-          { id: 81, text: 'Aylık finansal hikaye (financial narrative) yazabilmek', priority: 'high' },
-        ]
-      },
-      {
-        name: 'Finansal Analiz Teknikleri',
-        items: [
-          { id: 82, text: 'Yatay analiz (Trend Analysis) ve dikey analiz (Common Size) yapmak', priority: 'high' },
-          { id: 83, text: 'Oran analizi (likidite, karlılık, verimlilik, kaldıraç) uygulamak', priority: 'high' },
-          { id: 84, text: 'EBITDA bridge (waterfall) analizi hazırlamak', priority: 'high' },
-          { id: 85, text: 'Senaryo ve duyarlılık analizleri (What-If, Sensitivity) modellemek', priority: 'high' },
-          { id: 86, text: 'Monte Carlo simülasyonu mantığını kavramak ve uygulamak', priority: 'high' },
-          { id: 87, text: 'Cohort analizi ile müşteri davranışlarını finansal tabloya yansıtmak', priority: 'high' },
-        ]
-      },
-      {
-        name: 'Raporlama Standartları',
-        items: [
-          { id: 88, text: 'TFRS / IFRS 15 (Hasılat), IFRS 16 (Kiralama) standartlarını uygulamak', priority: 'high' },
-          { id: 89, text: 'IFRS 9 (Finansal Araçlar) beklenen kredi zararı hesaplamak', priority: 'high' },
-          { id: 90, text: 'VUK (Vergi Usul Kanunu) – TFRS mutabakat tablosunu hazırlamak', priority: 'high' },
-          { id: 91, text: 'SPK raporlama zorunluluklarını bilmek (halka açık şirketler için)', priority: 'high' },
-          { id: 92, text: 'Segment raporlamasını (IFRS 8) uygulamak', priority: 'high' },
-          { id: 93, text: 'Konsolide mali tablo hazırlama sürecini yönetmek', priority: 'high' },
-        ]
-      }
-    ]
-  },
-  {
-    id: 'teknoloji',
-    name: 'Teknoloji & Sistemler',
-    color: '#f06292',
-    icon: '💻',
-    subs: [
-      {
-        name: 'ERP & Finans Sistemleri',
-        items: [
-          { id: 94, text: 'SAP FI/CO modülünü etkin kullanmak (veya Oracle/Netsuite/Logo)', priority: 'mid' },
-          { id: 95, text: 'ERP\'de bütçe & planlama modülünü (SAP BPC, Anaplan, vb.) yönetmek', priority: 'mid' },
-          { id: 96, text: 'Sistem geliştirme projelerinde iş gereksinimleri (BRD) yazmak', priority: 'mid' },
-          { id: 97, text: 'Otomasyon fırsatlarını tespit edip IT ile proje başlatmak', priority: 'mid' },
-        ]
-      },
-      {
-        name: 'Veri & Analitik Araçlar',
-        items: [
-          { id: 98, text: 'Excel\'de ileri düzey finansal modelleme (pivot, Power Query, VBA temelleri)', priority: 'mid' },
-          { id: 99, text: 'Power BI / Tableau ile finansal dashboard oluşturmak', priority: 'mid' },
-          { id: 100, text: 'SQL sorgusuyla veri tabanından veri çekebilmek', priority: 'mid' },
-          { id: 101, text: 'Python/R ile temel finansal analiz yapabilmek (opsiyonel ama artı)', priority: 'mid' },
-        ]
-      }
-    ]
-  },
-  {
-    id: 'yonetim',
-    name: 'Yönetim & Liderlik',
-    color: '#4dd0e1',
-    icon: '🎯',
-    subs: [
-      {
-        name: 'İç Kontrol & Risk Yönetimi',
-        items: [
-          { id: 102, text: 'İç kontrol (SOX, COSO) çerçevesini tasarlamak ve test etmek', priority: 'high' },
-          { id: 103, text: 'Kurumsal risk haritası hazırlamak ve güncellemek', priority: 'high' },
-          { id: 104, text: 'Operasyonel riskleri finansal etkisiyle sayısallaştırmak', priority: 'high' },
-          { id: 105, text: 'İç denetim bulgularını yönetmek ve aksiyon planı oluşturmak', priority: 'high' },
-          { id: 106, text: 'Fraud risklerini tespit edecek kontrol noktaları tasarlamak', priority: 'high' },
-        ]
-      },
-      {
-        name: 'Stratejik Finans & İş Ortaklığı',
-        items: [
-          { id: 107, text: 'Uzun vadeli finansal plan (3–5 yıl) hazırlamak', priority: 'high' },
-          { id: 108, text: 'Şirket stratejisini finansal modele dönüştürmek', priority: 'high' },
-          { id: 109, text: 'Business case hazırlamak ve yatırım tekliflerini değerlendirmek', priority: 'high' },
-          { id: 110, text: 'Operasyon ekiplerine finansal koçluk (business partnering) yapmak', priority: 'high' },
-          { id: 111, text: 'Yönetim kuruluna / yatırımcılara finansal sunum yapmak', priority: 'high' },
-          { id: 112, text: 'M&A süreçlerinde finansal liderlik üstlenmek', priority: 'high' },
-        ]
-      },
-      {
-        name: 'Ekip Yönetimi & Gelişim',
-        items: [
-          { id: 113, text: 'Finans ekibini organize etmek, görev tanımları oluşturmak', priority: 'high' },
-          { id: 114, text: 'Ekip performansını KPI\'larla ölçmek ve geri bildirim vermek', priority: 'high' },
-          { id: 115, text: 'Muhasebe, bütçe, hazine ekiplerini koordineli yönetmek', priority: 'high' },
-          { id: 116, text: 'Çalışan gelişim planları yapmak ve mentörlük yapmak', priority: 'high' },
-          { id: 117, text: 'Departmanlar arası iletişimi yönetmek (CFO sesi olmak)', priority: 'high' },
-        ]
-      }
-    ]
-  },
-  {
-    id: 'mevzuat',
-    name: 'Mevzuat & Uyum',
-    color: '#aed581',
-    icon: '⚖️',
-    subs: [
-      {
-        name: 'Yasal & Düzenleyici Uyum',
-        items: [
-          { id: 118, text: 'TTK, VUK, KVK (kişisel verilerin korunması) gerekliliklerini izlemek', priority: 'mid' },
-          { id: 119, text: 'BDDK / SPK mevzuatını takip etmek (finans sektörü için)', priority: 'mid' },
-          { id: 120, text: 'Transfer fiyatlandırması mevzuatına tam uyum sağlamak', priority: 'mid' },
-          { id: 121, text: 'E-Fatura, e-Defter, e-Arşiv, e-SMM uygulamalarını yönetmek', priority: 'mid' },
-          { id: 122, text: 'Uluslararası (OECD BEPS) vergi kurallarını takip etmek', priority: 'mid' },
-        ]
-      },
-      {
-        name: 'Denetim & Uyum Süreçleri',
-        items: [
-          { id: 123, text: 'Bağımsız denetim sürecini (PBC listesi dahil) başından sonuna yönetmek', priority: 'mid' },
-          { id: 124, text: 'Vergi incelemesine hazırlık ve inceleme sürecini yönetmek', priority: 'mid' },
-          { id: 125, text: 'MASAK (kara para aklamayla mücadele) yükümlülüklerini bilmek', priority: 'mid' },
-          { id: 126, text: 'Yıllık faaliyet raporu hazırlamak ve yayımlamak', priority: 'mid' },
-        ]
-      }
-    ]
-  }
-];
-
-let state = {};
-let currentFilter = 'all';
-let searchQuery = '';
-
-function loadState() {
-  try {
-    const s = localStorage.getItem('cfo_checklist_v2');
-    return s ? JSON.parse(s) : {};
-  } catch(e) { return {}; }
-}
-
-function saveState() {
-  try { localStorage.setItem('cfo_checklist_v2', JSON.stringify(state)); } catch(e) {}
-}
-
-function isChecked(id) { return !!state['check_' + id]; }
-function getNote(id) { return state['note_' + id] || ''; }
-
-function toggleCheck(id, catColor) {
-  state['check_' + id] = !isChecked(id);
-  saveState();
-  const row = document.getElementById('row_' + id);
-  const box = document.getElementById('box_' + id);
-  if (row) row.classList.toggle('done', isChecked(id));
-  if (box) box.classList.toggle('checked', isChecked(id));
-  updateStats();
-  applyFilter();
-}
-
-function updateNote(id, val) {
-  state['note_' + id] = val;
-  saveState();
-}
-
-function updateStats() {
-  let total = 0, done = 0, highPriority = 0;
-  DATA.forEach(cat => {
-    cat.subs.forEach(sub => {
-      sub.items.forEach(item => {
-        total++;
-        if (item.priority === 'high') highPriority++;
-        if (isChecked(item.id)) done++;
-      });
-    });
-  });
-  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-  document.getElementById('total-count').textContent = total;
-  document.getElementById('done-count').textContent = done;
-  document.getElementById('remaining-count').textContent = total - done;
-  document.getElementById('pct-count').textContent = pct + '%';
-  document.getElementById('ringPct').textContent = pct + '%';
-  document.getElementById('mini-done').textContent = done;
-  document.getElementById('mini-remaining').textContent = total - done;
-  document.getElementById('mini-high').textContent = highPriority;
-
-  const circ = 2 * Math.PI * 60;
-  const offset = circ - (pct / 100) * circ;
-  document.getElementById('ringFill').style.strokeDasharray = circ;
-  document.getElementById('ringFill').style.strokeDashoffset = offset;
-
-  updateCatGrid();
-}
-
-function updateCatGrid() {
-  DATA.forEach(cat => {
-    let total = 0, done = 0;
-    cat.subs.forEach(sub => sub.items.forEach(item => {
-      total++;
-      if (isChecked(item.id)) done++;
-    }));
-    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-    const fill = document.getElementById('catFill_' + cat.id);
-    const pctEl = document.getElementById('catPct_' + cat.id);
-    const metaEl = document.getElementById('catMeta_' + cat.id);
-    if (fill) fill.style.width = pct + '%';
-    if (pctEl) pctEl.textContent = pct + '%';
-    if (metaEl) metaEl.textContent = done + '/' + total + ' tamamlandı';
-  });
-}
-
-function applyFilter() {
-  let visible = 0;
-  DATA.forEach(cat => {
-    let catHasVisible = false;
-    cat.subs.forEach(sub => {
-      sub.items.forEach(item => {
-        const row = document.getElementById('row_' + item.id);
-        if (!row) return;
-        let show = true;
-        if (currentFilter === 'high' && item.priority !== 'high') show = false;
-        if (currentFilter === 'mid' && item.priority !== 'mid') show = false;
-        if (currentFilter === 'done' && !isChecked(item.id)) show = false;
-        if (currentFilter === 'pending' && isChecked(item.id)) show = false;
-        if (searchQuery) {
-          const match = item.text.toLowerCase().includes(searchQuery.toLowerCase());
-          if (!match) show = false;
-        }
-        row.style.display = show ? '' : 'none';
-        if (show) { visible++; catHasVisible = true; }
-      });
-    });
-    const block = document.getElementById('block_' + cat.id);
-    if (block) block.classList.toggle('visible', catHasVisible);
-  });
-  document.getElementById('visible-count').textContent = visible + ' madde görüntüleniyor';
-}
-
-function filterItems(type, btn) {
-  currentFilter = type;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  applyFilter();
-}
-
-function toggleCat(catId) {
-  const block = document.getElementById('block_' + catId);
-  if (block) block.classList.toggle('collapsed');
-}
-
-function exportProgress() {
-  let total = 0, done = 0;
-  let lines = ['CFO YETKİNLİK YOL HARİTASI - İLERLEME RAPORU', '='.repeat(50), ''];
-  DATA.forEach(cat => {
-    let catDone = 0, catTotal = 0;
-    cat.subs.forEach(sub => sub.items.forEach(item => {
-      catTotal++; total++;
-      if (isChecked(item.id)) { catDone++; done++; }
-    }));
-    lines.push(cat.name.toUpperCase() + ' (' + catDone + '/' + catTotal + ')');
-  });
-  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-  lines.unshift('', 'Genel İlerleme: ' + done + '/' + total + ' (' + pct + '%)', '');
-  const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'CFO_Ilerleme_Raporu.txt';
-  a.click();
-  showToast('Rapor indirildi ✓');
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-function render() {
-  const area = document.getElementById('mainArea');
-  area.innerHTML = '';
-
-  DATA.forEach(cat => {
-    const block = document.createElement('div');
-    block.className = 'cat-block visible';
-    block.id = 'block_' + cat.id;
-
-    const header = document.createElement('div');
-    header.className = 'cat-block-header';
-    header.onclick = () => toggleCat(cat.id);
-
-    let total = 0;
-    cat.subs.forEach(sub => total += sub.items.length);
-
-    header.innerHTML = `
-      <span class="cat-badge" style="background: ${cat.color}"></span>
-      <span class="cat-block-name">${cat.icon} ${cat.name}</span>
-      <div class="cat-block-stats">
-        <span class="cat-block-count">${total} yetkinlik</span>
-        <span class="cat-block-pct" style="color: ${cat.color}" id="catPct_blk_${cat.id}">0%</span>
-      </div>
-      <span class="cat-toggle">▾</span>
-    `;
-
-    const body = document.createElement('div');
-    body.className = 'cat-body';
-
-    cat.subs.forEach(sub => {
-      const subHeader = document.createElement('div');
-      subHeader.className = 'sub-header';
-      subHeader.textContent = sub.name;
-      body.appendChild(subHeader);
-
-      sub.items.forEach(item => {
-        const row = document.createElement('div');
-        row.className = 'item-row' + (isChecked(item.id) ? ' done' : '');
-        row.id = 'row_' + item.id;
-        row.style.setProperty('--cat-color', cat.color);
-
-        row.innerHTML = `
-          <div class="item-num">${item.id}</div>
-          <div class="item-check">
-            <div class="check-box${isChecked(item.id) ? ' checked' : ''}" id="box_${item.id}" onclick="toggleCheck(${item.id})" style="--cat-color:${cat.color}"></div>
-          </div>
-          <div class="item-text">${item.text}</div>
-          <div class="item-priority">
-            <span class="priority-pill ${item.priority === 'high' ? 'priority-high' : 'priority-mid'}">
-              ${item.priority === 'high' ? '⭐⭐⭐ Yüksek' : '⭐⭐ Orta'}
-            </span>
-          </div>
-          <div class="item-note">
-            <input type="text" class="note-input" placeholder="Notunuz..." value="${getNote(item.id).replace(/"/g, '&quot;')}" oninput="updateNote(${item.id}, this.value)">
-          </div>
-        `;
-        body.appendChild(row);
-      });
-    });
-
-    block.appendChild(header);
-    block.appendChild(body);
-    area.appendChild(block);
-  });
-
-  renderCatGrid();
-  updateStats();
-  applyFilter();
-
-  setTimeout(() => {
-    const ring = document.getElementById('ringFill');
-    if (ring) {
-      const circ = 2 * Math.PI * 60;
-      const done = Object.keys(state).filter(k => k.startsWith('check_') && state[k]).length;
-      const total = 126;
-      const pct = Math.round((done / total) * 100);
-      ring.style.strokeDashoffset = circ - (pct / 100) * circ;
-    }
-  }, 200);
-}
-
-function renderCatGrid() {
-  const grid = document.getElementById('catGrid');
-  grid.innerHTML = '';
-  DATA.forEach(cat => {
-    let total = 0, done = 0;
-    cat.subs.forEach(sub => sub.items.forEach(item => {
-      total++;
-      if (isChecked(item.id)) done++;
-    }));
-    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
-    const card = document.createElement('div');
-    card.className = 'cat-card';
-    card.style.setProperty('--cat-color', cat.color);
-    card.onclick = () => {
-      const block = document.getElementById('block_' + cat.id);
-      if (block) {
-        block.classList.remove('collapsed');
-        block.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    };
-    card.innerHTML = `
-      <div class="cat-icon">${cat.icon}</div>
-      <div class="cat-name">${cat.name}</div>
-      <div class="cat-meta" id="catMeta_${cat.id}">${done}/${total} tamamlandı</div>
-      <div class="cat-progress-bar">
-        <div class="cat-progress-fill" id="catFill_${cat.id}" style="background: ${cat.color}; width: ${pct}%"></div>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-document.getElementById('searchInput').addEventListener('input', function() {
-  searchQuery = this.value;
-  applyFilter();
-});
-
-state = loadState();
-render();
-</script>
 </body>
 </html>
