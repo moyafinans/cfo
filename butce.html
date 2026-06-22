@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bütçe Defteri — Finans Akademi</title>
+<meta name="description" content="Kurumsal bütçe hazırlama, planlama, takip ve revizyon rehberi. 15 konu başlığı, pratik tablolar ve formüller.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://moyafinans.github.io/cfo/butce.html">
+<meta property="og:title" content="Bütçe Defteri — Finans Akademi">
+<meta property="og:description" content="Kurumsal bütçe hazırlama, planlama, takip ve revizyon rehberi.">
+<link rel="stylesheet" href="fa-system.css">
+<style>
+/* ── LAYOUT ── */
+.bu-shell { display:grid; grid-template-columns:260px 1fr; min-height:100vh; }
+@media(max-width:860px){ .bu-shell{grid-template-columns:1fr;} .bu-sidebar{display:none;} }
+
+/* ── SİDEBAR ── */
+.bu-sidebar {
+  position:sticky; top:60px; height:calc(100vh - 60px);
+  overflow-y:auto; border-right:1px solid var(--border);
+  background:var(--bg); padding:20px 0 40px;
+}
+.bu-sidebar-brand { padding:0 20px 18px; border-bottom:1px solid var(--border); margin-bottom:12px; }
+.bu-sidebar-brand-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-faint); margin-bottom:4px; }
+.bu-sidebar-brand-title { font-size:15px; font-weight:700; color:var(--text-primary); }
+.bu-nav-group { margin-bottom:4px; }
+.bu-nav-group-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-faint); padding:14px 20px 6px; }
+.bu-nav-item {
+  display:flex; gap:10px; align-items:center;
+  width:100%; text-align:left; background:none; border:none;
+  border-left:2px solid transparent;
+  color:var(--text-muted); font-family:var(--font); font-size:13px;
+  padding:8px 20px; cursor:pointer;
+  transition:all 0.15s;
+}
+.bu-nav-item:hover { background:var(--white); color:var(--text-primary); }
+.bu-nav-item.active { background:var(--white); color:var(--accent); border-left-color:var(--accent); font-weight:600; }
+.bu-nav-num { font-size:10px; font-weight:700; color:var(--accent); opacity:0.7; min-width:20px; font-family:monospace; }
+
+/* ── TOPBAR ── */
+.bu-topbar {
+  position:sticky; top:60px; z-index:80;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 40px; background:rgba(255,255,255,0.96);
+  backdrop-filter:blur(8px); border-bottom:1px solid var(--border);
+}
+.bu-breadcrumb { font-size:12px; color:var(--text-muted); }
+.bu-breadcrumb b { color:var(--accent); font-weight:600; }
+.bu-progress { width:140px; height:3px; background:var(--border); border-radius:2px; overflow:hidden; }
+.bu-progress-fill { height:100%; background:var(--accent); width:0%; transition:width 0.25s; }
+
+/* ── MAIN ── */
+.bu-main { min-height:100vh; }
+.bu-content { padding:0 40px 80px; max-width:860px; }
+@media(max-width:640px){ .bu-content{padding:0 16px 60px;} .bu-topbar{padding:10px 16px;} }
+
+/* ── OVERVIEW ── */
+.bu-overview { padding:56px 40px 0; max-width:860px; }
+.bu-overview-hero { margin-bottom:40px; border-bottom:1px solid var(--border); padding-bottom:40px; }
+.bu-overview-eyebrow { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--accent); margin-bottom:12px; }
+.bu-overview-title { font-size:clamp(28px,4vw,42px); font-weight:800; color:var(--text-primary); letter-spacing:-1px; line-height:1.1; margin-bottom:12px; }
+.bu-overview-desc { font-size:15px; color:var(--text-muted); line-height:1.7; max-width:560px; }
+.bu-overview-stats { display:flex; gap:0; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; width:fit-content; margin-top:28px; }
+.bu-stat { padding:16px 28px; border-right:1px solid var(--border); text-align:center; }
+.bu-stat:last-child { border-right:none; }
+.bu-stat-n { font-size:24px; font-weight:800; color:var(--text-primary); letter-spacing:-1px; display:block; }
+.bu-stat-l { font-size:10px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.5px; }
+
+.bu-toc-cols { display:grid; grid-template-columns:1fr 1fr; gap:32px; padding-bottom:40px; }
+@media(max-width:640px){ .bu-toc-cols{grid-template-columns:1fr;} }
+.bu-toc-group-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-faint); margin-bottom:10px; }
+.bu-toc-list { list-style:none; padding:0; margin:0; }
+.bu-toc-item {
+  display:flex; gap:12px; align-items:baseline;
+  padding:10px 0; border-bottom:1px solid var(--border);
+  cursor:pointer; transition:color 0.15s;
+}
+.bu-toc-item:hover span:last-child { color:var(--accent); }
+.bu-toc-item:last-child { border-bottom:none; }
+.bu-toc-num { font-size:11px; font-weight:700; color:var(--accent); opacity:0.7; min-width:18px; font-family:monospace; }
+
+/* ── SECTION ── */
+.bu-section { padding:48px 0; border-bottom:1px solid var(--border); animation:fadeIn 0.3s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+
+.bu-topic-head { display:flex; align-items:flex-start; gap:16px; margin-bottom:32px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+.bu-num { font-size:36px; font-weight:800; color:var(--accent); opacity:0.2; line-height:1; font-family:monospace; flex-shrink:0; }
+.bu-title { font-size:clamp(20px,3vw,28px); font-weight:800; color:var(--text-primary); letter-spacing:-0.5px; margin-bottom:6px; line-height:1.2; }
+.bu-sub { font-size:14px; color:var(--text-muted); margin:0; }
+
+.bu-block { margin-top:28px; }
+.bu-block-h {
+  font-size:10px; font-weight:700; text-transform:uppercase;
+  letter-spacing:1.5px; color:var(--accent); margin:0 0 12px;
+  display:flex; align-items:center; gap:8px;
+}
+.bu-block-h::before { content:''; width:16px; height:2px; background:var(--accent); border-radius:2px; display:block; }
+.bu-block p { color:var(--text-body); line-height:1.7; max-width:700px; font-size:14px; }
+
+/* Tablo */
+table { width:100%; border-collapse:collapse; margin:16px 0; font-size:13px; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+caption { text-align:left; font-size:11px; color:var(--text-muted); padding-bottom:6px; font-family:monospace; }
+th { background:var(--bg); color:var(--text-primary); font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; padding:10px 14px; border-bottom:1px solid var(--border); text-align:left; }
+td { padding:10px 14px; border-bottom:1px solid var(--border); color:var(--text-body); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:var(--bg); }
+.tc-num { font-family:monospace; text-align:right; }
+th.tc-num { text-align:right; }
+
+/* Callout */
+.bu-callout { background:var(--bg); border:1px solid var(--border); border-left:3px solid var(--accent); padding:14px 18px; border-radius:var(--radius); margin:16px 0; font-size:13.5px; color:var(--text-body); line-height:1.65; }
+.bu-formula { background:var(--accent-light); border:1px solid var(--border); border-left:3px solid var(--accent); padding:14px 18px; border-radius:var(--radius); margin:16px 0; font-family:monospace; font-size:13px; color:var(--accent); display:flex; flex-direction:column; gap:4px; }
+.bu-flabel { font-family:var(--font); font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); font-weight:700; }
+
+/* Tick list */
+.bu-tick { list-style:none; padding:0; margin:12px 0; max-width:700px; }
+.bu-tick li { position:relative; padding:8px 0 8px 22px; font-size:13.5px; color:var(--text-body); border-bottom:1px solid var(--border); line-height:1.6; }
+.bu-tick li:last-child { border-bottom:none; }
+.bu-tick li::before { content:'—'; position:absolute; left:0; color:var(--accent); font-weight:700; }
+.bu-tick li b { color:var(--text-primary); }
+
+/* Grid / mini-card */
+.bu-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+@media(max-width:640px){ .bu-grid2{grid-template-columns:1fr;} }
+.bu-mini-card { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:16px; }
+.bu-mini-card h5 { font-size:14px; font-weight:700; color:var(--text-primary); margin:0 0 6px; }
+.bu-mini-card p { font-size:12.5px; color:var(--text-muted); margin:0; line-height:1.6; }
+
+/* Takeaway */
+.bu-takeaway { background:var(--accent-light); border:1px solid var(--border); border-top:3px solid var(--accent); padding:24px; border-radius:var(--radius); margin-top:32px; }
+.bu-takeaway h4 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--accent); margin:0 0 14px; }
+
+/* Status */
+.bu-ok { color:#047857; font-weight:600; }
+.bu-warn { color:#B45309; font-weight:600; }
+.bu-bad { color:#B91C1C; font-weight:600; }
+
+/* Nav arrows */
+.bu-nav-arrows { display:flex; justify-content:space-between; margin-top:48px; gap:16px; }
+.bu-nav-arrows button {
+  background:var(--white); border:1px solid var(--border);
+  color:var(--text-primary); padding:12px 18px;
+  font-family:var(--font); font-size:13px; cursor:pointer;
+  border-radius:var(--radius); display:flex; flex-direction:column; gap:3px;
+  min-width:140px; transition:border-color 0.15s;
+}
+.bu-nav-arrows button:hover { border-color:var(--accent); }
+.bu-nav-arrows button:disabled { opacity:0.3; cursor:default; }
+.bu-nav-arrows .arr-next { text-align:right; align-items:flex-end; }
+.bu-nav-arrows button span { color:var(--text-faint); font-size:10px; text-transform:uppercase; letter-spacing:1px; }
+@media(max-width:640px){ .bu-overview{padding:32px 16px 0;} }
+</style>
+</head>
+<body>
+
+<!-- ANA NAV -->
+<nav class="fa-nav">
+  <a href="index.html" class="fa-nav-logo">
+    <div class="fa-nav-logo-mark">FA</div>
+    Finans Akademi
+  </a>
+  <a href="index.html" class="fa-nav-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 12L6 8l4-4"/></svg>
+    Tüm Konular
+  </a>
+</nav>
+
+<div class="bu-shell">
+
+  <!-- SİDEBAR -->
+  <aside class="bu-sidebar">
+    <div class="bu-sidebar-brand">
+      <div class="bu-sidebar-brand-label">FP&A · Eğitim</div>
+      <div class="bu-sidebar-brand-title">Bütçe Defteri</div>
+    </div>
+    <div class="bu-nav-group">
+      <div class="bu-nav-group-label">Genel Bakış</div>
+      <button class="bu-nav-item active" data-target="overview"><span class="bu-nav-num">·</span>Başlangıç</button>
+    </div>
+    <div class="bu-nav-group">
+      <div class="bu-nav-group-label">I · Hazırlama & Planlama</div>
+      <button class="bu-nav-item" data-target="h1"><span class="bu-nav-num">01</span>Yıllık Bütçe Takvimi</button>
+<button class="bu-nav-item" data-target="h2"><span class="bu-nav-num">02</span>Top-Down & Bottom-Up</button>
+<button class="bu-nav-item" data-target="h3"><span class="bu-nav-num">03</span>Varsayım Modelleme</button>
+<button class="bu-nav-item" data-target="h4"><span class="bu-nav-num">04</span>Senaryo Analizi</button>
+<button class="bu-nav-item" data-target="h5"><span class="bu-nav-num">05</span>Formlar & Konsolidasyon</button>
+<button class="bu-nav-item" data-target="h6"><span class="bu-nav-num">06</span>Esnek Bütçe</button>
+<button class="bu-nav-item" data-target="h7"><span class="bu-nav-num">07</span>CAPEX Bütçesi</button>
+<button class="bu-nav-item" data-target="h8"><span class="bu-nav-num">08</span>Headcount Bütçesi</button>
+<button class="bu-nav-item" data-target="h9"><span class="bu-nav-num">09</span>YK Sunum Formatı</button>
+    </div>
+    <div class="bu-nav-group">
+      <div class="bu-nav-group-label">II · Takip & Revizyon</div>
+      <button class="bu-nav-item" data-target="t1"><span class="bu-nav-num">01</span>Budget vs Actual</button>
+<button class="bu-nav-item" data-target="t2"><span class="bu-nav-num">02</span>Sapma Analizi</button>
+<button class="bu-nav-item" data-target="t3"><span class="bu-nav-num">03</span>Re-forecast & Rolling</button>
+<button class="bu-nav-item" data-target="t4"><span class="bu-nav-num">04</span>Rebudget Süreci</button>
+<button class="bu-nav-item" data-target="t5"><span class="bu-nav-num">05</span>Departman Geri Bildirimi</button>
+<button class="bu-nav-item" data-target="t6"><span class="bu-nav-num">06</span>Commitment Takibi</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="bu-main">
+
+    <!-- TOPBAR -->
+    <div class="bu-topbar">
+      <div class="bu-breadcrumb">Sayfa <b id="bc-num">—</b> / 15 · <span id="bc-title">Genel Bakış</span></div>
+      <div class="bu-progress"><div class="bu-progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div class="bu-overview" id="overview-panel">
+      <div class="bu-overview-hero">
+        <div class="bu-overview-eyebrow">FP&A · Eğitim Modülü</div>
+        <h1 class="bu-overview-title">Bütçe, kapanışta değil,<br>Eylül'de kazanılır.</h1>
+        <p class="bu-overview-desc">Bu rehber, bütçenin nasıl hazırlanacağını ve hazırlandıktan sonra nasıl takip edilip revize edileceğini tek bir akışta birleştirir.</p>
+        <div class="bu-overview-stats">
+          <div class="bu-stat"><span class="bu-stat-n">15</span><span class="bu-stat-l">Konu</span></div>
+          <div class="bu-stat"><span class="bu-stat-n">02</span><span class="bu-stat-l">Bölüm</span></div>
+          <div class="bu-stat"><span class="bu-stat-n">Eyl→Ara</span><span class="bu-stat-l">Takvim</span></div>
+        </div>
+      </div>
+      <div class="bu-toc-cols">
+        <div>
+          <div class="bu-toc-group-label">I · Hazırlama & Planlama</div>
+          <ul class="bu-toc-list">
+            <li class="bu-toc-item" data-target="h1"><span class="bu-toc-num">01</span><span>Yıllık Bütçe Takvimi</span></li>
+<li class="bu-toc-item" data-target="h2"><span class="bu-toc-num">02</span><span>Top-Down & Bottom-Up</span></li>
+<li class="bu-toc-item" data-target="h3"><span class="bu-toc-num">03</span><span>Varsayım Modelleme</span></li>
+<li class="bu-toc-item" data-target="h4"><span class="bu-toc-num">04</span><span>Senaryo Analizi</span></li>
+<li class="bu-toc-item" data-target="h5"><span class="bu-toc-num">05</span><span>Formlar & Konsolidasyon</span></li>
+<li class="bu-toc-item" data-target="h6"><span class="bu-toc-num">06</span><span>Esnek Bütçe</span></li>
+<li class="bu-toc-item" data-target="h7"><span class="bu-toc-num">07</span><span>CAPEX Bütçesi</span></li>
+<li class="bu-toc-item" data-target="h8"><span class="bu-toc-num">08</span><span>Headcount Bütçesi</span></li>
+<li class="bu-toc-item" data-target="h9"><span class="bu-toc-num">09</span><span>YK Sunum Formatı</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="bu-toc-group-label">II · Takip & Revizyon</div>
+          <ul class="bu-toc-list">
+            <li class="bu-toc-item" data-target="t1"><span class="bu-toc-num">01</span><span>Budget vs Actual</span></li>
+<li class="bu-toc-item" data-target="t2"><span class="bu-toc-num">02</span><span>Sapma Analizi</span></li>
+<li class="bu-toc-item" data-target="t3"><span class="bu-toc-num">03</span><span>Re-forecast & Rolling</span></li>
+<li class="bu-toc-item" data-target="t4"><span class="bu-toc-num">04</span><span>Rebudget Süreci</span></li>
+<li class="bu-toc-item" data-target="t5"><span class="bu-toc-num">05</span><span>Departman Geri Bildirimi</span></li>
+<li class="bu-toc-item" data-target="t6"><span class="bu-toc-num">06</span><span>Commitment Takibi</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTIONS -->
+    <div class="bu-content">
+      <section class="bu-section" id="h1" data-idx="1" data-title="Yıllık Bütçe Takvimi" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">01</span><div><h2 class="bu-title">Yıllık Bütçe Takvimi &amp; Departman Koordinasyonu</h2><p class="bu-sub">Süreci disipline eden takvim, Eylül'de başlar.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Takvim neden önemli?</h3>
+        <p>Bütçe süreci yönetilmezse her departman farklı hızda çalışır, veriler çelişir ve CFO Aralık ayında hâlâ konsolide rakam peşinde koşar. İyi bir takvim sürprizleri önler.</p>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Ay bazlı akış</h3>
+        <table>
+          <thead><tr><th>Ay</th><th>Faaliyet</th><th>Sorumlu</th><th>Çıktı</th></tr></thead>
+          <tbody>
+            <tr><td>Eylül</td><td>Makroekonomik varsayımlar belirlenir (enflasyon, kur, büyüme)</td><td>CFO</td><td>Varsayım seti</td></tr>
+            <tr><td>Ekim — 1. Hafta</td><td>Bütçe kılavuzu &amp; formlar departmanlara gönderilir</td><td>FP&amp;A</td><td>Bütçe paketi</td></tr>
+            <tr><td>Ekim — 2–4. Hafta</td><td>Departmanlar kendi bütçelerini hazırlar</td><td>Departman Müd.</td><td>Ham bütçe formları</td></tr>
+            <tr><td>Kasım — 1–2. Hafta</td><td>FP&amp;A konsolide eder, boşlukları tespit eder</td><td>FP&amp;A / CFO</td><td>İlk konsolide taslak</td></tr>
+            <tr><td>Kasım — 3–4. Hafta</td><td>CFO ile bütçe görüşmeleri — challenge toplantıları</td><td>CFO + Departmanlar</td><td>Revize bütçe</td></tr>
+            <tr><td>Aralık — 1. Hafta</td><td>CEO &amp; YK onay sunumu hazırlanır</td><td>CFO</td><td>Sunum dosyası</td></tr>
+            <tr><td>Aralık — 2. Hafta</td><td>Yönetim Kurulu onayı</td><td>YK</td><td>Onaylı bütçe</td></tr>
+            <tr><td>Aralık — 3–4. Hafta</td><td>ERP'ye yükleme &amp; takip sistemi kurulur</td><td>FP&amp;A / IT</td><td>Yayında bütçe</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Challenge toplantısı nasıl yönetilir?</h3>
+        <p>Departman bütçelerinin CFO tarafından sorgulandığı, gerçekçi olmayan varsayımların ayıklandığı kritik oturumdur.</p>
+        <ul class="bu-tick">
+          <li><b>Hazırlıklı gelin:</b> Departmanın geçen yıl gerçekleşmesini ve sektör büyümesini önünüze koyun.</li>
+          <li><b>Sorular sorun, yargılamayın:</b> "Bu %20 büyüme varsayımının dayanağı nedir?" diye sorun.</li>
+          <li><b>Sıfır bazlı düşünce:</b> "Geçen yıl böyleydi" geçerli bir gerekçe değildir.</li>
+          <li><b>Yazıya dökün:</b> Her revizyon ve gerekçe kayıt altına alınmalı.</li>
+        </ul>
+      </div>
+
+      <div class="bu-callout">
+        <b>En sık yapılan hatalar:</b> çok geç başlamak (Ekim'de başlayan süreç Aralık'ta bitmez), varsayımları paylaşmamak, departmanı dinlememek, ERP'ye yüklemeyi geciktirmek.
+      </div>
+    </section>
+<section class="bu-section" id="h2" data-idx="2" data-title="Top-Down & Bottom-Up" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">02</span><div><h2 class="bu-title">Top-Down &amp; Bottom-Up Bütçe Metodolojileri</h2><p class="bu-sub">Saf yaklaşımlar nadiren işe yarar — hibrit kazanır.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">İki yaklaşımın karşılaştırması</h3>
+        <table>
+          <thead><tr><th>Kriter</th><th>Top-Down</th><th>Bottom-Up</th><th>Karma (Hibrit)</th></tr></thead>
+          <tbody>
+            <tr><td>Başlangıç noktası</td><td>CEO/CFO hedef belirler</td><td>Departmanlar tahmin yapar</td><td>Üst hedef + alt detay</td></tr>
+            <tr><td>Hız</td><td>Hızlı — birkaç hafta</td><td>Yavaş — 6–8 hafta</td><td>Orta</td></tr>
+            <tr><td>Sahiplenme</td><td>Düşük — dayatma hissi</td><td>Yüksek — kendi rakamı</td><td>Dengeli</td></tr>
+            <tr><td>Gerçekçilik</td><td>Bazen iyimser / kopuk</td><td>Bazen aşırı muhafazakâr</td><td>Denge sağlanır</td></tr>
+            <tr><td>Kullanım</td><td>Startup, küçük şirket, kriz</td><td>Büyük, çok departmanlı şirket</td><td>Orta-büyük şirket</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Karma süreç nasıl çalışır?</h3>
+        <ul class="bu-tick">
+          <li><b>1. Top-down hedef:</b> CFO satış büyümesi, EBITDA marjı ve Capex hedeflerini belirler.</li>
+          <li><b>2. Bottom-up detay:</b> Departmanlar bu hedeflere nasıl ulaşacaklarını modeller.</li>
+          <li><b>3. Gap analizi:</b> Top-down hedef ile bottom-up toplam arasındaki fark tespit edilir.</li>
+          <li><b>4. Challenge:</b> Gap kapatmak için aksiyon planları müzakere edilir.</li>
+          <li><b>5. Uzlaşma:</b> Gerçekçi ve sahiplenilen final bütçe oluşturulur.</li>
+        </ul>
+        <div class="bu-formula"><span class="bu-flabel">Bütçe Gap</span>Gap = Top-Down Hedef − Bottom-Up Toplam (pozitifse kapatılmalı)</div>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Hangi metodoloji sizin için?</h3>
+        <div class="bu-grid2">
+          <div class="bu-mini-card"><h5>50 kişinin altı</h5><p>Top-down yeterli — hız ve basitlik öncelikli.</p></div>
+          <div class="bu-mini-card"><h5>Çok lokasyon / ürün</h5><p>Bottom-up şart — detay olmadan konsolidasyon tutmaz.</p></div>
+          <div class="bu-mini-card"><h5>Kriz dönemi</h5><p>Top-down — hız kritik, uzun süreç lüksü yok.</p></div>
+          <div class="bu-mini-card"><h5>Güçlü departman müdürleri</h5><p>Bottom-up — dahil etmezseniz sahiplenme olmaz.</p></div>
+        </div>
+      </div>
+    </section>
+<section class="bu-section" id="h3" data-idx="3" data-title="Varsayım Modelleme" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">03</span><div><h2 class="bu-title">Satış, Fiyat &amp; Maliyet Varsayımlarını Modelleme</h2><p class="bu-sub">Garbage in, garbage out.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Varsayım kategorileri</h3>
+        <table>
+          <thead><tr><th>Kategori</th><th>Örnek Varsayımlar</th><th>Kaynak</th><th>Güncelleme</th></tr></thead>
+          <tbody>
+            <tr><td>Makroekonomik</td><td>TÜFE, PPI, USD/TL, EUR/TL, faiz</td><td>TCMB, TÜİK, IMF projeksiyon</td><td>Aylık</td></tr>
+            <tr><td>Sektör</td><td>Pazar büyümesi, rekabet, fiyat trendi</td><td>Sektör dernekleri, araştırma raporları</td><td>Çeyreklik</td></tr>
+            <tr><td>Satış Hacmi</td><td>Müşteri sayısı, sipariş adedi, kapasite</td><td>Satış ekibi, CRM verisi</td><td>Aylık</td></tr>
+            <tr><td>Fiyatlama</td><td>Birim fiyat, iskonto oranı, fiyat artış planı</td><td>Pazarlama + CFO kararı</td><td>Yıllık / revizyonda</td></tr>
+            <tr><td>Maliyet</td><td>Hammadde fiyatı, işçilik artışı, enerji</td><td>Tedarik zinciri, IK, geçmiş veri</td><td>Çeyreklik</td></tr>
+            <tr><td>Headcount</td><td>İşe alım planı, işten çıkış, terfi</td><td>İK departmanı</td><td>Çeyreklik</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-formula"><span class="bu-flabel">Satış Bütçesi</span>Net Satış = Hacim (Adet) × Ortalama Satış Fiyatı × (1 − İskonto Oranı)</div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Daha detaylı model için</h3>
+        <ul class="bu-tick">
+          <li>A müşteri grubu: 50 müşteri × ortalama 200K TL sipariş × 12 ay</li>
+          <li>Yeni müşteri kazanımı: satış ekibinin pipeline verisi + tarihsel dönüşüm oranı</li>
+          <li>Kayıp müşteri tahmini: geçen yıl churn oranı × bu yılın başlangıç müşteri sayısı</li>
+        </ul>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Varsayım yönetimi için altın kurallar</h3>
+        <ul class="bu-tick">
+          <li><b>Tek varsayım seti:</b> Tüm departmanlar aynı makro varsayımları kullanmalı — CFO dağıtır.</li>
+          <li><b>Kayıt altına alın:</b> 6 ay sonra "neden böyle bütçeledik?" sorusunun cevabı olmalı.</li>
+          <li><b>Duyarlılık testi:</b> En kritik varsayımı ±%10 değiştirince EBITDA ne kadar değişiyor?</li>
+          <li><b>Gerçekçilik kontrolü:</b> Geçen 3 yılın gerçekleşmesiyle karşılaştırın.</li>
+        </ul>
+      </div>
+    </section>
+<section class="bu-section" id="h4" data-idx="4" data-title="Senaryo Analizi" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">04</span><div><h2 class="bu-title">Bütçe Senaryo Analizi — Optimistik / Baz / Pesimistik</h2><p class="bu-sub">Tek senaryoyla yönetim, pusulasız gemi kullanmaktır.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Üç senaryo çerçevesi</h3>
+        <table>
+          <thead><tr><th>Senaryo</th><th>Tanım</th><th>Olasılık</th><th>Kullanım Amacı</th></tr></thead>
+          <tbody>
+            <tr><td>Baz Senaryo</td><td>En olası sonuç — gerçekçi varsayımlar</td><td>%60–70</td><td>Resmi bütçe — YK onaylar</td></tr>
+            <tr><td>Optimistik</td><td>İşler yolunda giderse — iyi varsayımlar</td><td>%15–20</td><td>Bonus hedefi, yatırım tetik noktası</td></tr>
+            <tr><td>Pesimistik</td><td>Riskler gerçekleşirse — kötü varsayımlar</td><td>%15–20</td><td>Acil eylem planı tetikleyici</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Örnek senaryo tablosu</h3>
+        <table>
+          <thead><tr><th>Kalem</th><th class="tc-num">Pesimistik</th><th class="tc-num">Baz</th><th class="tc-num">Optimistik</th></tr></thead>
+          <tbody>
+            <tr><td>Satış Büyümesi</td><td class="tc-num">%5</td><td class="tc-num">%15</td><td class="tc-num">%25</td></tr>
+            <tr><td>Brüt Marj</td><td class="tc-num">%26</td><td class="tc-num">%29</td><td class="tc-num">%32</td></tr>
+            <tr><td>EBITDA</td><td class="tc-num">8,5M TL</td><td class="tc-num">12M TL</td><td class="tc-num">16M TL</td></tr>
+            <tr><td>Net Borç/EBITDA</td><td class="tc-num">3,5x</td><td class="tc-num">2,5x</td><td class="tc-num">1,8x</td></tr>
+            <tr><td>Serbest Nakit Akışı</td><td class="tc-num">−1M TL</td><td class="tc-num">+3M TL</td><td class="tc-num">+6M TL</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Senaryo tetikleyicileri</h3>
+        <ul class="bu-tick">
+          <li><b>Optimistik tetik:</b> Q1 satışları bütçenin %110'unu geçerse — yatırım hızlandırılır.</li>
+          <li><b>Pesimistik tetik:</b> Q1 satışları bütçenin %85'inin altına düşerse — maliyet kesintisi planı devreye girer.</li>
+          <li><b>Kriz tetik:</b> Net borç/EBITDA 3,5x'i aşarsa — acil likidite planı başlar.</li>
+        </ul>
+      </div>
+
+      <div class="bu-callout">Her senaryonun tutarlı olması şart: satışı düşürüp maliyeti sabit bırakmak gerçekçi değil. Nakit akışını dahil edin, YK'ya üç senaryoyu birlikte sunun ve her çeyrekte güncelleyin.</div>
+    </section>
+<section class="bu-section" id="h5" data-idx="5" data-title="Formlar & Konsolidasyon" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">05</span><div><h2 class="bu-title">Departman Bazlı Bütçe Formları &amp; Konsolidasyon</h2><p class="bu-sub">Kolay doldurulur, kolay konsolide edilir, kolay sorgulanır.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Form bölümleri</h3>
+        <table>
+          <thead><tr><th>Form Bölümü</th><th>İçerik</th><th>Kim Doldurur?</th></tr></thead>
+          <tbody>
+            <tr><td>Gelir tahmini</td><td>Ürün/hizmet bazında satış hacmi ve fiyat</td><td>Satış / Pazarlama Müdürü</td></tr>
+            <tr><td>Personel giderleri</td><td>Mevcut + planlanan headcount, maaş artışı</td><td>Departman Müd. + İK</td></tr>
+            <tr><td>Direkt giderler</td><td>Hammadde, dışarıdan sağlanan hizmet, seyahat</td><td>Departman Müdürü</td></tr>
+            <tr><td>Genel giderler</td><td>Kira, IT, sigorta, abonelikler</td><td>Departman Müd. + Muhasebe</td></tr>
+            <tr><td>Capex talebi</td><td>Yatırım kalemi, tutar, gerekçe, geri ödeme</td><td>Departman Müdürü</td></tr>
+            <tr><td>Varsayımlar</td><td>Büyüme oranı, fiyat artışı, risk faktörleri</td><td>Departman Müdürü</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Konsolidasyon adımları</h3>
+        <ul class="bu-tick">
+          <li><b>1. Toplama:</b> Tüm departman formları merkezi modele aktarılır.</li>
+          <li><b>2. Çapraz kontrol:</b> Bir departmanın geliri başka departmanın maliyetiyse eşleşiyor mu?</li>
+          <li><b>3. Eliminasyon:</b> Grup içi işlemler varsa konsolide tabloda silinir.</li>
+          <li><b>4. Denge kontrolü:</b> Bilanço denkliği — Varlık = Borç + Özkaynak.</li>
+          <li><b>5. Makul bütünlük testi:</b> Toplam büyüme, marj ve nakit makul görünüyor mu?</li>
+        </ul>
+      </div>
+
+      <div class="bu-callout">Sık karşılaşılan sorunlar: grup içi satışların çift sayılması, farklı para birimi çevirisi, farklı maliyet sınıflandırması ve son dakika revizyonlarında versiyon kontrolü eksikliği.</div>
+    </section>
+<section class="bu-section" id="h6" data-idx="6" data-title="Esnek Bütçe" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">06</span><div><h2 class="bu-title">Sabit &amp; Değişken Maliyet Ayrımı — Esnek Bütçe</h2><p class="bu-sub">Bu ayrım yapılmadan sapma analizi mümkün değildir.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Maliyet davranışı türleri</h3>
+        <table>
+          <thead><tr><th>Maliyet Türü</th><th>Tanım</th><th>Örnek</th><th>Hacim Değişince</th></tr></thead>
+          <tbody>
+            <tr><td>Sabit Maliyet</td><td>Hacimden bağımsız, sabit</td><td>Kira, amortisman, yönetici maaşı</td><td>Değişmez</td></tr>
+            <tr><td>Değişken Maliyet</td><td>Hacimle orantılı değişir</td><td>Hammadde, komisyon, nakliye</td><td>Orantılı artar/azalır</td></tr>
+            <tr><td>Yarı Değişken</td><td>Sabit taban + değişken kısım</td><td>Elektrik, telefon, bazı işçilikler</td><td>Kısmen artar</td></tr>
+            <tr><td>Basamaklı Sabit</td><td>Belirli eşikte sıçrar</td><td>Ekstra vardiya, ek depo</td><td>Eşikte sıçrar</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-grid2">
+        <div class="bu-formula"><span class="bu-flabel">Katkı Payı</span>Katkı Payı = Satış Fiyatı − Birim Değişken Maliyet</div>
+        <div class="bu-formula"><span class="bu-flabel">Break-Even (BEP)</span>BEP = Toplam Sabit Maliyet / Birim Katkı Payı</div>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Esnek bütçe örneği</h3>
+        <table>
+          <caption>Statik bütçeye göre kâr 200K düşük görünür; esnek bütçeye göre tam hedefte. Fark: hacim.</caption>
+          <thead><tr><th>Kalem</th><th class="tc-num">Statik (100K ad.)</th><th class="tc-num">Gerçekleşen (90K ad.)</th><th class="tc-num">Esnek Bütçe (90K ad.)</th><th>Sapma</th></tr></thead>
+          <tbody>
+            <tr><td>Satış</td><td class="tc-num">5.000K</td><td class="tc-num">4.600K</td><td class="tc-num">4.500K</td><td><span class="bu-ok">+100K ✓</span></td></tr>
+            <tr><td>Değişken Maliyet</td><td class="tc-num">3.000K</td><td class="tc-num">2.800K</td><td class="tc-num">2.700K</td><td><span class="bu-bad">−100K ⚠</span></td></tr>
+            <tr><td>Sabit Maliyet</td><td class="tc-num">1.200K</td><td class="tc-num">1.200K</td><td class="tc-num">1.200K</td><td>0</td></tr>
+            <tr><td>Kâr</td><td class="tc-num">800K</td><td class="tc-num">600K</td><td class="tc-num">600K</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+<section class="bu-section" id="h7" data-idx="7" data-title="CAPEX Bütçesi" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">07</span><div><h2 class="bu-title">CAPEX Bütçesi Hazırlama</h2><p class="bu-sub">Sermaye harcamasının ayrı bir başlık olarak yönetilmesi.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">CAPEX türleri</h3>
+        <table>
+          <thead><tr><th>CAPEX Türü</th><th>Tanım</th><th>Örnek</th><th>Öncelik</th></tr></thead>
+          <tbody>
+            <tr><td>Büyüme CAPEX</td><td>Yeni kapasite, yeni pazar</td><td>Yeni fabrika, yeni makine</td><td>Stratejik karar</td></tr>
+            <tr><td>Bakım CAPEX</td><td>Mevcut varlığı sürdürme</td><td>Makine yenileme, tadilat</td><td>Zorunlu</td></tr>
+            <tr><td>IT CAPEX</td><td>Yazılım, donanım yatırımı</td><td>ERP, sunucu, lisans</td><td>Verimlilik</td></tr>
+            <tr><td>Çevresel / Yasal</td><td>Zorunlu uyum yatırımı</td><td>Atık arıtma, yangın sistemi</td><td>Zorunlu</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-grid2">
+        <div class="bu-formula"><span class="bu-flabel">CAPEX Yoğunluğu</span>= Sermaye Harcaması / Net Satış × 100</div>
+        <div class="bu-formula"><span class="bu-flabel">Net CAPEX</span>= Brüt CAPEX − Varlık Satış Gelirleri</div>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Talep &amp; onay süreci</h3>
+        <ul class="bu-tick">
+          <li><b>Talep formu:</b> Tutar, gerekçe, geri ödeme süresi, NPV/IRR hesabı.</li>
+          <li><b>Eşik değerler:</b> 50K TL altı departman onayı, 500K TL altı CFO onayı, üstü YK onayı.</li>
+          <li><b>Önceliklendirme matrisi:</b> Stratejik önem × geri ödeme süresi × nakit etkisi.</li>
+          <li><b>Phasing:</b> Büyük CAPEX'leri yıl içine yayın — nakit akışını yönetin.</li>
+        </ul>
+      </div>
+
+      <div class="bu-callout">Sık yapılan hatalar: bakım CAPEX'ini unutmak, nakit etkisini P&amp;L ile karıştırmak, fazla iyimser geri ödeme tahmini ve yarım kalan projelerin balance sheet'te birikmesi.</div>
+    </section>
+<section class="bu-section" id="h8" data-idx="8" data-title="Headcount Bütçesi" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">08</span><div><h2 class="bu-title">İnsan Kaynakları &amp; Headcount Bütçesi</h2><p class="bu-sub">Toplam giderlerin %40–70'i — yanlış modellenirse bütçe güvenilir olmaz.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Maliyet kalemleri</h3>
+        <table>
+          <thead><tr><th>Maliyet Kalemi</th><th>İçerik</th><th>Hesaplama Yöntemi</th></tr></thead>
+          <tbody>
+            <tr><td>Brüt Maaş</td><td>Sözleşmede belirlenen ücret</td><td>Mevcut + planlanan artış oranı</td></tr>
+            <tr><td>SGK İşveren Payı</td><td>%22,5 (emeklilik+sağlık+işsizlik)</td><td>Brüt maaş × %22,5</td></tr>
+            <tr><td>İkramiye / Prim</td><td>Hedef bazlı performans ödemesi</td><td>Tarihsel ödeme oranı veya politika</td></tr>
+            <tr><td>Kıdem Tazminatı Karşılığı</td><td>Her yıl için 30 günlük brüt</td><td>Aktüeryal hesap veya basit tahmini</td></tr>
+            <tr><td>Seyahat &amp; Temsil</td><td>Pozisyon bazlı tahsis</td><td>Geçen yıl gerçekleşme + enflasyon</td></tr>
+            <tr><td>Eğitim &amp; Gelişim</td><td>Kurs, sertifika, konferans</td><td>Headcount × kişi başı bütçe</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-formula"><span class="bu-flabel">Toplam İşgücü Maliyeti (TİM)</span>= Brüt Maaş × 1,225 + İkramiye + Kıdem Karşılığı + Diğer</div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Headcount planlaması</h3>
+        <ul class="bu-tick">
+          <li><b>Açık pozisyon takvimi:</b> İşe alım ne zaman başlayacak? Maliyet hangi aydan itibaren?</li>
+          <li><b>Ramp-up süresi:</b> Yeni işe alınan tam kapasiteye kaç ayda ulaşır?</li>
+          <li><b>Attrition:</b> Geçen yılın ayrılma oranı baz alınır — yerine alınacak mı?</li>
+          <li><b>Promosyon maliyeti:</b> Terfi edecek çalışanların maaş artışı modele dahil edilmeli.</li>
+        </ul>
+      </div>
+
+      <div class="bu-callout">Dikkat: açık pozisyonları tam yıl saymayın, sosyal hakları unutmayın (%15–25 ek), yıl sonu prim nakit çıkışını planlayın, kıdem karşılığını atlamayın.</div>
+    </section>
+<section class="bu-section" id="h9" data-idx="9" data-title="YK Sunum Formatı" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">09</span><div><h2 class="bu-title">Bütçe Sunum Dosyası — Yönetim Kurulu Formatı</h2><p class="bu-sub">YK operasyonel detay değil, stratejik bağlam ister.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Slayt yapısı</h3>
+        <table>
+          <thead><tr><th>#</th><th>Başlık</th><th>İçerik</th><th>Süre</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Yönetici Özeti</td><td>3 kilit mesaj, bütçe özeti, kritik varsayımlar</td><td>5 dk</td></tr>
+            <tr><td>2</td><td>Stratejik Bağlam</td><td>Pazar durumu, sektör trendi, şirket pozisyonu</td><td>5 dk</td></tr>
+            <tr><td>3</td><td>Gelir Planı</td><td>Kanal/ürün/müşteri bazlı satış, büyüme kaynakları</td><td>10 dk</td></tr>
+            <tr><td>4</td><td>Kârlılık Planı</td><td>P&amp;L özeti, marj gelişimi, EBITDA köprüsü</td><td>10 dk</td></tr>
+            <tr><td>5</td><td>Yatırım Planı</td><td>CAPEX, önemli projeler, geri ödeme</td><td>5 dk</td></tr>
+            <tr><td>6</td><td>Nakit &amp; Finansman</td><td>FCF, net borç tahmini, kovenant durumu</td><td>5 dk</td></tr>
+            <tr><td>7</td><td>Senaryo Analizi</td><td>Baz/optimistik/pesimistik — tetikleyiciler</td><td>5 dk</td></tr>
+            <tr><td>8</td><td>Risk &amp; Fırsatlar</td><td>Top 5 risk, azaltma planı, fırsatlar</td><td>5 dk</td></tr>
+            <tr><td>9</td><td>Onay Talebi</td><td>Bütçe hedefleri, KPI'lar, yetki çerçevesi</td><td>5 dk</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">YK sunumunda başarının sırları</h3>
+        <ul class="bu-tick">
+          <li><b>Hikaye anlatın:</b> Rakamları değil kararı sunun.</li>
+          <li><b>Beklentiyi yönetin:</b> Geçen yıl bütçeden ne kadar saptınız, bu yıl neden farklı olacak?</li>
+          <li><b>Kötü haberi saklama:</b> Zor varsayımları açıkça sunun.</li>
+          <li><b>Önceden hazırlık:</b> YK sorularını tahmin edin.</li>
+          <li><b>Tek sayfa özet:</b> Sunum sonrası götürülecek 1 sayfalık özet şart.</li>
+        </ul>
+      </div>
+
+      <div class="bu-takeaway">
+        <h3 class="bu-block-h">Bölüm I — Temel Çıkarımlar</h3>
+        <ul class="bu-tick">
+          <li>Bütçe takvimi Eylül'de başlar — Ekim'de başlayanlar Aralık'ta bitmez.</li>
+          <li>Karma metodoloji: top-down hedef + bottom-up detay — sadece biri yetmez.</li>
+          <li>Varsayım seti merkezi olmalı, herkes farklı enflasyon kullanırsa konsolidasyon tutmaz.</li>
+          <li>Tek senaryo değil üç senaryo: her birinin tetikleyicisi olmalı.</li>
+          <li>Esnek bütçe, hacim etkisini ayrıştırarak sapma analizini anlamlı kılar.</li>
+          <li>CAPEX'te bakım ve büyümeyi ayrıştırın.</li>
+          <li>YK sunumu rakam değil hikaye — kararı sunun, detayı yedekte tutun.</li>
+        </ul>
+      </div>
+    </section>
+<section class="bu-section" id="t1" data-idx="10" data-title="Budget vs Actual" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">01</span><div><h2 class="bu-title">Aylık Bütçe vs Gerçekleşme (BvA) Raporları</h2><p class="bu-sub">"Ne oldu" değil, "neden oldu ve ne yapılacak" sorusuna cevap.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Örnek BvA tablosu</h3>
+        <table>
+          <caption>Tutarlar bin TL — örnek amaçlıdır.</caption>
+          <thead><tr><th>Kalem</th><th class="tc-num">Bütçe</th><th class="tc-num">Gerçekleşen</th><th class="tc-num">Sapma</th><th class="tc-num">Sapma %</th><th>Durum</th></tr></thead>
+          <tbody>
+            <tr><td>Net Satışlar</td><td class="tc-num">12.000</td><td class="tc-num">11.400</td><td class="tc-num">−600</td><td class="tc-num">−5,0%</td><td><span class="bu-warn">⚠ İzlemede</span></td></tr>
+            <tr><td>Brüt Kâr</td><td class="tc-num">3.600</td><td class="tc-num">3.192</td><td class="tc-num">−408</td><td class="tc-num">−11,3%</td><td><span class="bu-bad">Kritik</span></td></tr>
+            <tr><td>Brüt Marj%</td><td class="tc-num">%30,0</td><td class="tc-num">%28,0</td><td class="tc-num">−2,0pp</td><td class="tc-num">—</td><td><span class="bu-bad">Kritik</span></td></tr>
+            <tr><td>Faaliyet Gid.</td><td class="tc-num">1.800</td><td class="tc-num">1.710</td><td class="tc-num">+90</td><td class="tc-num">+5,0%</td><td><span class="bu-ok">✓ İyi</span></td></tr>
+            <tr><td>EBITDA</td><td class="tc-num">1.800</td><td class="tc-num">1.482</td><td class="tc-num">−318</td><td class="tc-num">−17,7%</td><td><span class="bu-bad">Kritik</span></td></tr>
+            <tr><td>EBITDA Marj%</td><td class="tc-num">%15,0</td><td class="tc-num">%13,0</td><td class="tc-num">−2,0pp</td><td class="tc-num">—</td><td><span class="bu-bad">Kritik</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Zorunlu bölümler</h3>
+        <ul class="bu-tick">
+          <li><b>Trafik ışığı özeti:</b> Her KPI için kırmızı/sarı/yeşil.</li>
+          <li><b>Sapma açıklaması:</b> Her önemli sapmanın yanında 1–2 cümle neden/ne yapılacak.</li>
+          <li><b>Kümülatif &amp; aylık:</b> Yılbaşından bugüne kümülatif de gösterilmeli.</li>
+          <li><b>Öngörü güncellemesi:</b> Bu aydaki sapma yıl sonu bütçeyi nasıl etkiler?</li>
+          <li><b>Aksiyon takibi:</b> Geçen ayın aksiyonları gerçekleşti mi?</li>
+        </ul>
+      </div>
+
+      <div class="bu-callout">Raporu değersiz kılan 5 hata: sadece rakam yorum yok, çok sayıda kalem, gecikmeli dağıtım, aksiyon takibi yok, sadece kötü haberleri açıklama.</div>
+    </section>
+<section class="bu-section" id="t2" data-idx="11" data-title="Sapma Analizi" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">02</span><div><h2 class="bu-title">Sapma Analizi — Kök Neden Raporlaması</h2><p class="bu-sub">Fiyat, hacim, mix &amp; verimlilik etkisini ayrıştırın.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Sapma formülleri</h3>
+        <div class="bu-formula"><span class="bu-flabel">Toplam Sapma</span>Sapma = Gerçekleşen − Bütçe</div>
+        <div class="bu-formula"><span class="bu-flabel">Hacim Etkisi</span>(Gerçek Hacim − Bütçe Hacim) × Bütçe Fiyat</div>
+        <div class="bu-formula"><span class="bu-flabel">Fiyat Etkisi</span>(Gerçek Fiyat − Bütçe Fiyat) × Gerçek Hacim</div>
+        <div class="bu-formula"><span class="bu-flabel">Mix Etkisi</span>(Gerçek Mix − Bütçe Mix) × Toplam Hacim × Bütçe Katkı Payı</div>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Sapma türleri &amp; aksiyon matrisi</h3>
+        <table>
+          <thead><tr><th>Sapma</th><th>Kök Neden</th><th>Sorumlu</th><th>Aksiyon</th></tr></thead>
+          <tbody>
+            <tr><td>Olumsuz Hacim</td><td>Piyasa daralması veya pazar kaybı</td><td>Satış Direktörü</td><td>Pipeline analizi, müşteri görüşmesi</td></tr>
+            <tr><td>Olumsuz Fiyat</td><td>Rekabet baskısı, iskonto artışı</td><td>Satış + Pazarlama</td><td>Fiyat politikası revizyonu</td></tr>
+            <tr><td>Olumsuz Mix</td><td>Düşük marjlı ürün daha çok satıldı</td><td>Pazarlama + Satış</td><td>Teşvik sistemini gözden geçir</td></tr>
+            <tr><td>Yüksek Maliyet</td><td>Hammadde fiyat artışı veya israf</td><td>Tedarik + Üretim</td><td>Tedarikçi müzakeresi, verimlilik</td></tr>
+            <tr><td>Yüksek SG&amp;A</td><td>Planlanmamış harcama veya işe alım</td><td>Departman Müdürü</td><td>Harcama dondurma kararı</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Kök neden analizi adımları</h3>
+        <ul class="bu-tick">
+          <li><b>5 Neden tekniği:</b> "Neden satışlar düştü?" sorusunu 5 kez sorun.</li>
+          <li><b>Kontrol dışı sapmayı ayrıştırın:</b> Kur etkisi, enflasyon — bunlar savunulabilir.</li>
+          <li><b>Tek sefer mi, kronik mi?</b> Tek seferlik etki farklı değerlendirilir.</li>
+          <li><b>Karşı önlem zaman çizelgesi:</b> Aksiyon ne zaman etkisini gösterecek?</li>
+        </ul>
+      </div>
+    </section>
+<section class="bu-section" id="t3" data-idx="12" data-title="Re-forecast & Rolling" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">03</span><div><h2 class="bu-title">Re-forecast &amp; Rolling Forecast Süreç Yönetimi</h2><p class="bu-sub">Statik bütçenin ötesinde dinamik tahmin yönetimi.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Yöntem karşılaştırması</h3>
+        <table>
+          <thead><tr><th>Yöntem</th><th>Tanım</th><th>Güncelleme</th><th>Avantaj</th><th>Dezavantaj</th></tr></thead>
+          <tbody>
+            <tr><td>Statik Bütçe</td><td>Yılbaşında bir kez yapılır</td><td>Yok</td><td>Basit, referans noktası</td><td>Gerçeklikten kopabilir</td></tr>
+            <tr><td>Re-forecast</td><td>Yıl içinde revize edilir</td><td>Q2 ve/veya Q3</td><td>Güncel hedef</td><td>Motivasyon tartışması</td></tr>
+            <tr><td>Rolling Forecast</td><td>Her ay ileriye dönük 12–18 ay</td><td>Her ay</td><td>Her zaman güncel</td><td>Yüksek iş yükü</td></tr>
+            <tr><td>Driver-based</td><td>Sürücü metriklere bağlı otomatik</td><td>Sürücü değişince</td><td>Hızlı &amp; nesnel</td><td>Model karmaşıklığı</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Rolling forecast nasıl kurulur?</h3>
+        <ul class="bu-tick">
+          <li><b>Ufuk:</b> Genellikle 12 ay ileri — her ay bir ay eklenir, bir ay geride kalır.</li>
+          <li><b>Detay seviyesi:</b> Yakın aylar aylık, uzak aylar çeyreklik.</li>
+          <li><b>Sürücü bazlı:</b> Satış adedi, kapasite kullanımı gibi sürücüler otomatik finansala dönüşür.</li>
+          <li><b>Hazırlık süresi:</b> 3–5 iş günü içinde tamamlanmalı.</li>
+          <li><b>Bütçeyle ilişkisi:</b> Rolling forecast bütçenin yerini almaz — hedef bütçe, güncel tahmin rolling.</li>
+        </ul>
+      </div>
+
+      <div class="bu-callout">Re-forecast zamanlaması: Q1 sonunda ilk güncelleme, Q2 sonunda en kritik re-forecast, Q3 sonunda küçük güncelleme. Re-forecast bütçeyi "yumuşatmak" için kullanılmamalı.</div>
+    </section>
+<section class="bu-section" id="t4" data-idx="13" data-title="Rebudget Süreci" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">04</span><div><h2 class="bu-title">Bütçe Revizyonu (Rebudget) Süreci</h2><p class="bu-sub">Re-forecast tahmin günceller, rebudget hedef değiştirir.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Re-forecast vs Rebudget</h3>
+        <table>
+          <thead><tr><th>Kriter</th><th>Re-forecast</th><th>Rebudget</th></tr></thead>
+          <tbody>
+            <tr><td>Amaç</td><td>Yıl sonu tahmini güncellemek</td><td>Resmi hedefi değiştirmek</td></tr>
+            <tr><td>Hedef değişir mi?</td><td>Hayır — bütçe sabit kalır</td><td>Evet — yeni hedef belirlenir</td></tr>
+            <tr><td>Prim/bonus etkisi</td><td>Bütçeye göre hesaplanır</td><td>Revize bütçeye göre hesaplanır</td></tr>
+            <tr><td>YK onayı</td><td>Genellikle gerekmez</td><td>Zorunlu</td></tr>
+            <tr><td>Ne zaman?</td><td>Her çeyrekte</td><td>Yılda en fazla 1–2 kez, büyük şokta</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Rebudget tetikleyicileri</h3>
+        <ul class="bu-tick">
+          <li><b>Yapısal değişiklik:</b> Büyük müşteri kaybı, fabrika yangını, yasal düzenleme.</li>
+          <li><b>M&amp;A:</b> Şirket satın alındı veya bir bölüm elden çıkarıldı.</li>
+          <li><b>Makro şok:</b> Döviz %50 değer kaybetti, enerji krizi.</li>
+          <li><b>Strateji değişikliği:</b> YK yeni bir yönelim kararı aldı.</li>
+          <li><b>Bütçe erişilemez hale geldi:</b> Gerçekleşme bütçenin %70'inin altına düştü.</li>
+        </ul>
+      </div>
+
+      <div class="bu-callout">Dikkat: rebudget kolay çıkış olmamalı, sık rebudget "bütçe önemsizdir" mesajı verir, prim sistemi önceden yazılı olmalı, YK'ya gerekçe belgesi hazır olmalı.</div>
+    </section>
+<section class="bu-section" id="t5" data-idx="14" data-title="Departman Geri Bildirimi" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">05</span><div><h2 class="bu-title">Departman Müdürlerine Bütçe Geri Bildirim Sunumları</h2><p class="bu-sub">Suçlama değil anlama — çözüm odaklı yaklaşım.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Sunum bölümleri</h3>
+        <table>
+          <thead><tr><th>Bölüm</th><th>İçerik</th><th>Ton</th></tr></thead>
+          <tbody>
+            <tr><td>1. Özet</td><td>Ay nasıl geçti? 1–2 cümle genel değerlendirme</td><td>Nötr, gerçekçi</td></tr>
+            <tr><td>2. Olumlu Sapmalar</td><td>Bütçeyi geçen kalemler ve nedenleri</td><td>Takdir edici</td></tr>
+            <tr><td>3. Olumsuz Sapmalar</td><td>Bütçenin altında kalan kalemler ve nedenleri</td><td>Sorgulayıcı, suçlayıcı değil</td></tr>
+            <tr><td>4. Aksiyon Planı</td><td>Ne yapılacak, kim, ne zaman?</td><td>Çözüm odaklı</td></tr>
+            <tr><td>5. Öngörü</td><td>Kalan dönem ve yıl sonu tahmini</td><td>Gerçekçi</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Etkili geri bildirim ilkeleri</h3>
+        <ul class="bu-tick">
+          <li><b>Rakamdan önce ilişki:</b> "Bu sapmayı nasıl yorumluyorsunuz?"</li>
+          <li><b>Spesifik olun:</b> "Giderler yüksek" değil — "Danışmanlık giderleri bütçenin 2 katı."</li>
+          <li><b>Geleceğe odaklanın:</b> "Bundan sonra ne yapacaksınız?" sorusu önemli.</li>
+          <li><b>Aksiyon kayıt altına alın:</b> Toplantı notu — kim, ne, ne zamana kadar.</li>
+          <li><b>Takip mekanizması:</b> Bir sonraki ayın raporunda aksiyon durumu yer almalı.</li>
+        </ul>
+      </div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Zor senaryolar</h3>
+        <div class="bu-grid2">
+          <div class="bu-mini-card"><h5>Sürekli aynı hata</h5><p>"Geçen 3 aydır aynı sapma — sistem sorunu mu, bilgi eksikliği mi?"</p></div>
+          <div class="bu-mini-card"><h5>Çok rahat geçen bütçe</h5><p>"Bütçenizi çok düşük mü koydunuz?" — challenge edin.</p></div>
+          <div class="bu-mini-card"><h5>Savunmacı müdür</h5><p>Rakamları tartışmayın — aksiyona odaklanın.</p></div>
+          <div class="bu-mini-card"><h5>Kontrol dışı sebep</h5><p>Kabul edin ama "biz ne yapabiliriz?" sorusunu sormayı bırakmayın.</p></div>
+        </div>
+      </div>
+    </section>
+<section class="bu-section" id="t6" data-idx="15" data-title="Commitment Takibi" style="display:none">
+      <div class="bu-topic-head"><span class="bu-num">06</span><div><h2 class="bu-title">Taahhüt (Commitment) Takibi &amp; Bütçeyle Karşılaştırma</h2><p class="bu-sub">"Bütçem dolmadı" derken aslında dolu olabilir.</p></div></div></div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Temel kavramlar</h3>
+        <table>
+          <thead><tr><th>Kavram</th><th>Tanım</th><th>Muhasebe Etkisi</th><th>Bütçe Etkisi</th></tr></thead>
+          <tbody>
+            <tr><td>Bütçe</td><td>Yıllık onaylanan harcama limiti</td><td>Yok</td><td>Üst sınır</td></tr>
+            <tr><td>Commitment</td><td>Onaylı sipariş/sözleşme, henüz fatura yok</td><td>Yok — nazım hesap</td><td>Bütçeden düşülmeli</td></tr>
+            <tr><td>Accrual</td><td>Hizmet alındı, fatura bekleniyor</td><td>Gider tahakkuku</td><td>Bütçeden düşülmeli</td></tr>
+            <tr><td>Actual</td><td>Fatura geldi, muhasebeleşti</td><td>Gider kaydı</td><td>Bütçeden düşülmeli</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bu-formula"><span class="bu-flabel">Gerçek Kullanılabilir Bütçe</span>Kalan Bütçe = Onaylı Bütçe − Gerçekleşen − Commitment − Accrual</div>
+
+      <div class="bu-block">
+        <h3 class="bu-block-h">Commitment takip sistemi</h3>
+        <ul class="bu-tick">
+          <li><b>Satın alma onayı:</b> Her PO açılmadan önce bütçe kontrolü yapılmalı.</li>
+          <li><b>ERP entegrasyonu:</b> PO açılınca otomatik commitment kaydı — manuel takip hata üretir.</li>
+          <li><b>Aylık raporlama:</b> Her departmana "bütçe − gerçekleşen − commitment = kalan" tablosu.</li>
+          <li><b>Yıl sonu taşıma:</b> Aralık'ta kapanmayan commitmentların bir sonraki yıla alınıp alınmayacağı kararlaştırılmalı.</li>
+        </ul>
+      </div>
+
+      <div class="bu-takeaway">
+        <h3 class="bu-block-h">Bölüm II — Temel Çıkarımlar</h3>
+        <ul class="bu-tick">
+          <li>BvA raporu "ne oldu" değil "neden oldu ve ne yapılacak" sorusunu yanıtlamalı.</li>
+          <li>Sapma analizinde kök nedeni bulun — hacim mi, fiyat mı, mix mi, verimlilik mi?</li>
+          <li>Rolling forecast bütçeyi değiştirmez — hedef sabit, tahmin güncellenir.</li>
+          <li>Rebudget kültürü dikkatli yönetilmeli — sık rebudget hedeflere bağlılığı öldürür.</li>
+          <li>Departman geri bildirimi suçlama değil anlama — çözüm odaklı yaklaşım.</li>
+          <li>Commitment takibi olmadan "bütçem dolmadı" derken aslında dolmuş olabilir.</li>
+        </ul>
+      </div>
+    </section>
+    </div>
+
+  </main>
+</div>
+
+<footer class="fa-footer">
+  <div class="fa-footer-logo">Finans <span>Akademi</span></div>
+  <div class="fa-footer-copy">© 2026 · moyafinans.github.io/cfo</div>
+</footer>
+
+<script>
+var order = ['overview','h1','h2','h3','h4','h5','h6','h7','h8','h9','t1','t2','t3','t4','t5','t6'];
+var titles = {
+  overview:'Genel Bakış', h1:'Yıllık Bütçe Takvimi', h2:'Top-Down & Bottom-Up',
+  h3:'Varsayım Modelleme', h4:'Senaryo Analizi', h5:'Formlar & Konsolidasyon',
+  h6:'Esnek Bütçe', h7:'CAPEX Bütçesi', h8:'Headcount Bütçesi', h9:'YK Sunum Formatı',
+  t1:'Budget vs Actual', t2:'Sapma Analizi', t3:'Re-forecast & Rolling',
+  t4:'Rebudget Süreci', t5:'Departman Geri Bildirimi', t6:'Commitment Takibi'
+};
+
+function showTarget(target) {
+  // Overview
+  document.getElementById('overview-panel').style.display = target === 'overview' ? 'block' : 'none';
+  // Sections
+  document.querySelectorAll('.bu-section').forEach(function(s) {
+    s.style.display = s.id === target ? 'block' : 'none';
+  });
+  // Nav active
+  document.querySelectorAll('.bu-nav-item').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.target === target);
+  });
+  // Breadcrumb
+  var el = document.getElementById(target);
+  document.getElementById('bc-num').textContent = el ? el.dataset.idx : '—';
+  document.getElementById('bc-title').textContent = titles[target] || 'Genel Bakış';
+  document.getElementById('progressFill').style.width = el ? (parseInt(el.dataset.idx)/15*100)+'%' : '0%';
+  // Scroll
+  window.scrollTo({top:0, behavior:'smooth'});
+  // Nav arrows
+  renderArrows(target);
+}
+
+function renderArrows(target) {
+  document.querySelectorAll('.bu-nav-arrows').forEach(function(e){ e.remove(); });
+  if (target === 'overview') return;
+  var idx = order.indexOf(target);
+  var prev = order[idx-1];
+  var next = order[idx+1];
+  var wrap = document.createElement('div');
+  wrap.className = 'bu-nav-arrows';
+  wrap.innerHTML =
+    (prev ? '<button class="arr-prev" data-go="'+prev+'"><span>← Önceki</span>'+titles[prev]+'</button>'
+           : '<button disabled><span>← Önceki</span>—</button>') +
+    (next ? '<button class="arr-next" data-go="'+next+'"><span>Sonraki →</span>'+titles[next]+'</button>'
+           : '<button class="arr-next" disabled><span>Sonraki →</span>—</button>');
+  document.getElementById(target).appendChild(wrap);
+  wrap.querySelectorAll('button[data-go]').forEach(function(b) {
+    b.addEventListener('click', function(){ showTarget(b.dataset.go); });
+  });
+}
+
+// Nav item click
+document.querySelectorAll('.bu-nav-item').forEach(function(b) {
+  b.addEventListener('click', function(){ showTarget(b.dataset.target); });
+});
+// TOC click
+document.querySelectorAll('.bu-toc-item').forEach(function(li) {
+  li.addEventListener('click', function(){ showTarget(li.dataset.target); });
+});
+
+showTarget('overview');
+</script>
+</body>
+</html>
