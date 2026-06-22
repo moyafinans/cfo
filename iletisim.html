@@ -9,35 +9,25 @@
 <link rel="stylesheet" href="fa-system.css">
 <style>
 .fa-main { max-width: 600px; margin: 0 auto; padding: 0 32px 80px; }
-
-.form-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 40px;
-  box-shadow: var(--shadow);
-}
+.form-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 40px; box-shadow: var(--shadow); }
 .form-group { margin-bottom: 18px; }
-.form-label {
-  display: block;
-  font-size: 13px; font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 6px;
-}
+.form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
 .form-input {
   width: 100%; padding: 10px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-family: var(--font); font-size: 14px;
-  color: var(--text-primary); background: var(--white);
-  outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  font-family: var(--font); font-size: 14px; color: var(--text-primary);
+  background: var(--white); outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
-.form-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(15,76,129,0.08);
-}
+.form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(15,76,129,0.08); }
 .form-input::placeholder { color: var(--text-faint); }
+.form-input.error { border-color: #EF4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.08); }
+.form-input.success { border-color: #10B981; box-shadow: 0 0 0 3px rgba(16,185,129,0.08); }
 textarea.form-input { resize: vertical; min-height: 130px; line-height: 1.6; }
+
+.field-msg { font-size: 11.5px; margin-top: 5px; display: none; }
+.field-msg.error { color: #EF4444; display: block; }
+.field-msg.success { color: #10B981; display: block; }
 
 .form-btn {
   width: 100%; padding: 12px;
@@ -48,43 +38,22 @@ textarea.form-input { resize: vertical; min-height: 130px; line-height: 1.6; }
 }
 .form-btn:hover { background: var(--accent-hover); }
 .form-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
-.form-err {
-  display: none;
-  background: #FEF2F2; border: 1px solid #FECACA;
-  border-radius: var(--radius-sm); padding: 10px 14px;
-  font-size: 13px; color: #B91C1C; margin-top: 12px;
-}
-
-.form-success {
-  display: none; text-align: center; padding: 40px 20px;
-}
-.success-icon {
-  width: 56px; height: 56px;
-  background: #ECFDF5; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px; margin: 0 auto 16px;
-}
+.form-err { display: none; background: #FEF2F2; border: 1px solid #FECACA; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: #B91C1C; margin-top: 12px; }
+.form-success { display: none; text-align: center; padding: 40px 20px; }
+.success-icon { width: 56px; height: 56px; background: #ECFDF5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 16px; }
 .form-success h3 { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
 .form-success p { font-size: 14px; color: var(--text-muted); }
-
-@media (max-width: 640px) {
-  .fa-main { padding: 0 16px 60px; }
-  .form-card { padding: 24px; }
-}
+@media (max-width: 640px) { .fa-main { padding: 0 16px 60px; } .form-card { padding: 24px; } }
 </style>
 </head>
 <body>
-
 <nav class="fa-nav">
   <a href="index.html" class="fa-nav-logo">
     <div class="fa-nav-logo-mark">FA</div>
     Finans Akademi
   </a>
   <a href="index.html" class="fa-nav-back">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
-      <path d="M10 12L6 8l4-4"/>
-    </svg>
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 12L6 8l4-4"/></svg>
     Ana Sayfa
   </a>
 </nav>
@@ -100,11 +69,13 @@ textarea.form-input { resize: vertical; min-height: 130px; line-height: 1.6; }
     <div id="form-area">
       <div class="form-group">
         <label class="form-label" for="ad_soyad">Ad Soyad *</label>
-        <input class="form-input" type="text" id="ad_soyad" placeholder="Adınız ve soyadınız">
+        <input class="form-input" type="text" id="ad_soyad" placeholder="Adınız ve soyadınız" autocomplete="name">
+        <div class="field-msg" id="msg-ad"></div>
       </div>
       <div class="form-group">
         <label class="form-label" for="email">E-posta *</label>
-        <input class="form-input" type="email" id="email" placeholder="ornek@email.com">
+        <input class="form-input" type="email" id="email" placeholder="ornek@sirket.com" autocomplete="email">
+        <div class="field-msg" id="msg-email"></div>
       </div>
       <div class="form-group">
         <label class="form-label" for="konu">Konu</label>
@@ -113,11 +84,11 @@ textarea.form-input { resize: vertical; min-height: 130px; line-height: 1.6; }
       <div class="form-group">
         <label class="form-label" for="mesaj">Mesaj *</label>
         <textarea class="form-input" id="mesaj" placeholder="Mesajınızı buraya yazın..."></textarea>
+        <div class="field-msg" id="msg-mesaj"></div>
       </div>
       <button class="form-btn" id="gonder-btn">Gönder</button>
       <div class="form-err" id="form-err"></div>
     </div>
-
     <div class="form-success" id="form-success">
       <div class="success-icon">✓</div>
       <h3>Mesajınız İletildi</h3>
@@ -135,9 +106,65 @@ textarea.form-input { resize: vertical; min-height: 130px; line-height: 1.6; }
 var SUPABASE_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
 var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
 
-document.getElementById('gonder-btn').addEventListener('click', function() {
-  gonder();
+// E-posta doğrulama — gerçek format kontrolü
+function emailGecerliMi(email) {
+  // Temel format: birşey@birşey.uzantı (min 2 karakter uzantı)
+  var re = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+  if (!re.test(email)) return false;
+  // @ işaretinden önce ve sonra boşluk olmamalı
+  if (email.indexOf(' ') !== -1) return false;
+  // Ardışık nokta olmamalı
+  if (email.indexOf('..') !== -1) return false;
+  // @ ile başlayamaz veya bitemez
+  if (email.startsWith('@') || email.endsWith('@')) return false;
+  return true;
+}
+
+function fieldHata(id, msgId, msg) {
+  var el = document.getElementById(id);
+  var msgEl = document.getElementById(msgId);
+  el.classList.add('error'); el.classList.remove('success');
+  if (msgEl) { msgEl.textContent = msg; msgEl.className = 'field-msg error'; }
+  return false;
+}
+
+function fieldOk(id, msgId, msg) {
+  var el = document.getElementById(id);
+  var msgEl = document.getElementById(msgId);
+  el.classList.remove('error'); el.classList.add('success');
+  if (msgEl) { msgEl.textContent = msg || ''; msgEl.className = msg ? 'field-msg success' : 'field-msg'; }
+  return true;
+}
+
+function fieldTemizle(id, msgId) {
+  var el = document.getElementById(id);
+  var msgEl = document.getElementById(msgId);
+  el.classList.remove('error','success');
+  if (msgEl) { msgEl.textContent = ''; msgEl.className = 'field-msg'; }
+}
+
+// Canlı e-posta kontrolü — yazarken göster
+document.getElementById('email').addEventListener('blur', function() {
+  var val = this.value.trim();
+  if (!val) { fieldTemizle('email','msg-email'); return; }
+  if (!emailGecerliMi(val)) {
+    fieldHata('email','msg-email','Geçerli bir e-posta adresi girin. Örn: isim@sirket.com');
+  } else {
+    fieldOk('email','msg-email','');
+  }
 });
+
+document.getElementById('ad_soyad').addEventListener('blur', function() {
+  var val = this.value.trim();
+  if (!val) { fieldTemizle('ad_soyad','msg-ad'); return; }
+  if (val.length < 3) {
+    fieldHata('ad_soyad','msg-ad','En az 3 karakter girin.');
+  } else {
+    fieldOk('ad_soyad','msg-ad','');
+  }
+});
+
+document.getElementById('gonder-btn').addEventListener('click', gonder);
 
 async function gonder() {
   var btn = document.getElementById('gonder-btn');
@@ -149,9 +176,25 @@ async function gonder() {
   var konu = document.getElementById('konu').value.trim();
   var mesaj = document.getElementById('mesaj').value.trim();
 
-  if (!ad_soyad) { hata('Ad Soyad zorunludur.'); return; }
-  if (!email) { hata('E-posta zorunludur.'); return; }
-  if (!mesaj) { hata('Mesaj zorunludur.'); return; }
+  var gecerli = true;
+
+  if (!ad_soyad || ad_soyad.length < 3) {
+    fieldHata('ad_soyad','msg-ad','Ad Soyad zorunludur (en az 3 karakter).');
+    gecerli = false;
+  }
+  if (!email) {
+    fieldHata('email','msg-email','E-posta adresi zorunludur.');
+    gecerli = false;
+  } else if (!emailGecerliMi(email)) {
+    fieldHata('email','msg-email','Geçerli bir e-posta adresi girin. Örn: isim@sirket.com');
+    gecerli = false;
+  }
+  if (!mesaj || mesaj.length < 10) {
+    fieldHata('mesaj','msg-mesaj','Mesaj en az 10 karakter olmalıdır.');
+    gecerli = false;
+  }
+
+  if (!gecerli) return;
 
   btn.disabled = true;
   btn.textContent = 'Gönderiliyor...';
@@ -173,21 +216,17 @@ async function gonder() {
       document.getElementById('form-success').style.display = 'block';
     } else {
       var err = await res.json();
-      hata('Hata: ' + (err.message || res.status));
+      errDiv.textContent = 'Hata oluştu: ' + (err.message || res.status);
+      errDiv.style.display = 'block';
       btn.disabled = false;
       btn.textContent = 'Gönder';
     }
   } catch(e) {
-    hata('Bağlantı hatası: ' + e.message);
+    errDiv.textContent = 'Bağlantı hatası. İnternet bağlantınızı kontrol edin.';
+    errDiv.style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Gönder';
   }
-}
-
-function hata(msg) {
-  var el = document.getElementById('form-err');
-  el.textContent = msg;
-  el.style.display = 'block';
 }
 </script>
 </body>
