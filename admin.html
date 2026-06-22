@@ -9,93 +9,89 @@
 <style>
 body { background: var(--bg); }
 
-.login-wrap {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-.login-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 48px 40px;
-  width: 100%;
-  max-width: 360px;
-  box-shadow: var(--shadow-lg);
-  text-align: center;
-}
-.login-logo {
-  width: 52px; height: 52px;
-  background: var(--accent);
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px; font-weight: 800; color: #fff;
-  margin: 0 auto 20px;
-}
+/* GİRİŞ */
+.login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.login-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 48px 40px; width: 100%; max-width: 360px; box-shadow: var(--shadow-lg); text-align: center; }
+.login-logo { width: 52px; height: 52px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: #fff; margin: 0 auto 20px; }
 .login-title { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
 .login-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; }
-.login-input {
-  width: 100%; padding: 12px 14px;
-  border: 1px solid var(--border); border-radius: var(--radius-sm);
-  font-family: var(--font); font-size: 15px; color: var(--text-primary);
-  outline: none; margin-bottom: 12px;
-  text-align: center; letter-spacing: 4px;
-  transition: border-color 0.15s;
-}
+.login-input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font); font-size: 15px; color: var(--text-primary); outline: none; margin-bottom: 12px; text-align: center; letter-spacing: 4px; transition: border-color 0.15s; }
 .login-input:focus { border-color: var(--accent); }
-.login-btn {
-  width: 100%; padding: 12px;
-  background: var(--accent); color: #fff;
-  border: none; border-radius: var(--radius-sm);
-  font-family: var(--font); font-size: 14px; font-weight: 600;
-  cursor: pointer;
-}
+.login-btn { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; }
 .login-btn:hover { background: var(--accent-hover); }
-.login-err {
-  margin-top: 10px; font-size: 13px; color: #B91C1C;
-  display: none;
-}
+.login-err { margin-top: 10px; font-size: 13px; color: #B91C1C; display: none; }
 
-/* PANEL */
+/* PANEL NAV */
 .panel { display: none; }
-.panel-nav {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  padding: 0 32px; height: 60px;
-  display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 0; z-index: 100;
-}
+.panel-nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 32px; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
 .panel-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: var(--text-primary); }
 .panel-logo-mark { width: 30px; height: 30px; background: var(--accent); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #fff; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-site-link { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); border: none; border-radius: var(--radius-sm); padding: 5px 12px; cursor: pointer; font-family: var(--font); text-decoration: none; }
 .logout-btn { font-size: 12px; font-weight: 500; color: var(--text-muted); background: none; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 5px 12px; cursor: pointer; font-family: var(--font); }
 .logout-btn:hover { color: #B91C1C; border-color: #FECACA; }
 
-.panel-main { max-width: 900px; margin: 0 auto; padding: 40px 32px 80px; }
+/* PANEL İÇERİK */
+.panel-main { max-width: 960px; margin: 0 auto; padding: 36px 32px 80px; }
 
-.stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 36px; }
-.stat { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
-.stat-n { font-size: 30px; font-weight: 800; color: var(--text-primary); letter-spacing: -1px; }
-.stat-l { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+/* İSTATİSTİKLER */
+.stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 36px; }
+.stat { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; }
+.stat-n { font-size: 28px; font-weight: 800; color: var(--text-primary); letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
+.stat-l { font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
-.sec-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.sec-title { font-size: 16px; font-weight: 700; color: var(--text-primary); }
-.refresh-btn { font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-light); border: none; border-radius: var(--radius-sm); padding: 6px 12px; cursor: pointer; font-family: var(--font); }
+/* ARAÇLAR */
+.toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+.toolbar-title { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+.toolbar-right { display: flex; gap: 8px; }
+.refresh-btn { font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-light); border: none; border-radius: var(--radius-sm); padding: 6px 14px; cursor: pointer; font-family: var(--font); }
+.export-btn { font-size: 12px; font-weight: 600; color: var(--text-muted); background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 14px; cursor: pointer; font-family: var(--font); }
+.export-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-.msg-list { display: flex; flex-direction: column; gap: 10px; }
-.msg { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.msg-top { padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
-.msg-top:hover { background: var(--bg); }
-.msg-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
-.msg-email { font-size: 12px; color: var(--text-muted); }
-.msg-meta { display: flex; align-items: center; gap: 10px; }
-.msg-date { font-size: 11px; color: var(--text-faint); }
-.msg-konu { font-size: 11px; font-weight: 600; background: var(--accent-light); color: var(--accent); padding: 2px 8px; border-radius: 10px; }
-.msg-body { display: none; padding: 14px 18px; font-size: 13.5px; color: var(--text-body); line-height: 1.65; background: var(--bg); border-top: 1px solid var(--border); }
+/* MESAJ KARTI */
+.msg-list { display: flex; flex-direction: column; gap: 12px; }
+
+.msg-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.15s; }
+.msg-card:hover { box-shadow: var(--shadow); }
+.msg-card.yeni { border-left: 3px solid var(--accent); }
+
+.msg-header { padding: 16px 20px; display: grid; grid-template-columns: 40px 1fr auto; gap: 14px; align-items: center; cursor: pointer; }
+.msg-header:hover { background: var(--bg); }
+
+.msg-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: var(--accent); flex-shrink: 0; text-transform: uppercase; }
+
+.msg-info { min-width: 0; }
+.msg-name { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.msg-email-text { font-size: 12px; color: var(--text-muted); }
+
+.msg-meta-col { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+.msg-date-text { font-size: 11px; color: var(--text-faint); white-space: nowrap; }
+.msg-konu-badge { font-size: 11px; font-weight: 600; background: var(--accent-light); color: var(--accent); padding: 2px 9px; border-radius: 10px; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.msg-body { display: none; border-top: 1px solid var(--border); }
 .msg-body.open { display: block; }
-.empty { text-align: center; padding: 60px; color: var(--text-muted); font-size: 14px; }
+
+.msg-body-inner { padding: 18px 20px 18px 74px; }
+.msg-body-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px; }
+.msg-body-text { font-size: 14px; color: var(--text-body); line-height: 1.7; white-space: pre-wrap; }
+
+.msg-actions { padding: 12px 20px 14px 74px; display: flex; gap: 8px; border-top: 1px solid var(--border); background: var(--bg); }
+.action-btn { font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font); border: 1px solid var(--border); background: var(--white); color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: all 0.15s; }
+.action-btn:hover { border-color: var(--accent); color: var(--accent); }
+.action-btn.danger:hover { border-color: #FECACA; color: #B91C1C; background: #FEF2F2; }
+
+.empty { text-align: center; padding: 60px; color: var(--text-muted); font-size: 14px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); }
 .loading-txt { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; }
+
+@media (max-width: 640px) {
+  .panel-nav { padding: 0 16px; }
+  .panel-main { padding: 24px 16px 60px; }
+  .stats { grid-template-columns: repeat(2,1fr); }
+  .msg-header { grid-template-columns: 36px 1fr; }
+  .msg-meta-col { display: none; }
+  .msg-body-inner { padding: 14px 16px; }
+  .msg-actions { padding: 10px 16px; }
+}
 </style>
 </head>
 <body>
@@ -119,18 +115,30 @@ body { background: var(--bg); }
       <div class="panel-logo-mark">FA</div>
       Admin Panel
     </div>
-    <button class="logout-btn" id="logout-btn">Çıkış Yap</button>
+    <div class="nav-right">
+      <a href="index.html" class="nav-site-link" target="_blank">↗ Siteyi Gör</a>
+      <button class="logout-btn" id="logout-btn">Çıkış</button>
+    </div>
   </nav>
+
   <div class="panel-main">
+    <!-- İSTATİSTİKLER -->
     <div class="stats">
-      <div class="stat"><div class="stat-n" id="s-toplam">—</div><div class="stat-l">Toplam Mesaj</div></div>
+      <div class="stat"><div class="stat-n" id="s-toplam">—</div><div class="stat-l">Toplam</div></div>
       <div class="stat"><div class="stat-n" id="s-bugun">—</div><div class="stat-l">Bugün</div></div>
       <div class="stat"><div class="stat-n" id="s-hafta">—</div><div class="stat-l">Bu Hafta</div></div>
+      <div class="stat"><div class="stat-n" id="s-ay">—</div><div class="stat-l">Bu Ay</div></div>
     </div>
-    <div class="sec-header">
-      <div class="sec-title">Gelen Mesajlar</div>
-      <button class="refresh-btn" id="refresh-btn">↻ Yenile</button>
+
+    <!-- ARAÇLAR -->
+    <div class="toolbar">
+      <div class="toolbar-title">Gelen Mesajlar</div>
+      <div class="toolbar-right">
+        <button class="export-btn" id="export-btn">↓ CSV İndir</button>
+        <button class="refresh-btn" id="refresh-btn">↻ Yenile</button>
+      </div>
     </div>
+
     <div class="msg-list" id="msg-list">
       <div class="loading-txt">Yükleniyor...</div>
     </div>
@@ -138,19 +146,19 @@ body { background: var(--bg); }
 </div>
 
 <script>
-const SIFRE = 'finans2026';
-const SUPABASE_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
+var SIFRE = 'finans2026';
+var SUPABASE_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
+var tumData = [];
 
-// Butonları yakala
 document.getElementById('giris-btn').addEventListener('click', giris);
 document.getElementById('pw').addEventListener('keydown', function(e){ if(e.key==='Enter') giris(); });
 document.getElementById('logout-btn').addEventListener('click', cikis);
 document.getElementById('refresh-btn').addEventListener('click', yukle);
+document.getElementById('export-btn').addEventListener('click', csvIndir);
 
 function giris() {
-  var val = document.getElementById('pw').value;
-  if (val === SIFRE) {
+  if (document.getElementById('pw').value === SIFRE) {
     sessionStorage.setItem('fa_ok','1');
     goster();
   } else {
@@ -158,18 +166,12 @@ function giris() {
     document.getElementById('pw').value = '';
   }
 }
-
-function cikis() {
-  sessionStorage.removeItem('fa_ok');
-  location.reload();
-}
-
+function cikis() { sessionStorage.removeItem('fa_ok'); location.reload(); }
 function goster() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('panel').style.display = 'block';
   yukle();
 }
-
 if (sessionStorage.getItem('fa_ok') === '1') goster();
 
 async function yukle() {
@@ -178,62 +180,82 @@ async function yukle() {
 
   try {
     var res = await fetch(SUPABASE_URL + '/rest/v1/iletisim?select=*&order=created_at.desc', {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY
-      }
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
     });
     var data = await res.json();
+    if (!Array.isArray(data)) { liste.innerHTML = '<div class="empty">Veri alınamadı.</div>'; return; }
 
-    if (!Array.isArray(data)) {
-      liste.innerHTML = '<div class="empty">Veri alınamadı: ' + JSON.stringify(data) + '</div>';
-      return;
-    }
-
+    tumData = data;
     var simdi = new Date();
     var bugunBas = new Date(simdi.getFullYear(), simdi.getMonth(), simdi.getDate());
     var haftaBas = new Date(simdi); haftaBas.setDate(simdi.getDate()-7);
+    var ayBas = new Date(simdi.getFullYear(), simdi.getMonth(), 1);
 
     document.getElementById('s-toplam').textContent = data.length;
     document.getElementById('s-bugun').textContent = data.filter(function(m){ return new Date(m.created_at) >= bugunBas; }).length;
     document.getElementById('s-hafta').textContent = data.filter(function(m){ return new Date(m.created_at) >= haftaBas; }).length;
+    document.getElementById('s-ay').textContent = data.filter(function(m){ return new Date(m.created_at) >= ayBas; }).length;
 
-    if (data.length === 0) {
-      liste.innerHTML = '<div class="empty">Henüz mesaj yok.</div>';
-      return;
-    }
+    if (data.length === 0) { liste.innerHTML = '<div class="empty">Henüz mesaj yok.</div>'; return; }
 
     liste.innerHTML = data.map(function(m, i) {
-      return '<div class="msg">' +
-        '<div class="msg-top" onclick="toggle(' + i + ')">' +
-          '<div><div class="msg-name">' + esc(m.ad_soyad) + '</div><div class="msg-email">' + esc(m.email) + '</div></div>' +
-          '<div class="msg-meta">' +
-            (m.konu ? '<span class="msg-konu">' + esc(m.konu) + '</span>' : '') +
-            '<span class="msg-date">' + fmt(m.created_at) + '</span>' +
+      var isim = esc(m.ad_soyad || '');
+      var harf = isim.charAt(0).toUpperCase();
+      var tarih = fmt(m.created_at);
+      return '<div class="msg-card" id="mc-' + i + '">' +
+        '<div class="msg-header" onclick="toggle(' + i + ')">' +
+          '<div class="msg-avatar">' + harf + '</div>' +
+          '<div class="msg-info">' +
+            '<div class="msg-name">' + isim + '</div>' +
+            '<div class="msg-email-text">' + esc(m.email || '') + '</div>' +
+          '</div>' +
+          '<div class="msg-meta-col">' +
+            '<span class="msg-date-text">' + tarih + '</span>' +
+            (m.konu ? '<span class="msg-konu-badge">' + esc(m.konu) + '</span>' : '') +
           '</div>' +
         '</div>' +
-        '<div class="msg-body" id="mb-' + i + '">' + esc(m.mesaj) + '</div>' +
+        '<div class="msg-body" id="mb-' + i + '">' +
+          '<div class="msg-body-inner">' +
+            (m.konu ? '<div class="msg-body-label">Konu</div><div class="msg-body-text" style="margin-bottom:14px;font-weight:500;">' + esc(m.konu) + '</div>' : '') +
+            '<div class="msg-body-label">Mesaj</div>' +
+            '<div class="msg-body-text">' + esc(m.mesaj || '') + '</div>' +
+          '</div>' +
+          '<div class="msg-actions">' +
+            '<a class="action-btn" href="mailto:' + esc(m.email) + '?subject=Re: ' + esc(m.konu||'Finans Akademi') + '">✉ Yanıtla</a>' +
+            '<a class="action-btn" href="mailto:' + esc(m.email) + '">📋 Mail Kopyala</a>' +
+          '</div>' +
+        '</div>' +
       '</div>';
     }).join('');
-
   } catch(e) {
     liste.innerHTML = '<div class="empty">Hata: ' + e.message + '</div>';
   }
 }
 
 function toggle(i) {
-  var el = document.getElementById('mb-' + i);
-  el.classList.toggle('open');
+  document.getElementById('mb-'+i).classList.toggle('open');
+}
+
+function csvIndir() {
+  if (!tumData.length) { alert('İndirilecek veri yok.'); return; }
+  var satirlar = [['ID','Ad Soyad','E-posta','Konu','Mesaj','Tarih']];
+  tumData.forEach(function(m) {
+    satirlar.push([m.id, m.ad_soyad||'', m.email||'', m.konu||'', (m.mesaj||'').replace(/\n/g,' '), fmt(m.created_at)]);
+  });
+  var csv = satirlar.map(function(r){ return r.map(function(c){ return '"'+String(c).replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+  var blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a'); a.href = url; a.download = 'mesajlar.csv'; a.click();
+  URL.revokeObjectURL(url);
 }
 
 function fmt(iso) {
   var d = new Date(iso);
-  return d.toLocaleDateString('tr-TR', {day:'2-digit',month:'short',year:'numeric'}) + ' ' +
-         d.toLocaleTimeString('tr-TR', {hour:'2-digit',minute:'2-digit'});
+  return d.toLocaleDateString('tr-TR',{day:'2-digit',month:'short',year:'numeric'}) + ' ' +
+         d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
 }
-
 function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 </script>
 </body>
