@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Finans Akademi</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="fa-system.css">
+<style>
+body { background: var(--bg); }
+
+/* ── GİRİŞ EKRANI ── */
+.login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.login-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+.login-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; height: 48px;
+  background: var(--accent);
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.login-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.login-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+.login-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--text-primary);
+  outline: none;
+  margin-bottom: 12px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  text-align: center;
+  letter-spacing: 3px;
+}
+.login-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(15,76,129,0.08);
+}
+.login-btn {
+  width: 100%;
+  padding: 11px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.login-btn:hover { background: var(--accent-hover); }
+.login-err {
+  display: none;
+  font-size: 12px;
+  color: #B91C1C;
+  margin-top: 8px;
+}
+
+/* ── PANEL ── */
+.panel { display: none; }
+
+.panel-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.panel-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.panel-logo-mark {
+  width: 30px; height: 30px;
+  background: var(--accent);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; color: #fff;
+}
+.panel-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.panel-badge {
+  font-size: 11px;
+  font-weight: 600;
+  background: #ECFDF5;
+  color: #047857;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+.logout-btn {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 5px 12px;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+.logout-btn:hover { border-color: #FECACA; color: #B91C1C; }
+
+.panel-main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.stat-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.stat-num {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.refresh-btn {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 5px 12px;
+  cursor: pointer;
+  font-family: var(--font);
+}
+
+/* Mesaj kartları */
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.msg-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.msg-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.msg-header:hover { background: var(--bg); }
+.msg-meta { flex: 1; min-width: 0; }
+.msg-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.msg-email {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.msg-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.msg-date {
+  font-size: 11px;
+  color: var(--text-faint);
+}
+.msg-konu {
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 10px;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.msg-body {
+  padding: 16px 20px;
+  font-size: 13.5px;
+  color: var(--text-body);
+  line-height: 1.65;
+  display: none;
+  background: var(--bg);
+}
+.msg-body.open { display: block; }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+@media (max-width: 640px) {
+  .panel-header { padding: 0 16px; }
+  .panel-main { padding: 24px 16px 60px; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .login-card { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- GİRİŞ -->
+<div class="login-wrap" id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">FA</div>
+    <div class="login-title">Admin Girişi</div>
+    <div class="login-sub">Finans Akademi yönetim paneli</div>
+    <input class="login-input" type="password" id="sifre" placeholder="••••••••"
+      onkeydown="if(event.key==='Enter') girisYap()">
+    <button class="login-btn" onclick="girisYap()">Giriş Yap</button>
+    <div class="login-err" id="login-err">Şifre hatalı.</div>
+  </div>
+</div>
+
+<!-- PANEL -->
+<div class="panel" id="panel">
+  <div class="panel-header">
+    <div class="panel-logo">
+      <div class="panel-logo-mark">FA</div>
+      Admin Panel
+    </div>
+    <div class="panel-right">
+      <span class="panel-badge">● Aktif</span>
+      <button class="logout-btn" onclick="cikisYap()">Çıkış</button>
+    </div>
+  </div>
+
+  <div class="panel-main">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-toplam">—</div>
+        <div class="stat-label">Toplam Mesaj</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-bugun">—</div>
+        <div class="stat-label">Bugün</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-bu-hafta">—</div>
+        <div class="stat-label">Bu Hafta</div>
+      </div>
+    </div>
+
+    <div class="section-title-row">
+      <div class="section-title">Gelen Mesajlar</div>
+      <button class="refresh-btn" onclick="mesajlariYukle()">↻ Yenile</button>
+    </div>
+
+    <div class="messages-list" id="messages-list">
+      <div class="loading">Yükleniyor...</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ── ŞİFRE — bunu değiştirebilirsin ──
+const ADMIN_SIFRE = 'finans2026';
+
+function girisYap() {
+  const val = document.getElementById('sifre').value;
+  if (val === ADMIN_SIFRE) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('panel').style.display = 'block';
+    sessionStorage.setItem('fa_admin', '1');
+    mesajlariYukle();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+    document.getElementById('sifre').value = '';
+  }
+}
+
+function cikisYap() {
+  sessionStorage.removeItem('fa_admin');
+  location.reload();
+}
+
+// Oturum kontrolü
+if (sessionStorage.getItem('fa_admin') === '1') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('panel').style.display = 'block';
+  mesajlariYukle();
+}
+
+async function mesajlariYukle() {
+  const liste = document.getElementById('messages-list');
+  liste.innerHTML = '<div class="loading">Yükleniyor...</div>';
+
+  const { data, error } = await supabase
+    .from('iletisim')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    liste.innerHTML = '<div class="empty-state">Veriler yüklenemedi: ' + error.message + '</div>';
+    return;
+  }
+
+  // İstatistikler
+  const simdi = new Date();
+  const bugunBaslangic = new Date(simdi.getFullYear(), simdi.getMonth(), simdi.getDate());
+  const haftaBaslangic = new Date(simdi);
+  haftaBaslangic.setDate(simdi.getDate() - 7);
+
+  const bugun = data.filter(m => new Date(m.created_at) >= bugunBaslangic).length;
+  const hafta = data.filter(m => new Date(m.created_at) >= haftaBaslangic).length;
+
+  document.getElementById('stat-toplam').textContent = data.length;
+  document.getElementById('stat-bugun').textContent = bugun;
+  document.getElementById('stat-bu-hafta').textContent = hafta;
+
+  if (data.length === 0) {
+    liste.innerHTML = '<div class="empty-state">Henüz mesaj yok.</div>';
+    return;
+  }
+
+  liste.innerHTML = data.map((m, i) => `
+    <div class="msg-card">
+      <div class="msg-header" onclick="toggleMsg(${i})">
+        <div class="msg-meta">
+          <div class="msg-name">${escHtml(m.ad_soyad)}</div>
+          <div class="msg-email">${escHtml(m.email)}</div>
+        </div>
+        <div class="msg-right">
+          <span class="msg-date">${tarihFormat(m.created_at)}</span>
+          ${m.konu ? `<span class="msg-konu">${escHtml(m.konu)}</span>` : ''}
+        </div>
+      </div>
+      <div class="msg-body" id="msg-${i}">${escHtml(m.mesaj)}</div>
+    </div>
+  `).join('');
+}
+
+function toggleMsg(i) {
+  const el = document.getElementById('msg-' + i);
+  el.classList.toggle('open');
+}
+
+function tarihFormat(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('tr-TR', { day:'2-digit', month:'short', year:'numeric' })
+    + ' ' + d.toLocaleTimeString('tr-TR', { hour:'2-digit', minute:'2-digit' });
+}
+
+function escHtml(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>
