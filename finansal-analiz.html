@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finansal Analiz Teknikleri — Finans Akademi</title>
+<meta name="description" content="Oran analizi, DuPont, nakit akışı, senaryo ve benchmark teknikleri. Finansal analiz formülleri ve yorum rehberi.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://moyafinans.github.io/cfo/finansal-analiz.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0f12;--panel:#15181d;--panel-2:#1b1f25;--line:#2a2f37;
+  --ink:#e9e7e1;--ink-dim:#9aa0aa;--ink-faint:#5a6070;
+  --gold:#cf9b3f;--gold-soft:#e8c789;
+  --teal:#5fb6a4;--red:#d9684f;--amber:#d9a441;--purple:#8b7cf6;
+  font-size:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:var(--gold);color:#16140d;}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;height:60px;
+  background:rgba(13,15,18,.95);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-mark{width:32px;height:32px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#16140d;}
+.nav-logo-text{font-size:15px;font-weight:600;color:var(--ink);}
+.nav-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--ink-dim);text-decoration:none;transition:color .15s;}
+.nav-back:hover{color:var(--gold);}
+
+/* LAYOUT */
+.shell{display:grid;grid-template-columns:268px 1fr;min-height:100vh;}
+
+/* SİDEBAR */
+.sidebar{
+  background:var(--panel);border-right:1px solid var(--line);
+  position:sticky;top:60px;height:calc(100vh - 60px);
+  overflow-y:auto;padding:24px 0 40px;
+}
+.sb-brand{padding:0 20px 18px;border-bottom:1px solid var(--line);margin-bottom:14px;}
+.sb-mark{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin-bottom:4px;}
+.sb-title{font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--ink);}
+.sb-sub{font-size:.75rem;color:var(--ink-dim);margin-top:3px;}
+.nav-group{margin-bottom:4px;}
+.nav-group-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);padding:12px 20px 6px;}
+.nav-item{
+  display:flex;gap:10px;align-items:center;width:100%;text-align:left;
+  background:none;border:none;border-left:2px solid transparent;
+  color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.85rem;
+  padding:8px 20px;cursor:pointer;transition:all .15s;
+}
+.nav-item .num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--gold);opacity:.7;flex-shrink:0;}
+.nav-item:hover{background:var(--panel-2);color:var(--ink);}
+.nav-item.active{background:var(--panel-2);color:var(--ink);border-left-color:var(--purple);font-weight:600;}
+
+/* TOPBAR */
+.topbar{
+  position:sticky;top:60px;z-index:90;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 44px;
+  background:rgba(13,15,18,.96);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.breadcrumb{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--ink-dim);letter-spacing:.04em;}
+.breadcrumb b{color:var(--gold-soft);font-weight:500;}
+.progress-track{width:140px;height:3px;background:var(--line);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--purple);width:0%;transition:width .25s;}
+
+/* MAIN */
+.main{min-width:0;}
+.content{padding:0 44px 80px;max-width:900px;}
+
+/* OVERVIEW */
+.overview{padding:56px 44px 40px;max-width:900px;}
+.ov-eyebrow{font-family:'JetBrains Mono',monospace;color:var(--purple);font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;}
+.ov-title{font-family:'Fraunces',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;line-height:1.05;margin-bottom:14px;color:var(--ink);letter-spacing:-.5px;}
+.ov-desc{color:var(--ink-dim);max-width:540px;font-size:.95rem;}
+.ov-stats{display:flex;gap:36px;margin-top:28px;flex-wrap:wrap;}
+.ov-stat b{display:block;font-family:'Fraunces',serif;font-size:1.7rem;color:var(--gold-soft);font-weight:700;}
+.ov-stat span{font-size:.75rem;color:var(--ink-dim);}
+.ov-divider{height:1px;background:var(--line);margin:36px 0 0;}
+
+/* TOC */
+.toc{padding:32px 44px 48px;max-width:900px;}
+.toc h3{font-family:'Fraunces',serif;font-size:1.2rem;margin-bottom:16px;color:var(--ink);}
+.toc-list{list-style:none;padding:0;}
+.toc-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer;align-items:baseline;}
+.toc-item:last-child{border-bottom:none;}
+.toc-item:hover .toc-title{color:var(--gold-soft);}
+.toc-num{font-family:'JetBrains Mono',monospace;color:var(--purple);font-size:.78rem;opacity:.7;min-width:22px;}
+.toc-title{color:var(--ink);font-size:.9rem;transition:color .15s;}
+
+/* SECTION */
+.section{padding:52px 0;border-bottom:1px solid var(--line);display:none;}
+.section.active{display:block;animation:fadein .3s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.topic-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:10px;}
+.topic-num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:700;color:var(--purple);opacity:.3;line-height:1;}
+.topic-head h2{font-family:'Fraunces',serif;font-size:1.65rem;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.topic-sub{color:var(--ink-dim);font-size:.88rem;}
+
+/* BLOCK */
+.block{margin-top:28px;}
+.block-label{
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--teal);margin:0 0 12px;
+  display:flex;align-items:center;gap:8px;
+}
+.block-label::before{content:'';width:14px;height:1px;background:var(--teal);display:block;}
+.block p{color:#cfd0d3;max-width:720px;font-size:.9rem;}
+
+/* CALLOUT */
+.callout{
+  background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);
+  padding:14px 18px;border-radius:2px;margin:16px 0;font-size:.88rem;color:#d8d6cf;line-height:1.65;
+}
+.callout.purple{border-left-color:var(--purple);}
+.callout.teal{border-left-color:var(--teal);}
+
+/* FORMULA */
+.formula{
+  background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);
+  padding:14px 18px;border-radius:2px;margin:14px 0;
+  font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--gold-soft);
+  display:flex;flex-direction:column;gap:4px;
+}
+.formula .flabel{font-family:'Inter',sans-serif;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-dim);}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.82rem;background:var(--panel);border:1px solid var(--line);}
+caption{text-align:left;font-size:.7rem;color:var(--ink-dim);padding-bottom:6px;font-family:'JetBrains Mono',monospace;}
+th{background:var(--panel-2);color:var(--gold-soft);font-weight:600;font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:#cfd0d3;}
+tr:last-child td{border-bottom:none;}
+td.ok{color:var(--teal);font-weight:600;}
+td.warn{color:var(--amber);font-weight:600;}
+td.bad{color:var(--red);font-weight:600;}
+td.center{text-align:center;}
+td.right,th.right{text-align:right;font-family:'JetBrains Mono',monospace;}
+.highlight-cell{background:rgba(207,155,63,.12);color:var(--gold-soft);font-weight:600;}
+
+/* TICK */
+ul.tick{list-style:none;margin:14px 0;padding:0;max-width:700px;}
+ul.tick li{position:relative;padding:8px 0 8px 24px;color:#cfd0d3;font-size:.88rem;border-bottom:1px solid var(--line);}
+ul.tick li:last-child{border-bottom:none;}
+ul.tick li::before{content:'—';position:absolute;left:0;color:var(--gold);font-family:'JetBrains Mono',monospace;}
+ul.tick li b{color:var(--ink);}
+
+/* GRID */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+.mini-card{background:var(--panel);border:1px solid var(--line);padding:16px;border-radius:2px;}
+.mini-card h4{font-size:1rem;font-family:'Fraunces',serif;color:var(--gold-soft);margin-bottom:6px;}
+.mini-card p{font-size:.82rem;color:var(--ink-dim);}
+
+/* TAKEAWAY */
+.takeaway{
+  margin-top:32px;background:linear-gradient(160deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line);border-top:2px solid var(--purple);
+  padding:22px 24px;border-radius:2px;
+}
+.takeaway h4{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--purple);margin-bottom:12px;}
+
+/* NAV ARROWS */
+.nav-arrows{display:flex;justify-content:space-between;margin-top:44px;gap:16px;}
+.nav-arrows button{
+  background:var(--panel);border:1px solid var(--line);color:var(--ink);
+  padding:12px 18px;font-family:'Inter',sans-serif;font-size:.82rem;cursor:pointer;
+  border-radius:2px;display:flex;flex-direction:column;gap:3px;min-width:150px;
+  transition:border-color .15s;
+}
+.nav-arrows button:hover{border-color:var(--purple);}
+.nav-arrows button:disabled{opacity:.3;cursor:default;}
+.nav-arrows .next{text-align:right;align-items:flex-end;}
+.nav-arrows button span{color:var(--ink-dim);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;}
+
+/* DUYARLILIK TABLOSU */
+.sensitivity-wrap{overflow-x:auto;margin:16px 0;}
+.sensitivity-wrap table{min-width:480px;}
+.s-header{background:var(--panel-2)!important;}
+.s-base{background:rgba(207,155,63,.15)!important;color:var(--gold-soft)!important;font-weight:700!important;}
+
+/* MOBİL */
+@media(max-width:860px){
+  .shell{grid-template-columns:1fr;}
+  .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);max-height:52px;overflow:hidden;transition:max-height .3s;}
+  .sidebar.open{max-height:100vh;overflow-y:auto;}
+  .sb-brand{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:14px 18px;}
+  .sb-title{font-size:1rem;}
+  .sb-sub{display:none;}
+  .menu-toggle{background:none;border:none;color:var(--gold);font-size:18px;cursor:pointer;padding:0;}
+  .content,.overview,.toc{padding-left:20px;padding-right:20px;}
+  .topbar{padding:10px 18px;}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .grid2{grid-template-columns:1fr;}
+  .nav-arrows{flex-direction:column;}
+  .nav-arrows button{min-width:100%;}
+  .nav-arrows .next{text-align:left;align-items:flex-start;}
+}
+@media(max-width:480px){
+  nav{padding:0 16px;}.nav-back span{display:none;}
+  .ov-title{font-size:1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark">FA</div>
+    <span class="nav-logo-text">Finans Akademi</span>
+  </a>
+  <a href="index.html" class="nav-back">← <span>Tüm Konular</span></a>
+</nav>
+
+<div class="shell">
+
+  <!-- SİDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand" onclick="toggleSidebar()">
+      <div>
+        <div class="sb-mark">Finansal Analiz</div>
+        <div class="sb-title">Teknikler</div>
+        <div class="sb-sub">6 konu başlığı</div>
+      </div>
+      <button class="menu-toggle" id="menu-icon" onclick="event.stopPropagation();toggleSidebar()">☰</button>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Genel Bakış</div>
+      <button class="nav-item active" data-target="overview"><span class="num">·</span>Başlangıç</button>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Konular</div>
+      <button class="nav-item" data-target="k1"><span class="num">01</span>Oran Analizi</button>
+      <button class="nav-item" data-target="k2"><span class="num">02</span>Yatay & Dikey Analiz</button>
+      <button class="nav-item" data-target="k3"><span class="num">03</span>DuPont Analizi</button>
+      <button class="nav-item" data-target="k4"><span class="num">04</span>Nakit Akış Analizi</button>
+      <button class="nav-item" data-target="k5"><span class="num">05</span>Senaryo & Duyarlılık</button>
+      <button class="nav-item" data-target="k6"><span class="num">06</span>Sektör & Benchmark</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">Konu <b id="bc-num">—</b> / 6 · <span id="bc-title">Genel Bakış</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div id="overview-panel">
+      <div class="overview">
+        <div class="ov-eyebrow">Finansal Analiz Teknikleri</div>
+        <h1 class="ov-title">Sayıların arkasındaki<br>gerçeği görün.</h1>
+        <p class="ov-desc">Oran analizinden DuPont'a, nakit akışından Monte Carlo'ya — finansal tablolardan doğru kararlar çıkarmak için altı temel teknik.</p>
+        <div class="ov-stats">
+          <div class="ov-stat"><b>6</b><span>Konu başlığı</span></div>
+          <div class="ov-stat"><b>20+</b><span>Formül & oran</span></div>
+          <div class="ov-stat"><b>Tablo</b><span>& örnekler</span></div>
+        </div>
+        <div class="ov-divider"></div>
+      </div>
+      <div class="toc">
+        <h3>İçindekiler</h3>
+        <ul class="toc-list">
+          <li class="toc-item" data-target="k1"><span class="toc-num">01</span><span class="toc-title">Oran Analizi — Kârlılık, Likidite, Kaldıraç, Verimlilik</span></li>
+          <li class="toc-item" data-target="k2"><span class="toc-num">02</span><span class="toc-title">Yatay & Dikey Analiz (Trend & Common Size)</span></li>
+          <li class="toc-item" data-target="k3"><span class="toc-num">03</span><span class="toc-title">DuPont Analizi</span></li>
+          <li class="toc-item" data-target="k4"><span class="toc-num">04</span><span class="toc-title">Nakit Akış Analizi</span></li>
+          <li class="toc-item" data-target="k5"><span class="toc-num">05</span><span class="toc-title">Senaryo, Duyarlılık & Monte Carlo</span></li>
+          <li class="toc-item" data-target="k6"><span class="toc-num">06</span><span class="toc-title">Sektör Karşılaştırması & Benchmark</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- KONU 1 -->
+      <div class="section" id="k1" data-idx="1" data-title="Oran Analizi">
+        <div class="topic-head"><div class="topic-num">01</div><div><h2>Oran Analizi</h2><p class="topic-sub">Kârlılık · Likidite · Kaldıraç · Verimlilik — Formüller & Yorum</p></div></div>
+
+        <div class="block">
+          <div class="block-label">Temel İlke</div>
+          <p>Tek başına bir oran anlamsızdır. Her zaman dört referans noktasıyla karşılaştırılmalıdır: <b>geçen yıl</b> (trend), <b>bütçe</b> (plan), <b>sektör ortalaması</b> ve <b>rakip</b>.</p>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Kârlılık Oranları</div>
+          <table>
+            <thead><tr><th>Oran</th><th>Formül</th><th>İyi Sinyal</th><th>Alarm</th></tr></thead>
+            <tbody>
+              <tr><td>Brüt Marj</td><td>Brüt Kâr / Satış</td><td class="ok">Yüksek & artıyor</td><td class="bad">Sürekli düşüş</td></tr>
+              <tr><td>EBITDA Marjı</td><td>EBITDA / Satış</td><td class="ok">Sektör üstü</td><td class="bad">&lt; Net Kâr Marjı</td></tr>
+              <tr><td>Net Kâr Marjı</td><td>Net Kâr / Satış</td><td class="ok">Pozitif & büyüyor</td><td class="bad">Negatif</td></tr>
+              <tr><td>ROE</td><td>Net Kâr / Özkaynak</td><td class="ok">&gt; Özkaynak maliyeti</td><td class="bad">&lt; Enflasyon</td></tr>
+              <tr><td>ROIC</td><td>NOPAT / Yatırılan Sermaye</td><td class="ok">&gt; WACC</td><td class="bad">ROIC &lt; WACC</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Likidite Oranları</div>
+          <table>
+            <thead><tr><th>Oran</th><th>Formül</th><th>İyi Sinyal</th><th>Alarm</th></tr></thead>
+            <tbody>
+              <tr><td>Cari Oran</td><td>Dönen V. / K.V. Borç</td><td class="ok">1,5 – 2,0x</td><td class="bad">&lt; 1,0</td></tr>
+              <tr><td>Asit-Test</td><td>(Dönen V. − Stok) / K.V. Borç</td><td class="ok">&gt; 1,0</td><td class="bad">&lt; 0,7</td></tr>
+              <tr><td>Nakit Oranı</td><td>Nakit / K.V. Borç</td><td class="ok">&gt; 0,2</td><td class="bad">&lt; 0,1</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Kaldıraç Oranları</div>
+          <table>
+            <thead><tr><th>Oran</th><th>Formül</th><th>İyi Sinyal</th><th>Alarm</th></tr></thead>
+            <tbody>
+              <tr><td>Borç / Özkaynak</td><td>Toplam Borç / Özkaynak</td><td class="ok">&lt; 1,5x</td><td class="bad">&gt; 3,0x</td></tr>
+              <tr><td>Net Borç / EBITDA</td><td>Net Borç / EBITDA</td><td class="ok">&lt; 2,5x</td><td class="bad">&gt; 4,0x</td></tr>
+              <tr><td>Faiz Karşılama</td><td>EBIT / Faiz Gideri</td><td class="ok">&gt; 3,0x</td><td class="bad">&lt; 1,5x</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Verimlilik Oranları</div>
+          <table>
+            <thead><tr><th>Oran</th><th>Formül</th><th>İyi Sinyal</th><th>Alarm</th></tr></thead>
+            <tbody>
+              <tr><td>DSO (Tahsilat Süresi)</td><td>Alacak / (Satış / 365)</td><td class="ok">Düşük & stabil</td><td class="bad">Hızlı artış</td></tr>
+              <tr><td>DIO (Stok Süresi)</td><td>Stok / (SMM / 365)</td><td class="ok">Düşük</td><td class="bad">Stok birikmesi</td></tr>
+              <tr><td>DPO (Ödeme Süresi)</td><td>Borç / (Alım / 365)</td><td class="ok">Yüksek</td><td class="warn">Tedarikçi baskısı</td></tr>
+              <tr><td>Varlık Devir Hızı</td><td>Satış / Toplam Varlık</td><td class="ok">Yüksek & artıyor</td><td class="bad">Düşen trend</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <b>Dikkat:</b> Sektör bağlamı şart — inşaatta düşük cari oran normal, perakendede alarm sinyalidir. Tek dönem yanıltır; 3–5 yıllık trend görmeden yorum yapmayın. Muhasebe politikası farklılıklarına dikkat edin.
+        </div>
+      </div>
+
+      <!-- KONU 2 -->
+      <div class="section" id="k2" data-idx="2" data-title="Yatay & Dikey Analiz">
+        <div class="topic-head"><div class="topic-num">02</div><div><h2>Yatay & Dikey Analiz</h2><p class="topic-sub">Trend Analizi & Common Size — Yapı & Uygulama</p></div></div>
+
+        <div class="block">
+          <div class="block-label">Yatay Analiz (Trend)</div>
+          <p>Finansal tablo kalemlerinin dönemler arasındaki değişimini yüzde veya mutlak tutar olarak inceler. <b>"Bu yıl ne kadar değişti?"</b> sorusunu yanıtlar.</p>
+          <table>
+            <thead><tr><th>Kalem</th><th class="right">2021</th><th class="right">2022</th><th class="right">2023</th><th class="right">22/21</th><th class="right">23/22</th><th>Yorum</th></tr></thead>
+            <tbody>
+              <tr><td>Net Satış</td><td class="right">8.000</td><td class="right">10.400</td><td class="right">12.500</td><td class="right">+%30</td><td class="right">+%20</td><td class="warn">Büyüme yavaşlıyor</td></tr>
+              <tr><td>Brüt Kâr</td><td class="right">2.000</td><td class="right">2.808</td><td class="right">3.750</td><td class="right">+%40</td><td class="right">+%34</td><td class="ok">Marj iyileşiyor</td></tr>
+              <tr><td>EBITDA</td><td class="right">960</td><td class="right">1.352</td><td class="right">1.875</td><td class="right">+%41</td><td class="right">+%39</td><td class="ok">Operasyonel verimlilik ↑</td></tr>
+              <tr><td>Net Borç</td><td class="right">4.800</td><td class="right">5.200</td><td class="right">4.500</td><td class="right">+%8</td><td class="right">−%13</td><td class="ok">Borç azalıyor ✓</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Dikey Analiz (Common Size)</div>
+          <p>Her kalemin baz alınan toplam kaleme oranını gösterir. Farklı büyüklükteki şirketleri karşılaştırmayı mümkün kılar.</p>
+          <table>
+            <thead><tr><th>Kalem</th><th class="right">Tutar (TL)</th><th class="right">% Satış</th><th class="right">Sektör Ort.</th><th>Yorum</th></tr></thead>
+            <tbody>
+              <tr><td>Net Satışlar</td><td class="right">12.500</td><td class="right">%100,0</td><td class="right">%100,0</td><td>Baz</td></tr>
+              <tr><td>Satışların Maliyeti</td><td class="right">8.750</td><td class="right">%70,0</td><td class="right">%72,0</td><td class="ok">Bizim SMM daha iyi ✓</td></tr>
+              <tr><td>Brüt Kâr</td><td class="right">3.750</td><td class="right">%30,0</td><td class="right">%28,0</td><td class="ok">+2 pp avantaj</td></tr>
+              <tr><td>Faaliyet Giderleri</td><td class="right">1.875</td><td class="right">%15,0</td><td class="right">%13,0</td><td class="warn">SG&A yüksek ⚠</td></tr>
+              <tr><td>EBITDA</td><td class="right">1.875</td><td class="right">%15,0</td><td class="right">%15,0</td><td>Sektör ortalamasında</td></tr>
+              <tr><td>Net Kâr</td><td class="right">937</td><td class="right">%7,5</td><td class="right">%6,0</td><td class="ok">+1,5 pp avantaj ✓</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="block">
+          <div class="block-label">İkisini Birlikte Kullanın</div>
+          <ul class="tick">
+            <li><b>Yatay:</b> "Satışlar %30 büyüdü" → <b>Dikey:</b> "Ama SG&A oranı da %2 arttı — verimlilik düştü."</li>
+            <li>Common size ile farklı yıl şirketleri karşılaştırılabilir — mutlak rakam değil oran anlamlı.</li>
+            <li>Varlık tarafında common size: hangi kalem toplam varlığın ne kadarı — yapısal değişim görülür.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- KONU 3 -->
+      <div class="section" id="k3" data-idx="3" data-title="DuPont Analizi">
+        <div class="topic-head"><div class="topic-num">03</div><div><h2>DuPont Analizi</h2><p class="topic-sub">ROE'yi Ayrıştırma — Kârlılık mı, Verimlilik mi, Kaldıraç mı?</p></div></div>
+
+        <div class="block">
+          <div class="block-label">DuPont Formülleri</div>
+          <div class="formula"><span class="flabel">3 Bileşenli DuPont</span>ROE = Net Kâr Marjı × Varlık Devir Hızı × Finansal Kaldıraç</div>
+          <div class="formula"><span class="flabel">5 Bileşenli DuPont</span>ROE = Vergi Yükü × Faiz Yükü × EBIT Marjı × Varlık Devir H. × Kaldıraç</div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Bileşenler & İyileştirme Yolları</div>
+          <table>
+            <thead><tr><th>Bileşen</th><th>Formül</th><th>Ne Söyler?</th><th>İyileştirme</th></tr></thead>
+            <tbody>
+              <tr><td>Net Kâr Marjı</td><td>Net Kâr / Satış</td><td>Fiyatlama & maliyet kontrolü</td><td>Marj yönetimi, KKEG azaltma</td></tr>
+              <tr><td>Varlık Devir Hızı</td><td>Satış / Toplam Varlık</td><td>Varlık kullanım verimliliği</td><td>Atıl varlık satışı, DSO/DIO düşürme</td></tr>
+              <tr><td>Finansal Kaldıraç</td><td>Toplam Varlık / Özkaynak</td><td>Borçla büyüme — risk/getiri</td><td>Optimal borç yapısı</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Rakip Karşılaştırması — Aynı ROE, Farklı Risk</div>
+          <table>
+            <thead><tr><th>Şirket</th><th class="right">ROE</th><th class="right">Net Kâr Marjı</th><th class="right">Varlık Devir</th><th class="right">Kaldıraç</th><th>Yorum</th></tr></thead>
+            <tbody>
+              <tr><td>Şirket A</td><td class="right">%18</td><td class="right">%6</td><td class="right">1,5x</td><td class="right">2,0x</td><td class="ok">Dengeli — sağlıklı</td></tr>
+              <tr><td>Şirket B</td><td class="right">%18</td><td class="right">%3</td><td class="right">1,0x</td><td class="right">6,0x</td><td class="bad">Kaldıraçla şişirilmiş — riskli</td></tr>
+              <tr><td>Şirket C</td><td class="right">%18</td><td class="right">%12</td><td class="right">1,5x</td><td class="right">1,0x</td><td class="ok">Yüksek marj — güçlü model</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout purple">Üç şirket de %18 ROE veriyor ama nedenleri tamamen farklı. DuPont olmadan bu ayrımı göremezsiniz.</div>
+
+        <div class="block">
+          <div class="block-label">Kullanım Alanları</div>
+          <ul class="tick">
+            <li><b>Rakip karşılaştırması:</b> Aynı ROE'ye farklı yollardan ulaşan şirketlerin riski farklıdır.</li>
+            <li><b>Strateji değerlendirme:</b> "Marjı mı artıralım, varlık verimliliğini mi?" sorusuna yanıt verir.</li>
+            <li><b>Performans yönetimi:</b> Her bölüm müdürü hangi bileşenden sorumlu olduğunu bilmeli.</li>
+            <li><b>M&A sonrası entegrasyon:</b> Hedef şirketin ROE yapısı satın alma fiyatını etkiler.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- KONU 4 -->
+      <div class="section" id="k4" data-idx="4" data-title="Nakit Akış Analizi">
+        <div class="topic-head"><div class="topic-num">04</div><div><h2>Nakit Akış Analizi</h2><p class="topic-sub">FCF, OCF & Nakit Kalitesi — Kârdan Daha Önemli</p></div></div>
+
+        <div class="block">
+          <div class="block-label">Temel İlke</div>
+          <p>Şirketler kârla değil, <b>nakitsizlikle</b> batar. Kârlı görünen ama nakit üretemeyen şirket; alacak biriktiriyor, stok şişiyor veya muhasebe ile gerçeği örtüşüyor olabilir.</p>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Temel Formüller</div>
+          <div class="formula"><span class="flabel">Operasyonel Nakit Akışı (OCF)</span>EBITDA − Vergi − Δ İşletme Sermayesi</div>
+          <div class="formula"><span class="flabel">Serbest Nakit Akışı (FCF)</span>OCF − Capex (Sermaye Harcamaları)</div>
+          <div class="formula"><span class="flabel">FCF Verimi</span>FCF / Piyasa Değeri × 100 → Yatırımcının gerçek getirisi</div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Nakit Akış Tablosu Yorumu</div>
+          <table>
+            <thead><tr><th>Kalem</th><th>Pozitif Anlam</th><th>Negatif Anlam</th><th>Alarm Sinyali</th></tr></thead>
+            <tbody>
+              <tr><td>Operasyonel (OCF)</td><td class="ok">Çekirdek iş nakit üretiyor</td><td class="bad">Operasyon nakit yakıyor</td><td class="bad">Net kâr var ama OCF negatif</td></tr>
+              <tr><td>Yatırım (ICF)</td><td class="ok">Varlık satışı var</td><td>Büyüme yatırımı yapılıyor</td><td class="warn">Capex &gt; Amortisman</td></tr>
+              <tr><td>Finansman (CFF)</td><td>Kredi çekildi / sermaye artırıldı</td><td class="ok">Borç ödendi / temettü dağıtıldı</td><td class="bad">Sürekli kredi çekimi</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Nakit Kalitesi Analizi</div>
+          <ul class="tick">
+            <li><b>OCF / Net Kâr &gt; 1,0 olmalı:</b> kârın nakde dönüşüm oranı — düşükse tahsilat sorunu var.</li>
+            <li><b>FCF pozitif mi?</b> Negatif FCF bir yıl normal, kronik ise iş modeli sorunlu.</li>
+            <li><b>Capex türü:</b> Büyüme Capex (gelir artırır) vs Bakım Capex (varlığı korur) ayrıştırın.</li>
+            <li><b>Temettü kapasitesi:</b> FCF temettüyü karşılamıyorsa borçla temettü ödeniyor — sürdürülemez.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- KONU 5 -->
+      <div class="section" id="k5" data-idx="5" data-title="Senaryo & Duyarlılık">
+        <div class="topic-head"><div class="topic-num">05</div><div><h2>Senaryo, Duyarlılık & Monte Carlo</h2><p class="topic-sub">Belirsizliği Yönetmek İçin Analitik Araçlar</p></div></div>
+
+        <div class="callout">"Büyüme %15 olacak" tek nokta tahmini yanıltıcıdır. CFO her zaman aralık ve olasılık sunar — bu güvenilirlik değil, dürüstlüktür.</div>
+
+        <div class="block">
+          <div class="block-label">Analiz Türleri</div>
+          <table>
+            <thead><tr><th>Analiz</th><th>Yöntem</th><th>Çıktı</th><th>En İyi Kullanım</th></tr></thead>
+            <tbody>
+              <tr><td>Senaryo Analizi</td><td>Baz / İyimser / Kötümser — 3 tam set</td><td>3 farklı P&L, bilanço</td><td>Strateji, bütçe, yatırım kararı</td></tr>
+              <tr><td>Duyarlılık Analizi</td><td>Tek değişkeni ±% değiştir</td><td>Tabloda değer aralığı</td><td>Hangi değişken en kritik?</td></tr>
+              <tr><td>Monte Carlo</td><td>Binlerce rastgele senaryo</td><td>Olasılık dağılımı</td><td>Risk ölçümü, VaR hesabı</td></tr>
+              <tr><td>Break-even</td><td>Sabit maliyet / Birim katkı payı</td><td>Kâra geçiş noktası</td><td>Yeni ürün / proje kararı</td></tr>
+              <tr><td>Tornado Chart</td><td>Değişkenleri etkisine göre sırala</td><td>Öncelik grafiği</td><td>Yönetim sunumu</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Duyarlılık Tablosu Örneği</div>
+          <p style="margin-bottom:12px;">EBITDA'nın satış büyümesi ve EBITDA marjına duyarlılığı (TL bin):</p>
+          <div class="sensitivity-wrap">
+            <table>
+              <thead>
+                <tr class="s-header">
+                  <th>Büyüme \ Marj</th>
+                  <th class="center">%13</th>
+                  <th class="center">%14</th>
+                  <th class="center">%15 (Baz)</th>
+                  <th class="center">%16</th>
+                  <th class="center">%17</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>%5</td><td class="center">1.365</td><td class="center">1.470</td><td class="center">1.575</td><td class="center">1.680</td><td class="center">1.785</td></tr>
+                <tr><td>%10</td><td class="center">1.430</td><td class="center">1.540</td><td class="center">1.650</td><td class="center">1.760</td><td class="center">1.870</td></tr>
+                <tr><td><b>%15 (Baz)</b></td><td class="center">1.495</td><td class="center">1.610</td><td class="center s-base">1.725</td><td class="center">1.840</td><td class="center">1.955</td></tr>
+                <tr><td>%20</td><td class="center">1.560</td><td class="center">1.680</td><td class="center">1.800</td><td class="center">1.920</td><td class="center">2.040</td></tr>
+                <tr><td>%25</td><td class="center">1.625</td><td class="center">1.750</td><td class="center">1.875</td><td class="center">2.000</td><td class="center">2.125</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:10px;font-size:.8rem;color:var(--ink-dim);">Sarı hücre (1.725) baz senaryo; köşeye doğru gidildikçe uç senaryolar görülür.</p>
+        </div>
+      </div>
+
+      <!-- KONU 6 -->
+      <div class="section" id="k6" data-idx="6" data-title="Sektör & Benchmark">
+        <div class="topic-head"><div class="topic-num">06</div><div><h2>Sektör Karşılaştırması & Benchmark</h2><p class="topic-sub">Rakip Analizi & Endüstri Ortalamasıyla Konumlanma</p></div></div>
+
+        <div class="callout teal">Sektör %20 büyürken siz %10 büyüdüyseniz, bu büyüme değil <b>pazar kaybıdır</b>. Benchmark bu bağlamı sağlar.</div>
+
+        <div class="block">
+          <div class="block-label">Benchmark Kaynakları</div>
+          <table>
+            <thead><tr><th>Kaynak</th><th>İçerik</th><th>Erişim</th><th>Güvenilirlik</th></tr></thead>
+            <tbody>
+              <tr><td>KAP / Borsa İstanbul</td><td>Halka açık şirket finansalları</td><td>Ücretsiz, kamuya açık</td><td class="ok">Yüksek — bağımsız denetimli</td></tr>
+              <tr><td>Sektör Raporları</td><td>Ortalama oranlar, büyüme trendi</td><td>TEPAV, TÜSİAD, sektör dernekleri</td><td class="warn">Orta — metodoloji farklı olabilir</td></tr>
+              <tr><td>Bloomberg / Refinitiv</td><td>Derin finansal veri, çarpanlar</td><td>Ücretli — kurumsal</td><td class="ok">Çok yüksek</td></tr>
+              <tr><td>Danışmanlık Raporları</td><td>Sektör benchmark çalışmaları</td><td>McKinsey, PwC, Deloitte yayınları</td><td class="ok">Yüksek — metodoloji açık</td></tr>
+              <tr><td>Şirket Yıllık Raporları</td><td>Rakibin kendi açıkladığı veriler</td><td>Şirket web sitesi</td><td class="warn">Orta — yönetim seçimi</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Doğru Benchmark Nasıl Yapılır?</div>
+          <ul class="tick">
+            <li><b>Evren seçimi:</b> Aynı sektör, benzer büyüklük ve iş modeli — elma ile elma karşılaştırın.</li>
+            <li><b>Metrik seçimi:</b> En az 5 oran — kârlılık, likidite, kaldıraç, verimlilik, büyüme.</li>
+            <li><b>Medyan kullanın:</b> Ortalama aşırı değerlerden etkilenir; medyan daha sağlam.</li>
+            <li><b>Quartile analizi:</b> 1. çeyrek (en iyi %25) hedef, 3. çeyrek eşiği alt sınır.</li>
+            <li><b>Zaman tutarlılığı:</b> Aynı dönem verileri — yıl sonu ile çeyrek karışmasın.</li>
+          </ul>
+        </div>
+
+        <div class="takeaway">
+          <h4>Temel Çıkarımlar — Finansal Analiz Teknikleri</h4>
+          <ul class="tick">
+            <li>Oran tek başına anlamsız — her zaman 4 referansla karşılaştırın: geçen yıl, bütçe, sektör, rakip.</li>
+            <li>Yatay + dikey analizi birlikte kullanın: biri trendi, diğeri yapıyı gösterir.</li>
+            <li>DuPont: aynı ROE'ye farklı yollardan ulaşan iki şirketin riski tamamen farklı olabilir.</li>
+            <li>Nakit akışı kârdan daha güvenilir: OCF / Net Kâr &gt; 1,0 olmalı — düşükse tahsilat sorunu.</li>
+            <li>Tek senaryo sunmayın: baz + iyimser + kötümser — bu dürüstlük, zayıflık değil.</li>
+            <li>Benchmark olmadan performans değerlendirmesi eksik — sektörü bilin, konumunuzu bilin.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- end content -->
+  </main>
+</div><!-- end shell -->
+
+<footer style="padding:32px 40px;border-top:1px solid var(--line);text-align:center;">
+  <div style="font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px;">Finans <span style="color:var(--gold)">Akademi</span></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-dim);">© 2026 · moyafinans.github.io/cfo · Kaynak: Kenan Gezici — Finansal Analiz Teknikleri</div>
+</footer>
+
+<script>
+var order = ['overview','k1','k2','k3','k4','k5','k6'];
+var titles = {overview:'Genel Bakış',k1:'Oran Analizi',k2:'Yatay & Dikey Analiz',k3:'DuPont Analizi',k4:'Nakit Akış Analizi',k5:'Senaryo & Duyarlılık',k6:'Sektör & Benchmark'};
+
+function show(target) {
+  document.getElementById('overview-panel').style.display = target === 'overview' ? 'block' : 'none';
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.toggle('active', s.id === target); });
+  document.querySelectorAll('.nav-item').forEach(function(b){ b.classList.toggle('active', b.dataset.target === target); });
+  var el = document.getElementById(target);
+  document.getElementById('bc-num').textContent = el ? el.dataset.idx : '—';
+  document.getElementById('bc-title').textContent = titles[target] || 'Genel Bakış';
+  document.getElementById('progressFill').style.width = el ? (parseInt(el.dataset.idx)/6*100)+'%' : '0%';
+  window.scrollTo({top:0, behavior:'smooth'});
+  renderArrows(target);
+  if (window.innerWidth <= 860) {
+    var sb = document.getElementById('sidebar');
+    sb.classList.remove('open');
+    document.getElementById('menu-icon').textContent = '☰';
+  }
+}
+
+function renderArrows(target) {
+  document.querySelectorAll('.nav-arrows').forEach(function(e){ e.remove(); });
+  if (target === 'overview') return;
+  var idx = order.indexOf(target);
+  var prev = order[idx-1]; var next = order[idx+1];
+  var wrap = document.createElement('div'); wrap.className = 'nav-arrows';
+  wrap.innerHTML =
+    (prev ? '<button data-go="'+prev+'"><span>← Önceki</span>'+titles[prev]+'</button>' : '<button disabled><span>← Önceki</span>—</button>') +
+    (next ? '<button class="next" data-go="'+next+'"><span>Sonraki →</span>'+titles[next]+'</button>' : '<button class="next" disabled><span>Sonraki →</span>—</button>');
+  document.getElementById(target).appendChild(wrap);
+  wrap.querySelectorAll('button[data-go]').forEach(function(b){ b.addEventListener('click', function(){ show(b.dataset.go); }); });
+}
+
+function toggleSidebar() {
+  var sb = document.getElementById('sidebar');
+  sb.classList.toggle('open');
+  document.getElementById('menu-icon').textContent = sb.classList.contains('open') ? '✕' : '☰';
+}
+
+document.querySelectorAll('.nav-item, .toc-item').forEach(function(b){
+  b.addEventListener('click', function(){ show(b.dataset.target); });
+});
+
+show('overview');
+</script>
+</body>
+</html>
