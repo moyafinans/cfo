@@ -321,6 +321,74 @@ footer{
   .hero, section.topic, .toc-overview{ padding-left:22px; padding-right:22px; }
   .topbar{ padding:14px 22px; }
 }
+
+/* ===== MOBİL DÜZELTMELER ===== */
+@media (max-width: 880px) {
+  .sidebar {
+    position: relative;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    padding: 0;
+    overflow: hidden;
+    max-height: 52px;
+    transition: max-height 0.3s ease;
+  }
+  .sidebar.open {
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+  .brand h1 { font-size: 1.1rem; margin: 0; }
+  .brand p { display: none; }
+  .brand-toggle {
+    font-size: 18px;
+    color: var(--gold);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+  .nav-group { padding-bottom: 4px; }
+  .main { min-width: 0; overflow-x: hidden; }
+  .topbar { padding: 10px 16px; }
+  .hero { padding: 36px 18px 28px; }
+  .hero h2 { font-size: 1.6rem; }
+  .hero-stats { gap: 20px; }
+  .hstat b { font-size: 1.4rem; }
+  section.topic { padding: 36px 18px; }
+  .toc-overview { padding: 36px 18px; }
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 0.78rem; }
+  table thead, table tbody, table tr { min-width: 500px; }
+  th, td { padding: 8px 10px; white-space: nowrap; }
+  .nav-arrows { flex-direction: column; gap: 10px; }
+  .nav-arrows button { min-width: 100%; text-align: left; }
+  .nav-arrows .next { text-align: left; align-items: flex-start; }
+  .callout { font-size: 0.84rem; padding: 12px 14px; }
+  .callout.formula { font-size: 0.78rem; }
+  .mini-card { padding: 14px; }
+  .mini-card h5 { font-size: 0.95rem; }
+  .progress-track { width: 100px; }
+  .breadcrumb { font-size: 0.68rem; }
+}
+
+@media (max-width: 480px) {
+  .hero h2 { font-size: 1.35rem; }
+  .topic-num { font-size: 2rem; }
+  .topic-head h3 { font-size: 1.3rem; }
+  .hero-stats { flex-direction: column; gap: 10px; }
+  .brand h1 { font-size: 1rem; }
+}
+
 </style>
 </head>
 <body>
@@ -328,10 +396,11 @@ footer{
 
   <!-- SIDEBAR -->
   <nav class="sidebar" id="sidebar">
-    <div class="brand">
+    <div class="brand" onclick="toggleSidebar()" id="brand-toggle">
       <div class="mark">FP&A · Eğitim Modülü</div>
       <h1>Bütçe Defteri</h1>
       <p>Hazırlama → Planlama → Takip → Revizyon</p>
+      <button class="brand-toggle" id="menu-icon" onclick="event.stopPropagation();toggleSidebar()">☰</button>
     </div>
 
     <div class="nav-group">
@@ -975,6 +1044,24 @@ footer{
 </div>
 
 <script>
+
+function toggleSidebar() {
+  var sidebar = document.getElementById('sidebar');
+  sidebar.classList.toggle('open');
+  document.getElementById('menu-icon').textContent = sidebar.classList.contains('open') ? '✕' : '☰';
+}
+
+// Nav item tıklanınca mobilde sidebar'ı kapat
+document.querySelectorAll('.nav-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    if (window.innerWidth <= 880) {
+      var sidebar = document.getElementById('sidebar');
+      sidebar.classList.remove('open');
+      document.getElementById('menu-icon').textContent = '☰';
+    }
+  });
+});
+
 const order = ['overview','h1','h2','h3','h4','h5','h6','h7','h8','h9','t1','t2','t3','t4','t5','t6'];
 const titles = {
   overview:'Genel Bakış', h1:'Yıllık Bütçe Takvimi', h2:'Top-Down & Bottom-Up', h3:'Varsayım Modelleme',
