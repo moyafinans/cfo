@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bilanço & Gelir Tablosu Yönetimi — Finans Akademi</title>
+<meta name="description" content="Bilanço analizi, likidite ve kaldıraç oranları, gelir tablosu yorumu, özkaynak değişim tablosu, dipnotlar ve denetim süreci yönetimi.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://moyafinans.github.io/cfo/bilanco-gelir.html">
+<meta property="og:title" content="Bilanço & Gelir Tablosu Yönetimi — Finans Akademi">
+<meta property="og:description" content="Bilanço analizi, likidite ve kaldıraç oranları, gelir tablosu yorumu, özkaynak değişim tablosu, dipnotlar ve denetim süreci yönetimi.">
+<meta property="og:url" content="https://moyafinans.github.io/cfo/bilanco-gelir.html">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0f12;--panel:#15181d;--panel-2:#1b1f25;--line:#2a2f37;
+  --ink:#e9e7e1;--ink-dim:#9aa0aa;--ink-faint:#5a6070;
+  --gold:#cf9b3f;--gold-soft:#e8c789;--teal:#5fb6a4;
+  --red:#d9684f;--amber:#d9a441;--purple:#8b7cf6;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;line-height:1.7}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:rgba(13,15,18,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-icon{width:32px;height:32px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#16140d;}
+.nav-logo span{font-size:15px;font-weight:600;color:var(--ink);}
+.nav-back{font-size:13px;font-weight:500;color:var(--ink-dim);text-decoration:none;transition:color .15s;}
+.nav-back:hover{color:var(--gold);}
+
+/* SHELL */
+.shell{display:grid;grid-template-columns:268px 1fr;min-height:calc(100vh - 60px);}
+
+/* SIDEBAR */
+.sidebar{background:var(--panel);border-right:1px solid var(--line);position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:24px 0 40px;}
+.sb-brand{display:flex;align-items:center;justify-content:space-between;padding:0 20px 20px;border-bottom:1px solid var(--line);margin-bottom:12px;}
+.sb-brand-inner .cat{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;}
+.sb-brand-inner .title{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--ink);}
+.sb-brand-inner .sub{font-size:.75rem;color:var(--ink-dim);margin-top:2px;}
+#menu-icon{background:none;border:none;color:var(--gold);font-size:18px;cursor:pointer;padding:4px;}
+.nav-group-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim);padding:12px 20px 6px;letter-spacing:.14em;text-transform:uppercase;}
+.nav-item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:none;border-left:2px solid transparent;color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.85rem;padding:8px 20px;cursor:pointer;transition:all .15s;}
+.nav-item .num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--gold);opacity:.7;min-width:18px;}
+.nav-item:hover{background:var(--panel-2);color:var(--ink);}
+.nav-item.active{background:var(--panel-2);color:var(--ink);border-left-color:var(--gold);font-weight:600;}
+
+/* MAIN */
+.main{min-width:0;}
+.topbar{position:sticky;top:60px;z-index:90;display:flex;align-items:center;justify-content:space-between;padding:12px 44px;background:rgba(13,15,18,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+.topbar-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--ink-dim);}
+.topbar-label b{color:var(--gold-soft);}
+.progress-bar{width:140px;height:3px;background:var(--line);border-radius:2px;overflow:hidden;}
+#progressFill{height:100%;background:var(--gold);width:0%;transition:width .25s;}
+
+/* CONTENT */
+.content{padding:52px 44px 80px;}
+.overview{padding:52px 44px 60px;}
+
+/* SECTION */
+.section{display:none;border-bottom:1px solid var(--line);}
+.section.active{display:block;animation:fadein .3s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.section-inner{padding:52px 44px 60px;}
+
+/* HEADING */
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;}
+.sec-num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:700;color:var(--gold);opacity:.3;line-height:1;min-width:52px;}
+.sec-head h2{font-family:'Fraunces',serif;font-size:1.65rem;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.sec-head p{color:var(--ink-dim);font-size:.88rem;}
+
+/* BLOCK */
+.block{margin-top:28px;}
+.block-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+.block-label::before{content:'';width:14px;height:1px;background:var(--teal);display:block;}
+.block p{color:#cfd0d3;max-width:720px;font-size:.9rem;}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0;}
+table{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--panel);border:1px solid var(--line);}
+th{background:var(--panel-2);color:var(--gold-soft);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;}
+td{padding:9px 12px;border-bottom:1px solid var(--line);color:#cfd0d3;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+td.ok{color:var(--teal);font-weight:600;}
+td.warn{color:var(--amber);font-weight:600;}
+td.bad{color:var(--red);font-weight:600;}
+td.mono{font-family:'JetBrains Mono',monospace;font-size:.78rem;}
+th.center,td.center{text-align:center;}
+
+/* CALLOUT */
+.callout{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);padding:14px 18px;margin:16px 0;font-size:.88rem;color:#cfd0d3;line-height:1.65;}
+.callout.teal{border-left-color:var(--teal);}
+.callout.red{border-left-color:var(--red);}
+.callout.amber{border-left-color:var(--amber);}
+.callout strong{color:var(--ink);}
+
+/* FORMULA */
+.formula{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--gold-soft);display:flex;flex-direction:column;gap:4px;margin:14px 0;}
+.flabel{font-family:'Inter',sans-serif;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-dim);}
+
+/* TICK LIST */
+ul.tick{list-style:none;margin:14px 0;padding:0;max-width:720px;}
+ul.tick li{position:relative;padding:8px 0 8px 24px;color:#cfd0d3;font-size:.88rem;border-bottom:1px solid var(--line);line-height:1.6;}
+ul.tick li:last-child{border-bottom:none;}
+ul.tick li::before{content:'—';position:absolute;left:0;color:var(--gold);font-family:'JetBrains Mono',monospace;}
+ul.tick li b{color:var(--ink);}
+
+/* GRID2 */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+.mini-card{background:var(--panel);border:1px solid var(--line);padding:16px;}
+.mini-card h4{font-family:'Fraunces',serif;font-size:1rem;color:var(--gold-soft);margin-bottom:6px;}
+.mini-card p{font-size:.82rem;color:var(--ink-dim);line-height:1.6;}
+
+/* TAKEAWAY */
+.takeaway{margin-top:32px;background:var(--panel-2);border:1px solid var(--line);border-top:2px solid var(--gold);padding:22px 24px;}
+.takeaway h4{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:12px;}
+
+/* OCI TABLE */
+.oci-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0;}
+.oci-card{background:var(--panel);border:1px solid var(--line);padding:14px;}
+.oci-card .oci-title{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:6px;}
+.oci-card p{font-size:.8rem;color:var(--ink-dim);line-height:1.55;}
+
+/* PHASE TIMELINE */
+.timeline{margin:16px 0;}
+.tl-row{display:grid;grid-template-columns:140px 1fr 1fr;gap:0;border-bottom:1px solid var(--line);}
+.tl-row:first-child{background:var(--panel-2);}
+.tl-row:first-child .tl-cell{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--gold-soft);font-weight:600;}
+.tl-cell{padding:10px 14px;font-size:.82rem;color:#cfd0d3;border-right:1px solid var(--line);}
+.tl-cell:last-child{border-right:none;}
+.tl-cell .phase-badge{display:inline-block;background:var(--panel-2);border:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--gold);padding:2px 8px;margin-bottom:4px;}
+
+/* OPINION CARDS */
+.opinion-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;}
+.opin-card{background:var(--panel);border:1px solid var(--line);padding:16px;}
+.opin-card.ok-card{border-top:2px solid var(--teal);}
+.opin-card.warn-card{border-top:2px solid var(--amber);}
+.opin-card.bad-card{border-top:2px solid var(--red);}
+.opin-card .opin-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.ok-card .opin-label{color:var(--teal);}
+.warn-card .opin-label{color:var(--amber);}
+.bad-card .opin-label{color:var(--red);}
+.opin-card h4{font-family:'Fraunces',serif;font-size:1rem;color:var(--ink);margin-bottom:6px;}
+.opin-card p{font-size:.8rem;color:var(--ink-dim);line-height:1.55;}
+
+/* NAV ARROWS */
+.nav-arrows{display:flex;gap:12px;margin-top:40px;padding-top:32px;border-top:1px solid var(--line);}
+.nav-arrows button{background:var(--panel);border:1px solid var(--line);color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.82rem;padding:12px 20px;cursor:pointer;flex:1;text-align:left;transition:all .15s;display:flex;flex-direction:column;gap:2px;}
+.nav-arrows button span{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--gold);letter-spacing:.06em;}
+.nav-arrows button.next{text-align:right;}
+.nav-arrows button:hover:not(:disabled){background:var(--panel-2);border-color:var(--gold);color:var(--ink);}
+.nav-arrows button:disabled{opacity:.3;cursor:not-allowed;}
+
+/* OVERVIEW */
+.ov-title{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.ov-sub{color:var(--ink-dim);font-size:.95rem;margin-bottom:36px;max-width:600px;}
+.toc{display:grid;gap:10px;margin-top:24px;}
+.toc-item{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-left:3px solid transparent;padding:14px 18px;cursor:pointer;transition:all .15s;text-align:left;width:100%;font-family:'Inter',sans-serif;}
+.toc-item:hover{border-left-color:var(--gold);background:var(--panel-2);}
+.toc-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--gold);min-width:24px;}
+.toc-title{font-size:.92rem;color:var(--ink);font-weight:500;}
+.toc-desc{font-size:.78rem;color:var(--ink-dim);margin-top:2px;}
+.toc-arrow{margin-left:auto;color:var(--ink-faint);font-size:.8rem;}
+
+/* FOOTER */
+footer{padding:32px 40px;border-top:1px solid var(--line);text-align:center;}
+
+/* MOBILE */
+@media(max-width:860px){
+  nav{padding:0 18px;}
+  .shell{grid-template-columns:1fr;}
+  .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);max-height:52px;overflow:hidden;transition:max-height .3s;}
+  .sidebar.open{max-height:100vh;overflow-y:auto;}
+  .sb-brand{padding:14px 18px;cursor:pointer;}
+  .content,.overview,.section-inner{padding:32px 18px 48px;}
+  .topbar{padding:10px 18px;}
+  .grid2,.oci-grid,.opinion-grid{grid-template-columns:1fr;}
+  .nav-arrows{flex-direction:column;}
+  .nav-arrows button{min-width:100%;}
+  .tl-row{grid-template-columns:1fr;}
+  .tl-cell{border-right:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-icon">FA</div>
+    <span>Finans Akademi</span>
+  </a>
+  <a class="nav-back" href="index.html">← Tüm Konular</a>
+</nav>
+
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand" onclick="toggleSidebar()">
+      <div class="sb-brand-inner">
+        <div class="cat">Finansal Raporlama</div>
+        <div class="title">Bilanço & Gelir Tablosu</div>
+        <div class="sub">5 konu başlığı</div>
+      </div>
+      <button id="menu-icon" onclick="event.stopPropagation();toggleSidebar()">☰</button>
+    </div>
+
+    <div>
+      <div class="nav-group-label">İçindekiler</div>
+      <button class="nav-item active" data-target="overview"><span class="num">—</span>Genel Bakış</button>
+      <button class="nav-item" data-target="k1"><span class="num">01</span>Bilanço Analizi</button>
+      <button class="nav-item" data-target="k2"><span class="num">02</span>Gelir Tablosu Yorumu</button>
+      <button class="nav-item" data-target="k3"><span class="num">03</span>Özkaynak Değişim Tablosu</button>
+      <button class="nav-item" data-target="k4"><span class="num">04</span>Finansal Tablo Dipnotları</button>
+      <button class="nav-item" data-target="k5"><span class="num">05</span>Denetim Süreci Yönetimi</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-label">
+        Konu <b id="bc-num">—</b> / 5 &nbsp;·&nbsp; <span id="bc-title">Genel Bakış</span>
+      </div>
+      <div class="progress-bar">
+        <div id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div id="overview-panel" class="overview">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px;">Finansal Raporlama</div>
+      <div class="ov-title">Bilanço & Gelir<br>Tablosu Yönetimi</div>
+      <p class="ov-sub">Bilanço okumadan denetim görüşü yönetimine — CFO'nun finansal tablolarla kurduğu ilişkinin bütünü.</p>
+
+      <div style="display:flex;gap:24px;flex-wrap:wrap;margin-bottom:36px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;background:var(--gold);border-radius:50%;"></div>
+          <span style="font-size:.82rem;color:var(--ink-dim);">5 Konu</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;background:var(--teal);border-radius:50%;"></div>
+          <span style="font-size:.82rem;color:var(--ink-dim);">Oran & Formül Referansı</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;background:var(--purple);border-radius:50%;"></div>
+          <span style="font-size:.82rem;color:var(--ink-dim);">TFRS Uyumlu</span>
+        </div>
+      </div>
+
+      <div class="toc">
+        <button class="toc-item" data-target="k1">
+          <span class="toc-num">01</span>
+          <div><div class="toc-title">Bilanço Analizi</div><div class="toc-desc">Likidite, kaldıraç & varlık verimliliği oranları</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+        <button class="toc-item" data-target="k2">
+          <span class="toc-num">02</span>
+          <div><div class="toc-title">Gelir Tablosu Satır Satır Yorum</div><div class="toc-desc">Gross margin, EBITDA, net kâr analizi</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+        <button class="toc-item" data-target="k3">
+          <span class="toc-num">03</span>
+          <div><div class="toc-title">Özkaynak Değişim Tablosu</div><div class="toc-desc">OCI kalemleri, hazırlama esasları ve analiz</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+        <button class="toc-item" data-target="k4">
+          <span class="toc-num">04</span>
+          <div><div class="toc-title">Finansal Tablo Dipnotları</div><div class="toc-desc">Zorunlu açıklamalar & kaliteli dipnot yazımı</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+        <button class="toc-item" data-target="k5">
+          <span class="toc-num">05</span>
+          <div><div class="toc-title">Bağımsız Denetim Süreci Yönetimi</div><div class="toc-desc">Big4 ile çalışma, görüş türleri, CFO'nun rolü</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- SECTION 1: BİLANÇO ANALİZİ -->
+    <div class="section" id="k1" data-idx="1" data-title="Bilanço Analizi">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">01</div>
+          <div>
+            <h2>Bilanço Analizi</h2>
+            <p>Likidite, Kaldıraç & Varlık Verimliliği Oranları</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Bilanço Okuma Çerçevesi</div>
+          <p>Bilanço; belirli bir tarihteki varlıklar, borçlar ve özkaynak dengesini gösterir. Analiz yaparken tek dönem değil, <b style="color:var(--ink)">en az 3 dönem karşılaştırmalı inceleme</b> yapılır.</p>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Oran Referans Tablosu</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Grup</th>
+                  <th>Oran</th>
+                  <th>Formül</th>
+                  <th>Hedef / Yorum</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="color:var(--teal);font-weight:600;">Likidite</td>
+                  <td class="mono">Cari Oran</td>
+                  <td>Dönen Varlık / K.V. Borç</td>
+                  <td class="ok">&gt; 1,5</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--teal);font-weight:600;">Likidite</td>
+                  <td class="mono">Asit-Test</td>
+                  <td>(Dönen V. − Stok) / K.V. Borç</td>
+                  <td class="ok">&gt; 1,0</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--teal);font-weight:600;">Likidite</td>
+                  <td class="mono">Nakit Oranı</td>
+                  <td>(Nakit + K.V. Men. Kıy.) / K.V. Borç</td>
+                  <td class="ok">&gt; 0,2</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--amber);font-weight:600;">Kaldıraç</td>
+                  <td class="mono">Borç / Özkaynak</td>
+                  <td>Toplam Borç / Özkaynak</td>
+                  <td class="warn">&lt; 2,0 tercih edilir</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--amber);font-weight:600;">Kaldıraç</td>
+                  <td class="mono">Finansal Kaldıraç</td>
+                  <td>Toplam Varlık / Özkaynak</td>
+                  <td class="warn">Yüksek = riskli</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--amber);font-weight:600;">Kaldıraç</td>
+                  <td class="mono">Net Borç / EBITDA</td>
+                  <td>(Fin. Borç − Nakit) / EBITDA</td>
+                  <td class="warn">&lt; 3,0x</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--purple);font-weight:600;">Varlık Ver.</td>
+                  <td class="mono">Varlık Devir Hızı</td>
+                  <td>Net Satışlar / Toplam Varlık</td>
+                  <td>Yüksek = verimli</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--purple);font-weight:600;">Varlık Ver.</td>
+                  <td class="mono">Alacak Devir Hızı</td>
+                  <td>Net Satışlar / Ort. Ticari Alacak</td>
+                  <td>DSO = 365 / Oran</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--purple);font-weight:600;">Varlık Ver.</td>
+                  <td class="mono">Stok Devir Hızı</td>
+                  <td>SMM / Ort. Stok</td>
+                  <td>DIO = 365 / Oran</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Bilanço Analiz Teknikleri</div>
+          <div class="grid2">
+            <div class="mini-card">
+              <h4>Yatay Analiz (Trend)</h4>
+              <p>Kalemler dönemden döneme yüzde değişim olarak incelenir. En az 3 dönem gereklidir.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Dikey Analiz (Common Size)</h4>
+              <p>Her kalem toplam varlığın veya satışın yüzdesi olarak ifade edilir. Sektör karşılaştırmasına olanak tanır.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Oran Analizi</h4>
+              <p>Likidite, kaldıraç ve verimlilik oranları hesaplanır; sektör ortalaması ile kıyaslanır.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Kırmızı Bayrak Tespiti</h4>
+              <p>Alacaklardaki olağandışı artış, stok birikmesi, borç vade uzaması — bunlar ilk incelenecek sinyallerdir.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">CFO'nun Bilançoda İlk Baktığı 5 Şey</div>
+          <ul class="tick">
+            <li><b>Nakit & bankalar:</b> İşletme nakit pozisyonu yeterli mi?</li>
+            <li><b>Ticari alacaklar ve yaşlandırma:</b> Vadesi geçmiş alacak oranı nedir?</li>
+            <li><b>Kısa vadeli borçlar ve vade profili:</b> Refinansman riski var mı?</li>
+            <li><b>Net borç / EBITDA:</b> Kovanant eşiğine ne kadar mesafe kaldı?</li>
+            <li><b>Özkaynak değişimi:</b> Kâr mı dağıtıldı, sermaye mi artırıldı, zarar mı yazıldı?</li>
+          </ul>
+        </div>
+
+        <div class="callout teal">
+          <strong>Temel Kural:</strong> Bilanço analizi tek dönemle yapılmaz. Her zaman en az 3 dönem karşılaştırmalı inceleyin; trendleri ve sapmaları ancak o zaman görebilirsiniz.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: GELİR TABLOSU -->
+    <div class="section" id="k2" data-idx="2" data-title="Gelir Tablosu Yorumu">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">02</div>
+          <div>
+            <h2>Gelir Tablosu Satır Satır Yorum</h2>
+            <p>Gross Margin, EBITDA, Net Kâr — Anlam & Analiz</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Gelir Tablosu Yapısı</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Satır</th>
+                  <th>İçerik</th>
+                  <th>Kritik Soru</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mono" style="color:var(--gold-soft);font-weight:600;">Net Satışlar</td>
+                  <td>Brüt satış − iadeler − iskontolar</td>
+                  <td>Büyüme oranı nedir? Fiyat mı hacim mi?</td>
+                </tr>
+                <tr>
+                  <td class="mono">Satışların Maliyeti (SMM)</td>
+                  <td>Direkt ilk madde + işçilik + genel üretim</td>
+                  <td>Marj sıkışıyor mu?</td>
+                </tr>
+                <tr>
+                  <td class="mono" style="color:var(--teal);font-weight:600;">BRÜT KÂR</td>
+                  <td>Net Satış − SMM</td>
+                  <td>Brüt marj = Brüt Kâr / Satış</td>
+                </tr>
+                <tr>
+                  <td class="mono">Faaliyet Giderleri</td>
+                  <td>Satış + Pazarlama + Genel Yönetim</td>
+                  <td>Sabit mi değişken mi? Ciroyla oran?</td>
+                </tr>
+                <tr>
+                  <td class="mono" style="color:var(--gold-soft);font-weight:600;">FAVÖK / EBITDA</td>
+                  <td>Faaliyet Kârı + Amortisman</td>
+                  <td>Nakit yaratma gücü — kaldıraç için referans</td>
+                </tr>
+                <tr>
+                  <td class="mono">Faaliyet Kârı (EBIT)</td>
+                  <td>Brüt Kâr − Faaliyet Giderleri</td>
+                  <td>Finansman öncesi operasyonel güç</td>
+                </tr>
+                <tr>
+                  <td class="mono">Finansman Gelir/Gideri</td>
+                  <td>Faiz geliri − Faiz gideri ± Kur farkı</td>
+                  <td>Borç yükü ve kur etkisi burada görünür</td>
+                </tr>
+                <tr>
+                  <td class="mono">VÖK (EBT)</td>
+                  <td>EBIT + Net Finansman</td>
+                  <td>Vergi öncesi kâr</td>
+                </tr>
+                <tr>
+                  <td class="mono">Vergi Gideri</td>
+                  <td>Cari + Ertelenmiş vergi</td>
+                  <td>Etkin vergi oranı = Vergi / VÖK</td>
+                </tr>
+                <tr>
+                  <td class="mono" style="color:var(--teal);font-weight:600;">NET KÂR</td>
+                  <td>VÖK − Vergi</td>
+                  <td>Hisse başı kazanç (EPS) hesabı buradan</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Temel Marj Metrikleri</div>
+          <div class="formula">
+            <span class="flabel">Brüt Marj</span>
+            Brüt Kâr / Net Satışlar × 100
+          </div>
+          <div class="formula">
+            <span class="flabel">EBITDA Marjı</span>
+            EBITDA / Net Satışlar × 100
+          </div>
+          <div class="formula">
+            <span class="flabel">Net Kâr Marjı</span>
+            Net Kâr / Net Satışlar × 100
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Gelir Tablosunda Kalite Kontrol</div>
+          <ul class="tick">
+            <li><b>Normalize EBITDA:</b> Tek seferlik giderler (tazminat, karşılık iptali) ayıklanmış mı?</li>
+            <li><b>Kur farkı etkisi:</b> Büyük kur farkı geliri varsa operasyonel kâr şişmiş olabilir.</li>
+            <li><b>Faaliyet dışı gelirler:</b> Varlık satış kârı, sigorta tazminatı — tekrar etmez, dikkatli yorum yapın.</li>
+            <li><b>Amortisman artışı:</b> Yeni yatırım sonrası normaldir; artış yoksa varlık yaşlanıyor olabilir.</li>
+            <li><b>Vergi kalitesi:</b> Etkin oran %25'ten çok düşükse istisnalar araştırılmalı.</li>
+          </ul>
+        </div>
+
+        <div class="callout amber">
+          <strong>CFO Notu:</strong> EBITDA tek başına yeterli değildir. Serbest nakit akışı (FCF) daha gerçekçi bir performans göstergesidir. EBITDA'ya çok odaklanmak kaldıraç riskini maskeleyebilir.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: ÖZKAYNAK DEĞİŞİM TABLOSU -->
+    <div class="section" id="k3" data-idx="3" data-title="Özkaynak Değişim Tablosu">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">03</div>
+          <div>
+            <h2>Özkaynak Değişim Tablosu</h2>
+            <p>Hazırlama Esasları & Analiz</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Neden Önemli?</div>
+          <p>Özkaynak Değişim Tablosu (ÖDT); hesap döneminde özkaynak kalemlerinde meydana gelen tüm değişimleri gösterir. Sermaye artırımı, kâr dağıtımı, kapsamlı gelir kalemleri ve muhasebe politikası değişikliklerinin izlendiği tablodur.</p>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Özkaynak Kalemlerinin Hareketi</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Özkaynak Kalemi</th>
+                  <th>Artış Nedeni</th>
+                  <th>Azalış Nedeni</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Ödenmiş Sermaye</td>
+                  <td>Sermaye artırımı (nakit/ayni)</td>
+                  <td>Sermaye azaltımı</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Sermaye Yedekleri</td>
+                  <td>Emisyon primi, varlık değerlemesi</td>
+                  <td>Zarar mahsubu</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Kâr Yedekleri</td>
+                  <td>Kanun gereği veya ihtiyari ayrım</td>
+                  <td>Temettü ödeme</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Geçmiş Yıl Kârları</td>
+                  <td>Dönem kârının devri</td>
+                  <td>Temettü, zarar mahsubu</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Dönem Net Kârı/Zararı</td>
+                  <td>Kârlı dönem</td>
+                  <td>Zararlı dönem</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--purple);">Diğer Kapsamlı Gelir (OCI)</td>
+                  <td>Kur çevrim farkı, hedge</td>
+                  <td>Gerçeğe uygun değer düşüşü</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">OCI — Diğer Kapsamlı Gelir Kalemleri</div>
+          <p style="margin-bottom:14px;">OCI, gelir tablosuna alınmayan ancak özkaynakları etkileyen kalemlerdir:</p>
+          <div class="oci-grid">
+            <div class="oci-card">
+              <div class="oci-title">TMS 21</div>
+              <p>Yurt dışı işletme kur çevrim farkları</p>
+            </div>
+            <div class="oci-card">
+              <div class="oci-title">TFRS 9</div>
+              <p>Gerçeğe uygun değer farkı OCI'ye yansıtılan finansal varlıklar</p>
+            </div>
+            <div class="oci-card">
+              <div class="oci-title">TFRS 9</div>
+              <p>Nakit akış hedge'inin etkin kısmı</p>
+            </div>
+            <div class="oci-card">
+              <div class="oci-title">TMS 19</div>
+              <p>Tanımlanmış fayda planı aktüeryal kazanç/kayıpları</p>
+            </div>
+            <div class="oci-card">
+              <div class="oci-title">TMS 16</div>
+              <p>Maddi duran varlık yeniden değerleme fazlası</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Denetçi & Analist Gözünden ÖDT</div>
+          <ul class="tick">
+            <li><b>Büyük kâr yedeklerinin temettüye dönüşmemesi:</b> Nakit ihtiyacı mı, strateji mi? Açıklama istenmelidir.</li>
+            <li><b>OCI'de büyük kur farkı:</b> Yurt dışı iştirak varsa konsolidasyon etkisi — dikkatli yorumlanmalı.</li>
+            <li><b>Sermaye artırımı öncesi geçmiş yıl zararlarının silinmesi:</b> "Clean-up" işlemi — olağan ama takip gerektirir.</li>
+            <li><b>Politika değişikliğinin etkisi:</b> Geçmiş dönem düzeltmesi olarak retrospektif gösterilir.</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <strong>Göz ardı edilmez:</strong> ÖDT'deki OCI kalemleri çoğu zaman atlanır; oysa kur ve hedge etkileri burada görünür. Konsolide tablolarda özellikle kritiktir.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: DİPNOTLAR -->
+    <div class="section" id="k4" data-idx="4" data-title="Finansal Tablo Dipnotları">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">04</div>
+          <div>
+            <h2>Finansal Tablo Dipnotları</h2>
+            <p>Zorunlu Açıklamalar & Kaliteli Dipnot Yazımı</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Dipnotların Önemi</div>
+          <p>Dipnotlar; finansal tablolardaki rakamları açıklayan, muhasebe politikalarını belirten ve riskleri ortaya koyan zorunlu eklerdir. <b style="color:var(--ink)">TFRS'ye göre dipnotlar tablolarla eşit önemdedir</b> — eksik dipnot şartlı görüş nedeni olabilir.</p>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Dipnot Kategorileri & İlgili TFRS</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Dipnot Kategorisi</th>
+                  <th>İçerik</th>
+                  <th>İlgili Standart</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;">Muhasebe Politikaları</td>
+                  <td>Hasılat, stok, amortisman, konsolidasyon</td>
+                  <td class="mono" style="color:var(--teal);">TMS 1</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">İlişkili Taraf İşlemleri</td>
+                  <td>Tutar, taraf, fiyatlama politikası</td>
+                  <td class="mono" style="color:var(--teal);">TMS 24</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Finansal Araçlar</td>
+                  <td>Gerçeğe uygun değer, risk yönetimi</td>
+                  <td class="mono" style="color:var(--teal);">TFRS 7, TFRS 9</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Ertelenmiş Vergi</td>
+                  <td>Geçici farklar, hareket tablosu</td>
+                  <td class="mono" style="color:var(--teal);">TMS 12</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Çalışanlara Sağlanan Faydalar</td>
+                  <td>Kıdem tazminatı aktüeryal varsayımlar</td>
+                  <td class="mono" style="color:var(--teal);">TMS 19</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Kira Yükümlülükleri</td>
+                  <td>ROU varlık, kira borcu, vade analizi</td>
+                  <td class="mono" style="color:var(--teal);">TFRS 16</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Koşullu Borçlar</td>
+                  <td>Devam eden davalar, taahhütler</td>
+                  <td class="mono" style="color:var(--teal);">TMS 37</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Bilanço Sonrası Olaylar</td>
+                  <td>Kapatma sonrası kritik gelişmeler</td>
+                  <td class="mono" style="color:var(--teal);">TMS 10</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Kaliteli Dipnot Yazım İlkeleri</div>
+          <div class="grid2">
+            <div class="mini-card">
+              <h4>Açıklayıcı Dil</h4>
+              <p>"Standart uyundur" değil, politikanın içeriği açıkça yazılır. Okuyucu ne yapıldığını anlamalıdır.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Sayısal Destekleme</h4>
+              <p>Her açıklama tablo veya tutarla desteklenir. Rakamsız dipnot yetersizdir.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Karşılaştırmalı Sunum</h4>
+              <p>Önceki dönem verileri paralel sunulur. Trend okumaya olanak tanır.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Risk Odaklı</h4>
+              <p>Kur riski, faiz riski, kredi riski; duyarlılık analizi ile sayısal olarak gösterilir.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Denetçilerin En Çok İncelediği Dipnotlar</div>
+          <ul class="tick">
+            <li><b>İlişkili taraf işlemleri:</b> Piyasa dışı fiyatlandırma var mı?</li>
+            <li><b>Koşullu borçlar:</b> Mahkeme kararı beklenen davalar yeterince açıklanmış mı?</li>
+            <li><b>Hasılat muhasebesi politikası:</b> TFRS 15 performans yükümlülükleri net mi?</li>
+            <li><b>Kira dipnotu (TFRS 16):</b> Vade analizi ve iskonto oranı tutarlı mı?</li>
+            <li><b>Bilanço sonrası olaylar:</b> Kapatma tarihinden rapor tarihine kadar kritik gelişme var mı?</li>
+          </ul>
+        </div>
+
+        <div class="callout red">
+          <strong>Risk Uyarısı:</strong> Eksik dipnot şartlı görüş riski taşır. Kaliteli dipnot yazmak mali tablo hazırlamak kadar önemlidir — denetçi bunu tablolarla eşit değerlendirir.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: DENETİM SÜRECİ -->
+    <div class="section" id="k5" data-idx="5" data-title="Denetim Süreci Yönetimi">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">05</div>
+          <div>
+            <h2>Bağımsız Denetim Süreci Yönetimi</h2>
+            <p>Big4 / Mid-Tier ile Çalışma & Denetim Koordinasyonu</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Denetim Süreci Genel Akışı</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Aşama</th>
+                  <th>Dönem</th>
+                  <th>Faaliyet</th>
+                  <th>Şirket Sorumluluğu</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Planlama</td>
+                  <td class="mono">Eki – Kas</td>
+                  <td>Risk değerlendirmesi, önemlilik tespiti</td>
+                  <td>Yönetimle toplantı, bilgi paylaşımı</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Ara Denetim</td>
+                  <td class="mono">Kas – Ara</td>
+                  <td>İç kontrol testleri, süreç incelemeleri</td>
+                  <td>Prosedür belgeleri, iç kontrol kanıtları</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Kapanış Çalışması</td>
+                  <td class="mono">Oca – Şub</td>
+                  <td>Bakiye doğrulamaları, mutabakat mektupları</td>
+                  <td>Tüm hesap mutabakatları hazır olmalı</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Tamamlama</td>
+                  <td class="mono">Şub – Mar</td>
+                  <td>Dipnot incelemesi, yönetim beyanı</td>
+                  <td>Taslak dipnotlar, beyan mektubu imzası</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Raporlama</td>
+                  <td class="mono">Mar – Nis</td>
+                  <td>Denetim görüşü ve raporu</td>
+                  <td>Genel Kurul için hazır</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Denetim Görüşü Türleri</div>
+          <div class="opinion-grid">
+            <div class="opin-card ok-card">
+              <div class="opin-label">✓ Hedef</div>
+              <h4>Olumlu Görüş</h4>
+              <p>Tablolar tüm önemli yönleriyle doğrudur. Normal sonuç — her CFO'nun hedefi budur.</p>
+            </div>
+            <div class="opin-card warn-card">
+              <div class="opin-label">⚠ Sorun Var</div>
+              <h4>Şartlı Görüş</h4>
+              <p>Belirli bir konu dışında tablolar doğrudur. Derhal çözülmeli — banka kredi maliyetini artırır.</p>
+            </div>
+            <div class="opin-card bad-card">
+              <div class="opin-label">✗ Kritik</div>
+              <h4>Olumsuz Görüş</h4>
+              <p>Tablolar yanıltıcı veya hatalıdır. Ağır sonuçları var — kredi kesilmesi ve itibar kaybı riski.</p>
+            </div>
+            <div class="opin-card bad-card">
+              <div class="opin-label">✗ Çok Ciddi</div>
+              <h4>Görüş Bildirmekten Kaçınma</h4>
+              <p>Denetçi yeterli kanıt toplayamadı. Şeffaflık sorunu olarak algılanır — acil aksiyon gerektirir.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">CFO'nun Denetim Sürecindeki Rolü</div>
+          <ul class="tick">
+            <li><b>Proaktif iletişim:</b> Sorunları denetçiye siz bildirin; keşfetmelerini beklemeyin. Bu ilişkiyi güçlendirir.</li>
+            <li><b>Zaman yönetimi:</b> İstenen belgeleri hızlı ve eksiksiz sağlayın — gecikme maliyeti yüksektir.</li>
+            <li><b>Muhasebe politikası değişikliği:</b> Önceden denetçiyle mutabık kalın; sürpriz olmaz.</li>
+            <li><b>Yönetim beyanı mektubu:</b> Kritik bir belgedir — imzalamadan önce içeriği hukuk ile gözden geçirin.</li>
+          </ul>
+        </div>
+
+        <div class="callout red">
+          <strong>Maliyet Uyarısı:</strong> Şartlı görüş banka kredi maliyetini artırır, bazen limit kesilmesine bile yol açar. Sorunları denetçi bulmadan önce kendiniz bildirmek hem ilişkiyi güçlendirir hem de süreci hızlandırır.
+        </div>
+
+        <div class="takeaway">
+          <h4>Temel Çıkarımlar — Bilanço & Gelir Tablosu Yönetimi</h4>
+          <ul class="tick">
+            <li><b>Bilanço analizi tek dönemle yapılmaz</b> — her zaman en az 3 dönem karşılaştırmalı inceleyin.</li>
+            <li><b>EBITDA tek başına yeterli değil;</b> serbest nakit akışı (FCF) daha gerçekçi performans göstergesidir.</li>
+            <li><b>ÖDT'de OCI kalemleri</b> göz ardı edilir; oysa kur ve hedge etkileri burada görünür.</li>
+            <li><b>Dipnot eksikliği şartlı görüş riski</b> taşır — kaliteli dipnot yazmak mali tablo kadar önemli.</li>
+            <li><b>Denetçiye sorunları kendiniz bildirmek</b> ilişkiyi güçlendirir ve sürprizi önler.</li>
+            <li><b>Şartlı görüş</b> banka kredi maliyetini artırır, bazen limit kesilmesine bile yol açar — önleyin.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div style="font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px;">
+    Finans <span style="color:var(--gold)">Akademi</span>
+  </div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-dim);">
+    © 2026 · moyafinans.github.io/cfo
+  </div>
+</footer>
+
+<script>
+var order = ['overview','k1','k2','k3','k4','k5'];
+var titles = {
+  overview:'Genel Bakış',
+  k1:'Bilanço Analizi',
+  k2:'Gelir Tablosu Yorumu',
+  k3:'Özkaynak Değişim Tablosu',
+  k4:'Finansal Tablo Dipnotları',
+  k5:'Denetim Süreci Yönetimi'
+};
+var TOPLAM = 5;
+
+function show(target) {
+  var ovp = document.getElementById('overview-panel');
+  ovp.style.display = target === 'overview' ? 'block' : 'none';
+  document.querySelectorAll('.section').forEach(function(s){
+    s.classList.toggle('active', s.id === target);
+  });
+  document.querySelectorAll('.nav-item, .toc-item').forEach(function(b){
+    b.classList.toggle('active', b.dataset.target === target);
+  });
+  var el = document.getElementById(target);
+  document.getElementById('bc-num').textContent = el ? el.dataset.idx : '—';
+  document.getElementById('bc-title').textContent = titles[target] || 'Genel Bakış';
+  document.getElementById('progressFill').style.width = el ? (parseInt(el.dataset.idx)/TOPLAM*100)+'%' : '0%';
+  window.scrollTo({top:0, behavior:'smooth'});
+  renderArrows(target);
+  if (window.innerWidth <= 860) {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('menu-icon').textContent = '☰';
+  }
+}
+
+function renderArrows(target) {
+  document.querySelectorAll('.nav-arrows').forEach(function(e){ e.remove(); });
+  if (target === 'overview') return;
+  var idx = order.indexOf(target);
+  var prev = order[idx-1]; var next = order[idx+1];
+  var wrap = document.createElement('div'); wrap.className = 'nav-arrows';
+  wrap.innerHTML =
+    (prev ? '<button data-go="'+prev+'"><span>← Önceki</span>'+titles[prev]+'</button>'
+           : '<button disabled><span>← Önceki</span>—</button>') +
+    (next ? '<button class="next" data-go="'+next+'"><span>Sonraki →</span>'+titles[next]+'</button>'
+           : '<button class="next" disabled><span>Sonraki →</span>—</button>');
+  var si = document.getElementById(target);
+  si.querySelector('.section-inner').appendChild(wrap);
+  wrap.querySelectorAll('button[data-go]').forEach(function(b){
+    b.addEventListener('click', function(){ show(b.dataset.go); });
+  });
+}
+
+function toggleSidebar() {
+  var sb = document.getElementById('sidebar');
+  sb.classList.toggle('open');
+  document.getElementById('menu-icon').textContent = sb.classList.contains('open') ? '✕' : '☰';
+}
+
+document.querySelectorAll('.nav-item, .toc-item').forEach(function(b){
+  b.addEventListener('click', function(){ show(b.dataset.target); });
+});
+
+show('overview');
+</script>
+</body>
+</html>
