@@ -10,13 +10,19 @@ Finans Akademi, gerçek iş hayatından derlenen finansal senaryoları ve bankac
 
 - [Kredi Analizi & Risk Değerlendirme](https://moyafinans.github.io/cfo/kredi-analizi.html): Bilanço sinyallerini doğru okuma, 78 senaryo, 7 kategori. Özkaynak kalitesi, kârlılık, nakit akışı, likidite, borçlanma, operasyonel verimlilik ve yönetim riski konularını kapsar.
 
+- [Bütçe Planlama, Hazırlama & Takip](https://moyafinans.github.io/cfo/butce.html): Kurumsal bütçe süreçleri, senaryo analizi, revizyon metodolojileri ve yöneticilere etkin raporlama. 15 konu, 2 bölüm.
+
+- [Finansal Analiz Teknikleri](https://moyafinans.github.io/cfo/finansal-analiz.html): Oran analizi, DuPont, nakit akışı, senaryo & duyarlılık analizi ve sektör benchmark teknikleri. 6 konu, formüller ve tablolar.
+
+- [Bilanço & Gelir Tablosu Yönetimi](https://moyafinans.github.io/cfo/bilanco-gelir.html): Bilanço analizi, likidite & kaldıraç oranları, gelir tablosu yorumu, özkaynak değişim tablosu, finansal tablo dipnotları ve bağımsız denetim süreci yönetimi. 5 konu, TFRS referansı.
+
 ## Yakında
 
-- Bütçe Planlama, Hazırlama & Takip
-- Finansal Analiz Teknikleri  
 - Yönetim Raporlaması & Sunum
 - Vergi & Mevzuat Rehberi
 - CFO Yetkinlik Envanteri
+- Hazine Yönetimi
+- Yatırım Değerleme
 
 ## Hedef Kitle
 
