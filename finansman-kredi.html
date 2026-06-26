@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finansman & Kredi Yönetimi — Finans Akademi</title>
+<meta name="description" content="Kredi yapılandırması, banka müzakereleri, covenant izleme, leasing, sermaye artırımı, SCF, döviz ve faiz riski yönetimi.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://moyafinans.github.io/cfo/finansman-kredi.html">
+<meta property="og:title" content="Finansman & Kredi Yönetimi — Finans Akademi">
+<meta property="og:description" content="Kredi yapılandırması, banka müzakereleri, covenant izleme, leasing, sermaye artırımı, SCF, döviz ve faiz riski yönetimi.">
+<meta property="og:url" content="https://moyafinans.github.io/cfo/finansman-kredi.html">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0f12;--panel:#15181d;--panel-2:#1b1f25;--line:#2a2f37;
+  --ink:#e9e7e1;--ink-dim:#9aa0aa;--ink-faint:#5a6070;
+  --gold:#cf9b3f;--gold-soft:#e8c789;--teal:#5fb6a4;
+  --red:#d9684f;--amber:#d9a441;--purple:#8b7cf6;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;line-height:1.7}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:rgba(13,15,18,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-icon{width:32px;height:32px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#16140d;}
+.nav-logo span{font-size:15px;font-weight:600;color:var(--ink);}
+.nav-back{font-size:13px;font-weight:500;color:var(--ink-dim);text-decoration:none;transition:color .15s;}
+.nav-back:hover{color:var(--gold);}
+
+.shell{display:grid;grid-template-columns:268px 1fr;min-height:calc(100vh - 60px);}
+
+.sidebar{background:var(--panel);border-right:1px solid var(--line);position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:24px 0 40px;}
+.sb-brand{display:flex;align-items:center;justify-content:space-between;padding:0 20px 20px;border-bottom:1px solid var(--line);margin-bottom:12px;}
+.sb-brand-inner .cat{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;}
+.sb-brand-inner .title{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--ink);}
+.sb-brand-inner .sub{font-size:.75rem;color:var(--ink-dim);margin-top:2px;}
+#menu-icon{background:none;border:none;color:var(--gold);font-size:18px;cursor:pointer;padding:4px;}
+.nav-group-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim);padding:12px 20px 6px;letter-spacing:.14em;text-transform:uppercase;}
+.nav-item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:none;border-left:2px solid transparent;color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.85rem;padding:8px 20px;cursor:pointer;transition:all .15s;}
+.nav-item .num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--gold);opacity:.7;min-width:18px;}
+.nav-item:hover{background:var(--panel-2);color:var(--ink);}
+.nav-item.active{background:var(--panel-2);color:var(--ink);border-left-color:var(--amber);font-weight:600;}
+
+.main{min-width:0;}
+.topbar{position:sticky;top:60px;z-index:90;display:flex;align-items:center;justify-content:space-between;padding:12px 44px;background:rgba(13,15,18,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+.topbar-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--ink-dim);}
+.topbar-label b{color:var(--gold-soft);}
+.progress-bar{width:140px;height:3px;background:var(--line);border-radius:2px;overflow:hidden;}
+#progressFill{height:100%;background:var(--amber);width:0%;transition:width .25s;}
+
+.overview{padding:52px 44px 60px;}
+.ov-title{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.ov-sub{color:var(--ink-dim);font-size:.95rem;margin-bottom:36px;max-width:600px;}
+.toc{display:grid;gap:10px;margin-top:24px;}
+.toc-item{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-left:3px solid transparent;padding:14px 18px;cursor:pointer;transition:all .15s;text-align:left;width:100%;font-family:'Inter',sans-serif;}
+.toc-item:hover{border-left-color:var(--amber);background:var(--panel-2);}
+.toc-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--amber);min-width:24px;}
+.toc-title{font-size:.92rem;color:var(--ink);font-weight:500;}
+.toc-desc{font-size:.78rem;color:var(--ink-dim);margin-top:2px;}
+.toc-arrow{margin-left:auto;color:var(--ink-faint);font-size:.8rem;}
+
+.section{display:none;border-bottom:1px solid var(--line);}
+.section.active{display:block;animation:fadein .3s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.section-inner{padding:52px 44px 60px;}
+
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;}
+.sec-num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:700;color:var(--amber);opacity:.35;line-height:1;min-width:52px;}
+.sec-head h2{font-family:'Fraunces',serif;font-size:1.65rem;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.sec-head p{color:var(--ink-dim);font-size:.88rem;}
+
+.block{margin-top:28px;}
+.block-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+.block-label::before{content:'';width:14px;height:1px;background:var(--teal);display:block;}
+.block p{color:#cfd0d3;max-width:720px;font-size:.9rem;}
+
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0;}
+table{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--panel);border:1px solid var(--line);}
+th{background:var(--panel-2);color:var(--gold-soft);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;}
+td{padding:9px 12px;border-bottom:1px solid var(--line);color:#cfd0d3;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+td.ok{color:var(--teal);font-weight:600;}
+td.warn{color:var(--amber);font-weight:600;}
+td.bad{color:var(--red);font-weight:600;}
+td.mono,th.mono{font-family:'JetBrains Mono',monospace;font-size:.78rem;}
+
+.callout{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);padding:14px 18px;margin:16px 0;font-size:.88rem;color:#cfd0d3;line-height:1.65;}
+.callout.teal{border-left-color:var(--teal);}
+.callout.red{border-left-color:var(--red);}
+.callout.amber{border-left-color:var(--amber);}
+.callout strong{color:var(--ink);}
+
+.formula{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--gold-soft);display:flex;flex-direction:column;gap:4px;margin:14px 0;}
+.flabel{font-family:'Inter',sans-serif;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-dim);}
+
+ul.tick{list-style:none;margin:14px 0;padding:0;max-width:720px;}
+ul.tick li{position:relative;padding:8px 0 8px 24px;color:#cfd0d3;font-size:.88rem;border-bottom:1px solid var(--line);line-height:1.6;}
+ul.tick li:last-child{border-bottom:none;}
+ul.tick li::before{content:'—';position:absolute;left:0;color:var(--amber);font-family:'JetBrains Mono',monospace;}
+ul.tick li b{color:var(--ink);}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+.mini-card{background:var(--panel);border:1px solid var(--line);padding:16px;}
+.mini-card h4{font-family:'Fraunces',serif;font-size:1rem;color:var(--gold-soft);margin-bottom:6px;}
+.mini-card p{font-size:.82rem;color:var(--ink-dim);line-height:1.6;}
+
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:16px;}
+.stat-card{background:var(--panel);border:1px solid var(--line);padding:16px;text-align:center;}
+.stat-card .stat-val{font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:600;color:var(--amber);margin-bottom:4px;}
+.stat-card .stat-lbl{font-size:.75rem;color:var(--ink-dim);}
+
+/* COVENANT DURUM */
+.cov-row{display:flex;align-items:center;gap:0;border-bottom:1px solid var(--line);padding:10px 0;}
+.cov-row:last-child{border-bottom:none;}
+.cov-name{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--ink-dim);min-width:220px;}
+.cov-threshold{font-size:.82rem;color:var(--ink-dim);min-width:120px;}
+.cov-current{font-family:'JetBrains Mono',monospace;font-size:.88rem;font-weight:600;min-width:80px;}
+.cov-current.ok{color:var(--teal);}
+.cov-current.warn{color:var(--amber);}
+.cov-badge{font-size:.7rem;padding:2px 8px;border-radius:2px;}
+.cov-badge.ok{background:rgba(95,182,164,.1);color:var(--teal);}
+.cov-badge.warn{background:rgba(217,164,65,.1);color:var(--amber);}
+
+/* HEDGE TABLE */
+.hedge-pill{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:2px;font-family:'JetBrains Mono',monospace;}
+.hp-green{background:rgba(95,182,164,.12);color:var(--teal);}
+.hp-amber{background:rgba(217,164,65,.12);color:var(--amber);}
+.hp-red{background:rgba(217,104,79,.12);color:var(--red);}
+
+/* SCF STEPS */
+.step-row{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);}
+.step-row:last-child{border-bottom:none;}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--panel-2);border:1px solid var(--amber);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--amber);flex-shrink:0;margin-top:2px;}
+.step-body .step-title{font-weight:600;color:var(--ink);font-size:.88rem;}
+.step-body .step-who{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--teal);margin-top:2px;}
+
+/* FAIZ MATRIX */
+.matrix-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--line);margin:16px 0;font-size:.82rem;}
+.mx-head{background:var(--panel-2);padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--gold-soft);border-bottom:1px solid var(--line);border-right:1px solid var(--line);}
+.mx-head:last-child{border-right:none;}
+.mx-cell{padding:10px 14px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);color:#cfd0d3;vertical-align:top;}
+.mx-cell:last-child{border-right:none;}
+.mx-row-last .mx-cell,.mx-row-last .mx-head{border-bottom:none;}
+
+.takeaway{margin-top:32px;background:var(--panel-2);border:1px solid var(--line);border-top:2px solid var(--amber);padding:22px 24px;}
+.takeaway h4{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:12px;}
+
+.nav-arrows{display:flex;gap:12px;margin-top:40px;padding-top:32px;border-top:1px solid var(--line);}
+.nav-arrows button{background:var(--panel);border:1px solid var(--line);color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.82rem;padding:12px 20px;cursor:pointer;flex:1;text-align:left;transition:all .15s;display:flex;flex-direction:column;gap:2px;}
+.nav-arrows button span{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--amber);letter-spacing:.06em;}
+.nav-arrows button.next{text-align:right;}
+.nav-arrows button:hover:not(:disabled){background:var(--panel-2);border-color:var(--amber);color:var(--ink);}
+.nav-arrows button:disabled{opacity:.3;cursor:not-allowed;}
+
+footer{padding:32px 40px;border-top:1px solid var(--line);text-align:center;}
+
+@media(max-width:860px){
+  nav{padding:0 18px;}
+  .shell{grid-template-columns:1fr;}
+  .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);max-height:52px;overflow:hidden;transition:max-height .3s;}
+  .sidebar.open{max-height:100vh;overflow-y:auto;}
+  .sb-brand{padding:14px 18px;cursor:pointer;}
+  .section-inner,.overview{padding:32px 18px 48px;}
+  .topbar{padding:10px 18px;}
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .matrix-grid{grid-template-columns:1fr;}
+  .nav-arrows{flex-direction:column;}
+  .cov-name{min-width:0;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-icon">FA</div>
+    <span>Finans Akademi</span>
+  </a>
+  <a class="nav-back" href="index.html">← Tüm Konular</a>
+</nav>
+
+<div class="shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand" onclick="toggleSidebar()">
+      <div class="sb-brand-inner">
+        <div class="cat">Finansman & Hazine</div>
+        <div class="title">Kredi Yönetimi</div>
+        <div class="sub">8 konu başlığı</div>
+      </div>
+      <button id="menu-icon" onclick="event.stopPropagation();toggleSidebar()">☰</button>
+    </div>
+    <div>
+      <div class="nav-group-label">İçindekiler</div>
+      <button class="nav-item active" data-target="overview"><span class="num">—</span>Genel Bakış</button>
+      <button class="nav-item" data-target="k1"><span class="num">01</span>Kredi Yapılandırması</button>
+      <button class="nav-item" data-target="k2"><span class="num">02</span>Banka Müzakereleri</button>
+      <button class="nav-item" data-target="k3"><span class="num">03</span>Covenant İzleme</button>
+      <button class="nav-item" data-target="k4"><span class="num">04</span>Leasing & Finansal Kiralama</button>
+      <button class="nav-item" data-target="k5"><span class="num">05</span>Sermaye Artırımı</button>
+      <button class="nav-item" data-target="k6"><span class="num">06</span>Tedarikçi Finansmanı (SCF)</button>
+      <button class="nav-item" data-target="k7"><span class="num">07</span>Döviz Riski Yönetimi</button>
+      <button class="nav-item" data-target="k8"><span class="num">08</span>Faiz Riski Yönetimi</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="topbar">
+      <div class="topbar-label">
+        Konu <b id="bc-num">—</b> / 8 &nbsp;·&nbsp; <span id="bc-title">Genel Bakış</span>
+      </div>
+      <div class="progress-bar"><div id="progressFill"></div></div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div id="overview-panel" class="overview">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--amber);letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px;">Finansman & Hazine</div>
+      <div class="ov-title">Finansman &<br>Kredi Yönetimi</div>
+      <p class="ov-sub">Kredi yapılandırmasından döviz hedging'e, covenant izlemeden SCF'ye — CFO'nun finansman masasının tamamı.</p>
+
+      <div style="display:flex;gap:24px;flex-wrap:wrap;margin-bottom:36px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;background:var(--amber);border-radius:50%;"></div>
+          <span style="font-size:.82rem;color:var(--ink-dim);">8 Konu</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;background:var(--teal);border-radius:50%;"></div>
+          <span style="font-size:.82rem;color:var(--ink-dim);">Hedging Araçları</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;background:var(--purple);border-radius:50%;"></div>
+          <span style="font-size:.82rem;color:var(--ink-dim);">IFRS 16 · TFRS 9 Uyumlu</span>
+        </div>
+      </div>
+
+      <div class="toc">
+        <button class="toc-item" data-target="k1">
+          <span class="toc-num">01</span>
+          <div><div class="toc-title">Kısa & Uzun Vadeli Kredi Yapılandırması</div><div class="toc-desc">Vade eşleştirmesi, enstrüman seçimi, DSCR</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+        <button class="toc-item" data-target="k2">
+          <span class="toc-num">02</span>
+          <div><div class="toc-title">Banka Müzakereleri</div><div class="toc-desc">Faiz, limit, vade, teminat — BATNA ile masaya oturmak</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+        <button class="toc-item" data-target="k3">
+          <span class="toc-num">03</span>
+          <div><div class="toc-title">Covenant İzleme</div><div class="toc-desc">Finansal & operasyonel yükümlülük takibi, waiver süreci</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+        <button class="toc-item" data-target="k4">
+          <span class="toc-num">04</span>
+          <div><div class="toc-title">Leasing & Finansal Kiralama Analizi</div><div class="toc-desc">Satın alma vs kiralama, IFRS 16 etkileri</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+        <button class="toc-item" data-target="k5">
+          <span class="toc-num">05</span>
+          <div><div class="toc-title">Sermaye Artırımı & Özkaynak Finansmanı</div><div class="toc-desc">CAPM, WACC, Modigliani-Miller, IPO süreci</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+        <button class="toc-item" data-target="k6">
+          <span class="toc-num">06</span>
+          <div><div class="toc-title">Tedarikçi Finansmanı (SCF)</div><div class="toc-desc">Reverse factoring, dynamic discounting, program kurulumu</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+        <button class="toc-item" data-target="k7">
+          <span class="toc-num">07</span>
+          <div><div class="toc-title">Döviz Riski Yönetimi</div><div class="toc-desc">Forward, opsiyon, swap — hedge stratejisi tasarımı</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+        <button class="toc-item" data-target="k8">
+          <span class="toc-num">08</span>
+          <div><div class="toc-title">Faiz Riski Yönetimi</div><div class="toc-desc">Sabit / değişken denge, IRS, cap, floor, collar</div></div>
+          <span class="toc-arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- K1: KREDİ YAPILANDIRMASI -->
+    <div class="section" id="k1" data-idx="1" data-title="Kredi Yapılandırması">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">01</div>
+          <div>
+            <h2>Kısa & Uzun Vadeli Kredi Yapılandırması</h2>
+            <p>Finansman ihtiyacını doğru vade & enstrüman bileşimiyle karşılamak</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Temel Kavram</div>
+          <p>Kredi yapılandırması; işletmenin nakit akışına, varlık yapısına ve büyüme hedeflerine uygun finansman karmasının tasarlanması sürecidir. <b style="color:var(--ink)">Yanlış vade seçimi likidite krizinin en sık görülen sebebidir.</b></p>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Kısa vs Uzun Vadeli Kredi Karşılaştırması</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Kriter</th><th>Kısa Vadeli Kredi</th><th>Uzun Vadeli Kredi</th></tr>
+              </thead>
+              <tbody>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Vade</td><td>≤ 1 yıl</td><td>&gt; 1 yıl (genellikle 3–10 yıl)</td></tr>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Kullanım amacı</td><td>İşletme sermayesi, mevsimsel ihtiyaç</td><td>Yatırım, duran varlık finansmanı</td></tr>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Tipik enstrüman</td><td class="mono">Rotatif, Spot, KMH</td><td class="mono">Yatırım kredisi, proje fin.</td></tr>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Faiz</td><td>Genellikle değişken (TLREF, EURIBOR)</td><td>Sabit veya değişken</td></tr>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Geri ödeme</td><td>Toplu veya kısa taksit</td><td>Anapara + faiz taksiti</td></tr>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Teminat</td><td>Basit — alacak, stok, kefalet</td><td>İpotek, makine rehni, proje geliri</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Yapılandırma İlkeleri</div>
+          <ul class="tick">
+            <li><b>Vade eşleştirmesi (maturity matching):</b> Kısa vadeli varlıklar kısa vadeli, uzun vadeli varlıklar uzun vadeli kaynaklarla finanse edilmelidir.</li>
+            <li><b>Çeşitlendirme:</b> Tek bankaya bağımlılık riskini azaltmak için en az 3–4 banka ile çalışılmalıdır.</li>
+            <li><b>Refinansman riski:</b> Kısa vadeli borçlar sürekli yenileniyorsa, piyasa stresinde borçlanma imkânı kapanabilir.</li>
+            <li><b>Borç servisi kapasitesi:</b> EBITDA / Faiz ≥ 3x ve Net Debt / EBITDA ≤ 3x hedeflenmeli.</li>
+            <li><b>Esneklik:</b> Rotatif (revolving) kredi limiti, ani nakit ihtiyaçlarına tampon görevi görür.</li>
+          </ul>
+        </div>
+
+        <div class="formula">
+          <span class="flabel">Borç Servisi Karşılama Oranı (DSCR)</span>
+          DSCR = (EBITDA − Capex − Vergiler) / (Anapara + Faiz Ödemeleri)
+        </div>
+
+        <div class="block">
+          <div class="block-label">Yaygın Kısa Vadeli Enstrümanlar</div>
+          <div class="grid2">
+            <div class="mini-card">
+              <h4>Rotatif (Revolving) Kredi</h4>
+              <p>Limit dahilinde serbestçe çekilir ve geri ödenir. En esnek işletme sermayesi aracı.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Spot Kredi</h4>
+              <p>Tek seferlik belirli vade ve tutarda kullandırılır. Bilinen nakit ihtiyaçları için uygundur.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Kredili Mevduat (KMH)</h4>
+              <p>Hesap bakiyesinin altına düşme imkânı sağlar. Günlük nakit yönetiminde tampon.</p>
+            </div>
+            <div class="mini-card">
+              <h4>İskonto / İştira</h4>
+              <p>Müşteri çekleri veya senetler bankaya iskonto ettirilir. Alacak tahsilini hızlandırır.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout amber">
+          <strong>Döviz Kredisi Uyarısı:</strong> TL faizine alternatif olarak kullanılabilir; ancak kur riski taşır. Döviz geliri olmayan işletmelerin döviz kredisi kullanması bilanço riski yaratır.
+        </div>
+      </div>
+    </div>
+
+    <!-- K2: BANKA MÜZAKERELERİ -->
+    <div class="section" id="k2" data-idx="2" data-title="Banka Müzakereleri">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">02</div>
+          <div>
+            <h2>Banka Müzakereleri</h2>
+            <p>Faiz Oranı · Limit · Vade · Teminat Koşullarında Temsil</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Müzakere Öncesi Hazırlık</div>
+          <p>Başarılı banka müzakeresi; güçlü finansal veri, net bir hikâye ve alternatif tekliflerin hazır olmasına dayanır. Bankalar risk/getiri dengesine göre karar verir — sizi tercih etmeleri için bu dengeyi onlara açıkça sunmalısınız.</p>
+          <ul class="tick" style="margin-top:14px;">
+            <li><b>Finansal paket:</b> Son 3 yıl bilanço, gelir tablosu, nakit akış tablosu, bütçe ve projeksiyonlar.</li>
+            <li><b>Kredi amacını netleştirin:</b> Fonun nereye kullanılacağı ve nasıl geri ödeneceği açıkça ifade edilmeli.</li>
+            <li><b>Rekabetçi teklif alın:</b> En az 2–3 bankadan teklif alarak müzakere gücünüzü artırın.</li>
+            <li><b>Teminat alternatifleri belirleyin:</b> Hangi varlıklar teminat olarak sunulabilir, hangileri sunulamaz.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Müzakere Edilebilir Unsurlar</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Unsur</th><th>Ne İstenir?</th><th>Karşı Argüman</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Faiz oranı</td>
+                  <td>TLREF + spread düşürülmesi</td>
+                  <td>İyi kredi notu, uzun ilişki, teminat fazlası</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Limit</td>
+                  <td>Mevcut limitin artırılması</td>
+                  <td>Büyüyen ciro, azalan borç / EBITDA oranı</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Vade</td>
+                  <td>Uzun vadeye geçiş</td>
+                  <td>Uzun vadeli yatırım projesi, güçlü nakit akışı</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Teminat</td>
+                  <td>Teminat azaltımı / ikamesi</td>
+                  <td>Düşen risk, kovanant iyileşmesi</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Komisyon</td>
+                  <td>Tahsis & kullandırım komisyon indirimi</td>
+                  <td>Yüksek kullanım oranı, çoklu ürün kullanımı</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Kovanant</td>
+                  <td>Gevşek eşik değerleri</td>
+                  <td>Volatil sektör, geçici EBITDA baskısı</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Müzakere Taktikleri</div>
+          <ul class="tick">
+            <li><b>BATNA:</b> Her zaman alternatif bankanın teklifini masaya yatırın — masaya oturmadan önce alternatifiniz net olmalı.</li>
+            <li><b>İlişki bankası avantajı:</b> Maaş ödemeleri, döviz işlemleri, hazine ürünleri — çapraz satış güç verir.</li>
+            <li><b>Dönemsel değerlendirme:</b> Piyasa faizleri düştüğünde proaktif olarak yeniden fiyatlama talep edin.</li>
+            <li><b>Kademeli artış:</b> Limit artışını tek seferde değil, kademeli olarak talep etmek daha kolay kabul görür.</li>
+          </ul>
+        </div>
+
+        <div class="callout teal">
+          <strong>Altın Kural:</strong> BATNA (Best Alternative to a Negotiated Agreement) olmadan masaya oturmayın. Rakip teklif elinizde yoksa müzakere gücünüz de yoktur.
+        </div>
+      </div>
+    </div>
+
+    <!-- K3: COVENANT -->
+    <div class="section" id="k3" data-idx="3" data-title="Covenant İzleme">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">03</div>
+          <div>
+            <h2>Kredi Sözleşmesi Koşulları (Covenant) İzleme</h2>
+            <p>Finansal & Operasyonel Yükümlülüklerin Takibi</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Covenant Nedir?</div>
+          <p>Covenant; kredi sözleşmesine eklenen ve borçlunun belirli finansal veya operasyonel sınırlar içinde kalmasını zorunlu kılan hükümlerdir. <b style="color:var(--ink)">İhlal durumunda banka "default" ilan ederek tüm krediyi erken ödeme talep edebilir.</b></p>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Covenant Türleri</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Tür</th><th>Örnek</th><th>Sonuç / Yaptırım</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="color:var(--red);font-weight:600;">Finansal Kovanant</td>
+                  <td class="mono">Net Debt/EBITDA ≤ 3x, Cari Oran ≥ 1,2x</td>
+                  <td class="bad">İhlalde erken ödeme veya faiz artışı</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--amber);font-weight:600;">Bilgi Kovanantı</td>
+                  <td>Aylık / çeyreklik finansal raporlama</td>
+                  <td class="warn">Gecikme = teknik ihlal</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--teal);font-weight:600;">Pozitif Kovanant</td>
+                  <td>Sigortaları sürdür, vergileri öde</td>
+                  <td>Teminat değerini koruma yükümlülüğü</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--amber);font-weight:600;">Negatif Kovanant</td>
+                  <td>Ek borç alma yasağı, varlık satış sınırı</td>
+                  <td>Bankadan izin alınmadan yapılamaz</td>
+                </tr>
+                <tr>
+                  <td style="color:var(--red);font-weight:600;">Cross-Default</td>
+                  <td>Başka bir kredide de ihlal olursa…</td>
+                  <td class="bad">Tüm kredi grubu tetiklenir</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Anlık Covenant Durumu — Örnek Panel</div>
+          <div style="background:var(--panel);border:1px solid var(--line);padding:20px 24px;margin:16px 0;">
+            <div class="cov-row">
+              <span class="cov-name">Net Debt / EBITDA</span>
+              <span class="cov-threshold">Eşik: ≤ 3,0x</span>
+              <span class="cov-current ok">2,4x</span>
+              <span class="cov-badge ok">✓ Uyumlu</span>
+            </div>
+            <div class="cov-row">
+              <span class="cov-name">Faiz Karşılama (ICR)</span>
+              <span class="cov-threshold">Eşik: ≥ 3,0x</span>
+              <span class="cov-current ok">4,1x</span>
+              <span class="cov-badge ok">✓ Uyumlu</span>
+            </div>
+            <div class="cov-row">
+              <span class="cov-name">Cari Oran</span>
+              <span class="cov-threshold">Eşik: ≥ 1,20x</span>
+              <span class="cov-current ok">1,35x</span>
+              <span class="cov-badge ok">✓ Uyumlu</span>
+            </div>
+            <div class="cov-row">
+              <span class="cov-name">Özkaynak Oranı</span>
+              <span class="cov-threshold">Eşik: ≥ %30</span>
+              <span class="cov-current warn">%28</span>
+              <span class="cov-badge warn">⚠ İzlemede</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">İzleme Sistemi Nasıl Kurulur?</div>
+          <ul class="tick">
+            <li><b>Kovanant takvimi:</b> Her sözleşmedeki tüm kovanantları, ölçüm tarihlerini ve eşik değerleri tek tabloda listeleyin.</li>
+            <li><b>Erken uyarı eşiği:</b> Sözleşme eşiğinden %10–15 önce uyarı seviyesi belirleyin (eşik 3,0x ise uyarı 2,7x).</li>
+            <li><b>Aylık hesaplama:</b> Her ay sonu finansal tablolardan kovanant metriklerini hesaplayın.</li>
+            <li><b>Waiver süreci:</b> İhlal öngörülüyorsa bankaya önceden başvurarak feragat (waiver) talep edin.</li>
+            <li><b>CFO raporlaması:</b> Kovanant durum tablosu aylık CFO / Yönetim Kurulu raporuna dahil edilmeli.</li>
+          </ul>
+        </div>
+
+        <div class="callout red">
+          <strong>İhlal Öncesi Eylem Planı:</strong> Bankayı ihlalden önce bilgilendirmek her zaman sonrasından iyidir. Waiver başvurusunu ölçüm tarihinden en az 30 gün önce yapın. Cross-default klozunu her zaman kontrol edin — bir bankanın ihlali diğerlerini tetikleyebilir.
+        </div>
+      </div>
+    </div>
+
+    <!-- K4: LEASING -->
+    <div class="section" id="k4" data-idx="4" data-title="Leasing & Finansal Kiralama">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">04</div>
+          <div>
+            <h2>Leasing & Finansal Kiralama Analizi</h2>
+            <p>Satın Alma mı, Kiralama mı? — Karar Çerçevesi</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Finansal Kiralama vs Faaliyet Kiralaması</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Özellik</th><th>Finansal Kiralama</th><th>Faaliyet Kiralaması</th></tr>
+              </thead>
+              <tbody>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Süre</td><td>Varlık ömrünün büyük bölümü</td><td>Kısa — esnek süreli</td></tr>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Mülkiyet</td><td class="ok">Dönem sonunda kiracıya geçer</td><td>Kiralayan şirkette kalır</td></tr>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Bilanço etkisi</td><td>Varlık + Borç olarak kaydedilir</td><td class="warn">IFRS 16 ile artık bilançoya alınır</td></tr>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Risk</td><td>Kiracıda — bakım, sigorta</td><td>Kiralayanda</td></tr>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Esneklik</td><td class="warn">Düşük</td><td class="ok">Yüksek</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="formula">
+          <span class="flabel">Leasing Etkin Faiz</span>
+          Etkin Faiz = Kira Ödemeleri Toplamı / Varlık Değeri − 1
+        </div>
+
+        <div class="block">
+          <div class="block-label">Leasing Avantajlı Olduğu Durumlar</div>
+          <ul class="tick">
+            <li>Sermayeyi bağlamak istemediğinizde — özellikle hızlı değer yitiren teknoloji varlıkları.</li>
+            <li>Banka kredi limitlerini korumak istediğinizde.</li>
+            <li>Vergisel avantaj: faaliyet kiralamasında kira ödemeleri gider yazılabilir.</li>
+            <li>Dönem sonu yenileme esnekliği: varlığı iade edip yeni model alınabilir.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Satın Alma Avantajlı Olduğu Durumlar</div>
+          <ul class="tick">
+            <li>Uzun ömürlü, değer koruyan varlıklarda — gayrimenkul, arazi.</li>
+            <li>Leasing faizinin banka kredisinden yüksek olduğu ortamlarda.</li>
+            <li>Varlık üzerinde tam kontrol ve özelleştirme gerektiğinde.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="block-label">IFRS 16 — Temel Etkiler</div>
+          <div class="grid2">
+            <div class="mini-card">
+              <h4>Bilançoya Alım</h4>
+              <p>12 aydan uzun ve düşük değerli olmayan tüm kiralamalar bilançoya alınır. Kullanım Hakkı Varlığı aktife, kira yükümlülüğü pasife kaydedilir.</p>
+            </div>
+            <div class="mini-card">
+              <h4>EBITDA Etkisi</h4>
+              <p>EBITDA artar çünkü kira gideri yerine amortisman + faiz kaydedilir. Bu olumlu görünse de kira yükümlülüğü Net Debt'i artırır.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Kovanant Riski</h4>
+              <p>Net Debt artışı kovanant eşiklerine yaklaşabilir. Yeni leasing sözleşmesi öncesi kovanant analizini mutlaka yapın.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Bankalarla İletişim</h4>
+              <p>Büyük kiralama işlemlerinden önce bankalarla IFRS 16 etkisini konuşun; kovanant yeniden müzakeresi gerekebilir.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- K5: SERMAYE ARTIRIMI -->
+    <div class="section" id="k5" data-idx="5" data-title="Sermaye Artırımı">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">05</div>
+          <div>
+            <h2>Sermaye Artırımı & Özkaynak Finansmanı</h2>
+            <p>Özkaynak Güçlendirme Süreçleri & Stratejik Seçenekler</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Özkaynak Finansmanı Yöntemleri</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Yöntem</th><th>Açıklama</th><th>Uygun Durum</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Nakit Sermaye Artırımı</td>
+                  <td>Mevcut / yeni ortaklar nakit enjekte eder</td>
+                  <td>Büyüme yatırımı, borç azaltımı</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Ayni Sermaye Artırımı</td>
+                  <td>Nakit yerine varlık / alacak konulur</td>
+                  <td>Varlık birleşimi, borç-özkaynak swap</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Bedelsiz Sermaye Art.</td>
+                  <td>Dağıtılmamış kârdan sermayeye ekleme</td>
+                  <td>Bilançoyu güçlendirme</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Rüçhan Hakkı</td>
+                  <td>Mevcut ortaklar önce kullanır</td>
+                  <td>Halka açık şirketlerde standart</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Stratejik Yatırımcı</td>
+                  <td>Sektörel ortak / PE fonu hisse alımı</td>
+                  <td>Büyüme + know-how ihtiyacı</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Halka Arz (IPO/SPO)</td>
+                  <td>Hisse senetleri borsada satılır</td>
+                  <td>Büyük ölçekli, olgun şirketler</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="formula">
+          <span class="flabel">Özkaynak Maliyeti (CAPM)</span>
+          Ke = Rf + β × (Rm − Rf)
+          <span style="font-size:.75rem;color:var(--ink-dim);font-family:'Inter',sans-serif;">Rf: Risksiz faiz oranı &nbsp;·&nbsp; β: Sistematik risk &nbsp;·&nbsp; Rm: Piyasa getirisi</span>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Süreç Adımları</div>
+          <ul class="tick">
+            <li><b>Değerleme:</b> DCF, piyasa çarpanları (EV/EBITDA, P/E) yöntemleriyle şirket değeri belirlenir.</li>
+            <li><b>Hukuki yapı:</b> Esas sözleşme değişikliği, genel kurul kararı ve Ticaret Sicili tescili gerekir.</li>
+            <li><b>Due Diligence:</b> Finansal, hukuki ve ticari inceleme potansiyel yatırımcı tarafından yapılır.</li>
+            <li><b>Yatırımcı ilişkileri:</b> Roadshow, bilgi notu (information memorandum) ve müzakereler.</li>
+            <li><b>Kapanış:</b> Hisse devir sözleşmesi, escrow, tescil ve ödeme.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Borç mu, Özkaynak mı? — Temel Çerçeve</div>
+          <div class="grid2">
+            <div class="mini-card">
+              <h4>Borç Finansmanı</h4>
+              <p>Vergi kalkanı sayesinde daha ucuzdur. Ancak geri ödeme yükümlülüğü likidite riski yaratır. Kaldıraç artar.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Özkaynak Finansmanı</h4>
+              <p>Geri ödeme yükümlülüğü yoktur; ancak mevcut ortakların payını sulandırır. Bilanço güçlenir.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout teal">
+          <strong>Optimal Sermaye Yapısı:</strong> WACC (Ağırlıklı Ortalama Sermaye Maliyeti) minimize edilmelidir. Modigliani-Miller teoremi vergi ve iflas maliyetleri dahil edildiğinde optimal bir borç/özkaynak karması olduğunu gösterir. Sektör ortalaması referans alınmalıdır.
+        </div>
+      </div>
+    </div>
+
+    <!-- K6: SCF -->
+    <div class="section" id="k6" data-idx="6" data-title="Tedarikçi Finansmanı (SCF)">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">06</div>
+          <div>
+            <h2>Tedarikçi Finansmanı (Supply Chain Finance)</h2>
+            <p>SCF Programları — Yapısı, Faydaları & Kurulum Adımları</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">SCF Nedir?</div>
+          <p>Supply Chain Finance; alıcı firmanın kredi değerliliğini kullanarak tedarikçilerin faturalarını vadeden önce düşük maliyetle nakde çevirmesini sağlayan finansman platformudur. <b style="color:var(--ink)">Hem alıcı hem tedarikçi kazanır.</b></p>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Geleneksel vs SCF Karşılaştırması</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Taraf</th><th>Geleneksel Süreç</th><th>SCF ile</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Alıcı</td>
+                  <td>Nakit çıkışı vade sonunda</td>
+                  <td class="ok">Nakit çıkışı aynı — DPO uzar veya korunur</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Tedarikçi</td>
+                  <td>Vadeyi bekler veya faktoring kullanır</td>
+                  <td class="ok">Faturayı erken, düşük maliyetle tahsil eder</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Banka / Fin.</td>
+                  <td>Her iki tarafla ayrı ayrı çalışır</td>
+                  <td>Platform üzerinden tek ekosistem</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">SCF Program Türleri</div>
+          <div class="grid2">
+            <div class="mini-card">
+              <h4>Reverse Factoring</h4>
+              <p>Alıcı faturayı onaylar, banka tedarikçiye erken ödeme yapar. En yaygın SCF modelidir.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Dynamic Discounting</h4>
+              <p>Alıcı kendi nakdini kullanarak tedarikçiye erken ödeme yapar ve iskonto kazanır.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Inventory Finance</h4>
+              <p>Stok finansmanı — mallar depodayken finansman sağlanır. Stok döngüsünü besler.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Purchase Order Finance</h4>
+              <p>Sipariş aşamasında tedarikçiye finansman sağlanır. Kapasiteyi büyütmeye destekler.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Program Kurulum Adımları</div>
+          <div style="background:var(--panel);border:1px solid var(--line);padding:20px 24px;margin:16px 0;">
+            <div class="step-row">
+              <div class="step-num">01</div>
+              <div class="step-body">
+                <div class="step-title">Tedarikçi analizi — kimler programa dahil edilmeli?</div>
+                <div class="step-who">Satın alma + Hazine</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">02</div>
+              <div class="step-body">
+                <div class="step-title">Banka / platform seçimi ve sözleşme müzakeresi</div>
+                <div class="step-who">Hazine + Hukuk</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">03</div>
+              <div class="step-body">
+                <div class="step-title">ERP entegrasyonu ve fatura onay akışının kurulumu</div>
+                <div class="step-who">IT + Finans</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">04</div>
+              <div class="step-body">
+                <div class="step-title">Tedarikçi katılımı (onboarding) ve eğitim</div>
+                <div class="step-who">Satın alma</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">05</div>
+              <div class="step-body">
+                <div class="step-title">Pilot uygulama — ilk 10–20 tedarikçiyle test</div>
+                <div class="step-who">Hazine</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">06</div>
+              <div class="step-body">
+                <div class="step-title">Tam lansman ve performans izleme (DPO, maliyet)</div>
+                <div class="step-who">CFO</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout teal">
+          <strong>Ekosistem Faydası:</strong> SCF programı tedarik zinciri kırılganlığını azaltır; tedarikçi iflas riski düşer. Alıcı kendi kredi notunu sisteme yayar — sektörün tamamına değer katar.
+        </div>
+      </div>
+    </div>
+
+    <!-- K7: DÖVİZ RİSKİ -->
+    <div class="section" id="k7" data-idx="7" data-title="Döviz Riski Yönetimi">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">07</div>
+          <div>
+            <h2>Döviz Riski Yönetimi</h2>
+            <p>Forward · Opsiyon · Swap — Kur Riskini Hedge Etmek</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Döviz Riski Türleri</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Risk Türü</th><th>Tanım</th><th>Örnek</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;color:var(--amber);">İşlem Riski</td>
+                  <td>Gelecekteki dövizli işlemin kur değişiminden etkilenmesi</td>
+                  <td>3 ay sonra tahsil edilecek USD ihracat alacağı</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--amber);">Çevrim Riski</td>
+                  <td>Yabancı iştirak finansallarının konsolidasyonda kur etkisi</td>
+                  <td>EUR'lı bağlı ortaklığın TL bilançoya çevrilmesi</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--amber);">Ekonomik Risk</td>
+                  <td>Kur hareketinin uzun vadeli rekabet gücüne etkisi</td>
+                  <td>Güçlü TL ihracatçı marjını sıkıştırır</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Hedging Enstrümanları</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Enstrüman</th><th>Nasıl Çalışır?</th><th>Avantaj</th><th>Dezavantaj</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Forward</td>
+                  <td>Bugünden belirli kur ve vadede alım/satım taahhüdü</td>
+                  <td class="ok">Kesin maliyet</td>
+                  <td class="warn">Fırsatı kaçırır</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">FX Swap</td>
+                  <td>Spot satış + vadeli geri alım; likidite yönetiminde kullanılır</td>
+                  <td class="ok">Esnek & likit</td>
+                  <td class="warn">Kur riski tam kapanmaz</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Opsiyon</td>
+                  <td>Belirli kurdan alım/satım hakkı; zorunluluk değil — sigorta gibi</td>
+                  <td class="ok">Fırsatı korur</td>
+                  <td class="warn">Prim maliyeti var</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Cross Ccy Swap</td>
+                  <td>Farklı para birimli borç/alacak nakit akışlarının takası</td>
+                  <td class="ok">Uzun vadeli hedge</td>
+                  <td class="warn">Karmaşık yapı</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--gold-soft);">Doğal Hedge</td>
+                  <td>Gelir ve giderleri aynı dövizde eşleştirme</td>
+                  <td class="ok">Maliyet yok</td>
+                  <td class="warn">Her zaman mümkün değil</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="formula">
+          <span class="flabel">Forward Fiyatlama</span>
+          Forward Kur = Spot Kur × (1 + TL Faizi) / (1 + USD Faizi)
+        </div>
+
+        <div class="block">
+          <div class="block-label">Hedge Stratejisi Tasarımı</div>
+          <ul class="tick">
+            <li><b>Açık pozisyon tespiti:</b> Döviz bazında tüm varlık, yükümlülük ve beklenen nakit akışları netleştirilir.</li>
+            <li><b>Hedge oranı:</b> %100 hedge değil, genellikle %50–80 hedge edilir; kalan kısım piyasa hareketinden yararlanmak için açık bırakılır.</li>
+            <li><b>Vade eşleştirme:</b> Hedge süresi, korunmak istenen işlemin vadesiyle örtüşmelidir.</li>
+            <li><b>Muhasebe:</b> TFRS 9 hedge muhasebesi uygulanıyorsa etkinlik testleri periyodik yapılmalıdır.</li>
+          </ul>
+        </div>
+
+        <div class="callout red">
+          <strong>Altın Kural:</strong> Spekülatif pozisyon almayın — hedging amacı riski eliminate etmek, kâr yaratmak değildir. Her hedge işlemi için onay yetkisi ve limitler yazılı politikayla tanımlanmalıdır. TCMB ve BDDK düzenlemelerini takip edin.
+        </div>
+      </div>
+    </div>
+
+    <!-- K8: FAİZ RİSKİ -->
+    <div class="section" id="k8" data-idx="8" data-title="Faiz Riski Yönetimi">
+      <div class="section-inner">
+        <div class="sec-head">
+          <div class="sec-num">08</div>
+          <div>
+            <h2>Faiz Riski Yönetimi</h2>
+            <p>Sabit / Değişken Faiz Dengesi & Hedging Araçları</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Faiz Pozisyon Matrisi</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Pozisyon</th><th>Faiz Yükselirse</th><th>Faiz Düşerse</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;color:var(--amber);">Değişken faiz borç</td>
+                  <td class="bad">Finansman maliyeti artar ▲</td>
+                  <td class="ok">Finansman maliyeti düşer ▼</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--amber);">Sabit faiz borç</td>
+                  <td class="ok">Avantajlı — maliyet sabit</td>
+                  <td class="warn">Dezavantajlı — piyasanın üstünde</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--amber);">Değişken faiz varlık</td>
+                  <td class="ok">Getiri artar ▲</td>
+                  <td class="bad">Getiri düşer ▼</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;color:var(--amber);">Sabit faiz varlık</td>
+                  <td class="bad">Piyasa değeri düşer ▼</td>
+                  <td class="ok">Piyasa değeri yükselir ▲</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Faiz Riski Yönetim Araçları</div>
+          <div class="grid2">
+            <div class="mini-card">
+              <h4>Faiz Swapı (IRS)</h4>
+              <p>Değişken faizli borcu sabit faize veya tersine çevirmek için kullanılır. En yaygın faiz riskinden korunma aracıdır.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Faiz Tavanı (Cap)</h4>
+              <p>Değişken faizin belirli bir üst sınırı geçmemesini garantiler; üst sınır aşılırsa banka farkı öder.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Faiz Tabanı (Floor)</h4>
+              <p>Faizin belirli bir alt sınırın altına düşmemesini garantiler; genellikle varlık yönetiminde kullanılır.</p>
+            </div>
+            <div class="mini-card">
+              <h4>Collar</h4>
+              <p>Cap ve Floor kombinasyonu — faizi bir bant içinde tutar. Prim maliyetini azaltır, yaygın pratik çözümdür.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="formula">
+          <span class="flabel">Faiz Swapı Mantığı</span>
+          Sabit Faiz Öde ↔ Değişken Faiz Al (veya tersi)
+          <span style="font-size:.75rem;color:var(--ink-dim);font-family:'Inter',sans-serif;">Anapara el değiştirmez — yalnızca faiz akışları takaslanır</span>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Sabit / Değişken Denge Politikası</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Senaryo</th><th>Önerilen Mix</th><th>Gerekçe</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Faiz artış beklentisi</td>
+                  <td style="font-weight:600;color:var(--teal);">%70 sabit / %30 değişken</td>
+                  <td>Maliyeti kilitle</td>
+                </tr>
+                <tr>
+                  <td>Faiz düşüş beklentisi</td>
+                  <td style="font-weight:600;color:var(--teal);">%30 sabit / %70 değişken</td>
+                  <td>Düşüşten yararlan</td>
+                </tr>
+                <tr>
+                  <td>Belirsiz / volatil</td>
+                  <td style="font-weight:600;color:var(--amber);">%50 sabit / %50 değişken</td>
+                  <td>Riski dengele</td>
+                </tr>
+                <tr>
+                  <td>Kısa vadeli borç</td>
+                  <td>Değişken tercih edilir</td>
+                  <td>Refinansman kolaylığı</td>
+                </tr>
+                <tr>
+                  <td>Uzun vadeli borç</td>
+                  <td>Sabit tercih edilir</td>
+                  <td>Öngörülebilirlik</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="takeaway">
+          <h4>Temel Çıkarımlar — Finansman & Kredi Yönetimi</h4>
+          <ul class="tick">
+            <li><b>Doğru kredi yapısı:</b> Vadeyi nakit akışıyla eşleştirin; refinansman riskini minimize edin.</li>
+            <li><b>Banka müzakeresi:</b> BATNA olmadan masaya oturmayın — rakip teklif gücünüzü belirler.</li>
+            <li><b>Covenant izleme:</b> Erken uyarı eşiği kurun; ihlali bankaya siz bildirin, banka değil.</li>
+            <li><b>Leasing kararı:</b> IFRS 16 etkisini ve kovanantlara yansımasını önceden hesaplayın.</li>
+            <li><b>Özkaynak finansmanı:</b> WACC'ı optimize edin; borç vergi kalkanından aşırı yararlanmayın.</li>
+            <li><b>SCF programı:</b> Tedarikçi ilişkisini güçlendirirken DPO'yu koruyun veya uzatın.</li>
+            <li><b>Döviz hedging:</b> Spekülatif değil koruyucu; yetki limitleri yazılı politikayla tanımlanmalı.</li>
+            <li><b>Faiz riski:</b> Sabit / değişken dengesini piyasa beklentisine ve borç vadesine göre ayarlayın.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div style="font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px;">
+    Finans <span style="color:var(--gold)">Akademi</span>
+  </div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-dim);">
+    © 2026 · moyafinans.github.io/cfo
+  </div>
+</footer>
+
+<script>
+var order = ['overview','k1','k2','k3','k4','k5','k6','k7','k8'];
+var titles = {
+  overview:'Genel Bakış',
+  k1:'Kredi Yapılandırması',
+  k2:'Banka Müzakereleri',
+  k3:'Covenant İzleme',
+  k4:'Leasing & Finansal Kiralama',
+  k5:'Sermaye Artırımı',
+  k6:'Tedarikçi Finansmanı (SCF)',
+  k7:'Döviz Riski Yönetimi',
+  k8:'Faiz Riski Yönetimi'
+};
+var TOPLAM = 8;
+
+function show(target) {
+  document.getElementById('overview-panel').style.display = target === 'overview' ? 'block' : 'none';
+  document.querySelectorAll('.section').forEach(function(s){
+    s.classList.toggle('active', s.id === target);
+  });
+  document.querySelectorAll('.nav-item, .toc-item').forEach(function(b){
+    b.classList.toggle('active', b.dataset.target === target);
+  });
+  var el = document.getElementById(target);
+  document.getElementById('bc-num').textContent = el ? el.dataset.idx : '—';
+  document.getElementById('bc-title').textContent = titles[target] || 'Genel Bakış';
+  document.getElementById('progressFill').style.width = el ? (parseInt(el.dataset.idx)/TOPLAM*100)+'%' : '0%';
+  window.scrollTo({top:0, behavior:'smooth'});
+  renderArrows(target);
+  if (window.innerWidth <= 860) {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('menu-icon').textContent = '☰';
+  }
+}
+
+function renderArrows(target) {
+  document.querySelectorAll('.nav-arrows').forEach(function(e){ e.remove(); });
+  if (target === 'overview') return;
+  var idx = order.indexOf(target);
+  var prev = order[idx-1]; var next = order[idx+1];
+  var wrap = document.createElement('div'); wrap.className = 'nav-arrows';
+  wrap.innerHTML =
+    (prev ? '<button data-go="'+prev+'"><span>← Önceki</span>'+titles[prev]+'</button>'
+           : '<button disabled><span>← Önceki</span>—</button>') +
+    (next ? '<button class="next" data-go="'+next+'"><span>Sonraki →</span>'+titles[next]+'</button>'
+           : '<button class="next" disabled><span>Sonraki →</span>—</button>');
+  document.getElementById(target).querySelector('.section-inner').appendChild(wrap);
+  wrap.querySelectorAll('button[data-go]').forEach(function(b){
+    b.addEventListener('click', function(){ show(b.dataset.go); });
+  });
+}
+
+function toggleSidebar() {
+  var sb = document.getElementById('sidebar');
+  sb.classList.toggle('open');
+  document.getElementById('menu-icon').textContent = sb.classList.contains('open') ? '✕' : '☰';
+}
+
+document.querySelectorAll('.nav-item, .toc-item').forEach(function(b){
+  b.addEventListener('click', function(){ show(b.dataset.target); });
+});
+
+show('overview');
+</script>
+</body>
+</html>
