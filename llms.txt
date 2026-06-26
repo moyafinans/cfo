@@ -16,6 +16,8 @@ Finans Akademi, gerçek iş hayatından derlenen finansal senaryoları ve bankac
 
 - [Bilanço & Gelir Tablosu Yönetimi](https://moyafinans.github.io/cfo/bilanco-gelir.html): Bilanço analizi, likidite & kaldıraç oranları, gelir tablosu yorumu, özkaynak değişim tablosu, finansal tablo dipnotları ve bağımsız denetim süreci yönetimi. 5 konu, TFRS referansı.
 
+- [Finansman & Kredi Yönetimi](https://moyafinans.github.io/cfo/finansman-kredi.html): Kredi yapılandırması, banka müzakereleri, covenant izleme, leasing & IFRS 16, sermaye artırımı, tedarikçi finansmanı (SCF), döviz ve faiz riski yönetimi. 8 konu, hedging araçları ve formüller.
+
 ## Yakında
 
 - Yönetim Raporlaması & Sunum
