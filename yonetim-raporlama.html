@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yönetim Raporlaması (MIS) — Finans Akademi</title>
+<meta name="description" content="MIS tasarımı, aylık yönetim raporu, bütçe sapma analizi, flash rapor, KPI seçimi ve raporlama takvimi yönetimi.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://moyafinans.github.io/cfo/yonetim-raporlama.html">
+<meta property="og:title" content="Yönetim Raporlaması (MIS) — Finans Akademi">
+<meta property="og:description" content="MIS tasarımı, aylık yönetim raporu, bütçe sapma analizi, flash rapor, KPI seçimi ve raporlama takvimi yönetimi.">
+<meta property="og:url" content="https://moyafinans.github.io/cfo/yonetim-raporlama.html">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0f12;--panel:#15181d;--panel-2:#1b1f25;--line:#2a2f37;
+  --ink:#e9e7e1;--ink-dim:#9aa0aa;--ink-faint:#5a6070;
+  --gold:#cf9b3f;--gold-soft:#e8c789;--teal:#5fb6a4;
+  --red:#d9684f;--amber:#d9a441;--purple:#8b7cf6;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;line-height:1.7}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:rgba(13,15,18,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-icon{width:32px;height:32px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#16140d;}
+.nav-logo span{font-size:15px;font-weight:600;color:var(--ink);}
+.nav-back{font-size:13px;font-weight:500;color:var(--ink-dim);text-decoration:none;transition:color .15s;}
+.nav-back:hover{color:var(--gold);}
+.shell{display:grid;grid-template-columns:268px 1fr;min-height:calc(100vh - 60px);}
+.sidebar{background:var(--panel);border-right:1px solid var(--line);position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:24px 0 40px;}
+.sb-brand{display:flex;align-items:center;justify-content:space-between;padding:0 20px 20px;border-bottom:1px solid var(--line);margin-bottom:12px;}
+.sb-brand-inner .cat{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;}
+.sb-brand-inner .title{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--ink);}
+.sb-brand-inner .sub{font-size:.75rem;color:var(--ink-dim);margin-top:2px;}
+#menu-icon{background:none;border:none;color:var(--gold);font-size:18px;cursor:pointer;padding:4px;}
+.nav-group-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim);padding:12px 20px 6px;letter-spacing:.14em;text-transform:uppercase;}
+.nav-item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:none;border-left:2px solid transparent;color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.85rem;padding:8px 20px;cursor:pointer;transition:all .15s;}
+.nav-item .num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--gold);opacity:.7;min-width:18px;}
+.nav-item:hover{background:var(--panel-2);color:var(--ink);}
+.nav-item.active{background:var(--panel-2);color:var(--ink);border-left-color:var(--teal);font-weight:600;}
+.main{min-width:0;}
+.topbar{position:sticky;top:60px;z-index:90;display:flex;align-items:center;justify-content:space-between;padding:12px 44px;background:rgba(13,15,18,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+.topbar-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--ink-dim);}
+.topbar-label b{color:var(--gold-soft);}
+.progress-bar{width:140px;height:3px;background:var(--line);border-radius:2px;overflow:hidden;}
+#progressFill{height:100%;background:var(--teal);width:0%;transition:width .25s;}
+.overview{padding:52px 44px 60px;}
+.ov-title{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.ov-sub{color:var(--ink-dim);font-size:.95rem;margin-bottom:36px;max-width:600px;}
+.toc{display:grid;gap:10px;margin-top:24px;}
+.toc-item{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-left:3px solid transparent;padding:14px 18px;cursor:pointer;transition:all .15s;text-align:left;width:100%;font-family:'Inter',sans-serif;}
+.toc-item:hover{border-left-color:var(--teal);background:var(--panel-2);}
+.toc-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--teal);min-width:24px;}
+.toc-title{font-size:.92rem;color:var(--ink);font-weight:500;}
+.toc-desc{font-size:.78rem;color:var(--ink-dim);margin-top:2px;}
+.toc-arrow{margin-left:auto;color:var(--ink-faint);font-size:.8rem;}
+.section{display:none;border-bottom:1px solid var(--line);}
+.section.active{display:block;animation:fadein .3s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.section-inner{padding:52px 44px 60px;}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;}
+.sec-num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:700;color:var(--teal);opacity:.35;line-height:1;min-width:52px;}
+.sec-head h2{font-family:'Fraunces',serif;font-size:1.65rem;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.sec-head p{color:var(--ink-dim);font-size:.88rem;}
+.block{margin-top:28px;}
+.block-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+.block-label::before{content:'';width:14px;height:1px;background:var(--teal);display:block;}
+.block p{color:#cfd0d3;max-width:720px;font-size:.9rem;}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0;}
+table{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--panel);border:1px solid var(--line);}
+th{background:var(--panel-2);color:var(--gold-soft);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;}
+td{padding:9px 12px;border-bottom:1px solid var(--line);color:#cfd0d3;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+td.ok{color:var(--teal);font-weight:600;}
+td.warn{color:var(--amber);font-weight:600;}
+td.bad{color:var(--red);font-weight:600;}
+td.mono{font-family:'JetBrains Mono',monospace;font-size:.78rem;}
+.callout{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);padding:14px 18px;margin:16px 0;font-size:.88rem;color:#cfd0d3;line-height:1.65;}
+.callout.teal{border-left-color:var(--teal);}
+.callout.red{border-left-color:var(--red);}
+.callout.amber{border-left-color:var(--amber);}
+.callout strong{color:var(--ink);}
+ul.tick{list-style:none;margin:14px 0;padding:0;max-width:720px;}
+ul.tick li{position:relative;padding:8px 0 8px 24px;color:#cfd0d3;font-size:.88rem;border-bottom:1px solid var(--line);line-height:1.6;}
+ul.tick li:last-child{border-bottom:none;}
+ul.tick li::before{content:'—';position:absolute;left:0;color:var(--teal);font-family:'JetBrains Mono',monospace;}
+ul.tick li b{color:var(--ink);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+.mini-card{background:var(--panel);border:1px solid var(--line);padding:16px;}
+.mini-card h4{font-family:'Fraunces',serif;font-size:1rem;color:var(--gold-soft);margin-bottom:6px;}
+.mini-card p{font-size:.82rem;color:var(--ink-dim);line-height:1.6;}
+/* P&L table */
+.pl-table{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--panel);border:1px solid var(--line);margin:16px 0;}
+.pl-table th{background:var(--panel-2);color:var(--gold-soft);font-weight:600;font-size:.7rem;text-transform:uppercase;padding:9px 12px;border-bottom:1px solid var(--line);text-align:right;}
+.pl-table th:first-child{text-align:left;}
+.pl-table td{padding:9px 12px;border-bottom:1px solid var(--line);color:#cfd0d3;text-align:right;}
+.pl-table td:first-child{text-align:left;font-weight:600;}
+.pl-table tr.highlight td{background:rgba(95,182,164,.07);color:var(--teal);font-weight:700;}
+.pl-table tr:last-child td{border-bottom:none;}
+/* Timeline steps */
+.close-row{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);}
+.close-row:last-child{border-bottom:none;}
+.close-day{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--teal);background:var(--panel-2);border:1px solid var(--line);padding:4px 8px;min-width:52px;text-align:center;flex-shrink:0;margin-top:2px;}
+.close-body .close-title{font-weight:600;color:var(--ink);font-size:.88rem;}
+.close-body .close-who{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--ink-dim);margin-top:2px;}
+/* Traffic light */
+.tl-badge{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;padding:3px 10px;border-radius:2px;font-weight:600;}
+.tl-green{background:rgba(95,182,164,.12);color:var(--teal);}
+.tl-amber{background:rgba(217,164,65,.12);color:var(--amber);}
+.tl-red{background:rgba(217,104,79,.12);color:var(--red);}
+/* Flash mock */
+.flash-block{background:var(--panel);border:1px solid var(--line);margin:16px 0;}
+.flash-header{background:var(--panel-2);padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-soft);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;}
+.flash-row{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);font-size:.84rem;}
+.flash-row:last-child{border-bottom:none;}
+.flash-label{color:var(--ink-dim);}
+.flash-val{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--ink);}
+.flash-val.up{color:var(--teal);}
+.flash-val.down{color:var(--red);}
+/* RACI */
+.raci-card{background:var(--panel);border:1px solid var(--line);padding:16px;text-align:center;}
+.raci-letter{font-family:'JetBrains Mono',monospace;font-size:2rem;font-weight:700;margin-bottom:6px;}
+.raci-card h4{font-size:.82rem;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.raci-card p{font-size:.78rem;color:var(--ink-dim);line-height:1.5;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px;}
+.takeaway{margin-top:32px;background:var(--panel-2);border:1px solid var(--line);border-top:2px solid var(--teal);padding:22px 24px;}
+.takeaway h4{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:12px;}
+.nav-arrows{display:flex;gap:12px;margin-top:40px;padding-top:32px;border-top:1px solid var(--line);}
+.nav-arrows button{background:var(--panel);border:1px solid var(--line);color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.82rem;padding:12px 20px;cursor:pointer;flex:1;text-align:left;transition:all .15s;display:flex;flex-direction:column;gap:2px;}
+.nav-arrows button span{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--teal);letter-spacing:.06em;}
+.nav-arrows button.next{text-align:right;}
+.nav-arrows button:hover:not(:disabled){background:var(--panel-2);border-color:var(--teal);color:var(--ink);}
+.nav-arrows button:disabled{opacity:.3;cursor:not-allowed;}
+footer{padding:32px 40px;border-top:1px solid var(--line);text-align:center;}
+@media(max-width:860px){
+  nav{padding:0 18px;}
+  .shell{grid-template-columns:1fr;}
+  .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);max-height:52px;overflow:hidden;transition:max-height .3s;}
+  .sidebar.open{max-height:100vh;overflow-y:auto;}
+  .sb-brand{padding:14px 18px;cursor:pointer;}
+  .section-inner,.overview{padding:32px 18px 48px;}
+  .topbar{padding:10px 18px;}
+  .grid2,.grid4{grid-template-columns:1fr 1fr;}
+  .nav-arrows{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-icon">FA</div>
+    <span>Finans Akademi</span>
+  </a>
+  <a class="nav-back" href="index.html">← Tüm Konular</a>
+</nav>
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand" onclick="toggleSidebar()">
+      <div class="sb-brand-inner">
+        <div class="cat">Raporlama & MIS</div>
+        <div class="title">Yönetim Raporlaması</div>
+        <div class="sub">6 konu başlığı</div>
+      </div>
+      <button id="menu-icon" onclick="event.stopPropagation();toggleSidebar()">☰</button>
+    </div>
+    <div>
+      <div class="nav-group-label">İçindekiler</div>
+      <button class="nav-item active" data-target="overview"><span class="num">—</span>Genel Bakış</button>
+      <button class="nav-item" data-target="k1"><span class="num">01</span>MIS Nedir? Rapor Türleri</button>
+      <button class="nav-item" data-target="k2"><span class="num">02</span>Aylık Yönetim Raporu</button>
+      <button class="nav-item" data-target="k3"><span class="num">03</span>Bütçe Sapma Analizi</button>
+      <button class="nav-item" data-target="k4"><span class="num">04</span>Flash Rapor & Dashboard</button>
+      <button class="nav-item" data-target="k5"><span class="num">05</span>KPI Seçimi & İzleme</button>
+      <button class="nav-item" data-target="k6"><span class="num">06</span>Raporlama Takvimi</button>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-label">Konu <b id="bc-num">—</b> / 6 &nbsp;·&nbsp; <span id="bc-title">Genel Bakış</span></div>
+      <div class="progress-bar"><div id="progressFill"></div></div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div id="overview-panel" class="overview">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--teal);letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px;">Raporlama & MIS</div>
+      <div class="ov-title">Yönetim<br>Raporlaması (MIS)</div>
+      <p class="ov-sub">Doğru kişiye, doğru veriyi, doğru zamanda — flash rapordan Yönetim Kurulu sunumuna CFO'nun raporlama ekosistemi.</p>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;margin-bottom:36px;">
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:8px;height:8px;background:var(--teal);border-radius:50%;"></div><span style="font-size:.82rem;color:var(--ink-dim);">6 Konu</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:8px;height:8px;background:var(--amber);border-radius:50%;"></div><span style="font-size:.82rem;color:var(--ink-dim);">Variance · KPI · Dashboard</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:8px;height:8px;background:var(--purple);border-radius:50%;"></div><span style="font-size:.82rem;color:var(--ink-dim);">Close Takvimi · RACI</span></div>
+      </div>
+      <div class="toc">
+        <button class="toc-item" data-target="k1"><span class="toc-num">01</span><div><div class="toc-title">MIS Nedir? — Rapor Türleri & Alıcı Matrisi</div><div class="toc-desc">6 rapor türü, tasarım ilkeleri, en çok yapılan hatalar</div></div><span class="toc-arrow">→</span></button>
+        <button class="toc-item" data-target="k2"><span class="toc-num">02</span><div><div class="toc-title">Aylık Yönetim Raporu Tasarımı</div><div class="toc-desc">8 bölümlü yapı, P&L örneği, hazırlama takvimi</div></div><span class="toc-arrow">→</span></button>
+        <button class="toc-item" data-target="k3"><span class="toc-num">03</span><div><div class="toc-title">Bütçe Sapma Analizi (Variance Analysis)</div><div class="toc-desc">Fiyat, hacim, mix & verimlilik etkilerini ayrıştırma</div></div><span class="toc-arrow">→</span></button>
+        <button class="toc-item" data-target="k4"><span class="toc-num">04</span><div><div class="toc-title">Flash Rapor & Dashboard Tasarımı</div><div class="toc-desc">Günlük nakit raporu, 5±2 kuralı, araç karşılaştırması</div></div><span class="toc-arrow">→</span></button>
+        <button class="toc-item" data-target="k5"><span class="toc-num">05</span><div><div class="toc-title">KPI Seçimi & Performans İzleme</div><div class="toc-desc">CFO KPI kategorileri, SMART kriterleri, KPI tuzakları</div></div><span class="toc-arrow">→</span></button>
+        <button class="toc-item" data-target="k6"><span class="toc-num">06</span><div><div class="toc-title">Raporlama Takvimi & Süreç Yönetimi</div><div class="toc-desc">Close takvimi, RACI matrisi, otomasyon fırsatları</div></div><span class="toc-arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- K1: MIS NEDİR -->
+    <div class="section" id="k1" data-idx="1" data-title="MIS Nedir? Rapor Türleri">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">01</div><div><h2>MIS Nedir? — Rapor Türleri & Alıcı Matrisi</h2><p>Management Information System — Temel Çerçeve</p></div></div>
+        <div class="block">
+          <div class="block-label">MIS Tanımı</div>
+          <p>Yönetim Bilgi Sistemi; yöneticilerin karar almak için ihtiyaç duyduğu finansal ve operasyonel verilerin toplanması, işlenmesi ve raporlanması sürecidir. <b style="color:var(--ink)">İyi bir MIS; doğru kişiye, doğru veriyi, doğru zamanda ve doğru formatta sunar.</b></p>
+        </div>
+        <div class="block">
+          <div class="block-label">Rapor Türleri & Alıcı Matrisi</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Rapor Türü</th><th>Alıcı</th><th>Sıklık</th><th>Temel İçerik</th></tr></thead>
+              <tbody>
+                <tr><td style="font-weight:600;color:var(--teal);">Günlük Flash</td><td>CFO, Hazine Md.</td><td class="mono">Her gün</td><td>Nakit pozisyon, kritik ödemeler, döviz kuru</td></tr>
+                <tr><td style="font-weight:600;color:var(--teal);">Haftalık Satış</td><td>CEO, Satış Dir.</td><td class="mono">Haftalık</td><td>Ciro, müşteri, bölge bazlı gelişme, pipeline</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">Aylık Yönetim</td><td>Yönetim Kurulu</td><td class="mono">Aylık</td><td>P&L, bilanço, KPI, bütçe sapması, risk</td></tr>
+                <tr><td style="font-weight:600;color:var(--amber);">Çeyreklik Board</td><td>YK, Yatırımcılar</td><td class="mono">3 ayda bir</td><td>Strateji, finansallar, öngörü, risk özeti</td></tr>
+                <tr><td style="font-weight:600;color:var(--purple);">Yıllık Faaliyet</td><td>Kamuoyu, denetçi</td><td class="mono">Yıllık</td><td>TFRS finansallar, dipnotlar, yönetim yorumu</td></tr>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Ad-hoc Rapor</td><td>Proje bazlı alıcı</td><td class="mono">İhtiyaca göre</td><td>M&A analizi, yatırım kararı, kriz raporu</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">MIS Tasarım İlkeleri</div>
+          <ul class="tick">
+            <li><b>Alıcıya göre özelleştirme:</b> CEO operasyonel, CFO finansal, YK stratejik ister. Aynı rapor herkese gitmez.</li>
+            <li><b>Tek sayfa özet:</b> Yönetici özeti mutlaka 1 sayfaya sığmalı — detay arka planda ek olarak.</li>
+            <li><b>Trafik ışığı sistemi:</b> Kırmızı/Sarı/Yeşil ile sapmaları görselleştirin — göz saniyede anlar.</li>
+            <li><b>Trend gösterin:</b> Sadece bu ay değil son 6–12 ayın trendi zorunlu — tek nokta yanıltıcıdır.</li>
+            <li><b>Rakam değil yorum:</b> Her önemli sapmanın altına 1–2 cümle neden/ne yapılacak yazın.</li>
+            <li><b>Zamanında olsun:</b> Geç gelen mükemmel rapor, zamanında gelen iyi rapordan değersizdir.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <div class="block-label">Raporlamada En Çok Yapılan Hatalar</div>
+          <div class="grid2">
+            <div class="mini-card"><h4>Çok Fazla Veri = Bilgi Yok</h4><p>50 sayfalık rapor okunmaz; 5 sayfalık rapor karar verir. Az ama kritik veri seçin.</p></div>
+            <div class="mini-card"><h4>Sadece İyi Haberleri Rapor Etmek</h4><p>CFO'nun görevi gerçeği söylemek, yöneticileri mutlu etmek değil. Kötü haber geç gelirse daha kötüdür.</p></div>
+            <div class="mini-card"><h4>Geçen Yılla Kıyaslamayı Unutmak</h4><p>Bütçeyi tutturmuş görünebilirsiniz ama geçen yıla göre geriliyorsanız sorun var — her ikisi de gösterilmeli.</p></div>
+            <div class="mini-card"><h4>Yorumsuz Tablo</h4><p>"Satışlar düştü" değil "neden düştü ve ne yapılacak" yazılmalı. Rakam var, anlam yok — değersiz.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- K2: AYLIK RAPOR -->
+    <div class="section" id="k2" data-idx="2" data-title="Aylık Yönetim Raporu">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">02</div><div><h2>Aylık Yönetim Raporu Tasarımı</h2><p>P&L · Bilanço · KPI · Risk — Tam Yapı & İçerik</p></div></div>
+        <div class="block">
+          <div class="block-label">Neden Kritik?</div>
+          <p>Aylık yönetim raporu <b style="color:var(--ink)">CFO'nun en önemli çıktısıdır.</b> Yönetim kurulunun şirketi anlaması, karar alması ve CFO'yu değerlendirmesi büyük ölçüde bu belgeye dayanır.</p>
+        </div>
+        <div class="block">
+          <div class="block-label">Raporun 8 Bölümü</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>#</th><th>Bölüm</th><th>İçerik</th><th>Format</th><th>Sayfa</th></tr></thead>
+              <tbody>
+                <tr><td class="mono" style="color:var(--teal);">1</td><td style="font-weight:600;">Yönetici Özeti</td><td>Ay özeti, 3 iyi/3 kötü haber, öncelikli aksiyon</td><td>Madde + trafik ışığı</td><td class="mono">1</td></tr>
+                <tr><td class="mono" style="color:var(--teal);">2</td><td style="font-weight:600;">Finansal Performans</td><td>P&L — Gerçekleşen vs Bütçe vs Geçen Yıl</td><td>Tablo + grafik</td><td class="mono">2–3</td></tr>
+                <tr><td class="mono" style="color:var(--teal);">3</td><td style="font-weight:600;">Bilanço Özeti</td><td>Net borç, işletme sermayesi, kovanant durumu</td><td>Tablo + trend</td><td class="mono">4</td></tr>
+                <tr><td class="mono" style="color:var(--teal);">4</td><td style="font-weight:600;">Nakit Akışı</td><td>Operasyonel / Yatırım / Finansman bazında</td><td>Köprü (bridge) grafik</td><td class="mono">5</td></tr>
+                <tr><td class="mono" style="color:var(--teal);">5</td><td style="font-weight:600;">KPI Tablosu</td><td>Operasyonel metrikler — DSO, DIO, kapasite</td><td>Trafik ışıklı tablo</td><td class="mono">6</td></tr>
+                <tr><td class="mono" style="color:var(--teal);">6</td><td style="font-weight:600;">Segment Analizi</td><td>Bölüm/ürün bazında kârlılık ve büyüme</td><td>Pasta + bar grafik</td><td class="mono">7–8</td></tr>
+                <tr><td class="mono" style="color:var(--teal);">7</td><td style="font-weight:600;">Öngörü (Forecast)</td><td>Kalan dönem tahmini — revize bütçe</td><td>Tablo + senaryo</td><td class="mono">9</td></tr>
+                <tr><td class="mono" style="color:var(--teal);">8</td><td style="font-weight:600;">Risk & Aksiyonlar</td><td>Dönem riskleri, kritik gelişmeler, sonraki ay</td><td>Madde listesi</td><td class="mono">10</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">P&L Raporlama Yapısı — Örnek</div>
+          <div class="tbl-wrap">
+            <table class="pl-table">
+              <thead><tr><th>Satır</th><th>Gerçekleşen</th><th>Bütçe</th><th>Sapma</th><th>Geçen Yıl</th><th>YoY%</th></tr></thead>
+              <tbody>
+                <tr><td>Net Satışlar</td><td>12.500</td><td>12.000</td><td class="ok">+500 ✓</td><td>11.200</td><td class="ok">+11,6%</td></tr>
+                <tr><td>Brüt Kâr</td><td>3.750</td><td>3.600</td><td class="ok">+150 ✓</td><td>3.136</td><td class="ok">+19,6%</td></tr>
+                <tr><td>Brüt Marj%</td><td>%30,0</td><td>%30,0</td><td>0,0 pp</td><td>%28,0</td><td class="ok">+2,0 pp</td></tr>
+                <tr class="highlight"><td>EBITDA</td><td>1.875</td><td>1.800</td><td class="ok">+75 ✓</td><td>1.568</td><td class="ok">+19,6%</td></tr>
+                <tr><td>EBITDA Marj%</td><td>%15,0</td><td>%15,0</td><td>0,0 pp</td><td>%14,0</td><td class="ok">+1,0 pp</td></tr>
+                <tr class="highlight"><td>Net Kâr</td><td>937</td><td>900</td><td class="ok">+37 ✓</td><td>784</td><td class="ok">+19,5%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:.75rem;color:var(--ink-faint);margin-top:6px;">Tüm tutarlar bin TL cinsinden — örnek gösterim amaçlıdır.</p>
+        </div>
+        <div class="block">
+          <div class="block-label">Aylık Rapor Hazırlama Takvimi</div>
+          <ul class="tick">
+            <li><b>İş günü 1–4:</b> Kapanış işlemleri, banka mutabakatları, alıcı/satıcı mutabakatları tamamlanır.</li>
+            <li><b>İş günü 4–5:</b> Tahakkuklar, karşılıklar, amortisman girilir. Dönem sonu kayıtları hazır.</li>
+            <li><b>İş günü 5–6:</b> Ham veriler ERP'den çekilir, kontroller yapılır.</li>
+            <li><b>İş günü 7–8:</b> Sapma analizi ve yorumlar yazılır. CFO incelemesi.</li>
+            <li><b>İş günü 9–10:</b> Yönetim kuruluna dağıtım ve sunum. <b style="color:var(--teal)">Hedef: En geç 10. iş günü.</b></li>
+          </ul>
+        </div>
+        <div class="callout teal">
+          <strong>CFO Çıktısı:</strong> Aylık yönetim raporu kalitesi sizi temsil eder. Geç gelen, yorumsuz veya hatalı rapor CFO güvenilirliğini doğrudan etkiler. Takvime bağlılık ve içerik kalitesi eşit önemdedir.
+        </div>
+      </div>
+    </div>
+
+    <!-- K3: VARIANCE -->
+    <div class="section" id="k3" data-idx="3" data-title="Bütçe Sapma Analizi">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">03</div><div><h2>Bütçe Sapma Analizi (Variance Analysis)</h2><p>Fiyat, Hacim, Mix & Verimlilik Etkilerini Ayrıştırma</p></div></div>
+        <div class="block">
+          <div class="block-label">Sapma Analizi Nedir?</div>
+          <p>Gerçekleşen ile planlanan arasındaki farkın nedenini ayrıştırır. <b style="color:var(--ink)">"Satışlar bütçenin altında kaldı" yeterli değil</b> — fiyat mı düştü, hacim mi düştü, ürün karması mı değişti? Her birinin etkisi ayrı hesaplanır.</p>
+        </div>
+        <div class="block">
+          <div class="block-label">Sapma Formülleri</div>
+          <div style="background:var(--panel);border:1px solid var(--line);padding:20px 24px;margin:16px 0;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:16px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:10px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--ink-dim);min-width:140px;">Toplam Sapma</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--gold-soft);">Gerçekleşen − Bütçe &nbsp;(+ olumlu / − olumsuz)</span>
+            </div>
+            <div style="display:flex;gap:16px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:10px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--teal);min-width:140px;">Hacim Etkisi</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--gold-soft);">(Gerçek Hacim − Bütçe Hacim) × Bütçe Fiyat</span>
+            </div>
+            <div style="display:flex;gap:16px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:10px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--teal);min-width:140px;">Fiyat Etkisi</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--gold-soft);">(Gerçek Fiyat − Bütçe Fiyat) × Gerçek Hacim</span>
+            </div>
+            <div style="display:flex;gap:16px;align-items:baseline;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--teal);min-width:140px;">Mix Etkisi</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--gold-soft);">(Gerçek Mix − Bütçe Mix) × Toplam Hacim × Bütçe Katkı Payı</span>
+            </div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Sapma Türleri & Yönetim Aksiyonu</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Sapma Türü</th><th>Anlam</th><th>Soru</th><th>Aksiyon</th></tr></thead>
+              <tbody>
+                <tr><td class="ok">Olumlu Fiyat</td><td>Bütçeden yüksek fiyatla sattık</td><td>Sürdürülebilir mi?</td><td>Fiyat politikasını güncelle</td></tr>
+                <tr><td class="bad">Olumsuz Hacim</td><td>Beklediğimizden az sattık</td><td>Pazar mı, satış mı?</td><td>Satış ekibi analizi</td></tr>
+                <tr><td class="warn">Olumsuz Mix</td><td>Kârsız ürünler daha çok satıldı</td><td>Teşvik sistemi doğru mu?</td><td>Komisyon yapısını gözden geçir</td></tr>
+                <tr><td class="bad">Olumsuz Verimlilik</td><td>Maliyet bütçeyi aştı</td><td>Fiyat mı, israf mı?</td><td>Tedarik & üretim analizi</td></tr>
+                <tr><td class="warn">Olumlu Hacim + Olumsuz Fiyat</td><td>Çok sattık ama ucuza</td><td>İskonto politikası?</td><td>Müşteri kârlılık analizi</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Sapma Raporunun Altın Kuralı</div>
+          <ul class="tick">
+            <li>Her önemli sapmanın yanına mutlaka <b>"neden"</b> ve <b>"ne yapılacak"</b> yazılmalı.</li>
+            <li><b>Eşik değer belirleyin:</b> Örn. bütçeden &gt;%5 veya &gt;500K TL sapma açıklama gerektirir.</li>
+            <li><b>Kontrolünüz dışındaki sapmayı</b> (kur, enflasyon) ayrıştırın — yönetime doğru mesaj verir.</li>
+            <li><b>Olumlu sapmada da analiz yapın:</b> Şans mı, beceri mi, sürdürülebilir mi?</li>
+          </ul>
+        </div>
+        <div class="callout amber">
+          <strong>Sık Yapılan Hata:</strong> Kur ve enflasyon etkisi ayrıştırılmadan sunulan sapma analizi yönetimi yanıltır. "Satışlar %20 arttı" güzel görünür ama tamamı enflasyondan kaynaklanıyorsa gerçek büyüme sıfırdır.
+        </div>
+      </div>
+    </div>
+
+    <!-- K4: FLASH & DASHBOARD -->
+    <div class="section" id="k4" data-idx="4" data-title="Flash Rapor & Dashboard">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">04</div><div><h2>Flash Rapor & Dashboard Tasarımı</h2><p>Günlük Nakit Raporu & Görsel Performans Panosu</p></div></div>
+        <div class="block">
+          <div class="block-label">Flash Rapor Nedir?</div>
+          <p>Her sabah hazırlanıp CFO ve üst yönetime gönderilen, günlük nakit pozisyonu ve kritik operasyonel göstergeleri özetleyen kısa rapordur. <b style="color:var(--ink)">Maksimum 1 sayfa — okunması 2 dakikayı geçmemeli.</b></p>
+        </div>
+        <div class="block">
+          <div class="block-label">Flash Rapor — Örnek Yapı</div>
+          <div class="flash-block">
+            <div class="flash-header"><span>Günlük Hazine Flash Raporu</span><span>27 Haz 2026 · 08:30</span></div>
+            <div class="flash-row"><span class="flash-label">Toplam TL Bakiye</span><span class="flash-val">₺ 8.240.000</span></div>
+            <div class="flash-row"><span class="flash-label">Toplam USD Bakiye</span><span class="flash-val">$ 124.500</span></div>
+            <div class="flash-row"><span class="flash-label">Bugünkü Kritik Ödemeler</span><span class="flash-val down">− ₺ 1.850.000</span></div>
+            <div class="flash-row"><span class="flash-label">Beklenen Tahsilat</span><span class="flash-val up">+ ₺ 2.300.000</span></div>
+            <div class="flash-row"><span class="flash-label">Tahmini Kapanış</span><span class="flash-val up">₺ 8.690.000</span></div>
+            <div class="flash-row"><span class="flash-label">USD/TL (Anlık)</span><span class="flash-val">32,84 &nbsp;<span style="color:var(--amber);font-size:.72rem;">▲ 0,3%</span></span></div>
+            <div class="flash-row"><span class="flash-label">Kritik Not</span><span class="flash-val warn" style="font-size:.78rem;">Tedarikçi A limiti yakın — Hazine onayı gerekli</span></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Flash Rapor İçerik Bölümleri</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Bölüm</th><th>İçerik</th><th>Kaynak</th></tr></thead>
+              <tbody>
+                <tr><td style="font-weight:600;">Nakit Pozisyon</td><td>Her banka hesabı ayrı — TL + döviz bakiyeleri</td><td>Banka ekstresi / ERP</td></tr>
+                <tr><td style="font-weight:600;">Bugünkü Ödemeler</td><td>Kritik çıkışlar: kredi, vergi, tedarikçi</td><td>Ödeme planı</td></tr>
+                <tr><td style="font-weight:600;">Bugünkü Tahsilatlar</td><td>Beklenen müşteri ödemeleri</td><td>Alacak takip</td></tr>
+                <tr><td style="font-weight:600;">Net Pozisyon</td><td>Açılış + Tahsilat − Ödeme = Kapanış tahmini</td><td>Hesaplama</td></tr>
+                <tr><td style="font-weight:600;">Döviz Kuru</td><td>USD/TL, EUR/TL anlık & önceki gün</td><td>TCMB / piyasa</td></tr>
+                <tr><td style="font-weight:600;">Kritik Not</td><td>Olağandışı hareket, risk, acil aksiyon</td><td>Hazine yorum</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Dashboard Tasarım İlkeleri</div>
+          <ul class="tick">
+            <li><b>5±2 kuralı:</b> Bir dashboardda maksimum 7 metrik — fazlası dikkat dağıtır.</li>
+            <li><b>Hiyerarşi:</b> En önemli metrik sol üste — göz oradan başlar.</li>
+            <li><b>Renk tutarlılığı:</b> Yeşil=iyi, Kırmızı=kötü, Sarı=izlemede — asla değiştirme.</li>
+            <li><b>Karşılaştırma zorunlu:</b> "1.000" anlamsız; "1.000 / Bütçe: 950 ✓" anlamlı.</li>
+            <li><b>Trend ok işareti:</b> ↑↓ ile yönü gösterin — sayı okumadan mesaj alınsın.</li>
+            <li><b>Veri güncelleme tarihi:</b> Her metriğin yanında "son güncelleme" tarihi olsun.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <div class="block-label">Dashboard Araç Karşılaştırması</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Araç</th><th>Güçlü Yanı</th><th>Zayıf Yanı</th><th>En İyi Kullanım</th></tr></thead>
+              <tbody>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">Excel</td><td>Esnek, yaygın, kolay</td><td class="warn">Manuel güncelleme, hata riski</td><td>Küçük ekip, ad-hoc</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">Power BI</td><td>Otomatik veri çekme, görsel</td><td class="warn">Lisans maliyeti, öğrenme eğrisi</td><td>Orta-büyük şirket</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">Tableau</td><td>En güçlü görselleştirme</td><td class="warn">Pahalı, karmaşık</td><td>Büyük veri analizi</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">ERP Dahili</td><td>Entegre, gerçek zamanlı</td><td class="warn">Sınırlı özelleştirme</td><td>Standart raporlar</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- K5: KPI -->
+    <div class="section" id="k5" data-idx="5" data-title="KPI Seçimi & İzleme">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">05</div><div><h2>KPI Seçimi & Performans İzleme</h2><p>Doğru Metriği Seçmek & Hedef Belirleme Çerçevesi</p></div></div>
+        <div class="block">
+          <div class="block-label">KPI Nedir, Ne Değildir?</div>
+          <p>KPI; stratejik hedeflere ulaşmayı ölçen, az sayıda, anlamlı ve eyleme dönüştürülebilir metriktir. <b style="color:var(--ink)">Her ölçülen şey KPI değildir — KPI az ama kritik olanıdır.</b></p>
+        </div>
+        <div class="block">
+          <div class="block-label">CFO KPI Kategorileri</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Kategori</th><th>Örnek Metrikler</th><th>Sıklık</th></tr></thead>
+              <tbody>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">Kârlılık</td><td>Brüt Marj%, EBITDA Marj%, Net Kâr Marj%</td><td class="mono">Aylık</td></tr>
+                <tr><td style="font-weight:600;color:var(--teal);">Likidite</td><td>Cari Oran, Net Borç/EBITDA, Nakit Dönüşüm Süresi</td><td class="mono">Aylık</td></tr>
+                <tr><td style="font-weight:600;color:var(--amber);">Büyüme</td><td>Satış Büyümesi (YoY%), Organik vs İnorganik</td><td class="mono">Aylık</td></tr>
+                <tr><td style="font-weight:600;color:var(--purple);">Verimlilik</td><td>DSO, DIO, DPO, Varlık Devir Hızı</td><td class="mono">Aylık</td></tr>
+                <tr><td style="font-weight:600;color:var(--teal);">Nakit</td><td>Serbest Nakit Akışı (FCF), Capex/Satış</td><td class="mono">Aylık</td></tr>
+                <tr><td style="font-weight:600;color:var(--red);">Risk</td><td>Kovanant yüzdeleri, hedge oranı, döviz açık pozisyon</td><td class="mono">Aylık</td></tr>
+                <tr><td style="font-weight:600;color:var(--ink-dim);">Operasyonel</td><td>Kapasite kullanım oranı, sipariş-teslimat süresi</td><td class="mono">Haftalık</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">SMART KPI Kriterleri</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Harf</th><th>Türkçe</th><th>Soru</th></tr></thead>
+              <tbody>
+                <tr><td style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--teal);">S</td><td style="font-weight:600;">Spesifik</td><td>"Net satış büyümesi" mi, "Türkiye pazarı net satış büyümesi" mi?</td></tr>
+                <tr><td style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--teal);">M</td><td style="font-weight:600;">Ölçülebilir</td><td>Bu metriği nasıl hesaplayacaksınız? Veri kaynağı var mı?</td></tr>
+                <tr><td style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--teal);">A</td><td style="font-weight:600;">Ulaşılabilir</td><td>Geçen yıl %8 büyüdünüz, %50 hedef gerçekçi mi?</td></tr>
+                <tr><td style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--teal);">R</td><td style="font-weight:600;">İlgili</td><td>Bu metrik stratejik hedefle doğrudan bağlantılı mı?</td></tr>
+                <tr><td style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--teal);">T</td><td style="font-weight:600;">Zamanlı</td><td>Hedef tarihi var mı? Yıl sonu mu, çeyrek sonu mu?</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">KPI Tuzakları</div>
+          <ul class="tick">
+            <li><b>Çok fazla KPI:</b> 50 KPI = 0 odak. Şirket başına 10–15, CFO için 8–10 yeterli.</li>
+            <li><b>Gecikmeli gösterge tuzağı:</b> Net kâr geçmişi gösterir; sipariş akışı geleceği — her ikisi gerekli.</li>
+            <li><b>KPI ile hedefi karıştırma:</b> DSO bir KPI, "DSO'yu 45 güne düşürmek" bir hedeftir.</li>
+            <li><b>Manipüle edilebilir KPI:</b> "Müşteri memnuniyeti" kendi ölçülürse güvenilmez — bağımsız ölçülmeli.</li>
+          </ul>
+        </div>
+        <div class="callout teal">
+          <strong>Altın Kural:</strong> KPI az ama kritik olmalı. Yönetimin odağını 3–5 temel metrikte tutun. Geri kalanları takip edin ama yönetim raporuna taşımayın — kaos yaratır.
+        </div>
+      </div>
+    </div>
+
+    <!-- K6: TAKVİM -->
+    <div class="section" id="k6" data-idx="6" data-title="Raporlama Takvimi">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">06</div><div><h2>Raporlama Takvimi & Süreç Yönetimi</h2><p>Close Takvimi, Sorumluluk Matrisi & Otomasyon</p></div></div>
+        <div class="block">
+          <div class="block-label">Close Takvimi</div>
+          <div style="background:var(--panel);border:1px solid var(--line);padding:20px 24px;margin:16px 0;">
+            <div class="close-row"><div class="close-day">İG 1–2</div><div class="close-body"><div class="close-title">Banka mutabakatları, açık kalemler kapatılır</div><div class="close-who">Sorumlu: Muhasebe · Çıktı: Mutabık banka bakiyeleri</div></div></div>
+            <div class="close-row"><div class="close-day">İG 3–4</div><div class="close-body"><div class="close-title">Alıcı/satıcı mutabakatları, stok sayım kontrolü</div><div class="close-who">Sorumlu: Muhasebe · Çıktı: Cari hesap mutabakatı</div></div></div>
+            <div class="close-row"><div class="close-day">İG 4–5</div><div class="close-body"><div class="close-title">Tahakkuklar, karşılıklar, amortisman girilir</div><div class="close-who">Sorumlu: Muhasebe · Çıktı: Dönem sonu kayıtları</div></div></div>
+            <div class="close-row"><div class="close-day">İG 5–6</div><div class="close-body"><div class="close-title">Ham veriler ERP'den çekilir, kontroller yapılır</div><div class="close-who">Sorumlu: FP&A · Çıktı: Ham veri seti</div></div></div>
+            <div class="close-row"><div class="close-day">İG 6–7</div><div class="close-body"><div class="close-title">Sapma analizi ve yorumlar yazılır</div><div class="close-who">Sorumlu: FP&A / CFO · Çıktı: Analiz notları</div></div></div>
+            <div class="close-row"><div class="close-day">İG 8</div><div class="close-body"><div class="close-title">CFO incelemesi, son düzeltmeler</div><div class="close-who">Sorumlu: CFO · Çıktı: Onaylı rapor taslağı</div></div></div>
+            <div class="close-row"><div class="close-day">İG 9–10</div><div class="close-body"><div class="close-title">Yönetim kuruluna dağıtım ve sunum</div><div class="close-who">Sorumlu: CFO · Çıktı: Final rapor + sunum</div></div></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">RACI Matrisi</div>
+          <div class="grid4">
+            <div class="raci-card"><div class="raci-letter" style="color:var(--teal);">R</div><h4>Responsible</h4><p>Yapan kişi. FP&A uzmanı raporu hazırlar.</p></div>
+            <div class="raci-card"><div class="raci-letter" style="color:var(--amber);">A</div><h4>Accountable</h4><p>Hesap veren. CFO rapordan sorumludur.</p></div>
+            <div class="raci-card"><div class="raci-letter" style="color:var(--purple);">C</div><h4>Consulted</h4><p>Görüş alınan. Satış müdürü hacim verisi verir.</p></div>
+            <div class="raci-card"><div class="raci-letter" style="color:var(--ink-dim);">I</div><h4>Informed</h4><p>Bilgilendirilen. CEO raporu alır, incelemez.</p></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Otomasyon Fırsatları</div>
+          <ul class="tick">
+            <li><b>ERP entegrasyonu:</b> Muhasebe kaydı anında raporlama veri tabanına düşer — manuel aktarım biter.</li>
+            <li><b>Power Query / Power BI:</b> Excel'deki manuel kopyala-yapıştır işlemleri otomasyona alınır.</li>
+            <li><b>E-posta otomasyonu:</b> Flash rapor her sabah otomatik oluşturulup gönderilir.</li>
+            <li><b>Sapma uyarısı:</b> Belirli eşiği aşan sapma anında CFO'ya bildirim gider.</li>
+            <li><b>Otomasyon önceliği:</b> Önce en çok zaman alan, en az değer katan işleri otomasyona alın.</li>
+          </ul>
+        </div>
+        <div class="takeaway">
+          <h4>Temel Çıkarımlar — Yönetim Raporlaması (MIS)</h4>
+          <ul class="tick">
+            <li><b>Doğru kişiye, doğru veri, doğru zamanda</b> — MIS'in üç altın kuralı.</li>
+            <li><b>Aylık yönetim raporu CFO'nun en görünür çıktısıdır</b> — kalitesi sizi temsil eder.</li>
+            <li><b>Sapma analizi "ne" değil "neden ve ne yapılacak"</b> sorusunu yanıtlamalı.</li>
+            <li><b>Flash rapor 1 sayfa</b> — fazlası okunmaz, gecikirse anlamsız.</li>
+            <li><b>KPI az ama kritik olmalı</b> — 50 metrik odak değil kaos yaratır.</li>
+            <li><b>Raporlama takvimi olmadan close süreci her ay kriz olur</b> — takvimi yazın, uygulayın.</li>
+            <li><b>Otomasyon:</b> Tekrar eden manuel işi bitirin, zamanınızı analize harcayın.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+<footer>
+  <div style="font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px;">Finans <span style="color:var(--gold)">Akademi</span></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-dim);">© 2026 · moyafinans.github.io/cfo</div>
+</footer>
+<script>
+var order=['overview','k1','k2','k3','k4','k5','k6'];
+var titles={overview:'Genel Bakış',k1:'MIS Nedir? Rapor Türleri',k2:'Aylık Yönetim Raporu',k3:'Bütçe Sapma Analizi',k4:'Flash Rapor & Dashboard',k5:'KPI Seçimi & İzleme',k6:'Raporlama Takvimi'};
+var TOPLAM=6;
+function show(t){
+  document.getElementById('overview-panel').style.display=t==='overview'?'block':'none';
+  document.querySelectorAll('.section').forEach(function(s){s.classList.toggle('active',s.id===t);});
+  document.querySelectorAll('.nav-item,.toc-item').forEach(function(b){b.classList.toggle('active',b.dataset.target===t);});
+  var el=document.getElementById(t);
+  document.getElementById('bc-num').textContent=el?el.dataset.idx:'—';
+  document.getElementById('bc-title').textContent=titles[t]||'Genel Bakış';
+  document.getElementById('progressFill').style.width=el?(parseInt(el.dataset.idx)/TOPLAM*100)+'%':'0%';
+  window.scrollTo({top:0,behavior:'smooth'});
+  renderArrows(t);
+  if(window.innerWidth<=860){document.getElementById('sidebar').classList.remove('open');document.getElementById('menu-icon').textContent='☰';}
+}
+function renderArrows(t){
+  document.querySelectorAll('.nav-arrows').forEach(function(e){e.remove();});
+  if(t==='overview')return;
+  var idx=order.indexOf(t);var prev=order[idx-1];var next=order[idx+1];
+  var wrap=document.createElement('div');wrap.className='nav-arrows';
+  wrap.innerHTML=(prev?'<button data-go="'+prev+'"><span>← Önceki</span>'+titles[prev]+'</button>':'<button disabled><span>← Önceki</span>—</button>')+(next?'<button class="next" data-go="'+next+'"><span>Sonraki →</span>'+titles[next]+'</button>':'<button class="next" disabled><span>Sonraki →</span>—</button>');
+  document.getElementById(t).querySelector('.section-inner').appendChild(wrap);
+  wrap.querySelectorAll('button[data-go]').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.go);});});
+}
+function toggleSidebar(){var sb=document.getElementById('sidebar');sb.classList.toggle('open');document.getElementById('menu-icon').textContent=sb.classList.contains('open')?'✕':'☰';}
+document.querySelectorAll('.nav-item,.toc-item').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.target);});});
+show('overview');
+</script>
+</body>
+</html>
