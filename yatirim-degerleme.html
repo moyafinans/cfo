@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yatırım & Değerleme — Finans Akademi</title>
+<meta name="description" content="DCF modeli, NPV/IRR/Payback, fizibilite raporu, M&A due diligence, şirket değerleme yöntemleri ve portföy performans ölçümü.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://moyafinans.github.io/cfo/yatirim-degerleme.html">
+<meta property="og:title" content="Yatırım & Değerleme — Finans Akademi">
+<meta property="og:description" content="DCF modeli, NPV/IRR/Payback, fizibilite raporu, M&A due diligence, şirket değerleme yöntemleri ve portföy performans ölçümü.">
+<meta property="og:url" content="https://moyafinans.github.io/cfo/yatirim-degerleme.html">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0f12;--panel:#15181d;--panel-2:#1b1f25;--line:#2a2f37;
+  --ink:#e9e7e1;--ink-dim:#9aa0aa;--ink-faint:#5a6070;
+  --gold:#cf9b3f;--gold-soft:#e8c789;--teal:#5fb6a4;
+  --red:#d9684f;--amber:#d9a441;--purple:#8b7cf6;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;line-height:1.7}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:rgba(13,15,18,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-icon{width:32px;height:32px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#16140d;}
+.nav-logo span{font-size:15px;font-weight:600;color:var(--ink);}
+.nav-back{font-size:13px;font-weight:500;color:var(--ink-dim);text-decoration:none;transition:color .15s;}
+.nav-back:hover{color:var(--gold);}
+.shell{display:grid;grid-template-columns:268px 1fr;min-height:calc(100vh - 60px);}
+.sidebar{background:var(--panel);border-right:1px solid var(--line);position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;padding:24px 0 40px;}
+.sb-brand{display:flex;align-items:center;justify-content:space-between;padding:0 20px 20px;border-bottom:1px solid var(--line);margin-bottom:12px;}
+.sb-brand-inner .cat{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;}
+.sb-brand-inner .title{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--ink);}
+.sb-brand-inner .sub{font-size:.75rem;color:var(--ink-dim);margin-top:2px;}
+#menu-icon{background:none;border:none;color:var(--gold);font-size:18px;cursor:pointer;padding:4px;}
+.nav-group-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim);padding:12px 20px 6px;letter-spacing:.14em;text-transform:uppercase;}
+.nav-item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:none;border-left:2px solid transparent;color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.85rem;padding:8px 20px;cursor:pointer;transition:all .15s;}
+.nav-item .num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--gold);opacity:.7;min-width:18px;}
+.nav-item:hover{background:var(--panel-2);color:var(--ink);}
+.nav-item.active{background:var(--panel-2);color:var(--ink);border-left-color:var(--purple);font-weight:600;}
+.main{min-width:0;}
+.topbar{position:sticky;top:60px;z-index:90;display:flex;align-items:center;justify-content:space-between;padding:12px 44px;background:rgba(13,15,18,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+.topbar-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--ink-dim);}
+.topbar-label b{color:var(--gold-soft);}
+.progress-bar{width:140px;height:3px;background:var(--line);border-radius:2px;overflow:hidden;}
+#progressFill{height:100%;background:var(--purple);width:0%;transition:width .25s;}
+.overview{padding:52px 44px 60px;}
+.ov-title{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.ov-sub{color:var(--ink-dim);font-size:.95rem;margin-bottom:36px;max-width:600px;}
+.toc{display:grid;gap:10px;margin-top:24px;}
+.toc-item{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-left:3px solid transparent;padding:14px 18px;cursor:pointer;transition:all .15s;text-align:left;width:100%;font-family:'Inter',sans-serif;}
+.toc-item:hover{border-left-color:var(--purple);background:var(--panel-2);}
+.toc-num{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--purple);min-width:24px;}
+.toc-title{font-size:.92rem;color:var(--ink);font-weight:500;}
+.toc-desc{font-size:.78rem;color:var(--ink-dim);margin-top:2px;}
+.toc-arrow{margin-left:auto;color:var(--ink-faint);font-size:.8rem;}
+.section{display:none;border-bottom:1px solid var(--line);}
+.section.active{display:block;animation:fadein .3s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.section-inner{padding:52px 44px 60px;}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px;}
+.sec-num{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:700;color:var(--purple);opacity:.35;line-height:1;min-width:52px;}
+.sec-head h2{font-family:'Fraunces',serif;font-size:1.65rem;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.sec-head p{color:var(--ink-dim);font-size:.88rem;}
+.block{margin-top:28px;}
+.block-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+.block-label::before{content:'';width:14px;height:1px;background:var(--teal);display:block;}
+.block p{color:#cfd0d3;max-width:720px;font-size:.9rem;}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0;}
+table{width:100%;border-collapse:collapse;font-size:.82rem;background:var(--panel);border:1px solid var(--line);}
+th{background:var(--panel-2);color:var(--gold-soft);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;}
+td{padding:9px 12px;border-bottom:1px solid var(--line);color:#cfd0d3;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+td.ok{color:var(--teal);font-weight:600;}
+td.warn{color:var(--amber);font-weight:600;}
+td.bad{color:var(--red);font-weight:600;}
+td.mono{font-family:'JetBrains Mono',monospace;font-size:.78rem;}
+.callout{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);padding:14px 18px;margin:16px 0;font-size:.88rem;color:#cfd0d3;line-height:1.65;}
+.callout.teal{border-left-color:var(--teal);}
+.callout.red{border-left-color:var(--red);}
+.callout.amber{border-left-color:var(--amber);}
+.callout.purple{border-left-color:var(--purple);}
+.callout strong{color:var(--ink);}
+.formula{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--gold-soft);display:flex;flex-direction:column;gap:4px;margin:14px 0;}
+.flabel{font-family:'Inter',sans-serif;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-dim);}
+ul.tick{list-style:none;margin:14px 0;padding:0;max-width:720px;}
+ul.tick li{position:relative;padding:8px 0 8px 24px;color:#cfd0d3;font-size:.88rem;border-bottom:1px solid var(--line);line-height:1.6;}
+ul.tick li:last-child{border-bottom:none;}
+ul.tick li::before{content:'—';position:absolute;left:0;color:var(--purple);font-family:'JetBrains Mono',monospace;}
+ul.tick li b{color:var(--ink);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+.mini-card{background:var(--panel);border:1px solid var(--line);padding:16px;}
+.mini-card h4{font-family:'Fraunces',serif;font-size:1rem;color:var(--gold-soft);margin-bottom:6px;}
+.mini-card p{font-size:.82rem;color:var(--ink-dim);line-height:1.6;}
+/* Football field */
+.ff-bar-wrap{margin:16px 0;}
+.ff-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.ff-label{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--ink-dim);min-width:140px;}
+.ff-bar-outer{flex:1;height:28px;background:var(--panel-2);border:1px solid var(--line);position:relative;}
+.ff-bar{height:100%;position:absolute;display:flex;align-items:center;padding:0 8px;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--panel);font-weight:600;}
+.ff-vals{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--ink-dim);min-width:100px;text-align:right;}
+/* Steps */
+.step-row{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);}
+.step-row:last-child{border-bottom:none;}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--panel-2);border:1px solid var(--purple);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--purple);flex-shrink:0;margin-top:2px;}
+.step-body .step-title{font-weight:600;color:var(--ink);font-size:.88rem;}
+.step-body .step-sub{font-size:.8rem;color:var(--ink-dim);margin-top:2px;}
+/* MA timeline */
+.ma-row{display:flex;align-items:stretch;border-bottom:1px solid var(--line);}
+.ma-row:first-child{background:var(--panel-2);}
+.ma-cell{padding:10px 14px;font-size:.82rem;color:#cfd0d3;border-right:1px solid var(--line);flex:1;}
+.ma-cell:first-child{max-width:40px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--purple);flex-shrink:0;}
+.ma-cell:last-child{border-right:none;}
+.ma-head{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--gold-soft);font-weight:600;}
+.takeaway{margin-top:32px;background:var(--panel-2);border:1px solid var(--line);border-top:2px solid var(--purple);padding:22px 24px;}
+.takeaway h4{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--purple);margin-bottom:12px;}
+.nav-arrows{display:flex;gap:12px;margin-top:40px;padding-top:32px;border-top:1px solid var(--line);}
+.nav-arrows button{background:var(--panel);border:1px solid var(--line);color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.82rem;padding:12px 20px;cursor:pointer;flex:1;text-align:left;transition:all .15s;display:flex;flex-direction:column;gap:2px;}
+.nav-arrows button span{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--purple);letter-spacing:.06em;}
+.nav-arrows button.next{text-align:right;}
+.nav-arrows button:hover:not(:disabled){background:var(--panel-2);border-color:var(--purple);color:var(--ink);}
+.nav-arrows button:disabled{opacity:.3;cursor:not-allowed;}
+footer{padding:32px 40px;border-top:1px solid var(--line);text-align:center;}
+@media(max-width:860px){
+  nav{padding:0 18px;}
+  .shell{grid-template-columns:1fr;}
+  .sidebar{position:relative;height:auto;border-right:none;border-bottom:1px solid var(--line);max-height:52px;overflow:hidden;transition:max-height .3s;}
+  .sidebar.open{max-height:100vh;overflow-y:auto;}
+  .sb-brand{padding:14px 18px;cursor:pointer;}
+  .section-inner,.overview{padding:32px 18px 48px;}
+  .topbar{padding:10px 18px;}
+  .grid2{grid-template-columns:1fr;}
+  .nav-arrows{flex-direction:column;}
+  .ff-label{min-width:80px;font-size:.65rem;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-icon">FA</div>
+    <span>Finans Akademi</span>
+  </a>
+  <a class="nav-back" href="index.html">← Tüm Konular</a>
+</nav>
+<div class="shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand" onclick="toggleSidebar()">
+      <div class="sb-brand-inner">
+        <div class="cat">Yatırım & M&A</div>
+        <div class="title">Değerleme</div>
+        <div class="sub">6 konu başlığı</div>
+      </div>
+      <button id="menu-icon" onclick="event.stopPropagation();toggleSidebar()">☰</button>
+    </div>
+    <div>
+      <div class="nav-group-label">İçindekiler</div>
+      <button class="nav-item active" data-target="overview"><span class="num">—</span>Genel Bakış</button>
+      <button class="nav-item" data-target="k1"><span class="num">01</span>DCF Modeli</button>
+      <button class="nav-item" data-target="k2"><span class="num">02</span>NPV, IRR & Payback</button>
+      <button class="nav-item" data-target="k3"><span class="num">03</span>Fizibilite Raporu</button>
+      <button class="nav-item" data-target="k4"><span class="num">04</span>M&A Due Diligence</button>
+      <button class="nav-item" data-target="k5"><span class="num">05</span>Şirket Değerleme</button>
+      <button class="nav-item" data-target="k6"><span class="num">06</span>Portföy Takibi</button>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-label">Konu <b id="bc-num">—</b> / 6 &nbsp;·&nbsp; <span id="bc-title">Genel Bakış</span></div>
+      <div class="progress-bar"><div id="progressFill"></div></div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div id="overview-panel" class="overview">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--purple);letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px;">Yatırım & M&A</div>
+      <div class="ov-title">Yatırım &<br>Değerleme</div>
+      <p class="ov-sub">DCF'den football field chart'a, fizibilite raporundan M&A due diligence'a — yatırım kararlarının analitik temeli.</p>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;margin-bottom:36px;">
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:8px;height:8px;background:var(--purple);border-radius:50%;"></div><span style="font-size:.82rem;color:var(--ink-dim);">6 Konu</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:8px;height:8px;background:var(--teal);border-radius:50%;"></div><span style="font-size:.82rem;color:var(--ink-dim);">DCF · WACC · Football Field</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:8px;height:8px;background:var(--amber);border-radius:50%;"></div><span style="font-size:.82rem;color:var(--ink-dim);">M&A · Portföy Metrikleri</span></div>
+      </div>
+      <div class="toc">
+        <button class="toc-item" data-target="k1"><span class="toc-num">01</span><div><div class="toc-title">DCF (İndirgenmiş Nakit Akışı) Modeli</div><div class="toc-desc">5 adımlı kurulum, WACC, terminal değer, duyarlılık</div></div><span class="toc-arrow">→</span></button>
+        <button class="toc-item" data-target="k2"><span class="toc-num">02</span><div><div class="toc-title">NPV, IRR & Payback Period</div><div class="toc-desc">Yatırım karar kriterleri, çatışma durumu, MIRR</div></div><span class="toc-arrow">→</span></button>
+        <button class="toc-item" data-target="k3"><span class="toc-num">03</span><div><div class="toc-title">Proje Fizibilite Raporu Hazırlama</div><div class="toc-desc">8 bölümlü yapı, break-even, sık yapılan hatalar</div></div><span class="toc-arrow">→</span></button>
+        <button class="toc-item" data-target="k4"><span class="toc-num">04</span><div><div class="toc-title">M&A Finansal Due Diligence</div><div class="toc-desc">8 aşamalı süreç, Quality of Earnings, W&I sigortası</div></div><span class="toc-arrow">→</span></button>
+        <button class="toc-item" data-target="k5"><span class="toc-num">05</span><div><div class="toc-title">Şirket Değerleme Yöntemleri</div><div class="toc-desc">DCF · EV/EBITDA · İşlem Emsal · Varlık Bazlı · Football Field</div></div><span class="toc-arrow">→</span></button>
+        <button class="toc-item" data-target="k6"><span class="toc-num">06</span><div><div class="toc-title">Yatırım Portföyü Takibi & Performans</div><div class="toc-desc">ROI, ROIC, Alpha, Sharpe — raporlama çerçevesi</div></div><span class="toc-arrow">→</span></button>
+      </div>
+    </div>
+
+    <!-- K1: DCF -->
+    <div class="section" id="k1" data-idx="1" data-title="DCF Modeli">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">01</div><div><h2>DCF (İndirgenmiş Nakit Akışı) Modeli</h2><p>Discounted Cash Flow — Kurulum, Varsayımlar & Yorum</p></div></div>
+        <div class="block">
+          <div class="block-label">DCF Nedir?</div>
+          <p>DCF; bir yatırımın veya şirketin gelecekte yaratacağı serbest nakit akışlarının bugünkü değerini hesaplayan değerleme yöntemidir. <b style="color:var(--ink)">Finans dünyasının en temel ve en güçlü analitik aracıdır.</b></p>
+        </div>
+        <div class="formula">
+          <span class="flabel">DCF Temel Formül</span>
+          Bugünkü Değer = Σ [FCF_t / (1 + WACC)^t] + Terminal Değer / (1 + WACC)^n
+        </div>
+        <div class="block">
+          <div class="block-label">DCF Model Yapısı — 5 Adım</div>
+          <div style="background:var(--panel);border:1px solid var(--line);padding:20px 24px;margin:16px 0;">
+            <div class="step-row"><div class="step-num">01</div><div class="step-body"><div class="step-title">Projeksiyon dönemi belirleme (genellikle 5–10 yıl)</div><div class="step-sub">Kritik varsayım: Şirketin büyüme evresi & görünürlük</div></div></div>
+            <div class="step-row"><div class="step-num">02</div><div class="step-body"><div class="step-title">Serbest Nakit Akışı (FCF) tahminleri</div><div class="step-sub">Kritik varsayım: Gelir büyümesi, EBITDA marjı, Capex</div></div></div>
+            <div class="step-row"><div class="step-num">03</div><div class="step-body"><div class="step-title">İskonto oranı (WACC) hesaplama</div><div class="step-sub">Kritik varsayım: Sermaye yapısı, beta, risk primleri</div></div></div>
+            <div class="step-row"><div class="step-num">04</div><div class="step-body"><div class="step-title">Terminal değer hesaplama (Gordon Growth / Exit Multiple)</div><div class="step-sub">Kritik varsayım: Sürdürülebilir büyüme oranı (g)</div></div></div>
+            <div class="step-row"><div class="step-num">05</div><div class="step-body"><div class="step-title">Bugünkü değerlerin toplamı → Enterprise Value</div><div class="step-sub">Kritik varsayım: Duyarlılık & senaryo analizi</div></div></div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Serbest Nakit Akışı Formülleri</div>
+          <div class="formula"><span class="flabel">FCF (Firmaya — FCFF)</span>EBIT × (1 − Vergi) + Amortisman − Capex − ΔİşletmeSermayesi</div>
+          <div class="formula"><span class="flabel">FCF (Özkaynak — FCFE)</span>Net Kâr + Amortisman − Capex − ΔİşletmeSermayesi + Net Borçlanma</div>
+          <div class="formula"><span class="flabel">WACC — Ağırlıklı Ortalama Sermaye Maliyeti</span>WACC = Ke × (E/V) + Kd × (1 − t) × (D/V)<span style="font-size:.75rem;color:var(--ink-dim);font-family:'Inter',sans-serif;margin-top:4px;">Ke: Özkaynak maliyeti (CAPM) &nbsp;·&nbsp; Kd: Borç maliyeti (vergi sonrası) &nbsp;·&nbsp; E/V & D/V: Ağırlıklar</span></div>
+        </div>
+        <div class="block">
+          <div class="block-label">Terminal Değer Yöntemleri</div>
+          <div class="grid2">
+            <div class="mini-card"><h4>Gordon Growth Model</h4><p>TV = FCF_n+1 / (WACC − g)<br>g: uzun vadeli büyüme oranı (%2–4). Sürekli büyüme varsayımı sağlam şirketler için uygundur.</p></div>
+            <div class="mini-card"><h4>Exit Multiple</h4><p>TV = EBITDA_n × Sektör EV/EBITDA Çarpanı. Piyasa çarpanı kullanır; karşılaştırılabilir işlemlere dayanır.</p></div>
+          </div>
+        </div>
+        <div class="callout red">
+          <strong>Uyarı:</strong> Terminal değer genellikle toplam DCF değerinin %60–80'ini oluşturur. Bu kadar kritik bir kalem için duyarlılık tablosu zorunludur — WACC ve g'yi ±0,5% değiştirerek değer aralığını mutlaka gösterin.
+        </div>
+        <div class="block">
+          <div class="block-label">DCF'nin Güçlü & Zayıf Yönleri</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Güçlü Yönler</th><th>Zayıf Yönler / Riskler</th></tr></thead>
+              <tbody>
+                <tr><td class="ok">İçsel değeri yansıtır; piyasa duygusundan bağımsız</td><td class="bad">Varsayımlara aşırı duyarlı — "garbage in, garbage out"</td></tr>
+                <tr><td class="ok">Senaryo & duyarlılık analizi yapılabilir</td><td class="bad">Terminal değer belirsizliği çok yüksek</td></tr>
+                <tr><td class="ok">Her tür varlık ve proje için uygulanabilir</td><td class="warn">Yüksek büyüme şirketlerinde tahmin zordur</td></tr>
+                <tr><td class="ok">Değer yaratma sürücülerini açıkça ortaya koyar</td><td class="warn">WACC tahmini kendisi de belirsizlik taşır</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- K2: NPV IRR -->
+    <div class="section" id="k2" data-idx="2" data-title="NPV, IRR & Payback">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">02</div><div><h2>NPV, IRR & Payback Period</h2><p>Yatırım Kararı Kriterleri — Hesaplama & Yorum</p></div></div>
+        <div class="block">
+          <div class="block-label">Üç Temel Yatırım Kriteri</div>
+          <p>Bir yatırım projesini değerlendirirken bu üç metrik <b style="color:var(--ink)">birlikte</b> kullanılmalıdır. Her birinin farklı bir bilgi boyutu vardır; tek başına hiçbiri yeterli değildir.</p>
+        </div>
+        <div class="block">
+          <div class="block-label">1. NPV — Net Bugünkü Değer</div>
+          <div class="formula"><span class="flabel">Net Present Value</span>NPV = Σ [CF_t / (1+r)^t] − İlk Yatırım</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>NPV Durumu</th><th>Anlam</th><th>Karar</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">NPV &gt; 0</td><td>Yatırım değer yaratır</td><td class="ok">KABUL</td></tr>
+                <tr><td class="mono">NPV = 0</td><td>Sermaye maliyetini tam karşılar</td><td class="warn">KAYITSIZ</td></tr>
+                <tr><td class="mono">NPV &lt; 0</td><td>Yatırım değer yok eder</td><td class="bad">RET</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">2. IRR — İç Verim Oranı</div>
+          <div class="formula"><span class="flabel">Internal Rate of Return</span>IRR = NPV'yi sıfır yapan iskonto oranı → NPV(IRR) = 0</div>
+          <ul class="tick">
+            <li><b>IRR &gt; WACC:</b> Yatırım sermaye maliyetini aşıyor → Kabul</li>
+            <li><b>IRR &lt; WACC:</b> Yatırım sermaye maliyetini karşılamıyor → Ret</li>
+            <li><b>Dezavantaj:</b> Birden fazla IRR çıkabilir; yeniden yatırım varsayımı gerçekçi değil.</li>
+            <li><b>MIRR:</b> Yeniden yatırım oranını WACC olarak alır — daha gerçekçi alternatif.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <div class="block-label">3. Payback Period — Geri Ödeme Süresi</div>
+          <div class="formula"><span class="flabel">Payback Period (Eşit Akışlarda)</span>Payback = İlk Yatırım / Yıllık Nakit Akışı</div>
+          <div class="callout teal"><strong>Discounted Payback:</strong> İndirgenmiş nakit akışları üzerinden hesaplanır — zaman değerini dikkate aldığı için standart Payback'ten daha güvenilirdir.</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Kriter Özet Tablosu</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Kriter</th><th>Karar Kuralı</th><th>En İyi Kullanım</th><th>Zayıflık</th></tr></thead>
+              <tbody>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">NPV</td><td class="mono">NPV &gt; 0</td><td>Mutlak değer yaratımı</td><td>Proje ölçeğini yansıtmaz</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">IRR</td><td class="mono">IRR &gt; WACC</td><td>Farklı büyüklükteki projeler</td><td>Çoklu IRR sorunu</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">MIRR</td><td class="mono">MIRR &gt; WACC</td><td>IRR'nin güvenilir versiyonu</td><td>Daha az bilinir</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">Payback</td><td>Hedef süre &lt; eşik</td><td>Likidite & risk odağı</td><td>Terminal akışları yok sayar</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="callout amber">
+          <strong>NPV vs IRR Çatışması:</strong> Projeler farklı ölçekte veya vadedeyse NPV ve IRR farklı sıralama verebilir. Bu durumda <b style="color:var(--ink)">NPV'ye öncelik verin</b> — mutlak değer yaratımı daha anlamlıdır. Sermaye kısıtı varsa Kârlılık Endeksi (PI = NPV / Yatırım) kullanın.
+        </div>
+      </div>
+    </div>
+
+    <!-- K3: FİZİBİLİTE -->
+    <div class="section" id="k3" data-idx="3" data-title="Fizibilite Raporu">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">03</div><div><h2>Proje Fizibilite Raporu Hazırlama</h2><p>Yapısı, Bölümleri & Hazırlama Metodolojisi</p></div></div>
+        <div class="block">
+          <div class="block-label">Fizibilite Raporu Nedir?</div>
+          <p>Bir projenin teknik, finansal, pazara giriş ve operasyonel açıdan uygulanabilirliğini sistematik biçimde değerlendiren belgedir. Hem iç yönetim hem de dış finansörler (banka, yatırımcı) için referans dokümandır.</p>
+        </div>
+        <div class="block">
+          <div class="block-label">Fizibilite Raporu Bölümleri</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>#</th><th>Bölüm</th><th>İçerik</th><th>Çıktı</th></tr></thead>
+              <tbody>
+                <tr><td class="mono" style="color:var(--purple);">1</td><td style="font-weight:600;">Yönetici Özeti</td><td>Projenin özü, temel bulgular, öneri</td><td>1–2 sayfa karar notu</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">2</td><td style="font-weight:600;">Pazar Analizi</td><td>Hedef pazar, rekabet, talep tahmini, fiyatlama</td><td>Pazar büyüklüğü & pay tahmini</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">3</td><td style="font-weight:600;">Teknik Analiz</td><td>Kapasite, teknoloji, lokasyon, altyapı</td><td>Capex listesi & takvim</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">4</td><td style="font-weight:600;">Finansal Projeksiyon</td><td>Gelir/gider modeli, FCF, bilanço tahmini</td><td>5–10 yıl Pro-Forma tablolar</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">5</td><td style="font-weight:600;">Yatırım Kriterleri</td><td>NPV, IRR, Payback, duyarlılık analizi</td><td>Karar metriği özeti</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">6</td><td style="font-weight:600;">Risk Analizi</td><td>Riskler, olasılık/etki matrisi, azaltma planı</td><td>Risk kayıt tablosu</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">7</td><td style="font-weight:600;">Finansman Planı</td><td>Borç/özkaynak yapısı, kredi servisi, kovanantlar</td><td>Finansman şeması</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">8</td><td style="font-weight:600;">Sonuç & Öneri</td><td>Yap / yapma / bekle kararı ile gerekçe</td><td>Yönetim Kurulu sunumu</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Finansal Projeksiyon Nasıl Kurulur?</div>
+          <ul class="tick">
+            <li><b>Gelir modeli:</b> Kapasite kullanım oranı × birim fiyat × hacim — alt/üst senaryolar zorunlu.</li>
+            <li><b>Maliyet yapısı:</b> Sabit maliyetler (SG&A, amortisman) ve değişken maliyetler (COGS) ayrımı yapılmalı.</li>
+            <li><b>Capex takvimi:</b> Yatırım harcamaları yıllara yayılarak nakit çıkışlarına dönüştürülür.</li>
+            <li><b>İşletme sermayesi:</b> DSO, DIO, DPO varsayımlarıyla dönen varlık ihtiyacı hesaplanır.</li>
+            <li><b>Break-even analizi:</b> Hangi ciro seviyesinde kâra geçilir?</li>
+          </ul>
+          <div class="formula"><span class="flabel">Break-Even Noktası</span>BEP (Adet) = Sabit Maliyetler / (Birim Fiyat − Birim Değişken Maliyet)</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Sık Yapılan Hatalar</div>
+          <ul class="tick">
+            <li><b>İyimser gelir + gerçekçi maliyet:</b> Projeyi olduğundan cazip gösterir — en yaygın tuzak.</li>
+            <li><b>İşletme sermayesi atlanırsa</b> ilk yıllarda nakit açığı sürpriz olur.</li>
+            <li><b>Tek senaryo yeterli değil:</b> Mutlaka baz, iyimser ve kötümser senaryo hazırlanmalı.</li>
+            <li><b>Ramp-up dönemi modele dahil edilmezse</b> IRR şişer — kapasite artış süreci gerçekçi kurulmalı.</li>
+            <li><b>Enflasyon & kur varsayımları tutarsız olursa:</b> TL bazlı gelir, USD Capex'i ezer.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- K4: M&A -->
+    <div class="section" id="k4" data-idx="4" data-title="M&A Due Diligence">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">04</div><div><h2>M&A Finansal Due Diligence Yönetimi</h2><p>Birleşme & Satın Alma Sürecinde Finansal İnceleme</p></div></div>
+        <div class="block">
+          <div class="block-label">Due Diligence Nedir?</div>
+          <p>Bir M&A işleminde alıcının, hedef şirketi satın almadan önce finansal, hukuki, ticari ve operasyonel açıdan kapsamlı biçimde incelemesidir. Amacı <b style="color:var(--ink)">riskleri tespit etmek, değerlemeyi doğrulamak ve sözleşme koşullarını şekillendirmektir.</b></p>
+        </div>
+        <div class="block">
+          <div class="block-label">M&A Süreç Akışı</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>#</th><th>Aşama</th><th>Faaliyet</th><th>Süre</th></tr></thead>
+              <tbody>
+                <tr><td class="mono" style="color:var(--purple);">1</td><td style="font-weight:600;">Strateji</td><td>Hedef belirleme, sektör tarama, ön eleme</td><td>1–3 ay</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">2</td><td style="font-weight:600;">LOI / NDA</td><td>Niyet mektubu & gizlilik anlaşması imzalanır</td><td>2–4 hafta</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">3</td><td style="font-weight:600;">Ön DD</td><td>Açık kaynak analizi, yönetim sunumu</td><td>2–4 hafta</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">4</td><td style="font-weight:600;">Tam DD</td><td>Veri odası incelemesi — finansal, hukuki, ticari</td><td>4–8 hafta</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">5</td><td style="font-weight:600;">Değerleme</td><td>DCF, çarpanlar, işlem emsal analizi</td><td>2–4 hafta</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">6</td><td style="font-weight:600;">Müzakere</td><td>Fiyat, representations & warranties, escrow</td><td>2–6 hafta</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">7</td><td style="font-weight:600;">SPA & Kapanış</td><td>Satış-satın alma sözleşmesi, tescil, ödeme</td><td>2–4 hafta</td></tr>
+                <tr><td class="mono" style="color:var(--purple);">8</td><td style="font-weight:600;">Entegrasyon</td><td>Operasyonel & kültürel uyum (PMI)</td><td>6–24 ay</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Finansal Due Diligence — İnceleme Alanları</div>
+          <ul class="tick">
+            <li><b>Kaliteli kazanç (Quality of Earnings):</b> EBITDA gerçekten sürdürülebilir mi? Tek seferlik kalemler ayrıştırılır.</li>
+            <li><b>Normalize EBITDA:</b> Yönetici maaşı, ilişkili taraf işlemleri, olağandışı giderler ayıklanır.</li>
+            <li><b>Net borç doğrulaması:</b> Banka dışı borçlar, leasing, garantiler tam tespit edildi mi?</li>
+            <li><b>İşletme sermayesi analizi:</b> "Normal" işletme sermayesi seviyesi nedir? Kapanış ayarlaması için kritik.</li>
+            <li><b>Vergi riski:</b> Geçmişe dönük vergi tarhiyatı, transfer fiyatlandırması riskleri.</li>
+            <li><b>Bilanço kalitesi:</b> Şüpheli alacaklar, değersiz stoklar, gizli yükümlülükler.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <div class="block-label">Temel Çıktılar & Koruma Mekanizmaları</div>
+          <div class="grid2">
+            <div class="mini-card"><h4>DD Raporu & Fiyat Ayarlaması</h4><p>Bulgular ve fiyat etkisi önerileri. Net Debt, NWC sapması işlem fiyatına yansıtılır.</p></div>
+            <div class="mini-card"><h4>Representations & Warranties</h4><p>Satıcı beyan ve garantilerini sözleşmeye bağlayın — bilinmeyen yükümlülüklere karşı temel koruma.</p></div>
+            <div class="mini-card"><h4>Escrow Hesabı</h4><p>Olası bilinmeyen yükümlülüklere karşı satış bedelinin bir kısmı tutulur. Genellikle 12–24 ay.</p></div>
+            <div class="mini-card"><h4>W&I Sigortası</h4><p>Warranty & Indemnity — beyan ihlallerini sigortalayan poliçe. Giderek yaygınlaşıyor; satıcı riskini azaltır.</p></div>
+          </div>
+        </div>
+        <div class="callout purple">
+          <strong>En Kritik Adım:</strong> Quality of Earnings analizini asla atlama. Normalize EBITDA ile satıcının sunduğu EBITDA arasındaki fark doğrudan değerlemeye, dolayısıyla ödenen fiyata yansır.
+        </div>
+      </div>
+    </div>
+
+    <!-- K5: DEĞERLEME YÖNTEMLERİ -->
+    <div class="section" id="k5" data-idx="5" data-title="Şirket Değerleme Yöntemleri">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">05</div><div><h2>Şirket Değerleme Yöntemleri</h2><p>DCF · Piyasa Çarpanları · İşlem Emsal · Varlık Bazlı</p></div></div>
+        <div class="block">
+          <div class="block-label">Yöntemlere Genel Bakış</div>
+          <p>Şirket değerlemesi tek bir yöntemle yapılmaz; birden fazla yaklaşım <b style="color:var(--ink)">football field chart</b> şeklinde sunulur. Her yöntem farklı bir perspektif sunar.</p>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Yöntem</th><th>Mantık</th><th>En Uygun Kullanım</th><th>Sınırlılık</th></tr></thead>
+              <tbody>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">DCF</td><td>Gelecek nakit akışlarının bugünkü değeri</td><td>İçsel değer — tüm şirketler</td><td class="warn">Varsayımlara çok duyarlı</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">EV/EBITDA</td><td>Benzer şirketlerin çarpan ortalaması</td><td>Olgun, kârlı şirketler</td><td class="warn">Muhasebe farkları</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">P/E (F/K)</td><td>Fiyat / Hisse Başı Kazanç</td><td>Halka açık şirketler</td><td class="warn">Kaldıraç etkisini yok sayar</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">EV/Satış</td><td>Ciroya göre değerleme</td><td>Zarar eden, büyüme şirketleri</td><td class="warn">Marj farklılıklarını yok sayar</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">P/BV (F/DD)</td><td>Fiyat / Defter Değeri</td><td>Bankalar, sigorta şirketleri</td><td class="warn">Maddi olmayan varlıkları yok sayar</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">İşlem Emsal</td><td>Benzer M&A işlemlerinin çarpanları</td><td>M&A fiyatlaması</td><td class="warn">Veri bulmak zor olabilir</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">Varlık Bazlı</td><td>Net varlık değeri (NAV)</td><td>Holding, gayrimenkul, tasfiye</td><td class="warn">Gelecek değer yaratımı yok sayılır</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Temel Değerleme Kavramları</div>
+          <div class="formula"><span class="flabel">Enterprise Value (EV)</span>EV = Piyasa Değeri + Net Borç + Azınlık Payı − İştirakler</div>
+          <div class="formula"><span class="flabel">Equity Value</span>Equity Value = EV − Net Borç</div>
+          <div class="formula"><span class="flabel">EV/EBITDA Çarpanı</span>Çarpan = Enterprise Value / EBITDA &nbsp;→&nbsp; Sektöre göre 5x–15x arası yaygın</div>
+        </div>
+        <div class="block">
+          <div class="block-label">Football Field Chart — Değerleme Köprüsü</div>
+          <p style="margin-bottom:16px;">Her yöntemin ürettiği değer aralığı yatay bar olarak gösterilir. Tüm yöntemlerin örtüştüğü bölge en güvenilir değer aralığını temsil eder.</p>
+          <div class="ff-bar-wrap">
+            <div class="ff-row">
+              <div class="ff-label">DCF (Baz)</div>
+              <div class="ff-bar-outer">
+                <div class="ff-bar" style="left:15%;width:50%;background:var(--purple);">210M TL</div>
+              </div>
+              <div class="ff-vals">180 – 240M</div>
+            </div>
+            <div class="ff-row">
+              <div class="ff-label">EV/EBITDA</div>
+              <div class="ff-bar-outer">
+                <div class="ff-bar" style="left:10%;width:45%;background:var(--teal);">195M TL</div>
+              </div>
+              <div class="ff-vals">170 – 220M</div>
+            </div>
+            <div class="ff-row">
+              <div class="ff-label">İşlem Emsal</div>
+              <div class="ff-bar-outer">
+                <div class="ff-bar" style="left:25%;width:55%;background:var(--amber);">225M TL</div>
+              </div>
+              <div class="ff-vals">190 – 260M</div>
+            </div>
+            <div class="ff-row">
+              <div class="ff-label">Varlık Bazlı</div>
+              <div class="ff-bar-outer">
+                <div class="ff-bar" style="left:0%;width:35%;background:var(--red);">165M TL</div>
+              </div>
+              <div class="ff-vals">150 – 180M</div>
+            </div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Değerleme İpuçları</div>
+          <ul class="tick">
+            <li><b>Kontrol primi:</b> M&A'da alıcı genellikle piyasa değerine %20–40 prim öder.</li>
+            <li><b>Azınlık iskontosu:</b> Azınlık hissesi için genellikle %15–25 iskonto uygulanır.</li>
+            <li><b>İleri çarpanlar (Forward multiples):</b> Geçmiş değil, gelecek yıl tahmin verileri kullanılır.</li>
+            <li><b>Normalize EBITDA:</b> Tek seferlik kalemleri ayıkladıktan sonra çarpan uygulayın.</li>
+            <li><b>Sektör bağlamı:</b> Aynı çarpan farklı sektörlerde çok farklı anlam taşır.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- K6: PORTFÖY -->
+    <div class="section" id="k6" data-idx="6" data-title="Portföy Takibi & Performans">
+      <div class="section-inner">
+        <div class="sec-head"><div class="sec-num">06</div><div><h2>Yatırım Portföyü Takibi & Performans Ölçümü</h2><p>Portföy Yönetimi · KPI'lar · Raporlama Çerçevesi</p></div></div>
+        <div class="block">
+          <div class="block-label">Portföy Performans Metrikleri</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Metrik</th><th>Formül / Tanım</th><th>Ne Ölçer?</th></tr></thead>
+              <tbody>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">ROI</td><td class="mono">(Kazanç − Yatırım) / Yatırım × 100</td><td>Toplam getiri oranı</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">ROE</td><td class="mono">Net Kâr / Özkaynak × 100</td><td>Özkaynak verimliliği</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">ROIC</td><td class="mono">NOPAT / (Borç + Özkaynak) × 100</td><td>Yatırılan sermayenin getirisi</td></tr>
+                <tr><td style="font-weight:600;color:var(--purple);font-weight:700;">ROIC vs WACC</td><td class="mono">ROIC − WACC (spread)</td><td style="color:var(--purple)">Değer yaratılıyor mu?</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">TVR (Total Return)</td><td class="mono">(Sermaye Kazancı + Temettü) / Başlangıç Değeri</td><td>Toplam yatırımcı getirisi</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">Alpha</td><td class="mono">Gerçek Getiri − Beklenen Getiri (CAPM)</td><td>Risk ayarlı fazla getiri</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">Sharpe Ratio</td><td class="mono">(Rp − Rf) / σ_p</td><td>Risk birimi başına getiri</td></tr>
+                <tr><td style="font-weight:600;color:var(--gold-soft);">Beta</td><td class="mono">Portföy/Piyasa Kovaryansı / Piyasa Varyansı</td><td>Sistematik risk</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-label">Portföy Raporlama Çerçevesi</div>
+          <ul class="tick">
+            <li><b>Yatırım envanteri:</b> Her yatırım için maliyet, piyasa değeri, değer değişimi ve kâr/zarar takibi.</li>
+            <li><b>Benchmark karşılaştırması:</b> Portföy getirisi BIST-100, sektör endeksi veya WACC ile kıyaslanır.</li>
+            <li><b>Senaryo & stres testi:</b> Faiz +200bps, kur −%20 gibi şoklarda portföy değeri nasıl değişir?</li>
+            <li><b>Vade & likidite profili:</b> Hangi yatırımlar ne zaman nakde çevrilebilir?</li>
+            <li><b>Yoğunlaşma riski:</b> Tek varlık veya sektördeki aşırı ağırlık izlenmeli.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <div class="block-label">Raporlama Sıklığı & Alıcı Matrisi</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Sıklık</th><th>Kapsam</th><th>Alıcı</th></tr></thead>
+              <tbody>
+                <tr><td style="font-weight:600;color:var(--amber);">Günlük</td><td>Piyasa değeri, açık pozisyonlar</td><td>Hazine ekibi</td></tr>
+                <tr><td style="font-weight:600;color:var(--amber);">Haftalık</td><td>Getiri özeti, limit kullanımı</td><td>Hazine müdürü</td></tr>
+                <tr><td style="font-weight:600;color:var(--teal);">Aylık</td><td>Tam portföy raporu, benchmark karşılaştırma</td><td>CFO, Yönetim</td></tr>
+                <tr><td style="font-weight:600;color:var(--purple);">Çeyreklik</td><td>Stratejik değerlendirme, rotasyon kararı</td><td>Yönetim Kurulu</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="callout purple">
+          <strong>ROIC Kuralı:</strong> ROIC &gt; WACC ise değer yaratılıyor, ROIC &lt; WACC ise sermaye eritiliyor. Portföy raporlamasında bu farkı her zaman gösterin. Benchmark olmadan getiri anlamsızdır.
+        </div>
+        <div class="takeaway">
+          <h4>Temel Çıkarımlar — Yatırım & Değerleme</h4>
+          <ul class="tick">
+            <li><b>DCF, varsayımlara en duyarlı yöntemdir</b> — duyarlılık tablosu olmadan tek başına sunmayın.</li>
+            <li><b>NPV ve IRR çatışırsa NPV'ye öncelik verin</b> — mutlak değer yaratımı daha anlamlıdır.</li>
+            <li><b>Fizibilite raporunda tek senaryo yetmez</b> — her zaman en az 3 senaryo hazırlayın.</li>
+            <li><b>Due diligence'ta Quality of Earnings analizini asla atlama</b> — normalize EBITDA kritiktir.</li>
+            <li><b>Değerlemede tek yöntem kullanmayın</b> — football field chart ile aralık sunun.</li>
+            <li><b>ROIC &gt; WACC ise değer yaratılıyor, ROIC &lt; WACC ise sermaye eritiliyor</b> — bu farkı bilin.</li>
+            <li><b>Portföy raporlamasında benchmark olmadan getiri anlamsızdır</b> — her zaman karşılaştırın.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+<footer>
+  <div style="font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:6px;">Finans <span style="color:var(--gold)">Akademi</span></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-dim);">© 2026 · moyafinans.github.io/cfo</div>
+</footer>
+<script>
+var order=['overview','k1','k2','k3','k4','k5','k6'];
+var titles={overview:'Genel Bakış',k1:'DCF Modeli',k2:'NPV, IRR & Payback',k3:'Fizibilite Raporu',k4:'M&A Due Diligence',k5:'Şirket Değerleme Yöntemleri',k6:'Portföy Takibi & Performans'};
+var TOPLAM=6;
+function show(t){
+  document.getElementById('overview-panel').style.display=t==='overview'?'block':'none';
+  document.querySelectorAll('.section').forEach(function(s){s.classList.toggle('active',s.id===t);});
+  document.querySelectorAll('.nav-item,.toc-item').forEach(function(b){b.classList.toggle('active',b.dataset.target===t);});
+  var el=document.getElementById(t);
+  document.getElementById('bc-num').textContent=el?el.dataset.idx:'—';
+  document.getElementById('bc-title').textContent=titles[t]||'Genel Bakış';
+  document.getElementById('progressFill').style.width=el?(parseInt(el.dataset.idx)/TOPLAM*100)+'%':'0%';
+  window.scrollTo({top:0,behavior:'smooth'});
+  renderArrows(t);
+  if(window.innerWidth<=860){document.getElementById('sidebar').classList.remove('open');document.getElementById('menu-icon').textContent='☰';}
+}
+function renderArrows(t){
+  document.querySelectorAll('.nav-arrows').forEach(function(e){e.remove();});
+  if(t==='overview')return;
+  var idx=order.indexOf(t);var prev=order[idx-1];var next=order[idx+1];
+  var wrap=document.createElement('div');wrap.className='nav-arrows';
+  wrap.innerHTML=(prev?'<button data-go="'+prev+'"><span>← Önceki</span>'+titles[prev]+'</button>':'<button disabled><span>← Önceki</span>—</button>')+(next?'<button class="next" data-go="'+next+'"><span>Sonraki →</span>'+titles[next]+'</button>':'<button class="next" disabled><span>Sonraki →</span>—</button>');
+  document.getElementById(t).querySelector('.section-inner').appendChild(wrap);
+  wrap.querySelectorAll('button[data-go]').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.go);});});
+}
+function toggleSidebar(){var sb=document.getElementById('sidebar');sb.classList.toggle('open');document.getElementById('menu-icon').textContent=sb.classList.contains('open')?'✕':'☰';}
+document.querySelectorAll('.nav-item,.toc-item').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.target);});});
+show('overview');
+</script>
+</body>
+</html>
