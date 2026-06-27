@@ -211,7 +211,19 @@ ul.tick li b{color:var(--ink);}
 }
 </style>
 </head>
-<body>
+<body><script>
+(function(){
+  try{
+    var s=localStorage.getItem('fa_session');
+    if(!s){window.location.replace('index.html');return;}
+    var p=JSON.parse(atob(s));
+    if(!p||!p.email||!p.ts){throw new Error();}
+  }catch(e){
+    localStorage.removeItem('fa_session');
+    window.location.replace('index.html');
+  }
+})();
+</script>
 
 <nav>
   <a href="index.html" class="nav-logo">
