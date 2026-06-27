@@ -22,11 +22,12 @@ Finans Akademi, gerçek iş hayatından derlenen finansal senaryoları ve bankac
 
 - [Yönetim Raporlaması (MIS)](https://moyafinans.github.io/cfo/yonetim-raporlama.html): MIS tasarımı, aylık yönetim raporu, bütçe sapma analizi, flash rapor, KPI seçimi, raporlama takvimi & RACI. 6 konu.
 
+- [Hazine Yönetimi](https://moyafinans.github.io/cfo/hazine-yonetimi.html): Nakit akış tahmini, işletme sermayesi optimizasyonu (CCC/DSO/DIO/DPO), cash pooling, kısa vadeli yatırım araçları, akreditif & teminat mektubu (UCP 600/URDG 758), faktoring, finansman bonosu ve net debt izleme. 7 konu.
+
 ## Yakında
 
 - Vergi & Mevzuat Rehberi
 - CFO Yetkinlik Envanteri
-- Hazine Yönetimi
 
 ## Hedef Kitle
 
