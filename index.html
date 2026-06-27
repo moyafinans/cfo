@@ -132,9 +132,70 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   .h-stat{border-right:none;border-bottom:1px solid var(--line);}
   .h-stat:last-child{border-bottom:none;}
 }
+
+/* ===== ABONELİK SİSTEMİ ===== */
+.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;}
+.auth-box{background:var(--panel);border:1px solid var(--line);width:100%;max-width:460px;padding:40px 36px;}
+.auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;}
+.auth-logo-icon{width:36px;height:36px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:#16140d;}
+.auth-logo span{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--ink);}
+.auth-box h2{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.auth-box p{font-size:.85rem;color:var(--ink-dim);margin-bottom:24px;line-height:1.6;}
+.auth-field{margin-bottom:16px;}
+.auth-field label{display:block;font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-dim);margin-bottom:6px;}
+.auth-field input{width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--ink);font-family:'Inter',sans-serif;font-size:.9rem;padding:11px 14px;outline:none;transition:border-color .15s;}
+.auth-field input:focus{border-color:var(--gold);}
+.auth-field input.err{border-color:var(--red);}
+.auth-err{font-size:.78rem;color:var(--red);margin-top:4px;display:none;}
+.auth-btn{width:100%;background:var(--gold);border:none;color:#16140d;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:700;padding:13px;cursor:pointer;margin-top:8px;transition:opacity .15s;}
+.auth-btn:hover{opacity:.88;}
+.auth-btn:disabled{opacity:.5;cursor:not-allowed;}
+.auth-note{font-size:.75rem;color:var(--ink-faint);margin-top:16px;text-align:center;line-height:1.6;}
+.auth-note a{color:var(--gold-soft);text-decoration:none;}
+.auth-success{text-align:center;padding:20px 0;}
+.auth-success .check{font-size:2.5rem;margin-bottom:12px;}
+.auth-success h3{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--teal);margin-bottom:8px;}
+.auth-success p{font-size:.85rem;color:var(--ink-dim);}
+.topbar-user{display:flex;align-items:center;gap:10px;font-size:.82rem;color:var(--ink-dim);}
+.topbar-user .user-badge{background:var(--panel-2);border:1px solid var(--line);padding:4px 12px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--gold);}
+.topbar-user button{background:none;border:1px solid var(--line);color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.72rem;padding:4px 10px;cursor:pointer;transition:all .15s;}
+.topbar-user button:hover{border-color:var(--red);color:var(--red);}
+
 </style>
 </head>
 <body>
+
+
+<!-- ABONELİK MODAL -->
+<div class="auth-overlay" id="authOverlay" style="display:none;">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">FA</div>
+      <span>Finans Akademi</span>
+    </div>
+    <div id="authForm">
+      <h2>Ücretsiz Erişim</h2>
+      <p>İçeriklere erişmek için ad soyad ve e-posta adresinizi girin. Kayıt ücretsizdir, reklam veya spam gönderilmez.</p>
+      <div class="auth-field">
+        <label>Ad Soyad</label>
+        <input type="text" id="authName" placeholder="Adınız Soyadınız" autocomplete="name">
+        <div class="auth-err" id="nameErr">En az 3 karakter giriniz.</div>
+      </div>
+      <div class="auth-field">
+        <label>E-posta</label>
+        <input type="email" id="authEmail" placeholder="ornek@sirket.com" autocomplete="email">
+        <div class="auth-err" id="emailErr">Geçerli bir e-posta adresi giriniz.</div>
+      </div>
+      <button class="auth-btn" id="authSubmit" onclick="handleSubscribe()">Erişim Sağla →</button>
+      <p class="auth-note">Kaydolarak <a href="#">Kullanım Koşulları</a>'nı kabul etmiş olursunuz. Verileriniz üçüncü taraflarla paylaşılmaz.</p>
+    </div>
+    <div id="authSuccess" class="auth-success" style="display:none;">
+      <div class="check">✓</div>
+      <h3>Hoş Geldiniz!</h3>
+      <p id="authSuccessMsg">Erişiminiz aktif edildi. Yönlendiriliyorsunuz…</p>
+    </div>
+  </div>
+</div>
 
 <nav>
   <a href="index.html" class="nav-logo">
@@ -142,7 +203,7 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
     <span class="nav-logo-text">Finans Akademi</span>
   </a>
   <span class="nav-tag">Profesyonel Rehber</span>
-</nav>
+<div id="userBar"></div></nav>
 
 <div class="hero">
   <div class="hero-eyebrow">Finans Profesyonelleri İçin</div>
@@ -264,15 +325,15 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
       </div>
     </a>
 
-    <div class="card disabled" style="--card-color:#d9684f;">
+    <div class="card disabled" style="--card-color:#8b7cf6;">
       <div class="card-top">
-        <div class="card-icon">⚖️</div>
-        <span class="card-badge badge-plan">Planlandı</span>
+        <div class="card-icon">📐</div>
+        <span class="card-badge badge-soon">Yakında</span>
       </div>
-      <div class="card-title">Vergi & Mevzuat Rehberi</div>
-      <div class="card-desc">Kurumlar vergisi, KDV uygulamaları, transfer fiyatlandırması ve güncel vergi mevzuatı rehberi.</div>
+      <div class="card-title">Finansal Modelleme</div>
+      <div class="card-desc">Excel'de finansal model kurulumu, senaryo & duyarlılık analizi, dinamik tablolar ve model denetimi.</div>
       <div class="card-footer">
-        <span class="card-meta">Planlandı</span>
+        <span class="card-meta">Hazırlanıyor</span>
         <span class="card-arrow">→</span>
       </div>
     </div>
@@ -312,6 +373,108 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   <div class="footer-logo">Finans <em>Akademi</em></div>
   <div class="footer-copy">© 2026 · moyafinans.github.io/cfo</div>
 </footer>
+
+
+<script>
+// ===== ABONELİK SİSTEMİ =====
+var SUPA_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
+var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
+var _pendingHref = null;
+
+function getSession(){
+  try{
+    var s=localStorage.getItem('fa_session');
+    if(!s)return null;
+    return JSON.parse(atob(s));
+  }catch(e){return null;}
+}
+
+function setSession(email,name){
+  var payload={email:email,name:name,ts:Date.now()};
+  localStorage.setItem('fa_session',btoa(JSON.stringify(payload)));
+}
+
+function clearSession(){
+  localStorage.removeItem('fa_session');
+  location.reload();
+}
+
+function initAuth(){
+  var sess=getSession();
+  var bar=document.getElementById('userBar');
+  if(sess&&bar){
+    bar.innerHTML='<div class="topbar-user"><span class="user-badge">'+sess.email+'</span><button onclick="clearSession()">Çıkış</button></div>';
+  }
+  // Kart tıklamalarını yakala
+  document.querySelectorAll('a.card').forEach(function(card){
+    card.addEventListener('click',function(e){
+      if(!getSession()){
+        e.preventDefault();
+        _pendingHref=card.getAttribute('href');
+        document.getElementById('authOverlay').style.display='flex';
+      }
+    });
+  });
+}
+
+function handleSubscribe(){
+  var name=document.getElementById('authName').value.trim();
+  var email=document.getElementById('authEmail').value.trim();
+  var ok=true;
+  document.getElementById('nameErr').style.display='none';
+  document.getElementById('emailErr').style.display='none';
+  document.getElementById('authName').classList.remove('err');
+  document.getElementById('authEmail').classList.remove('err');
+  if(name.length<3){
+    document.getElementById('nameErr').style.display='block';
+    document.getElementById('authName').classList.add('err');
+    ok=false;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    document.getElementById('emailErr').style.display='block';
+    document.getElementById('authEmail').classList.add('err');
+    ok=false;
+  }
+  if(!ok)return;
+  var btn=document.getElementById('authSubmit');
+  btn.disabled=true;
+  btn.textContent='Kaydediliyor…';
+  // Supabase'e kaydet (upsert gibi davranır — duplicate email'de hata yutulur)
+  fetch(SUPA_URL+'/rest/v1/aboneler',{
+    method:'POST',
+    headers:{
+      'apikey':SUPA_KEY,
+      'Authorization':'Bearer '+SUPA_KEY,
+      'Content-Type':'application/json',
+      'Prefer':'return=minimal,resolution=ignore-duplicates'
+    },
+    body:JSON.stringify({ad_soyad:name,email:email})
+  }).then(function(){
+    setSession(email,name);
+    document.getElementById('authForm').style.display='none';
+    document.getElementById('authSuccessMsg').textContent='Hoş geldiniz '+name.split(' ')[0]+'! Yönlendiriliyorsunuz…';
+    document.getElementById('authSuccess').style.display='block';
+    setTimeout(function(){
+      if(_pendingHref){window.location.href=_pendingHref;}
+      else{document.getElementById('authOverlay').style.display='none';location.reload();}
+    },1200);
+  }).catch(function(){
+    // Ağ hatası — yine de session ver (offline fallback)
+    setSession(email,name);
+    if(_pendingHref){window.location.href=_pendingHref;}
+    else{document.getElementById('authOverlay').style.display='none';location.reload();}
+  });
+}
+
+// Enter tuşu
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&document.getElementById('authOverlay').style.display==='flex'){
+    handleSubscribe();
+  }
+});
+
+document.addEventListener('DOMContentLoaded',initAuth);
+</script>
 
 </body>
 </html>
