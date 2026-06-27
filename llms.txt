@@ -8,23 +8,25 @@ Finans Akademi, gerçek iş hayatından derlenen finansal senaryoları ve bankac
 
 ## Mevcut İçerikler
 
-- [Kredi Analizi & Risk Değerlendirme](https://moyafinans.github.io/cfo/kredi-analizi.html): Bilanço sinyallerini doğru okuma, 78 senaryo, 7 kategori. Özkaynak kalitesi, kârlılık, nakit akışı, likidite, borçlanma, operasyonel verimlilik ve yönetim riski konularını kapsar.
+- [Kredi Analizi & Risk Değerlendirme](https://moyafinans.github.io/cfo/kredi-analizi.html): 78 senaryo, 7 kategori. Özkaynak kalitesi, kârlılık, nakit akışı, likidite, borçlanma, operasyonel verimlilik ve yönetim riski.
 
-- [Bütçe Planlama, Hazırlama & Takip](https://moyafinans.github.io/cfo/butce.html): Kurumsal bütçe süreçleri, senaryo analizi, revizyon metodolojileri ve yöneticilere etkin raporlama. 15 konu, 2 bölüm.
+- [Bütçe Planlama, Hazırlama & Takip](https://moyafinans.github.io/cfo/butce.html): Kurumsal bütçe süreçleri, senaryo analizi, revizyon metodolojileri. 15 konu, 2 bölüm.
 
-- [Finansal Analiz Teknikleri](https://moyafinans.github.io/cfo/finansal-analiz.html): Oran analizi, DuPont, nakit akışı, senaryo & duyarlılık analizi ve sektör benchmark teknikleri. 6 konu, formüller ve tablolar.
+- [Finansal Analiz Teknikleri](https://moyafinans.github.io/cfo/finansal-analiz.html): Oran analizi, DuPont, nakit akışı, senaryo & duyarlılık analizi, sektör benchmark. 6 konu.
 
-- [Bilanço & Gelir Tablosu Yönetimi](https://moyafinans.github.io/cfo/bilanco-gelir.html): Bilanço analizi, likidite & kaldıraç oranları, gelir tablosu yorumu, özkaynak değişim tablosu, finansal tablo dipnotları ve bağımsız denetim süreci yönetimi. 5 konu, TFRS referansı.
+- [Bilanço & Gelir Tablosu Yönetimi](https://moyafinans.github.io/cfo/bilanco-gelir.html): Likidite & kaldıraç oranları, gelir tablosu yorumu, özkaynak değişim tablosu, dipnotlar, denetim süreci. 5 konu, TFRS referansı.
 
-- [Finansman & Kredi Yönetimi](https://moyafinans.github.io/cfo/finansman-kredi.html): Kredi yapılandırması, banka müzakereleri, covenant izleme, leasing & IFRS 16, sermaye artırımı, tedarikçi finansmanı (SCF), döviz ve faiz riski yönetimi. 8 konu, hedging araçları ve formüller.
+- [Finansman & Kredi Yönetimi](https://moyafinans.github.io/cfo/finansman-kredi.html): Kredi yapılandırması, banka müzakereleri, covenant izleme, leasing & IFRS 16, sermaye artırımı, SCF, döviz ve faiz riski. 8 konu.
+
+- [Yatırım & Değerleme](https://moyafinans.github.io/cfo/yatirim-degerleme.html): DCF modeli, NPV/IRR/Payback, fizibilite raporu, M&A due diligence, şirket değerleme yöntemleri, portföy performans ölçümü. 6 konu.
+
+- [Yönetim Raporlaması (MIS)](https://moyafinans.github.io/cfo/yonetim-raporlama.html): MIS tasarımı, aylık yönetim raporu, bütçe sapma analizi, flash rapor, KPI seçimi, raporlama takvimi & RACI. 6 konu.
 
 ## Yakında
 
-- Yönetim Raporlaması & Sunum
 - Vergi & Mevzuat Rehberi
 - CFO Yetkinlik Envanteri
 - Hazine Yönetimi
-- Yatırım Değerleme
 
 ## Hedef Kitle
 
