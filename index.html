@@ -136,8 +136,7 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
 
 
 
-/* ===== ABONELİK SİSTEMİ ===== */
-.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;}
+
 .auth-box{background:var(--panel);border:1px solid var(--line);width:100%;max-width:460px;padding:40px 36px;}
 .auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;}
 .auth-logo-icon{width:36px;height:36px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:#16140d;}
@@ -168,89 +167,78 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
 .nav-user-btn{background:none;border:1px solid var(--line);color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.72rem;padding:4px 10px;cursor:pointer;transition:all .15s;}
 .nav-user-btn:hover{border-color:var(--red);color:var(--red);}
 
+
+/* ABONELIK */
+.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;}
+.auth-box{background:#15181d;border:1px solid #2a2f37;width:100%;max-width:440px;padding:36px 32px;}
+.auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:24px;}
+.auth-logo-icon{width:34px;height:34px;background:#cf9b3f;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#16140d;}
+.auth-logo-text{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:#e9e7e1;}
+.auth-tabs{display:flex;border-bottom:1px solid #2a2f37;margin-bottom:24px;}
+.auth-tab{background:none;border:none;border-bottom:2px solid transparent;color:#9aa0aa;font-size:.83rem;font-family:'Inter',sans-serif;padding:7px 18px 9px;cursor:pointer;margin-bottom:-1px;transition:all .15s;}
+.auth-tab.active{color:#cf9b3f;border-bottom-color:#cf9b3f;font-weight:600;}
+.auth-pane{display:none;}
+.auth-pane.active{display:block;}
+.auth-title{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:700;color:#e9e7e1;margin-bottom:6px;}
+.auth-desc{font-size:.82rem;color:#9aa0aa;margin-bottom:20px;line-height:1.6;}
+.auth-lbl{display:block;font-family:'JetBrains Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#9aa0aa;margin-bottom:5px;}
+.auth-input{width:100%;background:#1b1f25;border:1px solid #2a2f37;color:#e9e7e1;font-family:'Inter',sans-serif;font-size:.88rem;padding:10px 13px;outline:none;margin-bottom:13px;box-sizing:border-box;}
+.auth-input:focus{border-color:#cf9b3f;}
+.auth-btn{width:100%;background:#cf9b3f;border:none;color:#16140d;font-family:'Inter',sans-serif;font-size:.88rem;font-weight:700;padding:12px;cursor:pointer;margin-top:4px;}
+.auth-btn:hover{background:#e8c789;}
+.auth-btn:disabled{opacity:.45;cursor:not-allowed;}
+.auth-msg{display:none;margin-top:12px;padding:10px 13px;font-size:.8rem;line-height:1.5;border-radius:2px;}
+.auth-msg.ok{background:rgba(95,182,164,.1);border:1px solid rgba(95,182,164,.25);color:#5fb6a4;}
+.auth-msg.warn{background:rgba(217,164,65,.1);border:1px solid rgba(217,164,65,.25);color:#d9a441;}
+.auth-msg.err{background:rgba(217,104,79,.1);border:1px solid rgba(217,104,79,.25);color:#d9684f;}
+.auth-note{font-size:.72rem;color:#5a6070;margin-top:14px;text-align:center;}
+.nav-user{display:flex;align-items:center;gap:8px;}
+.nav-user-email{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#cf9b3f;background:#1b1f25;border:1px solid #2a2f37;padding:4px 10px;}
+.nav-user-out{background:none;border:1px solid #2a2f37;color:#9aa0aa;font-size:.72rem;font-family:'Inter',sans-serif;padding:4px 10px;cursor:pointer;}
+.nav-user-out:hover{border-color:#d9684f;color:#d9684f;}
 </style>
 </head>
 <body>
 
 
-<!-- ABONELİK MODAL -->
-<div class="auth-overlay" id="authOverlay" style="display:none;">
-  <div class="auth-box">
-    <div class="auth-logo">
-      <div class="auth-logo-icon">FA</div>
-      <span>Finans Akademi</span>
-    </div>
-    <div id="authForm">
-      <h2>Ücretsiz Erişim</h2>
-      <p>İçeriklere erişmek için ad soyad ve e-posta adresinizi girin. Kayıt ücretsizdir, reklam veya spam gönderilmez.</p>
-      <div class="auth-field">
-        <label>Ad Soyad</label>
-        <input type="text" id="authName" placeholder="Adınız Soyadınız" autocomplete="name">
-        <div class="auth-err" id="nameErr">En az 3 karakter giriniz.</div>
-      </div>
-      <div class="auth-field">
-        <label>E-posta</label>
-        <input type="email" id="authEmail" placeholder="ornek@sirket.com" autocomplete="email">
-        <div class="auth-err" id="emailErr">Geçerli bir e-posta adresi giriniz.</div>
-      </div>
-      <button class="auth-btn" id="authSubmit" onclick="handleSubscribe()">Erişim Sağla →</button>
-      <p class="auth-note">Kaydolarak <a href="#">Kullanım Koşulları</a>'nı kabul etmiş olursunuz. Verileriniz üçüncü taraflarla paylaşılmaz.</p>
-    </div>
-    <div id="authSuccess" class="auth-success" style="display:none;">
-      <div class="check">✓</div>
-      <h3>Hoş Geldiniz!</h3>
-      <p id="authSuccessMsg">Erişiminiz aktif edildi. Yönlendiriliyorsunuz…</p>
-    </div>
-  </div>
-</div>
+
+
 
 <!-- ABONELİK MODAL -->
-<div class="auth-overlay" id="authOverlay" style="display:none;">
+<div id="authOverlay" class="auth-overlay" style="display:none">
   <div class="auth-box">
     <div class="auth-logo">
       <div class="auth-logo-icon">FA</div>
-      <span>Finans Akademi</span>
+      <span class="auth-logo-text">Finans Akademi</span>
     </div>
     <div class="auth-tabs">
-      <button class="auth-tab active" id="tabRegister" onclick="switchTab('register')">Kayıt Ol</button>
-      <button class="auth-tab" id="tabLogin" onclick="switchTab('login')">Giriş Yap</button>
+      <button class="auth-tab active" onclick="switchTab('register')">Abone Ol</button>
+      <button class="auth-tab" onclick="switchTab('login')">Giriş Yap</button>
     </div>
 
-    <!-- KAYIT PANE -->
-    <div class="auth-pane active" id="paneRegister">
-      <h2>Ücretsiz Kayıt</h2>
-      <p class="auth-sub">Kaydınız yönetici onayına gönderilir. Onay sonrası e-postanızla giriş yapabilirsiniz.</p>
-      <div class="auth-field">
-        <label>Ad Soyad</label>
-        <input type="text" id="regName" placeholder="Adınız Soyadınız" autocomplete="name">
-        <div class="auth-err" id="regNameErr">En az 3 karakter giriniz.</div>
-      </div>
-      <div class="auth-field">
-        <label>E-posta</label>
-        <input type="email" id="regEmail" placeholder="ornek@sirket.com" autocomplete="email">
-        <div class="auth-err" id="regEmailErr">Geçerli bir e-posta giriniz.</div>
-      </div>
-      <button class="auth-btn" id="regBtn" onclick="handleRegister()">Kayıt Talebi Gönder →</button>
-      <div class="auth-msg" id="regMsg"></div>
-      <p class="auth-note">Verileriniz üçüncü taraflarla paylaşılmaz. Onay genellikle 24 saat içinde verilir.</p>
+    <div id="paneRegister" class="auth-pane active">
+      <div class="auth-title">Ücretsiz Abone Ol</div>
+      <p class="auth-desc">Talebiniz yönetici onayına gönderilir. Onaylandıktan sonra e-postanızla giriş yapabilirsiniz.</p>
+      <label class="auth-lbl">Ad Soyad</label>
+      <input id="rName" class="auth-input" type="text" placeholder="Adınız Soyadınız">
+      <label class="auth-lbl">E-posta</label>
+      <input id="rEmail" class="auth-input" type="email" placeholder="ornek@sirket.com">
+      <button id="rBtn" class="auth-btn" onclick="doRegister()">Abone Ol</button>
+      <div id="rMsg" class="auth-msg"></div>
+      <p class="auth-note">Onay genellikle 24 saat içinde verilir.</p>
     </div>
 
-    <!-- GİRİŞ PANE -->
-    <div class="auth-pane" id="paneLogin">
-      <h2>Giriş Yap</h2>
-      <p class="auth-sub">Onaylanmış e-posta adresinizi girerek erişim sağlayın.</p>
-      <div class="auth-field">
-        <label>E-posta</label>
-        <input type="email" id="loginEmail" placeholder="ornek@sirket.com" autocomplete="email">
-        <div class="auth-err" id="loginEmailErr">Geçerli bir e-posta giriniz.</div>
-      </div>
-      <button class="auth-btn" id="loginBtn" onclick="handleLogin()">Giriş Yap →</button>
-      <div class="auth-msg" id="loginMsg"></div>
+    <div id="paneLogin" class="auth-pane">
+      <div class="auth-title">Giriş Yap</div>
+      <p class="auth-desc">Onaylanmış e-posta adresinizi girerek erişim sağlayın.</p>
+      <label class="auth-lbl">E-posta</label>
+      <input id="lEmail" class="auth-input" type="email" placeholder="ornek@sirket.com">
+      <button id="lBtn" class="auth-btn" onclick="doLogin()">Giriş Yap</button>
+      <div id="lMsg" class="auth-msg"></div>
     </div>
   </div>
 </div>
 <!-- ABONELİK MODAL SON -->
-
 <nav>
   <a href="index.html" class="nav-logo">
     <div class="nav-logo-mark">FA</div>
@@ -431,137 +419,135 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
 
 
 
+
+
 <script>
-// ===== ABONELİK SİSTEMİ =====
-var SUPA_URL='https://kiaguwpfdzffibmltdnl.supabase.co';
-var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
-var _pendingHref=null;
+var SB_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
+var pendingUrl = null;
 
-function getSession(){
-  try{var s=localStorage.getItem('fa_session');if(!s)return null;return JSON.parse(atob(s));}
-  catch(e){return null;}
+function getSession() {
+  try { return JSON.parse(atob(localStorage.getItem('fa_session') || '')); } catch(e) { return null; }
 }
-function setSession(email,name){
-  localStorage.setItem('fa_session',btoa(JSON.stringify({email:email,name:name,ts:Date.now()})));
+function saveSession(email, name) {
+  localStorage.setItem('fa_session', btoa(JSON.stringify({email: email, name: name, ts: Date.now()})));
 }
-function clearSession(){localStorage.removeItem('fa_session');location.reload();}
+function logout() { localStorage.removeItem('fa_session'); location.reload(); }
 
-function switchTab(t){
-  document.getElementById('tabRegister').classList.toggle('active',t==='register');
-  document.getElementById('tabLogin').classList.toggle('active',t==='login');
-  document.getElementById('paneRegister').classList.toggle('active',t==='register');
-  document.getElementById('paneLogin').classList.toggle('active',t==='login');
-}
-
-function showMsg(id,type,text){
-  var el=document.getElementById(id);
-  el.className='auth-msg '+type;
-  el.textContent=text;
-  el.style.display='block';
+function switchTab(t) {
+  var tabs = document.querySelectorAll('.auth-tab');
+  tabs[0].classList.toggle('active', t === 'register');
+  tabs[1].classList.toggle('active', t === 'login');
+  document.getElementById('paneRegister').classList.toggle('active', t === 'register');
+  document.getElementById('paneLogin').classList.toggle('active', t === 'login');
 }
 
-function validateEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+function msg(id, type, text) {
+  var el = document.getElementById(id);
+  el.className = 'auth-msg ' + type;
+  el.textContent = text;
+  el.style.display = 'block';
+}
 
-function handleRegister(){
-  var name=document.getElementById('regName').value.trim();
-  var email=document.getElementById('regEmail').value.trim();
-  var ok=true;
-  document.getElementById('regNameErr').style.display='none';
-  document.getElementById('regEmailErr').style.display='none';
-  document.getElementById('regName').classList.remove('err');
-  document.getElementById('regEmail').classList.remove('err');
-  document.getElementById('regMsg').style.display='none';
-  if(name.length<3){document.getElementById('regNameErr').style.display='block';document.getElementById('regName').classList.add('err');ok=false;}
-  if(!validateEmail(email)){document.getElementById('regEmailErr').style.display='block';document.getElementById('regEmail').classList.add('err');ok=false;}
-  if(!ok)return;
-  var btn=document.getElementById('regBtn');
-  btn.disabled=true;btn.textContent='Gönderiliyor…';
-  fetch(SUPA_URL+'/rest/v1/aboneler',{
-    method:'POST',
-    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-    body:JSON.stringify({ad_soyad:name,email:email,aktif:false})
-  }).then(function(r){
-    btn.disabled=false;btn.textContent='Kayıt Talebi Gönder →';
-    if(r.status===201||r.status===200){
-      showMsg('regMsg','info','✓ Talebiniz alındı. Onay sonrası "Giriş Yap" sekmesinden erişebilirsiniz.');
-      document.getElementById('regName').value='';
-      document.getElementById('regEmail').value='';
-    } else if(r.status===409||r.status===23505){
-      showMsg('regMsg','warn','Bu e-posta zaten kayıtlı. "Giriş Yap" sekmesini deneyin.');
+function isEmail(v) { return v.indexOf('@') > 0 && v.indexOf('.') > 0; }
+
+function doRegister() {
+  var name = document.getElementById('rName').value.trim();
+  var email = document.getElementById('rEmail').value.trim().toLowerCase();
+  if (name.length < 2) { msg('rMsg','err','Ad soyad en az 2 karakter olmalı.'); return; }
+  if (!isEmail(email)) { msg('rMsg','err','Geçerli bir e-posta adresi giriniz.'); return; }
+  var btn = document.getElementById('rBtn');
+  btn.disabled = true;
+  btn.textContent = 'Gönderiliyor...';
+  document.getElementById('rMsg').style.display = 'none';
+
+  fetch(SB_URL + '/rest/v1/aboneler', {
+    method: 'POST',
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal,resolution=ignore-duplicates'
+    },
+    body: JSON.stringify({ ad_soyad: name, email: email, aktif: false })
+  })
+  .then(function(r) {
+    btn.disabled = false;
+    btn.textContent = 'Abone Ol';
+    if (r.status >= 200 && r.status < 300) {
+      document.getElementById('rName').value = '';
+      document.getElementById('rEmail').value = '';
+      msg('rMsg', 'ok', 'Talebiniz alindi. Onaylandiktan sonra "Giris Yap" sekmesinden erisebilirsiniz.');
     } else {
-      r.text().then(function(t){
-        if(t.indexOf('23505')>-1){
-          showMsg('regMsg','warn','Bu e-posta zaten kayıtlı. "Giriş Yap" sekmesini deneyin.');
+      r.text().then(function(t) {
+        if (t.indexOf('23505') > -1 || t.indexOf('duplicate') > -1) {
+          msg('rMsg', 'warn', 'Bu e-posta zaten kayitli. "Giris Yap" sekmesini deneyin.');
         } else {
-          showMsg('regMsg','error','Bir hata oluştu, lütfen tekrar deneyin.');
+          msg('rMsg', 'err', 'Hata: ' + r.status + '. Lutfen tekrar deneyin.');
         }
       });
     }
-  }).catch(function(){
-    btn.disabled=false;btn.textContent='Kayıt Talebi Gönder →';
-    showMsg('regMsg','error','Bağlantı hatası, lütfen tekrar deneyin.');
+  })
+  .catch(function(e) {
+    btn.disabled = false;
+    btn.textContent = 'Abone Ol';
+    msg('rMsg', 'err', 'Baglanti hatasi: ' + e.message);
   });
 }
 
-function handleLogin(){
-  var email=document.getElementById('loginEmail').value.trim();
-  document.getElementById('loginEmailErr').style.display='none';
-  document.getElementById('loginEmail').classList.remove('err');
-  document.getElementById('loginMsg').style.display='none';
-  if(!validateEmail(email)){document.getElementById('loginEmailErr').style.display='block';document.getElementById('loginEmail').classList.add('err');return;}
-  var btn=document.getElementById('loginBtn');
-  btn.disabled=true;btn.textContent='Kontrol ediliyor…';
-  fetch(SUPA_URL+'/rest/v1/aboneler?email=eq.'+encodeURIComponent(email)+'&select=email,ad_soyad,aktif',{
-    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
-  }).then(function(r){return r.json();}).then(function(data){
-    btn.disabled=false;btn.textContent='Giriş Yap →';
-    if(!data||data.length===0){
-      showMsg('loginMsg','error','Bu e-posta kayıtlı değil. Önce kayıt olun.');
-    } else if(!data[0].aktif){
-      showMsg('loginMsg','warn','Hesabınız henüz onaylanmadı. Onay sonrası tekrar deneyin.');
+function doLogin() {
+  var email = document.getElementById('lEmail').value.trim().toLowerCase();
+  if (!isEmail(email)) { msg('lMsg','err','Gecerli bir e-posta adresi giriniz.'); return; }
+  var btn = document.getElementById('lBtn');
+  btn.disabled = true;
+  btn.textContent = 'Kontrol ediliyor...';
+  document.getElementById('lMsg').style.display = 'none';
+
+  fetch(SB_URL + '/rest/v1/aboneler?email=eq.' + encodeURIComponent(email) + '&select=email,ad_soyad,aktif', {
+    headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    btn.disabled = false;
+    btn.textContent = 'Giris Yap';
+    if (!data || data.length === 0) {
+      msg('lMsg', 'err', 'Bu e-posta kayitli degil. Once abone olun.');
+    } else if (!data[0].aktif) {
+      msg('lMsg', 'warn', 'Hesabiniz henuz onaylanmadi. Onay sonrasi tekrar deneyin.');
     } else {
-      setSession(data[0].email,data[0].ad_soyad);
-      showMsg('loginMsg','info','✓ Hoş geldiniz! Yönlendiriliyorsunuz…');
-      setTimeout(function(){
-        if(_pendingHref){window.location.href=_pendingHref;}
-        else{document.getElementById('authOverlay').style.display='none';location.reload();}
-      },900);
+      saveSession(data[0].email, data[0].ad_soyad);
+      msg('lMsg', 'ok', 'Hos geldiniz! Yonlendiriliyorsunuz...');
+      setTimeout(function() {
+        if (pendingUrl) { window.location.href = pendingUrl; }
+        else { document.getElementById('authOverlay').style.display = 'none'; location.reload(); }
+      }, 800);
     }
-  }).catch(function(){
-    btn.disabled=false;btn.textContent='Giriş Yap →';
-    showMsg('loginMsg','error','Bağlantı hatası, lütfen tekrar deneyin.');
+  })
+  .catch(function(e) {
+    btn.disabled = false;
+    btn.textContent = 'Giris Yap';
+    msg('lMsg', 'err', 'Baglanti hatasi: ' + e.message);
   });
 }
 
-function initAuth(){
-  var sess=getSession();
-  var bar=document.getElementById('userBar');
-  if(bar){
-    if(sess){
-      bar.innerHTML='<div class="nav-user"><span class="nav-user-badge">'+sess.email+'</span><button class="nav-user-btn" onclick="clearSession()">Çıkış</button></div>';
-    }
+function initAuth() {
+  var sess = getSession();
+  var bar = document.getElementById('userBar');
+  if (sess && bar) {
+    bar.innerHTML = '<div class="nav-user"><span class="nav-user-email">' + sess.email + '</span><button class="nav-user-out" onclick="logout()">Cikis</button></div>';
   }
-  document.querySelectorAll('a.card').forEach(function(card){
-    card.addEventListener('click',function(e){
-      if(!getSession()){
+  document.querySelectorAll('a.card').forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      if (!getSession()) {
         e.preventDefault();
-        _pendingHref=card.getAttribute('href');
-        document.getElementById('authOverlay').style.display='flex';
+        pendingUrl = card.getAttribute('href');
+        document.getElementById('authOverlay').style.display = 'flex';
       }
     });
   });
 }
 
-document.addEventListener('keydown',function(e){
-  if(e.key==='Enter'&&document.getElementById('authOverlay').style.display==='flex'){
-    var activePane=document.querySelector('.auth-pane.active');
-    if(activePane&&activePane.id==='paneRegister')handleRegister();
-    else handleLogin();
-  }
-});
-
-document.addEventListener('DOMContentLoaded',initAuth);
+document.addEventListener('DOMContentLoaded', initAuth);
 </script>
-
 </body>
 </html>
