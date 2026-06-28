@@ -196,6 +196,27 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
 .nav-user-email{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:#cf9b3f;background:#1b1f25;border:1px solid #2a2f37;padding:4px 10px;}
 .nav-user-out{background:none;border:1px solid #2a2f37;color:#9aa0aa;font-size:.72rem;font-family:'Inter',sans-serif;padding:4px 10px;cursor:pointer;}
 .nav-user-out:hover{border-color:#d9684f;color:#d9684f;}
+
+/* FLOWS MENU */
+.flows-bar{background:#0d0f12;border-bottom:1px solid #1e2229;padding:0 40px;}
+.flows-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:0;}
+.flows-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.14em;color:#5a6070;padding:0 20px 0 0;margin-right:4px;border-right:1px solid #2a2f37;white-space:nowrap;height:44px;display:flex;align-items:center;}
+.flows-nav{display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.flows-nav::-webkit-scrollbar{display:none;}
+.flow-item{display:flex;align-items:center;gap:7px;padding:0 18px;height:44px;text-decoration:none;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;color:#9aa0aa;border-right:1px solid #1e2229;white-space:nowrap;transition:all .15s;position:relative;}
+.flow-item:first-child{border-left:1px solid #1e2229;}
+.flow-item:hover{color:#e9e7e1;background:#15181d;}
+.flow-item .flow-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.flow-item.budget .flow-dot{background:#5fb6a4;}
+.flow-item.audit .flow-dot{background:#8b7cf6;}
+.flow-item.checkup .flow-dot{background:#d9a441;}
+.flow-item.rates .flow-dot{background:#d9684f;}
+.flow-item .flow-badge{font-family:'JetBrains Mono',monospace;font-size:.58rem;background:#1b1f25;border:1px solid #2a2f37;color:#5a6070;padding:1px 6px;margin-left:4px;}
+@media(max-width:860px){
+  .flows-bar{padding:0 12px;}
+  .flows-label{display:none;}
+  .flow-item{padding:0 14px;font-size:.75rem;}
+}
 </style>
 </head>
 <body>
@@ -246,6 +267,34 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   </a>
   <span class="nav-tag">Profesyonel Rehber</span>
 <div id="userBar"></div></nav>
+
+<div class="flows-bar">
+  <div class="flows-bar-inner">
+    <span class="flows-label">Flows</span>
+    <div class="flows-nav">
+      <a href="#" class="flow-item budget">
+        <span class="flow-dot"></span>
+        Budget Flow
+        <span class="flow-badge">Yakında</span>
+      </a>
+      <a href="#" class="flow-item audit">
+        <span class="flow-dot"></span>
+        Audit Flow
+        <span class="flow-badge">Yakında</span>
+      </a>
+      <a href="#" class="flow-item checkup">
+        <span class="flow-dot"></span>
+        Checkup Flow
+        <span class="flow-badge">Yakında</span>
+      </a>
+      <a href="#" class="flow-item rates">
+        <span class="flow-dot"></span>
+        Rates Flow
+        <span class="flow-badge">Yakında</span>
+      </a>
+    </div>
+  </div>
+</div>
 
 <div class="hero">
   <div class="hero-eyebrow">Finans Profesyonelleri İçin</div>
