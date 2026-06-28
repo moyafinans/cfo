@@ -79,6 +79,22 @@ body { background: var(--bg); }
 .action-btn { font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font); border: 1px solid var(--border); background: var(--white); color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: all 0.15s; }
 .action-btn:hover { border-color: var(--accent); color: var(--accent); }
 .action-btn.danger:hover { border-color: #FECACA; color: #B91C1C; background: #FEF2F2; }
+.admin-tab{background:none;border:none;border-bottom:3px solid transparent;color:var(--text-muted);font-family:var(--font);font-size:.83rem;font-weight:500;padding:8px 20px 10px;cursor:pointer;transition:all .15s;margin-bottom:-2px;}
+.admin-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:700;}
+.abone-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);font-size:.83rem;gap:12px;flex-wrap:wrap;}
+.abone-info .abone-name{font-weight:600;color:var(--text-primary);}
+.abone-info .abone-email{color:var(--text-muted);font-size:.78rem;margin-top:2px;}
+.abone-info .abone-date{color:var(--text-muted);font-size:.73rem;margin-top:1px;}
+.abone-actions{display:flex;gap:8px;flex-shrink:0;}
+.btn-onayla{background:#16a34a;color:#fff;border:none;font-family:var(--font);font-size:.75rem;font-weight:600;padding:5px 14px;cursor:pointer;border-radius:4px;transition:opacity .15s;}
+.btn-onayla:hover{opacity:.85;}
+.btn-reddet{background:none;color:#b91c1c;border:1px solid #fecaca;font-family:var(--font);font-size:.75rem;font-weight:500;padding:5px 14px;cursor:pointer;border-radius:4px;}
+.btn-reddet:hover{background:#fef2f2;}
+.btn-kaldir{background:none;color:var(--text-muted);border:1px solid var(--border);font-family:var(--font);font-size:.75rem;padding:5px 12px;cursor:pointer;border-radius:4px;}
+.btn-kaldir:hover{border-color:#fecaca;color:#b91c1c;}
+.badge-bekleyen{background:#fef3c7;color:#92400e;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:3px;}
+.badge-aktif{background:#dcfce7;color:#166534;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:3px;}
+.empty-txt{padding:24px;text-align:center;color:var(--text-muted);font-size:.83rem;}
 
 .empty { text-align: center; padding: 60px; color: var(--text-muted); font-size: 14px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); }
 .loading-txt { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; }
@@ -122,25 +138,51 @@ body { background: var(--bg); }
   </nav>
 
   <div class="panel-main">
-    <!-- İSTATİSTİKLER -->
-    <div class="stats">
-      <div class="stat"><div class="stat-n" id="s-toplam">—</div><div class="stat-l">Toplam</div></div>
-      <div class="stat"><div class="stat-n" id="s-bugun">—</div><div class="stat-l">Bugün</div></div>
-      <div class="stat"><div class="stat-n" id="s-hafta">—</div><div class="stat-l">Bu Hafta</div></div>
-      <div class="stat"><div class="stat-n" id="s-ay">—</div><div class="stat-l">Bu Ay</div></div>
+    <!-- SEKMELİ NAVİGASYON -->
+    <div style="display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:28px;">
+      <button class="admin-tab active" id="tab-mesaj" onclick="switchAdminTab('mesaj')">✉ Mesajlar</button>
+      <button class="admin-tab" id="tab-abone" onclick="switchAdminTab('abone')">👥 Aboneler</button>
     </div>
 
-    <!-- ARAÇLAR -->
-    <div class="toolbar">
-      <div class="toolbar-title">Gelen Mesajlar</div>
-      <div class="toolbar-right">
-        <button class="export-btn" id="export-btn">↓ CSV İndir</button>
-        <button class="refresh-btn" id="refresh-btn">↻ Yenile</button>
+    <!-- MESAJLAR SEKMESİ -->
+    <div id="section-mesaj">
+      <!-- İSTATİSTİKLER -->
+      <div class="stats">
+        <div class="stat"><div class="stat-n" id="s-toplam">—</div><div class="stat-l">Toplam</div></div>
+        <div class="stat"><div class="stat-n" id="s-bugun">—</div><div class="stat-l">Bugün</div></div>
+        <div class="stat"><div class="stat-n" id="s-hafta">—</div><div class="stat-l">Bu Hafta</div></div>
+        <div class="stat"><div class="stat-n" id="s-ay">—</div><div class="stat-l">Bu Ay</div></div>
+      </div>
+      <div class="toolbar">
+        <div class="toolbar-title">Gelen Mesajlar</div>
+        <div class="toolbar-right">
+          <button class="export-btn" id="export-btn">↓ CSV İndir</button>
+          <button class="refresh-btn" id="refresh-btn">↻ Yenile</button>
+        </div>
+      </div>
+      <div class="msg-list" id="msg-list">
+        <div class="loading-txt">Yükleniyor...</div>
       </div>
     </div>
 
-    <div class="msg-list" id="msg-list">
-      <div class="loading-txt">Yükleniyor...</div>
+    <!-- ABONELER SEKMESİ -->
+    <div id="section-abone" style="display:none;">
+      <div class="stats">
+        <div class="stat"><div class="stat-n" id="a-toplam">—</div><div class="stat-l">Toplam</div></div>
+        <div class="stat"><div class="stat-n" id="a-bekleyen">—</div><div class="stat-l">Bekleyen</div></div>
+        <div class="stat"><div class="stat-n" id="a-aktif">—</div><div class="stat-l">Onaylı</div></div>
+      </div>
+      <div class="toolbar">
+        <div class="toolbar-title">Onay Bekleyenler</div>
+        <div class="toolbar-right">
+          <button class="refresh-btn" onclick="yuklAboneler()">↻ Yenile</button>
+        </div>
+      </div>
+      <div id="abone-bekleyen" style="margin-bottom:32px;"><div class="loading-txt">Yükleniyor...</div></div>
+      <div class="toolbar" style="margin-top:16px;">
+        <div class="toolbar-title">Onaylı Aboneler</div>
+      </div>
+      <div id="abone-aktif"><div class="loading-txt">Yükleniyor...</div></div>
     </div>
   </div>
 </div>
@@ -257,6 +299,78 @@ function fmt(iso) {
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
+// ===== ABONE YÖNETİMİ =====
+function switchAdminTab(tab) {
+  document.getElementById('tab-mesaj').classList.toggle('active', tab==='mesaj');
+  document.getElementById('tab-abone').classList.toggle('active', tab==='abone');
+  document.getElementById('section-mesaj').style.display = tab==='mesaj' ? '' : 'none';
+  document.getElementById('section-abone').style.display = tab==='abone' ? '' : 'none';
+  if(tab==='abone') yuklAboneler();
+}
+
+async function yuklAboneler() {
+  try {
+    var r = await fetch(SUPABASE_URL + '/rest/v1/aboneler?select=*&order=created_at.desc', {
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    var data = await r.json();
+    var bekleyen = data.filter(function(d){return !d.aktif;});
+    var aktif = data.filter(function(d){return d.aktif;});
+    document.getElementById('a-toplam').textContent = data.length;
+    document.getElementById('a-bekleyen').textContent = bekleyen.length;
+    document.getElementById('a-aktif').textContent = aktif.length;
+    renderAboneler('abone-bekleyen', bekleyen, false);
+    renderAboneler('abone-aktif', aktif, true);
+  } catch(e) {
+    document.getElementById('abone-bekleyen').innerHTML = '<div class="empty-txt">Yükleme hatası.</div>';
+  }
+}
+
+function renderAboneler(elId, list, isAktif) {
+  var el = document.getElementById(elId);
+  if(!list.length){
+    el.innerHTML = '<div class="empty-txt">'+(isAktif?'Onaylı abone yok.':'Bekleyen talep yok.')+'</div>';
+    return;
+  }
+  el.innerHTML = list.map(function(a){
+    var d = new Date(a.created_at);
+    var tarih = d.toLocaleDateString('tr-TR')+' '+d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+    var actions = isAktif
+      ? '<button class="btn-kaldir" onclick="aboneGuncelle('+a.id+',false)">Pasife Al</button>'
+      : '<button class="btn-onayla" onclick="aboneGuncelle('+a.id+',true)">✓ Onayla</button><button class="btn-reddet" onclick="aboneSil('+a.id+')">✕ Reddet</button>';
+    var badge = isAktif
+      ? '<span class="badge-aktif">Onaylı</span>'
+      : '<span class="badge-bekleyen">Bekliyor</span>';
+    return '<div class="abone-row">'+
+      '<div class="abone-info">'+
+        '<div class="abone-name">'+esc(a.ad_soyad)+' '+badge+'</div>'+
+        '<div class="abone-email">'+esc(a.email)+'</div>'+
+        '<div class="abone-date">'+tarih+'</div>'+
+      '</div>'+
+      '<div class="abone-actions">'+actions+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+async function aboneGuncelle(id, aktif) {
+  await fetch(SUPABASE_URL+'/rest/v1/aboneler?id=eq.'+id, {
+    method:'PATCH',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify({aktif:aktif})
+  });
+  yuklAboneler();
+}
+
+async function aboneSil(id) {
+  if(!confirm('Bu abone talebini silmek istiyor musunuz?')) return;
+  await fetch(SUPABASE_URL+'/rest/v1/aboneler?id=eq.'+id, {
+    method:'DELETE',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+  });
+  yuklAboneler();
+}
+
 </script>
 </body>
 </html>
