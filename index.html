@@ -133,33 +133,40 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   .h-stat:last-child{border-bottom:none;}
 }
 
+
+
+
 /* ===== ABONELİK SİSTEMİ ===== */
-.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;}
+.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;}
 .auth-box{background:var(--panel);border:1px solid var(--line);width:100%;max-width:460px;padding:40px 36px;}
 .auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px;}
 .auth-logo-icon{width:36px;height:36px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:#16140d;}
 .auth-logo span{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--ink);}
-.auth-box h2{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
-.auth-box p{font-size:.85rem;color:var(--ink-dim);margin-bottom:24px;line-height:1.6;}
-.auth-field{margin-bottom:16px;}
+.auth-tabs{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid var(--line);}
+.auth-tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.85rem;padding:8px 20px 10px;cursor:pointer;transition:all .15s;margin-bottom:-1px;}
+.auth-tab.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:600;}
+.auth-pane{display:none;}
+.auth-pane.active{display:block;}
+.auth-box h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.auth-box p.auth-sub{font-size:.83rem;color:var(--ink-dim);margin-bottom:22px;line-height:1.6;}
+.auth-field{margin-bottom:15px;}
 .auth-field label{display:block;font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-dim);margin-bottom:6px;}
 .auth-field input{width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--ink);font-family:'Inter',sans-serif;font-size:.9rem;padding:11px 14px;outline:none;transition:border-color .15s;}
 .auth-field input:focus{border-color:var(--gold);}
 .auth-field input.err{border-color:var(--red);}
-.auth-err{font-size:.78rem;color:var(--red);margin-top:4px;display:none;}
-.auth-btn{width:100%;background:var(--gold);border:none;color:#16140d;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:700;padding:13px;cursor:pointer;margin-top:8px;transition:opacity .15s;}
+.auth-err{font-size:.76rem;color:var(--red);margin-top:4px;display:none;}
+.auth-btn{width:100%;background:var(--gold);border:none;color:#16140d;font-family:'Inter',sans-serif;font-size:.88rem;font-weight:700;padding:13px;cursor:pointer;margin-top:8px;transition:opacity .15s;}
 .auth-btn:hover{opacity:.88;}
-.auth-btn:disabled{opacity:.5;cursor:not-allowed;}
-.auth-note{font-size:.75rem;color:var(--ink-faint);margin-top:16px;text-align:center;line-height:1.6;}
-.auth-note a{color:var(--gold-soft);text-decoration:none;}
-.auth-success{text-align:center;padding:20px 0;}
-.auth-success .check{font-size:2.5rem;margin-bottom:12px;}
-.auth-success h3{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--teal);margin-bottom:8px;}
-.auth-success p{font-size:.85rem;color:var(--ink-dim);}
-.topbar-user{display:flex;align-items:center;gap:10px;font-size:.82rem;color:var(--ink-dim);}
-.topbar-user .user-badge{background:var(--panel-2);border:1px solid var(--line);padding:4px 12px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--gold);}
-.topbar-user button{background:none;border:1px solid var(--line);color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.72rem;padding:4px 10px;cursor:pointer;transition:all .15s;}
-.topbar-user button:hover{border-color:var(--red);color:var(--red);}
+.auth-btn:disabled{opacity:.4;cursor:not-allowed;}
+.auth-msg{margin-top:14px;padding:12px 14px;font-size:.82rem;line-height:1.6;display:none;}
+.auth-msg.info{background:rgba(95,182,164,.08);border:1px solid rgba(95,182,164,.2);color:var(--teal);}
+.auth-msg.warn{background:rgba(217,164,65,.08);border:1px solid rgba(217,164,65,.2);color:var(--amber);}
+.auth-msg.error{background:rgba(217,104,79,.08);border:1px solid rgba(217,104,79,.2);color:var(--red);}
+.auth-note{font-size:.73rem;color:var(--ink-faint);margin-top:14px;text-align:center;line-height:1.6;}
+.nav-user{display:flex;align-items:center;gap:8px;}
+.nav-user-badge{background:var(--panel-2);border:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--gold);padding:4px 10px;}
+.nav-user-btn{background:none;border:1px solid var(--line);color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.72rem;padding:4px 10px;cursor:pointer;transition:all .15s;}
+.nav-user-btn:hover{border-color:var(--red);color:var(--red);}
 
 </style>
 </head>
@@ -196,6 +203,53 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
     </div>
   </div>
 </div>
+
+<!-- ABONELİK MODAL -->
+<div class="auth-overlay" id="authOverlay" style="display:none;">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">FA</div>
+      <span>Finans Akademi</span>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabRegister" onclick="switchTab('register')">Kayıt Ol</button>
+      <button class="auth-tab" id="tabLogin" onclick="switchTab('login')">Giriş Yap</button>
+    </div>
+
+    <!-- KAYIT PANE -->
+    <div class="auth-pane active" id="paneRegister">
+      <h2>Ücretsiz Kayıt</h2>
+      <p class="auth-sub">Kaydınız yönetici onayına gönderilir. Onay sonrası e-postanızla giriş yapabilirsiniz.</p>
+      <div class="auth-field">
+        <label>Ad Soyad</label>
+        <input type="text" id="regName" placeholder="Adınız Soyadınız" autocomplete="name">
+        <div class="auth-err" id="regNameErr">En az 3 karakter giriniz.</div>
+      </div>
+      <div class="auth-field">
+        <label>E-posta</label>
+        <input type="email" id="regEmail" placeholder="ornek@sirket.com" autocomplete="email">
+        <div class="auth-err" id="regEmailErr">Geçerli bir e-posta giriniz.</div>
+      </div>
+      <button class="auth-btn" id="regBtn" onclick="handleRegister()">Kayıt Talebi Gönder →</button>
+      <div class="auth-msg" id="regMsg"></div>
+      <p class="auth-note">Verileriniz üçüncü taraflarla paylaşılmaz. Onay genellikle 24 saat içinde verilir.</p>
+    </div>
+
+    <!-- GİRİŞ PANE -->
+    <div class="auth-pane" id="paneLogin">
+      <h2>Giriş Yap</h2>
+      <p class="auth-sub">Onaylanmış e-posta adresinizi girerek erişim sağlayın.</p>
+      <div class="auth-field">
+        <label>E-posta</label>
+        <input type="email" id="loginEmail" placeholder="ornek@sirket.com" autocomplete="email">
+        <div class="auth-err" id="loginEmailErr">Geçerli bir e-posta giriniz.</div>
+      </div>
+      <button class="auth-btn" id="loginBtn" onclick="handleLogin()">Giriş Yap →</button>
+      <div class="auth-msg" id="loginMsg"></div>
+    </div>
+  </div>
+</div>
+<!-- ABONELİK MODAL SON -->
 
 <nav>
   <a href="index.html" class="nav-logo">
@@ -375,37 +429,118 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
 </footer>
 
 
+
+
 <script>
 // ===== ABONELİK SİSTEMİ =====
-var SUPA_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
-var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
-var _pendingHref = null;
+var SUPA_URL='https://kiaguwpfdzffibmltdnl.supabase.co';
+var SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
+var _pendingHref=null;
 
 function getSession(){
-  try{
-    var s=localStorage.getItem('fa_session');
-    if(!s)return null;
-    return JSON.parse(atob(s));
-  }catch(e){return null;}
+  try{var s=localStorage.getItem('fa_session');if(!s)return null;return JSON.parse(atob(s));}
+  catch(e){return null;}
 }
-
 function setSession(email,name){
-  var payload={email:email,name:name,ts:Date.now()};
-  localStorage.setItem('fa_session',btoa(JSON.stringify(payload)));
+  localStorage.setItem('fa_session',btoa(JSON.stringify({email:email,name:name,ts:Date.now()})));
+}
+function clearSession(){localStorage.removeItem('fa_session');location.reload();}
+
+function switchTab(t){
+  document.getElementById('tabRegister').classList.toggle('active',t==='register');
+  document.getElementById('tabLogin').classList.toggle('active',t==='login');
+  document.getElementById('paneRegister').classList.toggle('active',t==='register');
+  document.getElementById('paneLogin').classList.toggle('active',t==='login');
 }
 
-function clearSession(){
-  localStorage.removeItem('fa_session');
-  location.reload();
+function showMsg(id,type,text){
+  var el=document.getElementById(id);
+  el.className='auth-msg '+type;
+  el.textContent=text;
+  el.style.display='block';
+}
+
+function validateEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
+
+function handleRegister(){
+  var name=document.getElementById('regName').value.trim();
+  var email=document.getElementById('regEmail').value.trim();
+  var ok=true;
+  document.getElementById('regNameErr').style.display='none';
+  document.getElementById('regEmailErr').style.display='none';
+  document.getElementById('regName').classList.remove('err');
+  document.getElementById('regEmail').classList.remove('err');
+  document.getElementById('regMsg').style.display='none';
+  if(name.length<3){document.getElementById('regNameErr').style.display='block';document.getElementById('regName').classList.add('err');ok=false;}
+  if(!validateEmail(email)){document.getElementById('regEmailErr').style.display='block';document.getElementById('regEmail').classList.add('err');ok=false;}
+  if(!ok)return;
+  var btn=document.getElementById('regBtn');
+  btn.disabled=true;btn.textContent='Gönderiliyor…';
+  fetch(SUPA_URL+'/rest/v1/aboneler',{
+    method:'POST',
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify({ad_soyad:name,email:email,aktif:false})
+  }).then(function(r){
+    btn.disabled=false;btn.textContent='Kayıt Talebi Gönder →';
+    if(r.status===201||r.status===200){
+      showMsg('regMsg','info','✓ Talebiniz alındı. Onay sonrası "Giriş Yap" sekmesinden erişebilirsiniz.');
+      document.getElementById('regName').value='';
+      document.getElementById('regEmail').value='';
+    } else if(r.status===409||r.status===23505){
+      showMsg('regMsg','warn','Bu e-posta zaten kayıtlı. "Giriş Yap" sekmesini deneyin.');
+    } else {
+      r.text().then(function(t){
+        if(t.indexOf('23505')>-1){
+          showMsg('regMsg','warn','Bu e-posta zaten kayıtlı. "Giriş Yap" sekmesini deneyin.');
+        } else {
+          showMsg('regMsg','error','Bir hata oluştu, lütfen tekrar deneyin.');
+        }
+      });
+    }
+  }).catch(function(){
+    btn.disabled=false;btn.textContent='Kayıt Talebi Gönder →';
+    showMsg('regMsg','error','Bağlantı hatası, lütfen tekrar deneyin.');
+  });
+}
+
+function handleLogin(){
+  var email=document.getElementById('loginEmail').value.trim();
+  document.getElementById('loginEmailErr').style.display='none';
+  document.getElementById('loginEmail').classList.remove('err');
+  document.getElementById('loginMsg').style.display='none';
+  if(!validateEmail(email)){document.getElementById('loginEmailErr').style.display='block';document.getElementById('loginEmail').classList.add('err');return;}
+  var btn=document.getElementById('loginBtn');
+  btn.disabled=true;btn.textContent='Kontrol ediliyor…';
+  fetch(SUPA_URL+'/rest/v1/aboneler?email=eq.'+encodeURIComponent(email)+'&select=email,ad_soyad,aktif',{
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+  }).then(function(r){return r.json();}).then(function(data){
+    btn.disabled=false;btn.textContent='Giriş Yap →';
+    if(!data||data.length===0){
+      showMsg('loginMsg','error','Bu e-posta kayıtlı değil. Önce kayıt olun.');
+    } else if(!data[0].aktif){
+      showMsg('loginMsg','warn','Hesabınız henüz onaylanmadı. Onay sonrası tekrar deneyin.');
+    } else {
+      setSession(data[0].email,data[0].ad_soyad);
+      showMsg('loginMsg','info','✓ Hoş geldiniz! Yönlendiriliyorsunuz…');
+      setTimeout(function(){
+        if(_pendingHref){window.location.href=_pendingHref;}
+        else{document.getElementById('authOverlay').style.display='none';location.reload();}
+      },900);
+    }
+  }).catch(function(){
+    btn.disabled=false;btn.textContent='Giriş Yap →';
+    showMsg('loginMsg','error','Bağlantı hatası, lütfen tekrar deneyin.');
+  });
 }
 
 function initAuth(){
   var sess=getSession();
   var bar=document.getElementById('userBar');
-  if(sess&&bar){
-    bar.innerHTML='<div class="topbar-user"><span class="user-badge">'+sess.email+'</span><button onclick="clearSession()">Çıkış</button></div>';
+  if(bar){
+    if(sess){
+      bar.innerHTML='<div class="nav-user"><span class="nav-user-badge">'+sess.email+'</span><button class="nav-user-btn" onclick="clearSession()">Çıkış</button></div>';
+    }
   }
-  // Kart tıklamalarını yakala
   document.querySelectorAll('a.card').forEach(function(card){
     card.addEventListener('click',function(e){
       if(!getSession()){
@@ -417,59 +552,11 @@ function initAuth(){
   });
 }
 
-function handleSubscribe(){
-  var name=document.getElementById('authName').value.trim();
-  var email=document.getElementById('authEmail').value.trim();
-  var ok=true;
-  document.getElementById('nameErr').style.display='none';
-  document.getElementById('emailErr').style.display='none';
-  document.getElementById('authName').classList.remove('err');
-  document.getElementById('authEmail').classList.remove('err');
-  if(name.length<3){
-    document.getElementById('nameErr').style.display='block';
-    document.getElementById('authName').classList.add('err');
-    ok=false;
-  }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    document.getElementById('emailErr').style.display='block';
-    document.getElementById('authEmail').classList.add('err');
-    ok=false;
-  }
-  if(!ok)return;
-  var btn=document.getElementById('authSubmit');
-  btn.disabled=true;
-  btn.textContent='Kaydediliyor…';
-  // Supabase'e kaydet (upsert gibi davranır — duplicate email'de hata yutulur)
-  fetch(SUPA_URL+'/rest/v1/aboneler',{
-    method:'POST',
-    headers:{
-      'apikey':SUPA_KEY,
-      'Authorization':'Bearer '+SUPA_KEY,
-      'Content-Type':'application/json',
-      'Prefer':'return=minimal,resolution=ignore-duplicates'
-    },
-    body:JSON.stringify({ad_soyad:name,email:email})
-  }).then(function(){
-    setSession(email,name);
-    document.getElementById('authForm').style.display='none';
-    document.getElementById('authSuccessMsg').textContent='Hoş geldiniz '+name.split(' ')[0]+'! Yönlendiriliyorsunuz…';
-    document.getElementById('authSuccess').style.display='block';
-    setTimeout(function(){
-      if(_pendingHref){window.location.href=_pendingHref;}
-      else{document.getElementById('authOverlay').style.display='none';location.reload();}
-    },1200);
-  }).catch(function(){
-    // Ağ hatası — yine de session ver (offline fallback)
-    setSession(email,name);
-    if(_pendingHref){window.location.href=_pendingHref;}
-    else{document.getElementById('authOverlay').style.display='none';location.reload();}
-  });
-}
-
-// Enter tuşu
 document.addEventListener('keydown',function(e){
   if(e.key==='Enter'&&document.getElementById('authOverlay').style.display==='flex'){
-    handleSubscribe();
+    var activePane=document.querySelector('.auth-pane.active');
+    if(activePane&&activePane.id==='paneRegister')handleRegister();
+    else handleLogin();
   }
 });
 
