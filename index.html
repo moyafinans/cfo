@@ -217,6 +217,165 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   .flows-label{display:none;}
   .flow-item{padding:0 14px;font-size:.75rem;}
 }
+
+/* ── FLOWS SECTION ── */
+.flows-section{
+  background:#0a0c0f;
+  border-bottom:1px solid #1a1e24;
+  padding:0 40px;
+}
+.flows-inner{
+  max-width:1200px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:0;
+  min-height:96px;
+}
+.flows-identity{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:20px 32px 20px 0;
+  border-right:1px solid #1a1e24;
+  gap:4px;
+}
+.flows-wordmark{
+  font-family:'Fraunces',serif;
+  font-size:1.35rem;
+  font-weight:700;
+  color:#e9e7e1;
+  letter-spacing:-.01em;
+  line-height:1;
+}
+.flows-wordmark em{
+  font-style:normal;
+  background:linear-gradient(90deg,#cf9b3f,#e8c789);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.flows-tagline{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.63rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:#3d4450;
+}
+.flows-items{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+}
+.flow-item{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  padding:20px 24px;
+  text-decoration:none;
+  border-right:1px solid #1a1e24;
+  transition:background .18s;
+  overflow:hidden;
+  cursor:pointer;
+}
+.flow-item::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  opacity:0;
+  transition:opacity .18s;
+}
+.flow-item.budget::before{background:linear-gradient(90deg,#5fb6a4,#3d9e8c);}
+.flow-item.audit::before{background:linear-gradient(90deg,#8b7cf6,#6c5ce7);}
+.flow-item.checkup::before{background:linear-gradient(90deg,#d9a441,#c48a20);}
+.flow-item.rates::before{background:linear-gradient(90deg,#d9684f,#c0442b);}
+.flow-item:hover{background:#0f1216;}
+.flow-item:hover::before{opacity:1;}
+.flow-item-head{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.flow-icon{
+  width:28px;
+  height:28px;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:13px;
+  flex-shrink:0;
+}
+.flow-item.budget .flow-icon{background:rgba(95,182,164,.12);border:1px solid rgba(95,182,164,.2);}
+.flow-item.audit  .flow-icon{background:rgba(139,124,246,.12);border:1px solid rgba(139,124,246,.2);}
+.flow-item.checkup .flow-icon{background:rgba(217,164,65,.12);border:1px solid rgba(217,164,65,.2);}
+.flow-item.rates  .flow-icon{background:rgba(217,104,79,.12);border:1px solid rgba(217,104,79,.2);}
+.flow-name{
+  font-family:'Inter',sans-serif;
+  font-size:.82rem;
+  font-weight:600;
+  color:#c8c6c0;
+  line-height:1;
+  transition:color .18s;
+}
+.flow-item:hover .flow-name{color:#e9e7e1;}
+.flow-item.budget:hover .flow-name{color:#5fb6a4;}
+.flow-item.audit:hover  .flow-name{color:#8b7cf6;}
+.flow-item.checkup:hover .flow-name{color:#d9a441;}
+.flow-item.rates:hover  .flow-name{color:#d9684f;}
+.flow-desc{
+  font-family:'Inter',sans-serif;
+  font-size:.72rem;
+  color:#3d4450;
+  line-height:1.45;
+  transition:color .18s;
+}
+.flow-item:hover .flow-desc{color:#6b717a;}
+.flow-soon{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.6rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:#3d4450;
+  border:1px solid #1e2229;
+  padding:2px 7px;
+  margin-top:2px;
+  width:fit-content;
+  transition:all .18s;
+}
+.flow-item.budget:hover .flow-soon{color:#5fb6a4;border-color:rgba(95,182,164,.3);}
+.flow-item.audit:hover  .flow-soon{color:#8b7cf6;border-color:rgba(139,124,246,.3);}
+.flow-item.checkup:hover .flow-soon{color:#d9a441;border-color:rgba(217,164,65,.3);}
+.flow-item.rates:hover  .flow-soon{color:#d9684f;border-color:rgba(217,104,79,.3);}
+
+@media(max-width:960px){
+  .flows-section{padding:0 18px;}
+  .flows-inner{grid-template-columns:1fr;}
+  .flows-identity{
+    border-right:none;
+    border-bottom:1px solid #1a1e24;
+    padding:16px 0;
+    flex-direction:row;
+    align-items:center;
+    gap:16px;
+    min-height:auto;
+  }
+  .flows-tagline{display:none;}
+  .flows-items{grid-template-columns:1fr 1fr;}
+  .flow-item{padding:16px 14px;}
+  .flow-item:nth-child(odd){border-right:1px solid #1a1e24;}
+  .flow-item:nth-child(even){border-right:none;}
+  .flow-item:nth-child(1),.flow-item:nth-child(2){border-bottom:1px solid #1a1e24;}
+}
+@media(max-width:560px){
+  .flows-items{grid-template-columns:1fr 1fr;}
+  .flow-desc{display:none;}
+}
+
 </style>
 </head>
 <body>
@@ -268,30 +427,53 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   <span class="nav-tag">Profesyonel Rehber</span>
 <div id="userBar"></div></nav>
 
-<div class="flows-bar">
-  <div class="flows-bar-inner">
-    <span class="flows-label">Flows</span>
-    <div class="flows-nav">
+  </div>
+</div>
+
+<div class="flows-section">
+  <div class="flows-inner">
+    <div class="flows-identity">
+      <div class="flows-wordmark">Finans <em>Flows</em></div>
+      <div class="flows-tagline">İş Akışı Araçları</div>
+    </div>
+    <div class="flows-items">
+
       <a href="#" class="flow-item budget">
-        <span class="flow-dot"></span>
-        Budget Flow
-        <span class="flow-badge">Yakında</span>
+        <div class="flow-item-head">
+          <div class="flow-icon">📊</div>
+          <span class="flow-name">Budget Flow</span>
+        </div>
+        <div class="flow-desc">Bütçe hazırlama &amp; takip iş akışı</div>
+        <span class="flow-soon">Yakında</span>
       </a>
+
       <a href="#" class="flow-item audit">
-        <span class="flow-dot"></span>
-        Audit Flow
-        <span class="flow-badge">Yakında</span>
+        <div class="flow-item-head">
+          <div class="flow-icon">🔎</div>
+          <span class="flow-name">Audit Flow</span>
+        </div>
+        <div class="flow-desc">Denetim süreci yönetim akışı</div>
+        <span class="flow-soon">Yakında</span>
       </a>
+
       <a href="#" class="flow-item checkup">
-        <span class="flow-dot"></span>
-        Checkup Flow
-        <span class="flow-badge">Yakında</span>
+        <div class="flow-item-head">
+          <div class="flow-icon">✅</div>
+          <span class="flow-name">Checkup Flow</span>
+        </div>
+        <div class="flow-desc">Finansal sağlık kontrol akışı</div>
+        <span class="flow-soon">Yakında</span>
       </a>
+
       <a href="#" class="flow-item rates">
-        <span class="flow-dot"></span>
-        Rates Flow
-        <span class="flow-badge">Yakında</span>
+        <div class="flow-item-head">
+          <div class="flow-icon">📈</div>
+          <span class="flow-name">Rates Flow</span>
+        </div>
+        <div class="flow-desc">Faiz &amp; kur izleme akışı</div>
+        <span class="flow-soon">Yakında</span>
       </a>
+
     </div>
   </div>
 </div>
