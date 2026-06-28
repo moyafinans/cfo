@@ -218,41 +218,6 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   .flow-item{padding:0 14px;font-size:.75rem;}
 }
 
-/* ── FLOWS SECTION ── */
-.flows-section{background:#0a0c0f;border-bottom:1px solid #1a1e24;}
-.flows-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:180px 1fr;}
-.flows-identity{display:flex;flex-direction:column;justify-content:center;padding:20px 28px 20px 40px;border-right:1px solid #1a1e24;gap:4px;}
-.flows-wordmark{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:700;color:#e9e7e1;line-height:1;}
-.flows-wordmark em{font-style:normal;background:linear-gradient(90deg,#cf9b3f,#e8c789);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.flows-tagline{font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:#3d4450;margin-top:4px;}
-.flows-items{display:grid;grid-template-columns:repeat(4,1fr);}
-.flow-item{position:relative;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:20px 22px;text-decoration:none;border-right:1px solid #1a1e24;transition:background .15s;overflow:hidden;}
-.flow-item:last-child{border-right:none;}
-.flow-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .15s;}
-.flow-item.budget::before{background:linear-gradient(90deg,#5fb6a4,#3d9e8c);}
-.flow-item.audit::before{background:linear-gradient(90deg,#8b7cf6,#6c5ce7);}
-.flow-item.checkup::before{background:linear-gradient(90deg,#d9a441,#c48a20);}
-.flow-item.rates::before{background:linear-gradient(90deg,#d9684f,#c0442b);}
-.flow-item:hover{background:#0f1216;}
-.flow-item:hover::before{opacity:1;}
-.flow-item-head{display:flex;align-items:center;gap:8px;}
-.flow-icon{width:26px;height:26px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
-.flow-item.budget .flow-icon{background:rgba(95,182,164,.12);border:1px solid rgba(95,182,164,.2);}
-.flow-item.audit  .flow-icon{background:rgba(139,124,246,.12);border:1px solid rgba(139,124,246,.2);}
-.flow-item.checkup .flow-icon{background:rgba(217,164,65,.12);border:1px solid rgba(217,164,65,.2);}
-.flow-item.rates  .flow-icon{background:rgba(217,104,79,.12);border:1px solid rgba(217,104,79,.2);}
-.flow-name{font-family:'Inter',sans-serif;font-size:.82rem;font-weight:600;color:#c8c6c0;line-height:1;transition:color .15s;}
-.flow-item.budget:hover .flow-name{color:#5fb6a4;}
-.flow-item.audit:hover  .flow-name{color:#8b7cf6;}
-.flow-item.checkup:hover .flow-name{color:#d9a441;}
-.flow-item.rates:hover  .flow-name{color:#d9684f;}
-.flow-desc{font-family:'Inter',sans-serif;font-size:.71rem;color:#3d4450;line-height:1.4;transition:color .15s;}
-.flow-item:hover .flow-desc{color:#5a6070;}
-.flow-soon{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:#2e333b;border:1px solid #1e2229;padding:2px 6px;margin-top:3px;width:fit-content;transition:all .15s;}
-.flow-item.budget:hover .flow-soon{color:#5fb6a4;border-color:rgba(95,182,164,.3);}
-.flow-item.audit:hover  .flow-soon{color:#8b7cf6;border-color:rgba(139,124,246,.3);}
-.flow-item.checkup:hover .flow-soon{color:#d9a441;border-color:rgba(217,164,65,.3);}
-.flow-item.rates:hover  .flow-soon{color:#d9684f;border-color:rgba(217,104,79,.3);}
 /* ── MOBILE ── */
 @media(max-width:860px){
   .flows-inner{grid-template-columns:1fr;padding:0 18px;}
@@ -275,6 +240,97 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   .flow-item{border-right:none !important;}
   .flow-item:last-child{border-bottom:none;}
 }
+/* ── FLOWS SECTION ── */
+.fs{background:#090b0e;border-bottom:1px solid #181c22;}
+.fs-wrap{max-width:1200px;margin:0 auto;display:flex;align-items:stretch;}
+.fs-id{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:18px 28px 18px 40px;
+  border-right:1px solid #181c22;
+  flex-shrink:0;width:178px;gap:3px;
+}
+.fs-name{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;color:#e9e7e1;line-height:1;}
+.fs-name em{font-style:normal;background:linear-gradient(90deg,#cf9b3f,#e8c789);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.fs-sub{font-family:'JetBrains Mono',monospace;font-size:.58rem;
+  text-transform:uppercase;letter-spacing:.12em;color:#2e333b;}
+.fs-items{display:flex;flex:1;}
+.fi{
+  flex:1;display:flex;flex-direction:column;justify-content:center;
+  gap:4px;padding:18px 20px;text-decoration:none;
+  border-right:1px solid #181c22;transition:background .14s;
+  position:relative;overflow:hidden;
+}
+.fi:last-child{border-right:none;}
+.fi::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  transform:scaleX(0);transform-origin:left;transition:transform .2s;
+}
+.fi.b::after{background:linear-gradient(90deg,#5fb6a4,#3d9e8c);}
+.fi.a::after{background:linear-gradient(90deg,#8b7cf6,#6c5ce7);}
+.fi.c::after{background:linear-gradient(90deg,#d9a441,#b8751a);}
+.fi.r::after{background:linear-gradient(90deg,#d9684f,#b84430);}
+.fi:hover{background:#0e1115;}
+.fi:hover::after{transform:scaleX(1);}
+.fi-head{display:flex;align-items:center;gap:7px;}
+.fi-ico{
+  width:24px;height:24px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;
+}
+.fi.b .fi-ico{background:rgba(95,182,164,.1);border:1px solid rgba(95,182,164,.18);}
+.fi.a .fi-ico{background:rgba(139,124,246,.1);border:1px solid rgba(139,124,246,.18);}
+.fi.c .fi-ico{background:rgba(217,164,65,.1);border:1px solid rgba(217,164,65,.18);}
+.fi.r .fi-ico{background:rgba(217,104,79,.1);border:1px solid rgba(217,104,79,.18);}
+.fi-name{
+  font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;
+  color:#9aa0aa;line-height:1;transition:color .14s;
+}
+.fi.b:hover .fi-name{color:#5fb6a4;}
+.fi.a:hover .fi-name{color:#8b7cf6;}
+.fi.c:hover .fi-name{color:#d9a441;}
+.fi.r:hover .fi-name{color:#d9684f;}
+.fi-desc{
+  font-family:'Inter',sans-serif;font-size:.7rem;
+  color:#2e333b;line-height:1.35;transition:color .14s;
+}
+.fi:hover .fi-desc{color:#4d5460;}
+.fi-tag{
+  font-family:'JetBrains Mono',monospace;font-size:.56rem;
+  text-transform:uppercase;letter-spacing:.07em;
+  color:#242830;border:1px solid #1a1e24;
+  padding:2px 5px;width:fit-content;margin-top:3px;transition:all .14s;
+}
+.fi.b:hover .fi-tag{color:#5fb6a4;border-color:rgba(95,182,164,.25);}
+.fi.a:hover .fi-tag{color:#8b7cf6;border-color:rgba(139,124,246,.25);}
+.fi.c:hover .fi-tag{color:#d9a441;border-color:rgba(217,164,65,.25);}
+.fi.r:hover .fi-tag{color:#d9684f;border-color:rgba(217,104,79,.25);}
+
+/* ── TABLET 601–860 ── */
+@media(max-width:860px){
+  .fs-wrap{flex-direction:column;}
+  .fs-id{
+    flex-direction:row;align-items:center;gap:10px;
+    width:auto;padding:10px 18px;
+    border-right:none;border-bottom:1px solid #181c22;
+  }
+  .fs-sub{display:none;}
+  .fs-items{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .fi{padding:14px 16px;border-right:none;border-bottom:1px solid #181c22;}
+  .fi:nth-child(odd){border-right:1px solid #181c22;}
+  .fi:nth-child(3),.fi:nth-child(4){border-bottom:none;}
+}
+
+/* ── KÜÇÜK TELEFON ≤400 ── */
+@media(max-width:400px){
+  .fs-items{grid-template-columns:1fr;}
+  .fi{border-right:none !important;}
+  .fi:nth-child(3){border-bottom:1px solid #181c22;}
+  .fi:last-child{border-bottom:none;}
+}
+/* ── FLOWS SECTION ── */
 </style>
 </head>
 <body>
@@ -329,49 +385,49 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   </div>
 </div>
 
-<div class="flows-section">
-  <div class="flows-inner">
-    <div class="flows-identity">
-      <div class="flows-wordmark">Finans <em>Flows</em></div>
-      <div class="flows-tagline">İş Akışı Araçları</div>
+
+<div class="fs">
+  <div class="fs-wrap">
+    <div class="fs-id">
+      <div class="fs-name">Finans <em>Flows</em></div>
+      <div class="fs-sub">İş Akışı Araçları</div>
     </div>
-    <div class="flows-items">
-      <a href="#" class="flow-item budget">
-        <div class="flow-item-head">
-          <div class="flow-icon">📊</div>
-          <span class="flow-name">Budget Flow</span>
+    <div class="fs-items">
+      <a href="#" class="fi b">
+        <div class="fi-head">
+          <div class="fi-ico">📊</div>
+          <span class="fi-name">Budget Flow</span>
         </div>
-        <div class="flow-desc">Bütçe hazırlama &amp; takip iş akışı</div>
-        <span class="flow-soon">Yakında</span>
+        <div class="fi-desc">Bütçe hazırlama &amp; takip</div>
+        <span class="fi-tag">Yakında</span>
       </a>
-      <a href="#" class="flow-item audit">
-        <div class="flow-item-head">
-          <div class="flow-icon">🔎</div>
-          <span class="flow-name">Audit Flow</span>
+      <a href="#" class="fi a">
+        <div class="fi-head">
+          <div class="fi-ico">🔎</div>
+          <span class="fi-name">Audit Flow</span>
         </div>
-        <div class="flow-desc">Denetim süreci yönetim akışı</div>
-        <span class="flow-soon">Yakında</span>
+        <div class="fi-desc">Denetim süreci yönetimi</div>
+        <span class="fi-tag">Yakında</span>
       </a>
-      <a href="#" class="flow-item checkup">
-        <div class="flow-item-head">
-          <div class="flow-icon">✅</div>
-          <span class="flow-name">Checkup Flow</span>
+      <a href="#" class="fi c">
+        <div class="fi-head">
+          <div class="fi-ico">✅</div>
+          <span class="fi-name">Checkup Flow</span>
         </div>
-        <div class="flow-desc">Finansal sağlık kontrol akışı</div>
-        <span class="flow-soon">Yakında</span>
+        <div class="fi-desc">Finansal sağlık kontrolü</div>
+        <span class="fi-tag">Yakında</span>
       </a>
-      <a href="#" class="flow-item rates">
-        <div class="flow-item-head">
-          <div class="flow-icon">📈</div>
-          <span class="flow-name">Rates Flow</span>
+      <a href="#" class="fi r">
+        <div class="fi-head">
+          <div class="fi-ico">📈</div>
+          <span class="fi-name">Rates Flow</span>
         </div>
-        <div class="flow-desc">Faiz &amp; kur izleme akışı</div>
-        <span class="flow-soon">Yakında</span>
+        <div class="fi-desc">Faiz &amp; kur izleme</div>
+        <span class="fi-tag">Yakında</span>
       </a>
     </div>
   </div>
 </div>
-
 <div class="hero">
   <div class="hero-eyebrow">Finans Profesyonelleri İçin</div>
   <h1>Finansı sahadan <em>öğrenin</em></h1>
