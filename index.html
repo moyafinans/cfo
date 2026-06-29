@@ -262,45 +262,42 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   position:relative;overflow:hidden;
 }
 .fi:last-child{border-right:none;}
-.fi::after{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  transform:scaleX(0);transform-origin:left;transition:transform .2s;
-}
-.fi.b::after{background:linear-gradient(90deg,#5fb6a4,#3d9e8c);}
-.fi.a::after{background:linear-gradient(90deg,#8b7cf6,#6c5ce7);}
-.fi.c::after{background:linear-gradient(90deg,#d9a441,#b8751a);}
-.fi.r::after{background:linear-gradient(90deg,#d9684f,#b84430);}
-.fi:hover{background:#0e1115;}
-.fi:hover::after{transform:scaleX(1);}
+
+
+
+
+
+
+
 .fi-head{display:flex;align-items:center;gap:7px;}
-.fi-ico{width:28px;height:28px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#cf9b3f;font-family:'Fraunces',serif;font-size:10px;font-weight:700;color:#16140d;letter-spacing:-.01em;line-height:1;user-select:none;}
-.fi.b .fi-ico{background:rgba(95,182,164,.1);border:1px solid rgba(95,182,164,.18);}
-.fi.a .fi-ico{background:rgba(139,124,246,.1);border:1px solid rgba(139,124,246,.18);}
-.fi.c .fi-ico{background:rgba(217,164,65,.1);border:1px solid rgba(217,164,65,.18);}
-.fi.r .fi-ico{background:rgba(217,104,79,.1);border:1px solid rgba(217,104,79,.18);}
+
+.fi.b 
+.fi.a 
+.fi.c 
+.fi.r 
 .fi-name{
   font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;
-  color:#9aa0aa;line-height:1;transition:color .14s;
+  color:#ffffff;line-height:1;transition:color .14s;
 }
-.fi.b:hover .fi-name{color:#5fb6a4;}
-.fi.a:hover .fi-name{color:#8b7cf6;}
-.fi.c:hover .fi-name{color:#d9a441;}
-.fi.r:hover .fi-name{color:#d9684f;}
+
+
+
+
 .fi-desc{
   font-family:'Inter',sans-serif;font-size:.7rem;
-  color:#2e333b;line-height:1.35;transition:color .14s;
+  color:#6b717a;line-height:1.35;transition:color .14s;
 }
-.fi:hover .fi-desc{color:#4d5460;}
+
 .fi-tag{
   font-family:'JetBrains Mono',monospace;font-size:.56rem;
   text-transform:uppercase;letter-spacing:.07em;
   color:#242830;border:1px solid #1a1e24;
   padding:2px 5px;width:fit-content;margin-top:3px;transition:all .14s;
 }
-.fi.b:hover .fi-tag{color:#5fb6a4;border-color:rgba(95,182,164,.25);}
-.fi.a:hover .fi-tag{color:#8b7cf6;border-color:rgba(139,124,246,.25);}
-.fi.c:hover .fi-tag{color:#d9a441;border-color:rgba(217,164,65,.25);}
-.fi.r:hover .fi-tag{color:#d9684f;border-color:rgba(217,104,79,.25);}
+
+
+
+
 
 /* ── TABLET 601–860 ── */
 @media(max-width:860px){
@@ -392,7 +389,6 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
     <div class="fs-items">
       <a href="#" class="fi b">
         <div class="fi-head">
-          <div class="fi-ico">BF</div>
           <span class="fi-name">Budget Flow</span>
         </div>
         <div class="fi-desc">Hazırlama → Planlama → Takip → Revizyon</div>
@@ -400,7 +396,6 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
       </a>
       <a href="#" class="fi a">
         <div class="fi-head">
-          <div class="fi-ico">AF</div>
           <span class="fi-name">Audit Flow</span>
         </div>
         <div class="fi-desc">Bağımsız Denetim Süreç Yönetimi</div>
@@ -408,7 +403,6 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
       </a>
       <a href="#" class="fi c">
         <div class="fi-head">
-          <div class="fi-ico">CF</div>
           <span class="fi-name">Checkup Flow</span>
         </div>
         <div class="fi-desc">İşletmeler için Finansal Sağlık Raporlama </div>
@@ -416,7 +410,6 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
       </a>
       <a href="#" class="fi r">
         <div class="fi-head">
-          <div class="fi-ico">RF</div>
           <span class="fi-name">Rates Flow</span>
         </div>
         <div class="fi-desc">Sektörel Rasyolar</div>
