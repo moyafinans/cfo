@@ -4,230 +4,279 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>İletişim — Finans Akademi</title>
-<meta name="description" content="Finans Akademi ile iletişime geçin.">
+<meta name="description" content="Finans Akademi ile iletişime geçin. Sorularınız, önerileriniz veya işbirliği talepleriniz için bize ulaşın.">
 <meta name="robots" content="index, follow">
-<link rel="stylesheet" href="fa-system.css">
+<link rel="canonical" href="https://moyafinans.github.io/cfo/iletisim.html">
+<meta property="og:title" content="İletişim — Finans Akademi">
+<meta property="og:description" content="Finans Akademi ile iletişime geçin.">
+<meta property="og:url" content="https://moyafinans.github.io/cfo/iletisim.html">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-.fa-main { max-width: 600px; margin: 0 auto; padding: 0 32px 80px; }
-.form-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 40px; box-shadow: var(--shadow); }
-.form-group { margin-bottom: 18px; }
-.form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
-.form-input {
-  width: 100%; padding: 10px 14px;
-  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-  font-family: var(--font); font-size: 14px; color: var(--text-primary);
-  background: var(--white); outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0f12;--panel:#15181d;--panel-2:#1b1f25;--line:#2a2f37;
+  --ink:#e9e7e1;--ink-dim:#9aa0aa;--ink-faint:#5a6070;
+  --gold:#cf9b3f;--gold-soft:#e8c789;--teal:#5fb6a4;
+  --red:#d9684f;--amber:#d9a441;--purple:#8b7cf6;
 }
-.form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(15,76,129,0.08); }
-.form-input::placeholder { color: var(--text-faint); }
-.form-input.error { border-color: #EF4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.08); }
-.form-input.success { border-color: #10B981; box-shadow: 0 0 0 3px rgba(16,185,129,0.08); }
-textarea.form-input { resize: vertical; min-height: 130px; line-height: 1.6; }
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;line-height:1.7;min-height:100vh;display:flex;flex-direction:column;}
 
-.field-msg { font-size: 11.5px; margin-top: 5px; display: none; }
-.field-msg.error { color: #EF4444; display: block; }
-.field-msg.success { color: #10B981; display: block; }
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:rgba(13,15,18,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-icon{width:32px;height:32px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:#16140d;}
+.nav-logo span{font-size:15px;font-weight:600;color:var(--ink);}
+.nav-back{font-size:13px;font-weight:500;color:var(--ink-dim);text-decoration:none;transition:color .15s;}
+.nav-back:hover{color:var(--gold);}
 
-.form-btn {
-  width: 100%; padding: 12px;
-  background: var(--accent); color: #fff;
-  border: none; border-radius: var(--radius-sm);
-  font-family: var(--font); font-size: 14px; font-weight: 600;
-  cursor: pointer; transition: background 0.15s; margin-top: 6px;
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:60px 24px;}
+.wrap{width:100%;max-width:760px;}
+
+.head{text-align:center;margin-bottom:40px;}
+.head .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.head h1{font-family:'Fraunces',serif;font-size:2rem;font-weight:700;color:var(--ink);margin-bottom:10px;}
+.head p{color:var(--ink-dim);font-size:.92rem;max-width:480px;margin:0 auto;line-height:1.65;}
+
+.panel{background:var(--panel);border:1px solid var(--line);padding:0;}
+.panel-grid{display:grid;grid-template-columns:1fr 1.4fr;}
+
+.info-col{padding:40px 32px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:28px;}
+.info-item{display:flex;flex-direction:column;gap:6px;}
+.info-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);}
+.info-value{font-size:.88rem;color:var(--ink);font-weight:500;}
+.info-desc{font-size:.78rem;color:var(--ink-dim);line-height:1.55;}
+
+.form-col{padding:40px 36px;}
+
+.field{margin-bottom:18px;}
+.field label{display:block;font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-dim);margin-bottom:7px;}
+.field input,
+.field textarea,
+.field select{
+  width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--ink);
+  font-family:'Inter',sans-serif;font-size:.88rem;padding:11px 14px;outline:none;
+  transition:border-color .15s,box-shadow .15s;
 }
-.form-btn:hover { background: var(--accent-hover); }
-.form-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-.form-err { display: none; background: #FEF2F2; border: 1px solid #FECACA; border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px; color: #B91C1C; margin-top: 12px; }
-.form-success { display: none; text-align: center; padding: 40px 20px; }
-.success-icon { width: 56px; height: 56px; background: #ECFDF5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 16px; }
-.form-success h3 { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
-.form-success p { font-size: 14px; color: var(--text-muted); }
-@media (max-width: 640px) { .fa-main { padding: 0 16px 60px; } .form-card { padding: 24px; } }
+.field select{cursor:pointer;}
+.field select option{background:var(--panel-2);color:var(--ink);}
+.field input:focus,
+.field textarea:focus,
+.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(207,155,63,.1);}
+.field input.err,
+.field textarea.err{border-color:var(--red);}
+.field textarea{resize:vertical;min-height:120px;line-height:1.6;font-family:'Inter',sans-serif;}
+.field-err{font-size:.74rem;color:var(--red);margin-top:5px;display:none;}
+
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+.submit-btn{
+  width:100%;background:var(--gold);border:none;color:#16140d;
+  font-family:'Inter',sans-serif;font-size:.9rem;font-weight:700;
+  padding:13px;cursor:pointer;margin-top:6px;transition:background .15s;
+}
+.submit-btn:hover{background:var(--gold-soft);}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.form-msg{display:none;margin-top:16px;padding:12px 16px;font-size:.83rem;line-height:1.55;}
+.form-msg.error{background:rgba(217,104,79,.1);border:1px solid rgba(217,104,79,.25);color:var(--red);}
+
+.success-view{display:none;text-align:center;padding:50px 32px;}
+.success-icon{width:52px;height:52px;border-radius:50%;background:rgba(95,182,164,.12);border:1px solid rgba(95,182,164,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
+.success-icon svg{width:24px;height:24px;color:var(--teal);}
+.success-view h3{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--ink);margin-bottom:8px;}
+.success-view p{font-size:.86rem;color:var(--ink-dim);max-width:360px;margin:0 auto;line-height:1.6;}
+
+footer{padding:24px 40px;border-top:1px solid var(--line);text-align:center;}
+footer .fname{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--ink);}
+footer .fname span{color:var(--gold);}
+
+@media(max-width:760px){
+  nav{padding:0 18px;}
+  main{padding:32px 14px;}
+  .panel-grid{grid-template-columns:1fr;}
+  .info-col{border-right:none;border-bottom:1px solid var(--line);flex-direction:row;flex-wrap:wrap;gap:20px;padding:28px 24px;}
+  .info-item{flex:1;min-width:140px;}
+  .form-col{padding:28px 24px;}
+  .row2{grid-template-columns:1fr;}
+  .head h1{font-size:1.6rem;}
+}
 </style>
 </head>
 <body>
-<nav class="fa-nav">
-  <a href="index.html" class="fa-nav-logo">
-    <div class="fa-nav-logo-mark">FA</div>
-    Finans Akademi
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-logo-icon">FA</div>
+    <span>Finans Akademi</span>
   </a>
-  <a href="index.html" class="fa-nav-back">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 12L6 8l4-4"/></svg>
-    Ana Sayfa
-  </a>
+  <a class="nav-back" href="index.html">← Anasayfa</a>
 </nav>
 
-<div class="fa-main">
-  <div class="fa-page-header">
-    <div class="fa-page-eyebrow">İletişim</div>
-    <h1 class="fa-page-title">Bize Ulaşın</h1>
-    <p class="fa-page-desc">Sorularınız, önerileriniz veya katkılarınız için formu doldurun.</p>
-  </div>
-
-  <div class="form-card">
-    <div id="form-area">
-      <div class="form-group">
-        <label class="form-label" for="ad_soyad">Ad Soyad *</label>
-        <input class="form-input" type="text" id="ad_soyad" placeholder="Adınız ve soyadınız" autocomplete="name">
-        <div class="field-msg" id="msg-ad"></div>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="email">E-posta *</label>
-        <input class="form-input" type="email" id="email" placeholder="ornek@sirket.com" autocomplete="email">
-        <div class="field-msg" id="msg-email"></div>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="konu">Konu</label>
-        <input class="form-input" type="text" id="konu" placeholder="Mesajınızın konusu">
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="mesaj">Mesaj *</label>
-        <textarea class="form-input" id="mesaj" placeholder="Mesajınızı buraya yazın..."></textarea>
-        <div class="field-msg" id="msg-mesaj"></div>
-      </div>
-      <button class="form-btn" id="gonder-btn">Gönder</button>
-      <div class="form-err" id="form-err"></div>
+<main>
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">İletişim</div>
+      <h1>Bize Ulaşın</h1>
+      <p>Sorularınız, içerik önerileriniz veya işbirliği talepleriniz için aşağıdaki formu doldurun. En kısa sürede dönüş yapıyoruz.</p>
     </div>
-    <div class="form-success" id="form-success">
-      <div class="success-icon">✓</div>
-      <h3>Mesajınız İletildi</h3>
-      <p>En kısa sürede size dönüş yapacağız.</p>
+
+    <div class="panel">
+      <div class="panel-grid" id="formView">
+
+        <div class="info-col">
+          <div class="info-item">
+            <div class="info-label">Yanıt Süresi</div>
+            <div class="info-value">1–2 İş Günü</div>
+            <div class="info-desc">Mesajlarınızı düzenli olarak takip ediyor ve yanıtlıyoruz.</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Konu Başlıkları</div>
+            <div class="info-value">Genel · İçerik · İşbirliği</div>
+            <div class="info-desc">Talebinizin niteliğine göre konu seçimi yanıt sürecini hızlandırır.</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Gizlilik</div>
+            <div class="info-value">Korunur</div>
+            <div class="info-desc">Bilgileriniz yalnızca size dönüş yapmak için kullanılır, üçüncü taraflarla paylaşılmaz.</div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="field">
+            <label>Ad Soyad</label>
+            <input type="text" id="fName" placeholder="Adınız Soyadınız">
+            <div class="field-err" id="errName">En az 3 karakter giriniz.</div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label>E-posta</label>
+              <input type="email" id="fEmail" placeholder="ornek@sirket.com">
+              <div class="field-err" id="errEmail">Geçerli bir e-posta giriniz.</div>
+            </div>
+            <div class="field">
+              <label>Konu</label>
+              <select id="fKonu">
+                <option value="Genel">Genel</option>
+                <option value="İçerik Önerisi">İçerik Önerisi</option>
+                <option value="İşbirliği">İşbirliği</option>
+                <option value="Teknik Sorun">Teknik Sorun</option>
+                <option value="Diğer">Diğer</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Mesajınız</label>
+            <textarea id="fMesaj" placeholder="Mesajınızı buraya yazın..."></textarea>
+            <div class="field-err" id="errMesaj">En az 10 karakter giriniz.</div>
+          </div>
+
+          <button class="submit-btn" id="submitBtn" onclick="sendMessage()">Mesajı Gönder</button>
+          <div class="form-msg" id="formMsg"></div>
+        </div>
+
+      </div>
+
+      <div class="success-view" id="successView">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Mesajınız İletildi</h3>
+        <p>Bizimle iletişime geçtiğiniz için teşekkür ederiz. En kısa sürede e-posta adresiniz üzerinden size dönüş yapacağız.</p>
+      </div>
     </div>
   </div>
-</div>
+</main>
 
-<footer class="fa-footer">
-  <div class="fa-footer-logo">Finans <span>Akademi</span></div>
-  <div class="fa-footer-copy">© 2026 · moyafinans.github.io/cfo</div>
+<footer>
+  <div class="fname">Finans <span>Akademi</span></div>
 </footer>
 
 <script>
-var SUPABASE_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
-var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
+var SB_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
 
-// E-posta doğrulama — gerçek format kontrolü
-function emailGecerliMi(email) {
-  // Temel format: birşey@birşey.uzantı (min 2 karakter uzantı)
-  var re = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
-  if (!re.test(email)) return false;
-  // @ işaretinden önce ve sonra boşluk olmamalı
-  if (email.indexOf(' ') !== -1) return false;
-  // Ardışık nokta olmamalı
-  if (email.indexOf('..') !== -1) return false;
-  // @ ile başlayamaz veya bitemez
-  if (email.startsWith('@') || email.endsWith('@')) return false;
-  return true;
+function isEmail(v){ return v.indexOf('@') > 0 && v.indexOf('.') > 0; }
+
+function clearErrors(){
+  ['fName','fEmail','fMesaj'].forEach(function(id){
+    document.getElementById(id).classList.remove('err');
+  });
+  ['errName','errEmail','errMesaj'].forEach(function(id){
+    document.getElementById(id).style.display = 'none';
+  });
+  document.getElementById('formMsg').style.display = 'none';
 }
 
-function fieldHata(id, msgId, msg) {
-  var el = document.getElementById(id);
-  var msgEl = document.getElementById(msgId);
-  el.classList.add('error'); el.classList.remove('success');
-  if (msgEl) { msgEl.textContent = msg; msgEl.className = 'field-msg error'; }
-  return false;
-}
+function sendMessage(){
+  clearErrors();
+  var name = document.getElementById('fName').value.trim();
+  var email = document.getElementById('fEmail').value.trim();
+  var konu = document.getElementById('fKonu').value;
+  var mesaj = document.getElementById('fMesaj').value.trim();
+  var ok = true;
 
-function fieldOk(id, msgId, msg) {
-  var el = document.getElementById(id);
-  var msgEl = document.getElementById(msgId);
-  el.classList.remove('error'); el.classList.add('success');
-  if (msgEl) { msgEl.textContent = msg || ''; msgEl.className = msg ? 'field-msg success' : 'field-msg'; }
-  return true;
-}
-
-function fieldTemizle(id, msgId) {
-  var el = document.getElementById(id);
-  var msgEl = document.getElementById(msgId);
-  el.classList.remove('error','success');
-  if (msgEl) { msgEl.textContent = ''; msgEl.className = 'field-msg'; }
-}
-
-// Canlı e-posta kontrolü — yazarken göster
-document.getElementById('email').addEventListener('blur', function() {
-  var val = this.value.trim();
-  if (!val) { fieldTemizle('email','msg-email'); return; }
-  if (!emailGecerliMi(val)) {
-    fieldHata('email','msg-email','Geçerli bir e-posta adresi girin. Örn: isim@sirket.com');
-  } else {
-    fieldOk('email','msg-email','');
+  if(name.length < 3){
+    document.getElementById('fName').classList.add('err');
+    document.getElementById('errName').style.display = 'block';
+    ok = false;
   }
-});
-
-document.getElementById('ad_soyad').addEventListener('blur', function() {
-  var val = this.value.trim();
-  if (!val) { fieldTemizle('ad_soyad','msg-ad'); return; }
-  if (val.length < 3) {
-    fieldHata('ad_soyad','msg-ad','En az 3 karakter girin.');
-  } else {
-    fieldOk('ad_soyad','msg-ad','');
+  if(!isEmail(email)){
+    document.getElementById('fEmail').classList.add('err');
+    document.getElementById('errEmail').style.display = 'block';
+    ok = false;
   }
-});
-
-document.getElementById('gonder-btn').addEventListener('click', gonder);
-
-async function gonder() {
-  var btn = document.getElementById('gonder-btn');
-  var errDiv = document.getElementById('form-err');
-  errDiv.style.display = 'none';
-
-  var ad_soyad = document.getElementById('ad_soyad').value.trim();
-  var email = document.getElementById('email').value.trim();
-  var konu = document.getElementById('konu').value.trim();
-  var mesaj = document.getElementById('mesaj').value.trim();
-
-  var gecerli = true;
-
-  if (!ad_soyad || ad_soyad.length < 3) {
-    fieldHata('ad_soyad','msg-ad','Ad Soyad zorunludur (en az 3 karakter).');
-    gecerli = false;
+  if(mesaj.length < 10){
+    document.getElementById('fMesaj').classList.add('err');
+    document.getElementById('errMesaj').style.display = 'block';
+    ok = false;
   }
-  if (!email) {
-    fieldHata('email','msg-email','E-posta adresi zorunludur.');
-    gecerli = false;
-  } else if (!emailGecerliMi(email)) {
-    fieldHata('email','msg-email','Geçerli bir e-posta adresi girin. Örn: isim@sirket.com');
-    gecerli = false;
-  }
-  if (!mesaj || mesaj.length < 10) {
-    fieldHata('mesaj','msg-mesaj','Mesaj en az 10 karakter olmalıdır.');
-    gecerli = false;
-  }
+  if(!ok) return;
 
-  if (!gecerli) return;
-
+  var btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.textContent = 'Gönderiliyor...';
 
-  try {
-    var res = await fetch(SUPABASE_URL + '/rest/v1/iletisim', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ ad_soyad: ad_soyad, email: email, konu: konu, mesaj: mesaj })
-    });
-
-    if (res.ok) {
-      document.getElementById('form-area').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
-    } else {
-      var err = await res.json();
-      errDiv.textContent = 'Hata oluştu: ' + (err.message || res.status);
-      errDiv.style.display = 'block';
-      btn.disabled = false;
-      btn.textContent = 'Gönder';
-    }
-  } catch(e) {
-    errDiv.textContent = 'Bağlantı hatası. İnternet bağlantınızı kontrol edin.';
-    errDiv.style.display = 'block';
+  fetch(SB_URL + '/rest/v1/iletisim', {
+    method: 'POST',
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify({ ad_soyad: name, email: email, konu: konu, mesaj: mesaj })
+  })
+  .then(function(r){
     btn.disabled = false;
-    btn.textContent = 'Gönder';
-  }
+    btn.textContent = 'Mesajı Gönder';
+    if(r.status >= 200 && r.status < 300){
+      document.getElementById('formView').style.display = 'none';
+      document.getElementById('successView').style.display = 'block';
+    } else {
+      var el = document.getElementById('formMsg');
+      el.className = 'form-msg error';
+      el.textContent = 'Bir hata oluştu (kod ' + r.status + '). Lütfen tekrar deneyin.';
+      el.style.display = 'block';
+    }
+  })
+  .catch(function(e){
+    btn.disabled = false;
+    btn.textContent = 'Mesajı Gönder';
+    var el = document.getElementById('formMsg');
+    el.className = 'form-msg error';
+    el.textContent = 'Bağlantı hatası: ' + e.message;
+    el.style.display = 'block';
+  });
 }
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && document.activeElement.tagName !== 'TEXTAREA'){
+    var fv = document.getElementById('formView');
+    if(fv.style.display !== 'none') sendMessage();
+  }
+});
 </script>
 </body>
 </html>
