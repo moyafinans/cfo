@@ -817,13 +817,25 @@
   }
 </style>
 </head>
-<body>
+<body><script>
+(function(){
+  try{
+    var s=localStorage.getItem('fa_session');
+    if(!s){window.location.replace('index.html');return;}
+    var p=JSON.parse(atob(s));
+    if(!p||!p.email||!p.ts){throw new Error();}
+  }catch(e){
+    localStorage.removeItem('fa_session');
+    window.location.replace('index.html');
+  }
+})();
+</script>
 
 <header>
-  <div class="brand">
-    <div class="brand-logo">F</div>
-    <span class="brand-name">FinanceFlows</span>
-  </div>
+  <a href="index.html" class="brand" style="text-decoration:none;">
+    <div class="brand-logo">FA</div>
+    <span class="brand-name">Finans Akademi</span>
+  </a>
 
   <div class="hero">
     <div class="hero-label">CFO Yetkinlik Envanteri</div>
@@ -1286,6 +1298,35 @@ let state = {};
 let currentFilter = 'all';
 let searchQuery = '';
 
+// ===== SUPABASE SENKRONIZASYON =====
+var SB_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
+
+function getUserEmail(){
+  try{
+    var s = localStorage.getItem('fa_session');
+    if(!s) return null;
+    var p = JSON.parse(atob(s));
+    return p && p.email ? p.email : null;
+  }catch(e){ return null; }
+}
+
+var _syncTimer = null;
+var _syncIndicator = null;
+
+function showSyncIndicator(text){
+  if(!_syncIndicator){
+    _syncIndicator = document.createElement('div');
+    _syncIndicator.id = 'syncIndicator';
+    _syncIndicator.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#13161d;border:1px solid rgba(255,255,255,0.12);color:#8b90a0;font-family:Inter,sans-serif;font-size:12px;padding:8px 14px;border-radius:8px;z-index:9999;opacity:0;transition:opacity .25s;pointer-events:none;';
+    document.body.appendChild(_syncIndicator);
+  }
+  _syncIndicator.textContent = text;
+  _syncIndicator.style.opacity = '1';
+  clearTimeout(_syncIndicator._hideT);
+  _syncIndicator._hideT = setTimeout(function(){ _syncIndicator.style.opacity = '0'; }, 1400);
+}
+
 function loadState() {
   try {
     const s = localStorage.getItem('cfo_checklist_v2');
@@ -1293,8 +1334,47 @@ function loadState() {
   } catch(e) { return {}; }
 }
 
+function loadStateFromCloud(callback){
+  var email = getUserEmail();
+  if(!email){ callback(); return; }
+  fetch(SB_URL + '/rest/v1/ilerleme?email=eq.' + encodeURIComponent(email) + '&select=durum', {
+    headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if(data && data.length > 0 && data[0].durum){
+      state = data[0].durum;
+      try { localStorage.setItem('cfo_checklist_v2', JSON.stringify(state)); } catch(e){}
+    }
+    callback();
+  })
+  .catch(function(){ callback(); });
+}
+
 function saveState() {
   try { localStorage.setItem('cfo_checklist_v2', JSON.stringify(state)); } catch(e) {}
+  clearTimeout(_syncTimer);
+  _syncTimer = setTimeout(syncToCloud, 700);
+}
+
+function syncToCloud(){
+  var email = getUserEmail();
+  if(!email) return;
+  showSyncIndicator('Kaydediliyor...');
+  fetch(SB_URL + '/rest/v1/ilerleme', {
+    method: 'POST',
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates,return=minimal'
+    },
+    body: JSON.stringify({ email: email, durum: state, updated_at: new Date().toISOString() })
+  })
+  .then(function(r){
+    showSyncIndicator(r.ok ? 'Kaydedildi ✓' : 'Kaydedilemedi');
+  })
+  .catch(function(){ showSyncIndicator('Bağlantı hatası'); });
 }
 
 function isChecked(id) { return !!state['check_' + id]; }
@@ -1549,6 +1629,11 @@ document.getElementById('searchInput').addEventListener('input', function() {
 
 state = loadState();
 render();
+
+// Bulutla senkronize et (üye hesabına bagli ilerleme)
+loadStateFromCloud(function(){
+  render();
+});
 </script>
 </body>
 </html>
