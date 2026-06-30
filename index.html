@@ -101,8 +101,11 @@ nav{
 .card-title{font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:10px;}
 .card-desc{font-size:13px;color:var(--ink-dim);line-height:1.65;flex:1;margin-bottom:22px;}
 .card-
-.card-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold-soft);}
-.card-arrow{font-size:16px;color:var(--gold-soft);transition:color .15s,transform .15s;}
+.card,.card:link,.card:visited,.card:active{color:var(--ink);}
+.card-title,.card-title:visited{color:var(--ink) !important;}
+.card-desc,.card-desc:visited{color:var(--ink-dim) !important;}
+.card-meta,.card-meta:link,.card-meta:visited{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold-soft) !important;}
+.card-arrow,.card-arrow:link,.card-arrow:visited{font-size:16px;color:var(--gold-soft) !important;transition:color .15s,transform .15s;}
 .card:hover .card-arrow{color:var(--gold);transform:translateX(3px);}
 
 /* WHY */
