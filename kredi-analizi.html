@@ -35,7 +35,7 @@
 .cat-likidite   { --cat-color: var(--cat-raporlama);  --cat-bg: var(--cat-raporlama-bg); }
 .cat-borclanma  { --cat-color: var(--cat-vergi);      --cat-bg: var(--cat-vergi-bg); }
 .cat-operasyonel{ --cat-color: var(--cat-cfo);        --cat-bg: var(--cat-cfo-bg); }
-.cat-yonetim    { --cat-color: #7C3AED;               --cat-bg: #F5F3FF; }
+.cat-yonetim    { --cat-color: #8b7cf6;               --cat-bg: rgba(139,124,246,.14); }
 
 .fa-section-dot  { background: var(--cat-color); }
 .fa-section-count { background: var(--cat-bg); color: var(--cat-color); }
@@ -70,9 +70,106 @@
   --border:#2a2f37;--border-hover:#3a3f47;
   --text-primary:#e9e7e1;--text-body:#cfd0d3;--text-muted:#9aa0aa;
   --accent:#cf9b3f;
+
+  /* kategori renkleri — koyu tema */
+  --cat-kredi:#5fb6a4;       --cat-kredi-bg:rgba(95,182,164,.12);
+  --cat-butce:#5fb6a4;       --cat-butce-bg:rgba(95,182,164,.12);
+  --cat-analiz:#8b7cf6;      --cat-analiz-bg:rgba(139,124,246,.14);
+  --cat-raporlama:#d9a441;   --cat-raporlama-bg:rgba(217,164,65,.14);
+  --cat-vergi:#d9684f;       --cat-vergi-bg:rgba(217,104,79,.14);
+  --cat-cfo:#cf9b3f;         --cat-cfo-bg:rgba(207,155,63,.14);
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;line-height:1.7;}
+</style>
+<style>
+/* ── FA-SYSTEM (DARK) — eski fa-system.css'in koyu tema karşılığı ── */
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* NAV */
+.fa-nav{
+  position:sticky;top:0;z-index:100;height:60px;
+  background:rgba(13,15,18,.95);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;
+}
+.fa-nav-logo{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.2px;}
+.fa-nav-logo-mark{width:30px;height:30px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:13px;font-weight:800;color:#16140d;flex-shrink:0;}
+.fa-nav-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--ink-dim);transition:color .15s;}
+.fa-nav-back:hover{color:var(--gold);}
+.fa-nav-back svg{width:14px;height:14px;flex-shrink:0;}
+
+/* CONTAINER */
+.fa-container{max-width:1120px;margin:0 auto;padding:0 32px;}
+.fa-main{max-width:1120px;margin:0 auto;padding:0 32px 80px;}
+
+/* PAGE HEADER */
+.fa-page-header{border-bottom:1px solid var(--line);padding:56px 0 48px;margin-bottom:56px;}
+.fa-page-eyebrow{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--gold);letter-spacing:.5px;margin-bottom:14px;text-transform:uppercase;}
+.fa-page-eyebrow::before{content:'';display:block;width:16px;height:2px;background:var(--gold);border-radius:2px;}
+.fa-page-title{font-family:'Fraunces',serif;font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--ink);letter-spacing:-1px;line-height:1.1;margin-bottom:14px;}
+.fa-page-desc{font-size:16px;color:var(--ink-dim);max-width:600px;line-height:1.65;font-weight:400;}
+
+/* CARDS */
+.fa-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:box-shadow .2s,border-color .2s,transform .2s;}
+.fa-card:hover{border-color:#3a3f47;transform:translateY(-1px);}
+
+/* BADGES — kategori renkleri korunur, arka planlar koyulaştırılır */
+.fa-badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:.2px;}
+.fa-badge-blue  {background:rgba(95,182,164,.12);  color:var(--teal);}
+.fa-badge-green {background:rgba(95,182,164,.12);  color:var(--teal);}
+.fa-badge-purple{background:rgba(139,124,246,.14); color:var(--purple);}
+.fa-badge-amber {background:rgba(217,164,65,.14);  color:var(--amber);}
+.fa-badge-red   {background:rgba(217,104,79,.14);  color:var(--red);}
+.fa-badge-sky   {background:rgba(207,155,63,.14);  color:var(--gold-soft);}
+
+/* FILTER BAR */
+.fa-filter-bar{position:sticky;top:60px;z-index:90;background:rgba(13,15,18,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 32px;overflow-x:auto;}
+.fa-filter-inner{max-width:1120px;margin:0 auto;display:flex;gap:6px;align-items:center;}
+.fa-filter-btn{border:1px solid var(--line);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;background:var(--panel);color:var(--ink-dim);white-space:nowrap;transition:all .15s;flex-shrink:0;}
+.fa-filter-btn:hover{border-color:var(--gold);color:var(--gold);}
+.fa-filter-btn.active{background:var(--gold);border-color:var(--gold);color:#16140d;}
+
+/* SCENARIO CARD (kredi senaryoları) */
+.fa-scenario-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:border-color .15s;}
+.fa-scenario-card:hover{border-color:#3a3f47;}
+.fa-scenario-top{padding:20px 22px 16px;border-bottom:1px solid var(--line);}
+.fa-scenario-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--ink-faint);margin-bottom:6px;}
+.fa-scenario-text{font-size:14px;font-weight:500;color:var(--ink);line-height:1.55;}
+.fa-scenario-bottom{padding:16px 22px 20px;background:var(--panel-2);}
+.fa-scenario-yorum-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.fa-scenario-yorum-text{font-size:13.5px;color:#cfd0d3;line-height:1.6;}
+
+/* SECTION */
+.fa-section{margin-bottom:64px;}
+.fa-section-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--line);}
+.fa-section-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.fa-section-title{font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.3px;}
+.fa-section-count{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;margin-left:auto;}
+
+/* GRID */
+.fa-grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+.fa-grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+
+/* FOOTER */
+.fa-footer{border-top:1px solid var(--line);padding:40px 32px;text-align:center;background:var(--panel);}
+.fa-footer-logo{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.2px;margin-bottom:6px;}
+.fa-footer-logo span{color:var(--gold);}
+.fa-footer-copy{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-faint);}
+
+.fa-hidden{display:none !important;}
+
+@media(max-width:640px){
+  .fa-nav{padding:0 16px;}
+  .fa-container{padding:0 16px;}
+  .fa-main{padding:0 16px 60px;}
+  .fa-filter-bar{padding:10px 16px;}
+  .fa-grid-2,.fa-grid-3{grid-template-columns:1fr;}
+  .fa-page-header{padding:40px 0 32px;margin-bottom:40px;}
+  .fa-footer{padding:32px 16px;}
+}
 </style>
 </head>
 <body><script>
