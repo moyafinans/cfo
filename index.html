@@ -241,7 +241,7 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   .flow-item:last-child{border-bottom:none;}
 }
 /* ── FLOWS SECTION ── */
-.fs{background:#090b0e;border-bottom:1px solid #181c22;}
+.fs{background:#090b0e;border-bottom:1px solid #181c22;position:sticky;top:60px;z-index:99;}
 .fs-wrap{max-width:1200px;margin:0 auto;display:flex;align-items:stretch;}
 .fs-id{
   display:flex;flex-direction:column;justify-content:center;
@@ -334,8 +334,13 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
 /* ── FLOWS SECTION ── */
 
 footer{padding:48px 40px 36px;border-top:1px solid var(--line);text-align:center;}
-.footer-contact{display:inline-block;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;color:var(--gold);text-decoration:none;margin:14px 0 18px;padding:9px 20px;border:1px solid rgba(207,155,63,.3);border-radius:2px;transition:all .15s;}
+.footer-row{display:flex;align-items:center;justify-content:center;gap:14px;margin:16px 0 18px;}
+.footer-contact{font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;color:var(--gold);text-decoration:none;padding:9px 20px;border:1px solid rgba(207,155,63,.3);border-radius:2px;transition:all .15s;}
 .footer-contact:hover{background:rgba(207,155,63,.08);border-color:var(--gold);}
+
+.footer-social{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line);border-radius:50%;color:var(--ink-dim);transition:all .15s;flex-shrink:0;}
+.footer-social svg{width:16px;height:16px;}
+.footer-social:hover{border-color:#0A66C2;color:#0A66C2;background:rgba(10,102,194,.08);}
 </style>
 </head>
 <body>
@@ -582,7 +587,12 @@ footer{padding:48px 40px 36px;border-top:1px solid var(--line);text-align:center
 
 <footer>
   <div class="footer-logo">Finans <em>Akademi</em></div>
-  <a href="iletisim.html" class="footer-contact">İletişime Geçin →</a>
+  <div class="footer-row">
+    <a href="iletisim.html" class="footer-contact">İletişime Geçin →</a>
+    <a href="https://www.linkedin.com/in/obenyarar0677/" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+    </a>
+  </div>
   <div class="footer-copy">© 2026</div>
 </footer>
 
