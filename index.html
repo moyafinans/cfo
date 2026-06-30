@@ -100,7 +100,7 @@ nav{
 
 .card-title{font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:var(--ink);line-height:1.2;margin-bottom:10px;}
 .card-desc{font-size:13px;color:var(--ink-dim);line-height:1.65;flex:1;margin-bottom:22px;}
-.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:18px;border-top:1px solid var(--line);margin-top:auto;}
+.card-
 .card-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-dim);}
 .card-arrow{font-size:16px;color:var(--ink-dim);transition:color .15s,transform .15s;}
 .card:hover .card-arrow{color:var(--gold);transform:translateX(3px);}
@@ -332,6 +332,10 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
   .fi:last-child{border-bottom:none;}
 }
 /* ── FLOWS SECTION ── */
+
+footer{padding:48px 40px 36px;border-top:1px solid var(--line);text-align:center;}
+.footer-contact{display:inline-block;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;color:var(--gold);text-decoration:none;margin:14px 0 18px;padding:9px 20px;border:1px solid rgba(207,155,63,.3);border-radius:2px;transition:all .15s;}
+.footer-contact:hover{background:rgba(207,155,63,.08);border-color:var(--gold);}
 </style>
 </head>
 <body>
@@ -558,19 +562,6 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
       </div>
     </div>
 
-    <a href="iletisim.html" class="card" style="--card-color:#5fb6a4;">
-      <div class="card-top">
-        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-        <span class="card-badge badge-live">Aktif</span>
-      </div>
-      <div class="card-title">İletişim</div>
-      <div class="card-desc">Sorularınız, önerileriniz veya katkılarınız için bize ulaşın. En kısa sürede dönüş yapıyoruz.</div>
-      <div class="card-footer">
-        <span class="card-meta">Mesaj gönderin</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
   </div>
 </div>
 
@@ -591,7 +582,8 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
 
 <footer>
   <div class="footer-logo">Finans <em>Akademi</em></div>
-  <div class="footer-copy">© 2026 </div>
+  <a href="iletisim.html" class="footer-contact">İletişime Geçin →</a>
+  <div class="footer-copy">© 2026</div>
 </footer>
 
 
