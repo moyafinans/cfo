@@ -255,12 +255,19 @@ footer{padding:36px 40px;border-top:1px solid var(--line);text-align:center;}
 .fs-sub{font-family:'JetBrains Mono',monospace;font-size:.58rem;
   text-transform:uppercase;letter-spacing:.12em;color:#2e333b;}
 .fs-items{display:flex;flex:1;}
-.fi{
+.fi,
+.fi:link,
+.fi:visited,
+.fi:active{
   flex:1;display:flex;flex-direction:column;justify-content:center;
   gap:4px;padding:18px 20px;text-decoration:none;
   border-right:1px solid #181c22;transition:background .14s;
   position:relative;overflow:hidden;
+  color:#ffffff;
 }
+.fi-name,.fi-name:visited,.fi-name:link{color:#ffffff !important;}
+.fi-desc,.fi-desc:visited,.fi-desc:link{color:#6b717a !important;}
+.fi-tag,.fi-tag:visited,.fi-tag:link{color:#242830 !important;}
 .fi:last-child{border-right:none;}
 
 
