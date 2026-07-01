@@ -95,6 +95,21 @@ body { background: var(--bg); }
 .badge-bekleyen{background:#fef3c7;color:#92400e;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:3px;}
 .badge-aktif{background:#dcfce7;color:#166534;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:3px;}
 .empty-txt{padding:24px;text-align:center;color:var(--text-muted);font-size:.83rem;}
+.demo-card{background:var(--white);border:1px solid var(--border);margin-bottom:8px;}
+.demo-card-top{display:flex;align-items:flex-start;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);gap:12px;}
+.demo-card-body{padding:12px 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 16px;}
+.demo-card-name{font-weight:700;font-size:.88rem;color:var(--text-primary);}
+.demo-card-email{font-size:.76rem;color:var(--text-muted);margin-top:2px;}
+.demo-card-date{font-size:.7rem;color:var(--text-muted);white-space:nowrap;flex-shrink:0;}
+.dm-label{font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:2px;font-weight:600;}
+.dm-val{font-size:.8rem;color:var(--text-primary);font-weight:500;}
+.demo-badge{font-size:.7rem;font-weight:600;padding:3px 9px;border-radius:3px;white-space:nowrap;}
+.demo-badge.bekleyen{background:#fef3c7;color:#92400e;}
+.demo-badge.incelendi{background:#dcfce7;color:#166534;}
+.demo-card-actions{display:flex;gap:8px;padding:0 18px 12px;}
+.btn-incele{background:#16a34a;color:#fff;border:none;font-family:var(--font);font-size:.74rem;font-weight:600;padding:5px 12px;cursor:pointer;border-radius:4px;}
+.btn-incele:hover{opacity:.85;}
+.demo-not{font-size:.78rem;color:var(--text-muted);padding:0 18px 8px;font-style:italic;}
 
 .empty { text-align: center; padding: 60px; color: var(--text-muted); font-size: 14px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); }
 .loading-txt { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; }
@@ -142,6 +157,7 @@ body { background: var(--bg); }
     <div style="display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:28px;">
       <button class="admin-tab active" id="tab-mesaj" onclick="switchAdminTab('mesaj')">✉ Mesajlar</button>
       <button class="admin-tab" id="tab-abone" onclick="switchAdminTab('abone')">👥 Aboneler</button>
+      <button class="admin-tab" id="tab-demo" onclick="switchAdminTab('demo')">Budget Flow Demo</button>
     </div>
 
     <!-- MESAJLAR SEKMESİ -->
@@ -184,6 +200,23 @@ body { background: var(--bg); }
       </div>
       <div id="abone-aktif"><div class="loading-txt">Yükleniyor...</div></div>
     </div>
+
+    <!-- BUDGET FLOW DEMO TALEPLERİ -->
+    <div id="section-demo" style="display:none;">
+      <div class="stats">
+        <div class="stat"><div class="stat-n" id="d-toplam">—</div><div class="stat-l">Toplam</div></div>
+        <div class="stat"><div class="stat-n" id="d-bekleyen">—</div><div class="stat-l">Bekleyen</div></div>
+        <div class="stat"><div class="stat-n" id="d-incelendi">—</div><div class="stat-l">İncelendi</div></div>
+      </div>
+      <div class="toolbar">
+        <div class="toolbar-title">Demo Talepleri</div>
+        <div class="toolbar-right">
+          <button class="refresh-btn" onclick="yuklDemoTalepler()">↻ Yenile</button>
+        </div>
+      </div>
+      <div id="demo-list"><div class="loading-txt">Yükleniyor...</div></div>
+    </div>
+
   </div>
 </div>
 
@@ -302,11 +335,14 @@ function esc(s) {
 
 // ===== ABONE YÖNETİMİ =====
 function switchAdminTab(tab) {
-  document.getElementById('tab-mesaj').classList.toggle('active', tab==='mesaj');
-  document.getElementById('tab-abone').classList.toggle('active', tab==='abone');
-  document.getElementById('section-mesaj').style.display = tab==='mesaj' ? '' : 'none';
-  document.getElementById('section-abone').style.display = tab==='abone' ? '' : 'none';
+  ['mesaj','abone','demo'].forEach(function(t){
+    var tb=document.getElementById('tab-'+t);
+    var sc=document.getElementById('section-'+t);
+    if(tb) tb.classList.toggle('active',tab===t);
+    if(sc) sc.style.display=tab===t?'':'none';
+  });
   if(tab==='abone') yuklAboneler();
+  if(tab==='demo') yuklDemoTalepler();
 }
 
 async function yuklAboneler() {
@@ -360,6 +396,66 @@ async function aboneGuncelle(id, aktif) {
     body:JSON.stringify({aktif:aktif})
   });
   yuklAboneler();
+}
+
+async function yuklDemoTalepler() {
+  try {
+    var r = await fetch(SUPABASE_URL+'/rest/v1/demo_talepler?select=*&order=created_at.desc', {
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    var data = await r.json();
+    document.getElementById('d-toplam').textContent = data.length;
+    document.getElementById('d-bekleyen').textContent = data.filter(function(d){return d.durum==='bekliyor';}).length;
+    document.getElementById('d-incelendi').textContent = data.filter(function(d){return d.durum==='incelendi';}).length;
+    renderDemoTalepler(data);
+  } catch(e) {
+    document.getElementById('demo-list').innerHTML = '<div class="empty-txt">Yükleme hatası.</div>';
+  }
+}
+
+function renderDemoTalepler(list) {
+  var el = document.getElementById('demo-list');
+  if(!list.length){ el.innerHTML = '<div class="empty-txt">Henüz demo talebi yok.</div>'; return; }
+  el.innerHTML = list.map(function(d){
+    var dt = new Date(d.created_at);
+    var tarih = dt.toLocaleDateString('tr-TR')+' '+dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+    var badge = d.durum==='incelendi'
+      ? '<span class="demo-badge incelendi">İncelendi</span>'
+      : '<span class="demo-badge bekleyen">Bekliyor</span>';
+    var nextDurum = d.durum==='bekliyor' ? 'incelendi' : 'bekliyor';
+    var btnLabel = d.durum==='bekliyor' ? 'İncelendi Olarak İşaretle' : 'Bekleyene Al';
+    var notHtml = d.not_ek ? '<div class="demo-not">Not: '+esc(d.not_ek)+'</div>' : '';
+    return '<div class="demo-card">'+
+      '<div class="demo-card-top">'+
+        '<div>'+
+          '<div class="demo-card-name">'+esc(d.ad_soyad)+'</div>'+
+          '<div class="demo-card-email">'+esc(d.email)+(d.telefon?' · '+esc(d.telefon):'')+'</div>'+
+        '</div>'+
+        '<div style="display:flex;align-items:center;gap:8px;">'+badge+'<span class="demo-card-date">'+tarih+'</span></div>'+
+      '</div>'+
+      '<div class="demo-card-body">'+
+        '<div><div class="dm-label">Firma</div><div class="dm-val">'+esc(d.firma_adi)+'</div></div>'+
+        '<div><div class="dm-label">Vergi No</div><div class="dm-val">'+esc(d.vergi_no)+'</div></div>'+
+        '<div><div class="dm-label">Sektör</div><div class="dm-val">'+esc(d.sektor)+'</div></div>'+
+        '<div><div class="dm-label">Kullanıcı</div><div class="dm-val">'+esc(d.kullanici_sayisi)+'</div></div>'+
+        '<div><div class="dm-label">Departman</div><div class="dm-val">'+esc(d.departman_sayisi)+'</div></div>'+
+      '</div>'+
+      notHtml+
+      '<div class="demo-card-actions">'+
+        '<button class="btn-incele" onclick="demoDurumGuncelle('+d.id+',''+nextDurum+'')">'+btnLabel+'</button>'+
+        '<a href="mailto:'+esc(d.email)+'" class="action-btn">Yanıtla</a>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+async function demoDurumGuncelle(id, durum) {
+  await fetch(SUPABASE_URL+'/rest/v1/demo_talepler?id=eq.'+id, {
+    method:'PATCH',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify({durum:durum})
+  });
+  yuklDemoTalepler();
 }
 
 async function aboneSil(id) {
