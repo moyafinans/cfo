@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budget Flow Pro — Kurumsal Bütçe Yönetim Platformu</title>
+<meta name="description" content="Departman bazlı bütçe hazırlama, hiyerarşik onay akışları, sapma analizi. Excel karmaşasını bitirin.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#0a0c0e;
+  --surface:#111316;
+  --surface-2:#181b1f;
+  --border:#1e2228;
+  --border-2:#252a32;
+  --text:#e8e6df;
+  --text-dim:#7d8490;
+  --text-faint:#3d424a;
+  --gold:#c8922e;
+  --gold-light:#e8c47a;
+  --gold-dim:rgba(200,146,46,.12);
+  --teal:#4aa896;
+  --red:#c45a42;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+
+/* ─── NAV ─── */
+nav{
+  position:sticky;top:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:64px;
+  background:rgba(10,12,14,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.nav-brand{display:flex;align-items:center;gap:10px;}
+.nav-mark{
+  width:34px;height:34px;background:var(--gold);border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:14px;font-weight:700;color:#0a0c0e;
+}
+.nav-name{font-family:'Fraunces',serif;font-size:15px;font-weight:600;letter-spacing:-.2px;}
+.nav-name em{font-style:normal;color:var(--gold);}
+.nav-cta{
+  background:var(--gold);color:#0a0c0e;
+  font-weight:600;font-size:13px;padding:9px 20px;
+  transition:background .15s;
+}
+.nav-cta:hover{background:var(--gold-light);}
+
+/* ─── HERO ─── */
+.hero{
+  max-width:1200px;margin:0 auto;
+  padding:96px 48px 0;
+  display:grid;grid-template-columns:1fr 1.05fr;
+  gap:64px;align-items:center;
+  min-height:calc(100vh - 64px);
+}
+.hero-left{padding-bottom:80px;}
+.hero-eyebrow{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold);border:1px solid rgba(200,146,46,.3);
+  padding:5px 12px;margin-bottom:28px;
+}
+.hero-h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(36px,4.5vw,56px);
+  font-weight:600;line-height:1.08;letter-spacing:-.03em;
+  color:var(--text);margin-bottom:24px;
+}
+.hero-h1 em{font-style:italic;color:var(--gold-light);font-weight:300;}
+.hero-sub{
+  font-size:16px;color:var(--text-dim);line-height:1.7;
+  max-width:480px;margin-bottom:40px;
+}
+.hero-sub strong{color:var(--text);font-weight:500;}
+.hero-actions{display:flex;align-items:center;gap:16px;}
+.btn-primary{
+  background:var(--gold);color:#0a0c0e;
+  font-weight:600;font-size:14px;padding:14px 28px;
+  transition:background .15s;white-space:nowrap;
+}
+.btn-primary:hover{background:var(--gold-light);}
+.hero-note{font-size:12px;color:var(--text-faint);}
+
+.hero-img-wrap{
+  position:relative;
+  border:1px solid var(--border-2);
+  background:var(--surface);
+  overflow:hidden;
+}
+.hero-img-wrap::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(200,146,46,.04) 0%,transparent 60%);
+  z-index:1;pointer-events:none;
+}
+.hero-img-wrap img{width:100%;height:auto;display:block;position:relative;z-index:0;}
+.hero-img-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 14px;background:var(--surface-2);
+  border-bottom:1px solid var(--border);
+}
+.hero-img-dot{width:8px;height:8px;border-radius:50%;}
+.d1{background:#c45a42;}.d2{background:#c8922e;}.d3{background:#4aa896;}
+
+/* ─── SECTION SHARED ─── */
+section{padding:96px 48px;}
+.section-inner{max-width:1200px;margin:0 auto;}
+
+/* ─── PROBLEM ─── */
+.problem-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.problem-label{
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-faint);margin-bottom:40px;
+}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.problem-item{
+  background:var(--surface);padding:32px 28px;
+  transition:background .15s;
+}
+.problem-item:hover{background:var(--surface-2);}
+.problem-num{
+  font-family:'Fraunces',serif;font-size:48px;font-weight:300;
+  color:var(--border-2);line-height:1;margin-bottom:14px;
+}
+.problem-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.35;}
+.problem-desc{font-size:13px;color:var(--text-dim);line-height:1.65;}
+
+/* ─── HOW ─── */
+.how-header{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:64px;}
+.how-h2{
+  font-family:'Fraunces',serif;font-size:clamp(28px,3.5vw,42px);
+  font-weight:600;letter-spacing:-.025em;line-height:1.1;color:var(--text);
+}
+.how-h2 em{font-style:italic;font-weight:300;color:var(--gold-light);}
+.how-right-text{font-size:15px;color:var(--text-dim);line-height:1.7;padding-top:8px;}
+
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative;}
+.how-steps::before{
+  content:'';position:absolute;top:28px;left:calc(16.67%);right:calc(16.67%);
+  height:1px;background:linear-gradient(90deg,transparent,var(--border-2),transparent);
+}
+.how-step{padding:0 32px 0 0;position:relative;}
+.how-step:last-child{padding-right:0;}
+.step-n{
+  width:56px;height:56px;border:1px solid var(--border-2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+  color:var(--gold);background:var(--surface);margin-bottom:24px;
+  position:relative;z-index:1;
+}
+.step-title{font-size:16px;font-weight:600;color:var(--text);margin-bottom:10px;line-height:1.3;}
+.step-desc{font-size:13px;color:var(--text-dim);line-height:1.65;}
+.how-imgs{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:64px;
+}
+.how-img-block{border:1px solid var(--border-2);overflow:hidden;background:var(--surface);}
+.how-img-block img{width:100%;height:auto;display:block;transition:opacity .3s;}
+.how-img-block:hover img{opacity:.9;}
+
+/* ─── FEATURES ─── */
+.features-section{background:var(--surface);border-top:1px solid var(--border);}
+.features-h2{
+  font-family:'Fraunces',serif;font-size:clamp(26px,3vw,38px);
+  font-weight:600;letter-spacing:-.025em;color:var(--text);
+  margin-bottom:56px;max-width:600px;line-height:1.15;
+}
+.features-h2 em{font-style:italic;font-weight:300;color:var(--gold-light);}
+
+.feature-list{display:flex;flex-direction:column;gap:0;}
+.feature-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border-top:1px solid var(--border);
+}
+.feature-row:last-child{border-bottom:1px solid var(--border);}
+.feature-text{padding:48px 48px 48px 0;display:flex;flex-direction:column;justify-content:center;}
+.feature-row.rev .feature-text{padding:48px 0 48px 48px;order:2;}
+.feature-row.rev .feature-img{order:1;}
+.feature-tag{
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:14px;
+}
+.feature-title{
+  font-family:'Fraunces',serif;font-size:22px;font-weight:600;
+  color:var(--text);margin-bottom:12px;line-height:1.25;letter-spacing:-.01em;
+}
+.feature-desc{font-size:14px;color:var(--text-dim);line-height:1.7;max-width:400px;}
+.feature-img{
+  border-left:1px solid var(--border);overflow:hidden;
+  background:var(--surface-2);position:relative;
+}
+.feature-row.rev .feature-img{border-left:none;border-right:1px solid var(--border);}
+.feature-img img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block;}
+
+/* ─── FOR WHOM ─── */
+.whom-h2{
+  font-family:'Fraunces',serif;font-size:clamp(26px,3vw,38px);
+  font-weight:600;letter-spacing:-.025em;color:var(--text);
+  margin-bottom:48px;line-height:1.15;
+}
+.whom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.whom-item{
+  background:var(--bg);padding:36px 32px;
+}
+.whom-role{
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:16px;
+  padding-bottom:16px;border-bottom:1px solid var(--border);
+}
+.whom-line{font-size:22px;font-weight:600;font-family:'Fraunces',serif;
+  color:var(--text);margin-bottom:12px;line-height:1.2;letter-spacing:-.01em;}
+.whom-desc{font-size:13px;color:var(--text-dim);line-height:1.65;}
+
+/* ─── FORM ─── */
+.form-section{background:var(--surface);border-top:1px solid var(--border);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+.form-left{}
+.form-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:20px;
+}
+.form-h2{
+  font-family:'Fraunces',serif;font-size:clamp(28px,3.5vw,44px);
+  font-weight:600;letter-spacing:-.03em;line-height:1.1;
+  color:var(--text);margin-bottom:20px;
+}
+.form-h2 em{font-style:italic;font-weight:300;color:var(--gold-light);}
+.form-sub{font-size:15px;color:var(--text-dim);line-height:1.7;margin-bottom:40px;}
+.trial-note{
+  background:var(--gold-dim);border:1px solid rgba(200,146,46,.2);
+  padding:20px 24px;
+}
+.trial-days{
+  font-family:'Fraunces',serif;font-size:38px;font-weight:600;
+  color:var(--gold);line-height:1;
+}
+.trial-label{font-size:13px;color:var(--text-dim);margin-top:4px;}
+.trial-items{margin-top:16px;display:flex;flex-direction:column;gap:6px;}
+.trial-item{font-size:13px;color:var(--text-dim);padding-left:12px;position:relative;}
+.trial-item::before{content:'—';position:absolute;left:0;color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:10px;}
+
+.form-right{}
+.form-box{background:var(--bg);border:1px solid var(--border-2);padding:36px;}
+.f-row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.f-field{margin-bottom:16px;}
+.f-label{
+  display:block;font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:7px;
+}
+.f-label .req{color:var(--gold);}
+.f-input,
+.f-select{
+  width:100%;background:var(--surface-2);border:1px solid var(--border-2);
+  color:var(--text);font-family:'Inter',sans-serif;font-size:14px;
+  padding:11px 14px;outline:none;transition:border-color .15s;
+}
+.f-input:focus,.f-select:focus{border-color:var(--gold);}
+.f-input.err,.f-select.err{border-color:var(--red);}
+.f-select option{background:var(--surface-2);color:var(--text);}
+.f-input::placeholder{color:var(--text-faint);}
+.f-textarea{
+  width:100%;background:var(--surface-2);border:1px solid var(--border-2);
+  color:var(--text);font-family:'Inter',sans-serif;font-size:14px;
+  padding:11px 14px;outline:none;transition:border-color .15s;
+  resize:vertical;min-height:90px;line-height:1.6;
+}
+.f-textarea:focus{border-color:var(--gold);}
+.f-textarea::placeholder{color:var(--text-faint);}
+.f-err{font-size:12px;color:var(--red);margin-top:4px;display:none;}
+.f-submit{
+  width:100%;background:var(--gold);color:#0a0c0e;
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:700;
+  padding:14px;border:none;cursor:pointer;margin-top:8px;transition:background .15s;
+}
+.f-submit:hover{background:var(--gold-light);}
+.f-submit:disabled{opacity:.45;cursor:not-allowed;}
+.f-msg{display:none;margin-top:14px;padding:12px 16px;font-size:13px;line-height:1.5;}
+.f-msg.ok{background:rgba(74,168,150,.1);border:1px solid rgba(74,168,150,.25);color:var(--teal);}
+.f-msg.err-msg{background:rgba(196,90,66,.1);border:1px solid rgba(196,90,66,.25);color:var(--red);}
+
+.success-view{display:none;text-align:center;padding:48px 24px;}
+.success-line{width:40px;height:2px;background:var(--gold);margin:0 auto 24px;}
+.success-h{font-family:'Fraunces',serif;font-size:26px;font-weight:600;color:var(--text);margin-bottom:10px;}
+.success-p{font-size:14px;color:var(--text-dim);line-height:1.7;}
+
+/* ─── FOOTER ─── */
+footer{
+  border-top:1px solid var(--border);
+  padding:40px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:100%;
+}
+.ft-brand{display:flex;align-items:center;gap:10px;}
+.ft-mark{
+  width:28px;height:28px;background:var(--gold);border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:11px;font-weight:700;color:#0a0c0e;
+}
+.ft-name{font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:var(--text-dim);}
+.ft-name em{font-style:normal;color:var(--gold);}
+.ft-right{font-size:12px;color:var(--text-faint);}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* ─── MOBILE ─── */
+@media(max-width:960px){
+  nav{padding:0 24px;}
+  .hero{grid-template-columns:1fr;padding:56px 24px 0;min-height:auto;gap:40px;}
+  .hero-left{padding-bottom:0;}
+  section{padding:64px 24px;}
+  .problem-grid{grid-template-columns:1fr;}
+  .how-header{grid-template-columns:1fr;gap:24px;}
+  .how-steps{grid-template-columns:1fr;gap:32px;}
+  .how-steps::before{display:none;}
+  .how-step{padding:0;}
+  .how-imgs{grid-template-columns:1fr;}
+  .feature-row{grid-template-columns:1fr;}
+  .feature-row.rev .feature-text{order:1;padding:32px 0 0;}
+  .feature-row.rev .feature-img{order:2;}
+  .feature-text{padding:32px 0 0;}
+  .feature-img{min-height:220px;border-left:none !important;border-right:none !important;border-top:1px solid var(--border);}
+  .whom-grid{grid-template-columns:1fr;}
+  .form-grid{grid-template-columns:1fr;gap:40px;}
+  .f-row2{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:12px;text-align:center;padding:32px 24px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-mark">BF</div>
+    <span class="nav-name">Budget <em>Flow</em> Pro</span>
+  </div>
+  <a href="#demo" class="nav-cta">Demo Talep Et</a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section style="padding:0">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Kurumsal Bütçe Yönetimi</div>
+      <h1 class="hero-h1">Bütçe süreci<br>artık <em>kontrol altında.</em></h1>
+      <p class="hero-sub">
+        Departmanlar, yöneticiler ve CFO aynı sistemde çalışır.
+        <strong>Hiyerarşik onay akışları, sapma analizi ve tam denetim kaydı</strong> —
+        Excel'in bıraktığı boşluğu doldurmak için tasarlandı.
+      </p>
+      <div class="hero-actions">
+        <a href="#demo" class="btn-primary">14 Gün Demo Talep Et</a>
+        <span class="hero-note">Kredi kartı gerekmez</span>
+      </div>
+    </div>
+    <div class="hero-img-wrap">
+      <div class="hero-img-bar">
+        <span class="hero-img-dot d1"></span>
+        <span class="hero-img-dot d2"></span>
+        <span class="hero-img-dot d3"></span>
+      </div>
+      <img
+        src="https://raw.githubusercontent.com/moyafinans/cfo/main/assets/images/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20-%202026-05-10%2016-04-36.png"
+        alt="Budget Flow Pro Dashboard"
+        loading="eager"
+      >
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROBLEM ─── -->
+<section class="problem-section">
+  <div class="section-inner">
+    <div class="problem-label">Tanıdık Bir Tablo</div>
+    <div class="problem-grid">
+      <div class="problem-item reveal">
+        <div class="problem-num">01</div>
+        <div class="problem-title">Mali yıl başında 17 farklı Excel versiyonu</div>
+        <div class="problem-desc">Hangi dosya güncel? Kimin rakamı doğru? Bütçe toplantısına girdiğinizde kimsenin aynı tabloya baktığından emin değilsiniz.</div>
+      </div>
+      <div class="problem-item reveal">
+        <div class="problem-num">02</div>
+        <div class="problem-title">Onay süreci e-posta zincirinde kayboluyor</div>
+        <div class="problem-desc">Departman müdürü onayladı mı? CFO hangi versiyonu onayladı? Finans müdürünün revizyonu mu var? Yanıt: "Bir dakika arayayım."</div>
+      </div>
+      <div class="problem-item reveal">
+        <div class="problem-num">03</div>
+        <div class="problem-title">Gerçekleşen veri bütçeyle hiç karşılaşmıyor</div>
+        <div class="problem-desc">Ay sonu raporu geldiğinde sapmaların kökenini bulmak saatlerce sürer. Hangi departman, hangi kalem, kim değiştirdi — hiçbiri kayıtlı değil.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section>
+  <div class="section-inner">
+    <div class="how-header">
+      <h2 class="how-h2">Herkes kendi işini yapar,<br>sistem <em>bütünü gösterir.</em></h2>
+      <p class="how-right-text">Budget Flow Pro'da her kullanıcı kendi yetkisi çerçevesinde çalışır. Departman bütçeyi girer, yönetici onaylar, CFO konsolide görünümü inceler. Süreç kimseyi bekletmez.</p>
+    </div>
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="step-n">01</div>
+        <div class="step-title">Departman Bütçesini Hazırlar</div>
+        <div class="step-desc">Hesap bazlı gelir ve gider kalemleri girilir. Tahmini rakamlar dönem dönem planlanır. Excel şablon ile toplu import da desteklenir.</div>
+      </div>
+      <div class="how-step reveal">
+        <div class="step-n">02</div>
+        <div class="step-title">Onay Akışı Başlar</div>
+        <div class="step-desc">Bütçe yöneticiye iletilir. Onay, revizyon talebi veya ret — her aşama kayıt altına alınır. Paralel departmanlar birbirini beklemez.</div>
+      </div>
+      <div class="how-step reveal">
+        <div class="step-n">03</div>
+        <div class="step-title">CFO Konsolide Görür</div>
+        <div class="step-desc">Tüm departmanların bütçesi tek ekranda. Gerçekleşen rakamlarla karşılaştırma, senaryo analizi ve PDF raporları anında hazır.</div>
+      </div>
+    </div>
+    <div class="how-imgs">
+      <div class="how-img-block reveal">
+        <img
+          src="https://raw.githubusercontent.com/moyafinans/cfo/main/assets/images/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20-%202026-05-10%2016-04-44.png"
+          alt="Bütçe tablosu"
+          loading="lazy"
+        >
+      </div>
+      <div class="how-img-block reveal">
+        <img
+          src="https://raw.githubusercontent.com/moyafinans/cfo/main/assets/images/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20-%202026-05-10%2016-04-53.png"
+          alt="Onay akışı"
+          loading="lazy"
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section class="features-section">
+  <div class="section-inner">
+    <h2 class="features-h2">Kurumsal bütçe yönetiminin<br>gerektirdiği her şey, <em>tek platformda.</em></h2>
+    <div class="feature-list">
+
+      <div class="feature-row reveal">
+        <div class="feature-text">
+          <div class="feature-tag">Sapma Analizi</div>
+          <div class="feature-title">Tahmini ile gerçekleşen arasındaki fark, satır satır görünür</div>
+          <p class="feature-desc">Ay sonu kapandığında her kalem için hedef, gerçekleşen ve sapma yan yana durur. Renk kodlaması ile kritik sapmalar ilk bakışta dikkat çeker.</p>
+        </div>
+        <div class="feature-img">
+          <img
+            src="https://raw.githubusercontent.com/moyafinans/cfo/main/assets/images/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20-%202026-05-10%2016-05-02.png"
+            alt="Sapma analizi"
+            loading="lazy"
+          >
+        </div>
+      </div>
+
+      <div class="feature-row rev reveal">
+        <div class="feature-text">
+          <div class="feature-tag">Denetim Kaydı</div>
+          <div class="feature-title">Kim, ne zaman, neyi değiştirdi — her işlem kayıt altında</div>
+          <p class="feature-desc">Audit Log modülü tüm bütçe hareketlerini, onay kararlarını ve revizyon geçmişini saklar. Yönetim kurulu soruşturması veya dış denetim için her zaman hazır.</p>
+        </div>
+        <div class="feature-img">
+          <img
+            src="https://raw.githubusercontent.com/moyafinans/cfo/main/assets/images/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20-%202026-05-10%2016-05-10.png"
+            alt="Audit log"
+            loading="lazy"
+          >
+        </div>
+      </div>
+
+      <div class="feature-row reveal">
+        <div class="feature-text">
+          <div class="feature-tag">Raporlama</div>
+          <div class="feature-title">Konsolide bütçe, senaryo karşılaştırması, PDF export</div>
+          <p class="feature-desc">4 raporlama modülü ile departman kırılımından konsolide görünüme geçmek tek tıklama. Yönetim sunumlarınız için hazır PDF formatı — ek işlem gerektirmez.</p>
+        </div>
+        <div class="feature-img">
+          <img
+            src="https://raw.githubusercontent.com/moyafinans/cfo/main/assets/images/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20-%202026-05-10%2016-05-20.png"
+            alt="Raporlama modülü"
+            loading="lazy"
+          >
+        </div>
+      </div>
+
+      <div class="feature-row rev reveal">
+        <div class="feature-text">
+          <div class="feature-tag">Excel Entegrasyonu</div>
+          <div class="feature-title">Mevcut Excel şablonlarınız çalışmaya devam eder</div>
+          <p class="feature-desc">Standart Excel şablonları ile toplu veri girişi yapılabilir. Hem tahmini hem gerçekleşen bütçe için hazır şablonlar indirilir, doldurulur ve sisteme yüklenir.</p>
+        </div>
+        <div class="feature-img">
+          <img
+            src="https://raw.githubusercontent.com/moyafinans/cfo/main/assets/images/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20-%202026-05-10%2016-05-29.png"
+            alt="Excel entegrasyonu"
+            loading="lazy"
+          >
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOR WHOM ─── -->
+<section>
+  <div class="section-inner">
+    <h2 class="whom-h2">Her seviyedeki finans profesyeli için tasarlandı</h2>
+    <div class="whom-grid">
+      <div class="whom-item reveal">
+        <div class="whom-role">CFO / Finans Direktörü</div>
+        <div class="whom-line">Tüm şirketin bütçesini tek ekranda görür</div>
+        <p class="whom-desc">Konsolide bütçe, gerçekleşen karşılaştırması, senaryo analizi ve yönetim kurulu için hazır raporlar. Veri toplamak yerine analiz yaparsınız.</p>
+      </div>
+      <div class="whom-item reveal">
+        <div class="whom-role">Finans Müdürü / Bütçe Sorumlusu</div>
+        <div class="whom-line">Onay sürecini e-postasız yönetir</div>
+        <p class="whom-desc">Her departmanın bütçe durumunu, revizyon geçmişini ve onay adımlarını tek panelden takip eder. Geciken onay, kayıp versiyon kalmaz.</p>
+      </div>
+      <div class="whom-item reveal">
+        <div class="whom-role">Departman Yöneticisi</div>
+        <div class="whom-line">Kendi bütçesini hazırlar, takip eder</div>
+        <p class="whom-desc">Yalnızca kendi departmanına ait verileri görür. Gerçekleşen rakamları girer, sapmaları izler, yorumlarını ekler. Finans ekibini beklemez.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DEMO FORM ─── -->
+<section class="form-section" id="demo">
+  <div class="section-inner">
+    <div class="form-grid">
+      <div class="form-left">
+        <div class="form-eyebrow">14 Gün Ücretsiz Demo</div>
+        <h2 class="form-h2">Sistemi kendi<br>verilerinizle <em>deneyin.</em></h2>
+        <p class="form-sub">Demo ortamında gerçek iş süreçlerinizi yapılandırabilirsiniz. Talebi aldıktan sonra 1 iş günü içinde size özel ortam hazırlanır ve erişim bilgileri iletilir.</p>
+        <div class="trial-note">
+          <div class="trial-days">14</div>
+          <div class="trial-label">Gün Tam Erişim</div>
+          <div class="trial-items">
+            <div class="trial-item">Tüm modüller açık — raporlama, onay akışı, audit log</div>
+            <div class="trial-item">Gerçek verilerinizle test edin</div>
+            <div class="trial-item">Kurulum desteği dahil</div>
+            <div class="trial-item">Kredi kartı veya ön ödeme gerekmez</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-right">
+        <div class="form-box" id="formBox">
+          <div id="formContent">
+            <div class="f-row2">
+              <div class="f-field">
+                <label class="f-label">Ad Soyad <span class="req">*</span></label>
+                <input id="fAd" type="text" class="f-input" placeholder="Adınız Soyadınız">
+                <div class="f-err" id="eAd">Zorunlu alan</div>
+              </div>
+              <div class="f-field">
+                <label class="f-label">E-posta <span class="req">*</span></label>
+                <input id="fEmail" type="email" class="f-input" placeholder="kurumsal@sirket.com">
+                <div class="f-err" id="eEmail">Geçerli e-posta giriniz</div>
+              </div>
+            </div>
+            <div class="f-row2">
+              <div class="f-field">
+                <label class="f-label">Firma Adı <span class="req">*</span></label>
+                <input id="fFirma" type="text" class="f-input" placeholder="Firma Adı">
+                <div class="f-err" id="eFirma">Zorunlu alan</div>
+              </div>
+              <div class="f-field">
+                <label class="f-label">Vergi No <span class="req">*</span></label>
+                <input id="fVergi" type="text" class="f-input" placeholder="1234567890">
+                <div class="f-err" id="eVergi">Zorunlu alan</div>
+              </div>
+            </div>
+            <div class="f-row2">
+              <div class="f-field">
+                <label class="f-label">Sektör <span class="req">*</span></label>
+                <select id="fSektor" class="f-select">
+                  <option value="">Seçiniz</option>
+                  <option>Üretim</option>
+                  <option>Ticaret / Perakende</option>
+                  <option>İnşaat / Gayrimenkul</option>
+                  <option>Hizmet</option>
+                  <option>Teknoloji</option>
+                  <option>Lojistik</option>
+                  <option>Enerji</option>
+                  <option>Finans / Sigorta</option>
+                  <option>Sağlık</option>
+                  <option>Eğitim</option>
+                  <option>Diğer</option>
+                </select>
+                <div class="f-err" id="eSektor">Seçiniz</div>
+              </div>
+              <div class="f-field">
+                <label class="f-label">Telefon</label>
+                <input id="fTel" type="tel" class="f-input" placeholder="+90 5xx xxx xx xx">
+              </div>
+            </div>
+            <div class="f-row2">
+              <div class="f-field">
+                <label class="f-label">Kullanıcı Sayısı <span class="req">*</span></label>
+                <select id="fKullanici" class="f-select">
+                  <option value="">Seçiniz</option>
+                  <option>1–5</option>
+                  <option>6–15</option>
+                  <option>16–30</option>
+                  <option>31–50</option>
+                  <option>50+</option>
+                </select>
+                <div class="f-err" id="eKullanici">Seçiniz</div>
+              </div>
+              <div class="f-field">
+                <label class="f-label">Departman Sayısı <span class="req">*</span></label>
+                <select id="fDepartman" class="f-select">
+                  <option value="">Seçiniz</option>
+                  <option>1–3</option>
+                  <option>4–8</option>
+                  <option>9–15</option>
+                  <option>16–25</option>
+                  <option>25+</option>
+                </select>
+                <div class="f-err" id="eDepartman">Seçiniz</div>
+              </div>
+            </div>
+            <div class="f-field">
+              <label class="f-label">Ek Notunuz</label>
+              <textarea id="fNot" class="f-textarea" placeholder="Mevcut süreciniz, özel ihtiyaçlarınız veya sormak istedikleriniz..."></textarea>
+            </div>
+            <button class="f-submit" id="fBtn" onclick="submitDemo()">Demo Talep Et</button>
+            <div class="f-msg" id="fMsg"></div>
+          </div>
+          <div class="success-view" id="successView">
+            <div class="success-line"></div>
+            <div class="success-h">Talebiniz Alındı</div>
+            <p class="success-p">En geç 1 iş günü içinde size özel demo ortamı hazırlanır ve erişim bilgileri iletilir. Teşekkürler.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MORE SCREENSHOTS ─── -->
+<section style="padding:64px 48px;">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div class="how-img-block reveal">
+        <img src="https://raw.githubusercontent.com/moyafinans/cfo/main/assets/images/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20-%202026-05-10%2016-05-35.png" alt="Senaryo analizi" loading="lazy">
+      </div>
+      <div class="how-img-block reveal">
+        <img src="https://raw.githubusercontent.com/moyafinans/cfo/main/assets/images/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20-%202026-05-10%2016-05-42.png" alt="Konsolide bütçe" loading="lazy">
+      </div>
+      <div class="how-img-block reveal">
+        <img src="https://raw.githubusercontent.com/moyafinans/cfo/main/assets/images/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20-%202026-05-10%2016-05-57.png" alt="Dashboard" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-brand">
+    <div class="ft-mark">BF</div>
+    <span class="ft-name">Budget <em>Flow</em> Pro</span>
+  </div>
+  <div class="ft-right">© 2026 Budget Flow Pro. Tüm hakları saklıdır.</div>
+</footer>
+
+<script>
+// ─── SCROLL REVEAL ───
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+},{ threshold:0.12 });
+document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+
+// ─── FORM ───
+var SB_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
+
+function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+function clearForm(){
+  document.querySelectorAll('.f-input,.f-select,.f-textarea').forEach(function(el){ el.classList.remove('err'); });
+  document.querySelectorAll('.f-err').forEach(function(el){ el.style.display='none'; });
+  document.getElementById('fMsg').style.display='none';
+}
+
+function showErr(id){ document.getElementById('e'+id).style.display='block'; document.getElementById('f'+id).classList.add('err'); }
+
+function submitDemo(){
+  clearForm();
+  var ad = document.getElementById('fAd').value.trim();
+  var email = document.getElementById('fEmail').value.trim();
+  var firma = document.getElementById('fFirma').value.trim();
+  var vergi = document.getElementById('fVergi').value.trim();
+  var sektor = document.getElementById('fSektor').value;
+  var kullanici = document.getElementById('fKullanici').value;
+  var departman = document.getElementById('fDepartman').value;
+  var tel = document.getElementById('fTel').value.trim();
+  var not_ = document.getElementById('fNot').value.trim();
+  var ok = true;
+
+  if(ad.length < 2){ showErr('Ad'); ok=false; }
+  if(!isEmail(email)){ showErr('Email'); ok=false; }
+  if(firma.length < 2){ showErr('Firma'); ok=false; }
+  if(vergi.length < 5){ showErr('Vergi'); ok=false; }
+  if(!sektor){ showErr('Sektor'); ok=false; }
+  if(!kullanici){ showErr('Kullanici'); ok=false; }
+  if(!departman){ showErr('Departman'); ok=false; }
+  if(!ok) return;
+
+  var btn = document.getElementById('fBtn');
+  btn.disabled=true; btn.textContent='Gönderiliyor...';
+
+  fetch(SB_URL+'/rest/v1/demo_talepler', {
+    method:'POST',
+    headers:{
+      'apikey':SB_KEY,
+      'Authorization':'Bearer '+SB_KEY,
+      'Content-Type':'application/json',
+      'Prefer':'return=minimal'
+    },
+    body: JSON.stringify({
+      ad_soyad: ad,
+      email: email,
+      firma_adi: firma,
+      vergi_no: vergi,
+      sektor: sektor,
+      kullanici_sayisi: kullanici,
+      departman_sayisi: departman,
+      telefon: tel||null,
+      not_ek: not_||null
+    })
+  })
+  .then(function(r){
+    btn.disabled=false; btn.textContent='Demo Talep Et';
+    if(r.status>=200 && r.status<300){
+      document.getElementById('formContent').style.display='none';
+      document.getElementById('successView').style.display='block';
+    } else {
+      var m = document.getElementById('fMsg');
+      m.className='f-msg err-msg';
+      m.textContent='Bir hata oluştu ('+r.status+'). Lütfen tekrar deneyin.';
+      m.style.display='block';
+    }
+  })
+  .catch(function(e){
+    btn.disabled=false; btn.textContent='Demo Talep Et';
+    var m=document.getElementById('fMsg');
+    m.className='f-msg err-msg';
+    m.textContent='Bağlantı hatası: '+e.message;
+    m.style.display='block';
+  });
+}
+</script>
+</body>
+</html>
