@@ -226,137 +226,116 @@ var SUPABASE_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
 var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
 var tumData = [];
 
-// Önce login butonları — bunlar her zaman DOM'da mevcut
-document.getElementById('giris-btn').addEventListener('click', giris);
-document.getElementById('pw').addEventListener('keydown', function(e){ if(e.key==='Enter') giris(); });
-
-// Panel butonları — panel görünür olduğunda bağla
-function bindPanelListeners() {
-  var lb = document.getElementById('logout-btn');
-  var rb = document.getElementById('refresh-btn');
-  var eb = document.getElementById('export-btn');
-  if(lb) lb.addEventListener('click', cikis);
-  if(rb) rb.addEventListener('click', yukle);
-  if(eb) eb.addEventListener('click', csvIndir);
+function esc(s) {
+  if(!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 function giris() {
-  if (document.getElementById('pw').value === SIFRE) {
+  var val = document.getElementById('pw').value;
+  if(val === SIFRE) {
     sessionStorage.setItem('fa_ok','1');
     goster();
   } else {
-    document.getElementById('login-err').style.display = 'block';
+    var err = document.getElementById('pw-err');
+    if(err) { err.style.display='block'; }
     document.getElementById('pw').value = '';
+    document.getElementById('pw').focus();
   }
 }
-function cikis() { sessionStorage.removeItem('fa_ok'); location.reload(); }
+
+function cikis() {
+  sessionStorage.removeItem('fa_ok');
+  location.reload();
+}
+
 function goster() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('panel').style.display = 'block';
-  bindPanelListeners();
+  document.getElementById('logout-btn').addEventListener('click', cikis);
+  document.getElementById('refresh-btn').addEventListener('click', yukle);
+  document.getElementById('export-btn').addEventListener('click', csvIndir);
+  switchAdminTab('mesaj');
   yukle();
 }
-if (sessionStorage.getItem('fa_ok') === '1') goster();
 
-async function yukle() {
-  var liste = document.getElementById('msg-list');
-  liste.innerHTML = '<div class="loading-txt">Yükleniyor...</div>';
-
-  try {
-    var res = await fetch(SUPABASE_URL + '/rest/v1/iletisim?select=*&order=created_at.desc', {
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
-    });
-    var data = await res.json();
-    if (!Array.isArray(data)) { liste.innerHTML = '<div class="empty">Veri alınamadı.</div>'; return; }
-
-    tumData = data;
-    var simdi = new Date();
-    var bugunBas = new Date(simdi.getFullYear(), simdi.getMonth(), simdi.getDate());
-    var haftaBas = new Date(simdi); haftaBas.setDate(simdi.getDate()-7);
-    var ayBas = new Date(simdi.getFullYear(), simdi.getMonth(), 1);
-
-    document.getElementById('s-toplam').textContent = data.length;
-    document.getElementById('s-bugun').textContent = data.filter(function(m){ return new Date(m.created_at) >= bugunBas; }).length;
-    document.getElementById('s-hafta').textContent = data.filter(function(m){ return new Date(m.created_at) >= haftaBas; }).length;
-    document.getElementById('s-ay').textContent = data.filter(function(m){ return new Date(m.created_at) >= ayBas; }).length;
-
-    if (data.length === 0) { liste.innerHTML = '<div class="empty">Henüz mesaj yok.</div>'; return; }
-
-    liste.innerHTML = data.map(function(m, i) {
-      var isim = esc(m.ad_soyad || '');
-      var harf = isim.charAt(0).toUpperCase();
-      var tarih = fmt(m.created_at);
-      return '<div class="msg-card" id="mc-' + i + '">' +
-        '<div class="msg-header" onclick="toggle(' + i + ')">' +
-          '<div class="msg-avatar">' + harf + '</div>' +
-          '<div class="msg-info">' +
-            '<div class="msg-name">' + isim + '</div>' +
-            '<div class="msg-email-text">' + esc(m.email || '') + '</div>' +
-          '</div>' +
-          '<div class="msg-meta-col">' +
-            '<span class="msg-date-text">' + tarih + '</span>' +
-            (m.konu ? '<span class="msg-konu-badge">' + esc(m.konu) + '</span>' : '') +
-          '</div>' +
-        '</div>' +
-        '<div class="msg-body" id="mb-' + i + '">' +
-          '<div class="msg-body-inner">' +
-            (m.konu ? '<div class="msg-body-label">Konu</div><div class="msg-body-text" style="margin-bottom:14px;font-weight:500;">' + esc(m.konu) + '</div>' : '') +
-            '<div class="msg-body-label">Mesaj</div>' +
-            '<div class="msg-body-text">' + esc(m.mesaj || '') + '</div>' +
-          '</div>' +
-          '<div class="msg-actions">' +
-            '<a class="action-btn" href="mailto:' + esc(m.email) + '?subject=Re: ' + esc(m.konu||'Finans Akademi') + '">✉ Yanıtla</a>' +
-            '<a class="action-btn" href="mailto:' + esc(m.email) + '">📋 Mail Kopyala</a>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
-    }).join('');
-  } catch(e) {
-    liste.innerHTML = '<div class="empty">Hata: ' + e.message + '</div>';
-  }
-}
-
-function toggle(i) {
-  document.getElementById('mb-'+i).classList.toggle('open');
-}
-
-function csvIndir() {
-  if (!tumData.length) { alert('İndirilecek veri yok.'); return; }
-  var satirlar = [['ID','Ad Soyad','E-posta','Konu','Mesaj','Tarih']];
-  tumData.forEach(function(m) {
-    satirlar.push([m.id, m.ad_soyad||'', m.email||'', m.konu||'', (m.mesaj||'').replace(/\n/g,' '), fmt(m.created_at)]);
-  });
-  var csv = satirlar.map(function(r){ return r.map(function(c){ return '"'+String(c).replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
-  var blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a'); a.href = url; a.download = 'mesajlar.csv'; a.click();
-  URL.revokeObjectURL(url);
-}
-
-function fmt(iso) {
-  var d = new Date(iso);
-  return d.toLocaleDateString('tr-TR',{day:'2-digit',month:'short',year:'numeric'}) + ' ' +
-         d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
-}
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-// ===== ABONE YÖNETİMİ =====
 function switchAdminTab(tab) {
   ['mesaj','abone','demo'].forEach(function(t){
-    var tb=document.getElementById('tab-'+t);
-    var sc=document.getElementById('section-'+t);
-    if(tb) tb.classList.toggle('active',tab===t);
-    if(sc) sc.style.display=tab===t?'':'none';
+    var tb = document.getElementById('tab-'+t);
+    var sc = document.getElementById('section-'+t);
+    if(tb) tb.classList.toggle('active', tab===t);
+    if(sc) sc.style.display = tab===t ? '' : 'none';
   });
+  if(tab==='mesaj') yukle();
   if(tab==='abone') yuklAboneler();
   if(tab==='demo') yuklDemoTalepler();
 }
 
+async function yukle() {
+  try {
+    var r = await fetch(SUPABASE_URL+'/rest/v1/iletisim?select=*&order=created_at.desc', {
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+    });
+    tumData = await r.json();
+    updateStats(tumData);
+    renderMessages(tumData);
+  } catch(e) {
+    document.getElementById('msg-list').innerHTML = '<div class="loading-txt">Yükleme hatası.</div>';
+  }
+}
+
+function updateStats(data) {
+  var now = new Date();
+  var bug = data.filter(function(d){ var t=new Date(d.created_at); return t.toDateString()===now.toDateString(); }).length;
+  var haf = data.filter(function(d){ var t=new Date(d.created_at); return (now-t)<7*86400000; }).length;
+  var ay  = data.filter(function(d){ var t=new Date(d.created_at); return t.getMonth()===now.getMonth()&&t.getFullYear()===now.getFullYear(); }).length;
+  document.getElementById('s-toplam').textContent = data.length;
+  document.getElementById('s-bugun').textContent  = bug;
+  document.getElementById('s-hafta').textContent  = haf;
+  document.getElementById('s-ay').textContent     = ay;
+}
+
+function renderMessages(data) {
+  var el = document.getElementById('msg-list');
+  if(!data.length){ el.innerHTML='<div class="empty-txt">Henüz mesaj yok.</div>'; return; }
+  el.innerHTML = data.map(function(m){
+    var dt = new Date(m.created_at);
+    var tarih = dt.toLocaleDateString('tr-TR')+' '+dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+    var initials = m.ad_soyad ? m.ad_soyad.split(' ').map(function(w){return w[0];}).join('').toUpperCase().slice(0,2) : '??';
+    return '<div class="msg-card" onclick="this.querySelector('.msg-body').classList.toggle('open')">'+
+      '<div class="msg-header">'+
+        '<div class="msg-avatar">'+initials+'</div>'+
+        '<div class="msg-info">'+
+          '<span class="msg-name">'+esc(m.ad_soyad)+'</span>'+
+          '<span class="msg-email">'+esc(m.email)+'</span>'+
+          (m.konu?'<span class="msg-subject">'+esc(m.konu)+'</span>':'')+
+        '</div>'+
+        '<span class="msg-date">'+tarih+'</span>'+
+      '</div>'+
+      '<div class="msg-body"><p>'+esc(m.mesaj)+'</p>'+
+        '<div class="msg-actions">'+
+          '<a href="mailto:'+esc(m.email)+'?subject=Re: '+esc(m.konu||'Mesajınız')+'" class="action-btn">Yanıtla</a>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+function csvIndir() {
+  var rows = [['ID','Ad Soyad','Email','Konu','Mesaj','Tarih']];
+  tumData.forEach(function(m){
+    rows.push([m.id,m.ad_soyad,m.email,m.konu||'',m.mesaj,m.created_at]);
+  });
+  var csv = rows.map(function(r){ return r.map(function(c){ return '"'+(c||'').toString().replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
+  var a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download = 'mesajlar.csv';
+  a.click();
+}
+
 async function yuklAboneler() {
   try {
-    var r = await fetch(SUPABASE_URL + '/rest/v1/aboneler?select=*&order=created_at.desc', {
+    var r = await fetch(SUPABASE_URL+'/rest/v1/aboneler?select=*&order=created_at.desc', {
       headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
     });
     var data = await r.json();
@@ -374,19 +353,14 @@ async function yuklAboneler() {
 
 function renderAboneler(elId, list, isAktif) {
   var el = document.getElementById(elId);
-  if(!list.length){
-    el.innerHTML = '<div class="empty-txt">'+(isAktif?'Onaylı abone yok.':'Bekleyen talep yok.')+'</div>';
-    return;
-  }
+  if(!list.length){ el.innerHTML='<div class="empty-txt">'+(isAktif?'Onaylı abone yok.':'Bekleyen talep yok.')+'</div>'; return; }
   el.innerHTML = list.map(function(a){
-    var d = new Date(a.created_at);
-    var tarih = d.toLocaleDateString('tr-TR')+' '+d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+    var dt = new Date(a.created_at);
+    var tarih = dt.toLocaleDateString('tr-TR')+' '+dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
     var actions = isAktif
       ? '<button class="btn-kaldir" onclick="aboneGuncelle('+a.id+',false)">Pasife Al</button>'
       : '<button class="btn-onayla" onclick="aboneGuncelle('+a.id+',true)">✓ Onayla</button><button class="btn-reddet" onclick="aboneSil('+a.id+')">✕ Reddet</button>';
-    var badge = isAktif
-      ? '<span class="badge-aktif">Onaylı</span>'
-      : '<span class="badge-bekleyen">Bekliyor</span>';
+    var badge = isAktif ? '<span class="badge-aktif">Onaylı</span>' : '<span class="badge-bekleyen">Bekliyor</span>';
     return '<div class="abone-row">'+
       '<div class="abone-info">'+
         '<div class="abone-name">'+esc(a.ad_soyad)+' '+badge+'</div>'+
@@ -403,6 +377,15 @@ async function aboneGuncelle(id, aktif) {
     method:'PATCH',
     headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
     body:JSON.stringify({aktif:aktif})
+  });
+  yuklAboneler();
+}
+
+async function aboneSil(id) {
+  if(!confirm('Bu abone talebini silmek istiyor musunuz?')) return;
+  await fetch(SUPABASE_URL+'/rest/v1/aboneler?id=eq.'+id, {
+    method:'DELETE',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
   });
   yuklAboneler();
 }
@@ -424,7 +407,7 @@ async function yuklDemoTalepler() {
 
 function renderDemoTalepler(list) {
   var el = document.getElementById('demo-list');
-  if(!list.length){ el.innerHTML = '<div class="empty-txt">Henüz demo talebi yok.</div>'; return; }
+  if(!list.length){ el.innerHTML='<div class="empty-txt">Henüz demo talebi yok.</div>'; return; }
   el.innerHTML = list.map(function(d){
     var dt = new Date(d.created_at);
     var tarih = dt.toLocaleDateString('tr-TR')+' '+dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
@@ -467,15 +450,12 @@ async function demoDurumGuncelle(id, durum) {
   yuklDemoTalepler();
 }
 
-async function aboneSil(id) {
-  if(!confirm('Bu abone talebini silmek istiyor musunuz?')) return;
-  await fetch(SUPABASE_URL+'/rest/v1/aboneler?id=eq.'+id, {
-    method:'DELETE',
-    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
-  });
-  yuklAboneler();
-}
-
+// ─── INIT ───
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('giris-btn').addEventListener('click', giris);
+  document.getElementById('pw').addEventListener('keydown', function(e){ if(e.key==='Enter') giris(); });
+  if(sessionStorage.getItem('fa_ok') === '1') goster();
+});
 </script>
 </body>
 </html>
