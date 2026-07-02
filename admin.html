@@ -226,11 +226,19 @@ var SUPABASE_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
 var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
 var tumData = [];
 
+// Önce login butonları — bunlar her zaman DOM'da mevcut
 document.getElementById('giris-btn').addEventListener('click', giris);
 document.getElementById('pw').addEventListener('keydown', function(e){ if(e.key==='Enter') giris(); });
-document.getElementById('logout-btn').addEventListener('click', cikis);
-document.getElementById('refresh-btn').addEventListener('click', yukle);
-document.getElementById('export-btn').addEventListener('click', csvIndir);
+
+// Panel butonları — panel görünür olduğunda bağla
+function bindPanelListeners() {
+  var lb = document.getElementById('logout-btn');
+  var rb = document.getElementById('refresh-btn');
+  var eb = document.getElementById('export-btn');
+  if(lb) lb.addEventListener('click', cikis);
+  if(rb) rb.addEventListener('click', yukle);
+  if(eb) eb.addEventListener('click', csvIndir);
+}
 
 function giris() {
   if (document.getElementById('pw').value === SIFRE) {
@@ -245,6 +253,7 @@ function cikis() { sessionStorage.removeItem('fa_ok'); location.reload(); }
 function goster() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('panel').style.display = 'block';
+  bindPanelListeners();
   yukle();
 }
 if (sessionStorage.getItem('fa_ok') === '1') goster();
