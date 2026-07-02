@@ -335,6 +335,29 @@ footer{
   .f-row2{grid-template-columns:1fr;}
   footer{flex-direction:column;gap:12px;text-align:center;padding:32px 24px;}
 }
+
+/* ── COMPARISON ── */
+.comp-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.comp-header{margin-bottom:48px;}
+.comp-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.comp-h2{font-family:'Fraunces',serif;font-size:clamp(26px,3vw,38px);font-weight:600;letter-spacing:-.025em;line-height:1.15;color:var(--text);margin-bottom:10px;}
+.comp-h2 em{font-style:italic;font-weight:300;color:var(--gold-light);}
+.comp-sub{font-size:15px;color:var(--text-dim);max-width:560px;line-height:1.65;}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.comp-card{background:var(--bg);padding:36px 32px;}
+.comp-card-head{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.comp-card-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+.comp-card.excel .comp-card-label{color:var(--red);}
+.comp-card.bfp .comp-card-label{color:var(--gold);}
+.comp-card-title{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--text);line-height:1.2;}
+.comp-card-sub{font-size:12px;color:var(--text-dim);margin-top:4px;}
+.comp-list{list-style:none;display:flex;flex-direction:column;gap:0;}
+.comp-list li{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-dim);line-height:1.5;}
+.comp-list li:last-child{border-bottom:none;}
+.comp-x{color:var(--red);font-weight:700;flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:1px;}
+.comp-check{color:var(--teal);font-weight:700;flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:1px;}
+@media(max-width:760px){.comp-grid{grid-template-columns:1fr;}}
+
 </style>
 </head>
 <body>
@@ -379,6 +402,56 @@ footer{
 </section>
 
 <!-- ─── PROBLEM ─── -->
+
+<!-- ── KARŞILAŞTIRMA ── -->
+<section class="comp-section" style="padding:96px 48px;">
+  <div class="section-inner" style="max-width:1200px;margin:0 auto;">
+    <div class="comp-header reveal">
+      <div class="comp-eyebrow">Excel'den Budget Flow Pro'ya</div>
+      <h2 class="comp-h2">İki bütçe yönetimi,<br><em>iki farklı sonuç.</em></h2>
+      <p class="comp-sub">Excel'i kötülemiyoruz — o harika bir araç. Ama kurumsal bütçe yönetimi için tasarlanmadı.</p>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-card excel reveal">
+        <div class="comp-card-head">
+          <div class="comp-card-label">Mevcut Durum</div>
+          <div class="comp-card-title">Excel ile Bütçe</div>
+          <div class="comp-card-sub">Çoğu şirketin şu anki durumu</div>
+        </div>
+        <ul class="comp-list">
+          <li><span class="comp-x">✕</span> Her departman kendi dosyasını tutuyor, merkezi görünüm yok</li>
+          <li><span class="comp-x">✕</span> Versiyon kontrolü yok — kim ne zaman ne değiştirdi bilinmiyor</li>
+          <li><span class="comp-x">✕</span> Onay süreci e-posta ve telefon zinciriyle yürüyor</li>
+          <li><span class="comp-x">✕</span> Formül hataları sessizce yanlış rakam üretiyor</li>
+          <li><span class="comp-x">✕</span> Sapma analizi manuel hesaplama gerektiriyor, saatler alıyor</li>
+          <li><span class="comp-x">✕</span> Konsolide görünüm için her ay elle veri birleştiriliyor</li>
+          <li><span class="comp-x">✕</span> Rol bazlı erişim kontrol edilemiyor, herkes her şeyi görebiliyor</li>
+          <li><span class="comp-x">✕</span> Gerçekleşen veri ayrı dosyalarda, karşılaştırma zor</li>
+          <li><span class="comp-x">✕</span> Denetim izi yok — kim onayladı, ne zaman belli değil</li>
+        </ul>
+      </div>
+      <div class="comp-card bfp reveal">
+        <div class="comp-card-head">
+          <div class="comp-card-label">Budget Flow Pro</div>
+          <div class="comp-card-title">Yapılandırılmış Bütçe Yönetimi</div>
+          <div class="comp-card-sub">Aynı sürecin doğru çalışan versiyonu</div>
+        </div>
+        <ul class="comp-list">
+          <li><span class="comp-check">✓</span> Tüm departmanlar tek platformda, konsolide görünüm anlık</li>
+          <li><span class="comp-check">✓</span> Onaylanan bütçe kilitlenir — değişiklik için yönetici müdahalesi gerekir</li>
+          <li><span class="comp-check">✓</span> Taslak → Onay → Kilit akışı otomatik, e-postaya gerek yok</li>
+          <li><span class="comp-check">✓</span> Hesaplamalar sistem tarafından yapılır, hata payı sıfır</li>
+          <li><span class="comp-check">✓</span> Sapma analizi ve raporlar otomatik, gerçek zamanlı</li>
+          <li><span class="comp-check">✓</span> Konsolide bütçe tek tıkla, tüm departmanlar dahil</li>
+          <li><span class="comp-check">✓</span> Admin / Yönetici / Kullanıcı rol bazlı erişim kontrolü</li>
+          <li><span class="comp-check">✓</span> Tahmini ve gerçekleşen aynı platformda, karşılaştırma anlık</li>
+          <li><span class="comp-check">✓</span> Kim ne zaman onayladı, tam denetim izi mevcut</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="problem-section">
   <div class="section-inner">
     <div class="problem-label">Tanıdık Bir Tablo</div>
