@@ -358,6 +358,35 @@ footer{
 .comp-check{color:var(--teal);font-weight:700;flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:1px;}
 @media(max-width:760px){.comp-grid{grid-template-columns:1fr;}}
 
+
+/* ── FELSEFE ── */
+.phil-section{background:var(--bg);border-top:1px solid var(--border);}
+.phil-header{max-width:680px;margin-bottom:56px;}
+.phil-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.phil-h2{font-family:'Fraunces',serif;font-size:clamp(24px,3vw,36px);font-weight:600;letter-spacing:-.025em;line-height:1.15;color:var(--text);margin-bottom:16px;}
+.phil-h2 em{font-style:italic;font-weight:300;color:var(--gold-light);}
+.phil-lead{font-size:15px;color:var(--text-dim);line-height:1.8;max-width:700px;}
+.phil-lead strong{color:var(--text);font-weight:500;}
+.phil-table-wrap{overflow-x:auto;margin-top:48px;}
+.phil-table{width:100%;border-collapse:collapse;}
+.phil-table-head{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:1px;}
+.phil-col-head{padding:14px 24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;}
+.phil-col-head.left{background:rgba(196,90,66,.08);color:var(--red);}
+.phil-col-head.right{background:rgba(74,168,150,.08);color:var(--teal);}
+.phil-rows{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+.phil-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.phil-cell{padding:20px 24px;background:var(--surface);position:relative;}
+.phil-cell.left-cell{background:var(--surface);}
+.phil-cell.right-cell{background:rgba(74,168,150,.03);}
+.phil-cell-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:600;}
+.left-cell .phil-cell-label{color:rgba(196,90,66,.6);}
+.right-cell .phil-cell-label{color:rgba(74,168,150,.6);}
+.phil-cell-text{font-size:14px;color:var(--text-dim);line-height:1.65;}
+.phil-cell-text strong{color:var(--text);font-weight:500;}
+@media(max-width:700px){
+  .phil-table-head,.phil-row{grid-template-columns:1fr;}
+  .phil-cell{border-bottom:1px solid var(--border);}
+}
 </style>
 </head>
 <body>
@@ -375,15 +404,15 @@ footer{
   <div class="hero">
     <div class="hero-left">
       <div class="hero-eyebrow">Kurumsal Bütçe Yönetimi</div>
-      <h1 class="hero-h1">Bütçe süreci<br>artık <em>kontrol altında.</em></h1>
+      <h1 class="hero-h1">Bütçe süreçleri<br>artık <em>kontrol altında.</em></h1>
       <p class="hero-sub">
-        Departmanlar, yöneticiler ve CFO aynı sistemde çalışır.
-        <strong>Hiyerarşik onay akışları, sapma analizi ve tam denetim kaydı</strong> —
-        Excel'in bıraktığı boşluğu doldurmak için tasarlandı.
+        Kullanıcı ve Departman Yönetimi, Hiyerarşik onay akışları, Kullanıcı log takibi,
+        Üst düzey Raporlama ve sapma analizleri ve daha fazlası.
+        <strong>Excel'in bıraktığı tüm boşlukları, zaman kayıplarını ve güvenlik açıklarını
+        doldurmak için tasarlandı.</strong>
       </p>
       <div class="hero-actions">
-        <a href="#demo" class="btn-primary">14 Gün Demo Talep Et</a>
-        <span class="hero-note">Kredi kartı gerekmez</span>
+        <a href="#demo" class="btn-primary">Şimdi Ücretsiz Deneyin</a>
       </div>
     </div>
     <div class="hero-img-wrap">
@@ -402,6 +431,74 @@ footer{
 </section>
 
 <!-- ─── PROBLEM ─── -->
+
+
+<!-- ── FELSEFİ BÖLÜM ── -->
+<section class="phil-section" style="padding:96px 48px;">
+  <div class="section-inner" style="max-width:1200px;margin:0 auto;">
+    <div class="phil-header reveal">
+      <div class="phil-eyebrow">Bütçe Nedir?</div>
+      <h2 class="phil-h2">Bir pranga mı,<br>yoksa bir <em>özgürlük alanı mı?</em></h2>
+      <p class="phil-lead">
+        Pek çok yönetici bütçeyi harcamaları engelleyen bir pranga olarak görür. Ancak modern finansal
+        müfredatta bütçe; parayı harcamayı yasaklamak değil, <strong>kaynakların nereye yönlendirileceğini
+        önceden seçme özgürlüğüdür.</strong> Bütçe, geçmişin tozlu kayıtlarını tutmak değil, geleceğin
+        finansal mimarisini bugünden inşa etmektir. Nasıl ki bir mimari proje binanın depreme karşı
+        dayanıklılığını daha temel atılmadan belirliyor ise, bütçe disiplini de bir işletmenin ekonomik
+        dalgalanmalara karşı direncini henüz o dalgalar gelmeden belirleyen mimari projedir.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <div class="phil-table-head">
+        <div class="phil-col-head left">Geleneksel Bakış Açısı</div>
+        <div class="phil-col-head right">Modern Bütçe Kültürü</div>
+      </div>
+      <div class="phil-rows">
+        <div class="phil-row">
+          <div class="phil-cell left-cell">
+            <div class="phil-cell-label">Kısıtlama Odaklı</div>
+            <div class="phil-cell-text">Harcamaları engellemeye ve maliyet kesmeye odaklanır.</div>
+          </div>
+          <div class="phil-cell right-cell">
+            <div class="phil-cell-label">Stratejik Seçim</div>
+            <div class="phil-cell-text">Kaynakların en yüksek verim alınacak alanlara tahsis edilmesini sağlar.</div>
+          </div>
+        </div>
+        <div class="phil-row">
+          <div class="phil-cell left-cell">
+            <div class="phil-cell-label">Departman Sorunu</div>
+            <div class="phil-cell-text">Sadece muhasebenin veya finansın hazırladığı bir "dosya"dır.</div>
+          </div>
+          <div class="phil-cell right-cell">
+            <div class="phil-cell-label">Şirket Disiplini</div>
+            <div class="phil-cell-text">Genel müdürden mavi yakalı çalışana kadar herkesin sahiplendiği bir yaşam biçimidir.</div>
+          </div>
+        </div>
+        <div class="phil-row">
+          <div class="phil-cell left-cell">
+            <div class="phil-cell-label">Reaktif — Geçmişe Bakış</div>
+            <div class="phil-cell-text">Geçmişte ne olduğunun hesabını sormaya çalışır.</div>
+          </div>
+          <div class="phil-cell right-cell">
+            <div class="phil-cell-label">Proaktif — Gelecek Tasarımı</div>
+            <div class="phil-cell-text">Gelecek senaryolarını kurgulayan bir mimari tasarımdır.</div>
+          </div>
+        </div>
+        <div class="phil-row">
+          <div class="phil-cell left-cell">
+            <div class="phil-cell-label">Statik</div>
+            <div class="phil-cell-text">Yıl başında hazırlanan ve revize edilmeyen durağan bir belgedir.</div>
+          </div>
+          <div class="phil-cell right-cell">
+            <div class="phil-cell-label">Dinamik</div>
+            <div class="phil-cell-text">İşletmenin değişen şartlarına uyum sağlayan, yaşayan bir yol haritasıdır.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ── KARŞILAŞTIRMA ── -->
 <section class="comp-section" style="padding:96px 48px;">
