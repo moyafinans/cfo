@@ -5,132 +5,128 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — Finans Akademi</title>
 <meta name="robots" content="noindex, nofollow">
-<link rel="stylesheet" href="fa-system.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-body { background: var(--bg); }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0f12;--panel:#15181d;--panel-2:#1b1f25;--line:#2a2f37;
+  --ink:#e9e7e1;--ink-dim:#9aa0aa;--ink-faint:#5a6070;
+  --gold:#cf9b3f;--gold-soft:#e8c789;--teal:#5fb6a4;
+  --red:#d9684f;--amber:#d9a441;--purple:#8b7cf6;
+}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;line-height:1.6;min-height:100vh;}
 
 /* GİRİŞ */
-.login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
-.login-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 48px 40px; width: 100%; max-width: 360px; box-shadow: var(--shadow-lg); text-align: center; }
-.login-logo { width: 52px; height: 52px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: #fff; margin: 0 auto 20px; }
-.login-title { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
-.login-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; }
-.login-input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font); font-size: 15px; color: var(--text-primary); outline: none; margin-bottom: 12px; text-align: center; letter-spacing: 4px; transition: border-color 0.15s; }
-.login-input:focus { border-color: var(--accent); }
-.login-btn { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; }
-.login-btn:hover { background: var(--accent-hover); }
-.login-err { margin-top: 10px; font-size: 13px; color: #B91C1C; display: none; }
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+.login-card{background:var(--panel);border:1px solid var(--line);padding:48px 40px;width:100%;max-width:360px;text-align:center;}
+.login-mark{width:52px;height:52px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:#16140d;margin:0 auto 20px;}
+.login-title{font-size:19px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.login-sub{font-size:13px;color:var(--ink-dim);margin-bottom:28px;}
+.login-input{width:100%;padding:12px 14px;background:var(--panel-2);border:1px solid var(--line);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;text-align:center;letter-spacing:4px;outline:none;margin-bottom:12px;transition:border-color .15s;}
+.login-input:focus{border-color:var(--gold);}
+.login-btn{width:100%;padding:12px;background:var(--gold);color:#16140d;border:none;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s;}
+.login-btn:hover{background:var(--gold-soft);}
+.login-err{margin-top:10px;font-size:13px;color:var(--red);display:none;}
 
-/* PANEL NAV */
-.panel { display: none; }
-.panel-nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 32px; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-.panel-logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: var(--text-primary); }
-.panel-logo-mark { width: 30px; height: 30px; background: var(--accent); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #fff; }
-.nav-right { display: flex; align-items: center; gap: 12px; }
-.nav-site-link { font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-light); border: none; border-radius: var(--radius-sm); padding: 5px 12px; cursor: pointer; font-family: var(--font); text-decoration: none; }
-.logout-btn { font-size: 12px; font-weight: 500; color: var(--text-muted); background: none; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 5px 12px; cursor: pointer; font-family: var(--font); }
-.logout-btn:hover { color: #B91C1C; border-color: #FECACA; }
+/* PANEL */
+.panel{display:none;}
+.panel-nav{background:var(--panel);border-bottom:1px solid var(--line);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.panel-logo{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--ink);}
+.panel-logo-mark{width:30px;height:30px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:12px;font-weight:700;color:#16140d;}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.nav-site-link{font-size:12px;font-weight:500;color:var(--gold);background:rgba(207,155,63,.1);border:1px solid rgba(207,155,63,.2);padding:5px 12px;text-decoration:none;transition:all .15s;}
+.nav-site-link:hover{background:rgba(207,155,63,.2);}
+.logout-btn{font-size:12px;font-weight:500;color:var(--ink-dim);background:none;border:1px solid var(--line);padding:5px 12px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;}
+.logout-btn:hover{color:var(--red);border-color:var(--red);}
 
-/* PANEL İÇERİK */
-.panel-main { max-width: 960px; margin: 0 auto; padding: 36px 32px 80px; }
+/* ANA İÇERİK */
+.panel-main{max-width:960px;margin:0 auto;padding:36px 32px 80px;}
+
+/* SEKMELER */
+.admin-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:28px;}
+.admin-tab{background:none;border:none;border-bottom:2px solid transparent;color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:.83rem;font-weight:500;padding:10px 20px 12px;cursor:pointer;margin-bottom:-1px;transition:all .15s;}
+.admin-tab.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:700;}
 
 /* İSTATİSTİKLER */
-.stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 36px; }
-.stat { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; }
-.stat-n { font-size: 28px; font-weight: 800; color: var(--text-primary); letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
-.stat-l { font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.stat{background:var(--panel);border:1px solid var(--line);padding:18px 20px;}
+.stat-n{font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-1px;line-height:1;margin-bottom:4px;}
+.stat-l{font-size:11px;color:var(--ink-dim);font-weight:500;text-transform:uppercase;letter-spacing:.5px;}
 
 /* ARAÇLAR */
-.toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
-.toolbar-title { font-size: 16px; font-weight: 700; color: var(--text-primary); }
-.toolbar-right { display: flex; gap: 8px; }
-.refresh-btn { font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-light); border: none; border-radius: var(--radius-sm); padding: 6px 14px; cursor: pointer; font-family: var(--font); }
-.export-btn { font-size: 12px; font-weight: 600; color: var(--text-muted); background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 14px; cursor: pointer; font-family: var(--font); }
-.export-btn:hover { border-color: var(--accent); color: var(--accent); }
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
+.toolbar-title{font-size:15px;font-weight:700;color:var(--ink);}
+.toolbar-right{display:flex;gap:8px;}
+.refresh-btn{font-size:12px;font-weight:600;color:var(--gold);background:rgba(207,155,63,.1);border:1px solid rgba(207,155,63,.2);padding:6px 14px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;}
+.refresh-btn:hover{background:rgba(207,155,63,.2);}
+.export-btn{font-size:12px;font-weight:500;color:var(--ink-dim);background:none;border:1px solid var(--line);padding:6px 14px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;}
+.export-btn:hover{border-color:var(--gold);color:var(--gold);}
 
-/* MESAJ KARTI */
-.msg-list { display: flex; flex-direction: column; gap: 12px; }
+/* MESAJ KARTLARI */
+.msg-list{display:flex;flex-direction:column;gap:8px;}
+.msg-card{background:var(--panel);border:1px solid var(--line);cursor:pointer;transition:border-color .15s;}
+.msg-card:hover{border-color:var(--line);}
+.msg-header{display:flex;align-items:center;gap:14px;padding:14px 18px;}
+.msg-avatar{width:38px;height:38px;border-radius:50%;background:rgba(207,155,63,.15);border:1px solid rgba(207,155,63,.25);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--gold);flex-shrink:0;}
+.msg-info{flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;}
+.msg-name{font-weight:600;font-size:.88rem;color:var(--ink);}
+.msg-email{font-size:.78rem;color:var(--ink-dim);}
+.msg-subject{font-size:.75rem;color:var(--gold);background:rgba(207,155,63,.1);padding:2px 8px;}
+.msg-date{font-size:.72rem;color:var(--ink-faint);white-space:nowrap;flex-shrink:0;}
+.msg-body{display:none;padding:0 18px 16px;border-top:1px solid var(--line);}
+.msg-body.open{display:block;}
+.msg-body p{font-size:.85rem;color:var(--ink-dim);line-height:1.65;padding:14px 0 12px;}
+.msg-actions{display:flex;gap:8px;}
+.action-btn{font-size:12px;font-weight:500;padding:5px 12px;cursor:pointer;font-family:'Inter',sans-serif;border:1px solid var(--line);background:none;color:var(--ink-dim);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:all .15s;}
+.action-btn:hover{border-color:var(--gold);color:var(--gold);}
+.loading-txt{padding:32px;text-align:center;color:var(--ink-faint);font-size:.85rem;}
 
-.msg-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: box-shadow 0.15s; }
-.msg-card:hover { box-shadow: var(--shadow); }
-.msg-card.yeni { border-left: 3px solid var(--accent); }
-
-.msg-header { padding: 16px 20px; display: grid; grid-template-columns: 40px 1fr auto; gap: 14px; align-items: center; cursor: pointer; }
-.msg-header:hover { background: var(--bg); }
-
-.msg-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: var(--accent); flex-shrink: 0; text-transform: uppercase; }
-
-.msg-info { min-width: 0; }
-.msg-name { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
-.msg-email-text { font-size: 12px; color: var(--text-muted); }
-
-.msg-meta-col { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
-.msg-date-text { font-size: 11px; color: var(--text-faint); white-space: nowrap; }
-.msg-konu-badge { font-size: 11px; font-weight: 600; background: var(--accent-light); color: var(--accent); padding: 2px 9px; border-radius: 10px; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-.msg-body { display: none; border-top: 1px solid var(--border); }
-.msg-body.open { display: block; }
-
-.msg-body-inner { padding: 18px 20px 18px 74px; }
-.msg-body-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-faint); margin-bottom: 6px; }
-.msg-body-text { font-size: 14px; color: var(--text-body); line-height: 1.7; white-space: pre-wrap; }
-
-.msg-actions { padding: 12px 20px 14px 74px; display: flex; gap: 8px; border-top: 1px solid var(--border); background: var(--bg); }
-.action-btn { font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font); border: 1px solid var(--border); background: var(--white); color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: all 0.15s; }
-.action-btn:hover { border-color: var(--accent); color: var(--accent); }
-.action-btn.danger:hover { border-color: #FECACA; color: #B91C1C; background: #FEF2F2; }
-.admin-tab{background:none;border:none;border-bottom:3px solid transparent;color:var(--text-muted);font-family:var(--font);font-size:.83rem;font-weight:500;padding:8px 20px 10px;cursor:pointer;transition:all .15s;margin-bottom:-2px;}
-.admin-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:700;}
-.abone-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);font-size:.83rem;gap:12px;flex-wrap:wrap;}
-.abone-info .abone-name{font-weight:600;color:var(--text-primary);}
-.abone-info .abone-email{color:var(--text-muted);font-size:.78rem;margin-top:2px;}
-.abone-info .abone-date{color:var(--text-muted);font-size:.73rem;margin-top:1px;}
+/* ABONE KARTLARI */
+.abone-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--panel);gap:12px;flex-wrap:wrap;}
+.abone-info .abone-name{font-weight:600;color:var(--ink);font-size:.87rem;}
+.abone-info .abone-email{color:var(--ink-dim);font-size:.78rem;margin-top:2px;}
+.abone-info .abone-date{color:var(--ink-faint);font-size:.72rem;margin-top:1px;}
 .abone-actions{display:flex;gap:8px;flex-shrink:0;}
-.btn-onayla{background:#16a34a;color:#fff;border:none;font-family:var(--font);font-size:.75rem;font-weight:600;padding:5px 14px;cursor:pointer;border-radius:4px;transition:opacity .15s;}
+.btn-onayla{background:#16a34a;color:#fff;border:none;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:600;padding:5px 14px;cursor:pointer;transition:opacity .15s;}
 .btn-onayla:hover{opacity:.85;}
-.btn-reddet{background:none;color:#b91c1c;border:1px solid #fecaca;font-family:var(--font);font-size:.75rem;font-weight:500;padding:5px 14px;cursor:pointer;border-radius:4px;}
-.btn-reddet:hover{background:#fef2f2;}
-.btn-kaldir{background:none;color:var(--text-muted);border:1px solid var(--border);font-family:var(--font);font-size:.75rem;padding:5px 12px;cursor:pointer;border-radius:4px;}
-.btn-kaldir:hover{border-color:#fecaca;color:#b91c1c;}
-.badge-bekleyen{background:#fef3c7;color:#92400e;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:3px;}
-.badge-aktif{background:#dcfce7;color:#166534;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:3px;}
-.empty-txt{padding:24px;text-align:center;color:var(--text-muted);font-size:.83rem;}
-.demo-card{background:var(--white);border:1px solid var(--border);margin-bottom:8px;}
-.demo-card-top{display:flex;align-items:flex-start;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);gap:12px;}
+.btn-reddet{background:none;color:var(--red);border:1px solid rgba(217,104,79,.3);font-family:'Inter',sans-serif;font-size:.75rem;padding:5px 14px;cursor:pointer;transition:all .15s;}
+.btn-reddet:hover{background:rgba(217,104,79,.1);}
+.btn-kaldir{background:none;color:var(--ink-dim);border:1px solid var(--line);font-family:'Inter',sans-serif;font-size:.75rem;padding:5px 12px;cursor:pointer;}
+.btn-kaldir:hover{border-color:var(--red);color:var(--red);}
+.badge-bekleyen{background:rgba(217,164,65,.12);color:var(--amber);font-size:.7rem;font-weight:600;padding:2px 8px;}
+.badge-aktif{background:rgba(95,182,164,.12);color:var(--teal);font-size:.7rem;font-weight:600;padding:2px 8px;}
+.empty-txt{padding:24px;text-align:center;color:var(--ink-faint);font-size:.83rem;background:var(--panel);border:1px solid var(--line);}
+
+/* DEMO KARTLARI */
+.demo-card{background:var(--panel);border:1px solid var(--line);margin-bottom:8px;}
+.demo-card-top{display:flex;align-items:flex-start;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);gap:12px;}
 .demo-card-body{padding:12px 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 16px;}
-.demo-card-name{font-weight:700;font-size:.88rem;color:var(--text-primary);}
-.demo-card-email{font-size:.76rem;color:var(--text-muted);margin-top:2px;}
-.demo-card-date{font-size:.7rem;color:var(--text-muted);white-space:nowrap;flex-shrink:0;}
-.dm-label{font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:2px;font-weight:600;}
-.dm-val{font-size:.8rem;color:var(--text-primary);font-weight:500;}
-.demo-badge{font-size:.7rem;font-weight:600;padding:3px 9px;border-radius:3px;white-space:nowrap;}
-.demo-badge.bekleyen{background:#fef3c7;color:#92400e;}
-.demo-badge.incelendi{background:#dcfce7;color:#166534;}
+.demo-card-name{font-weight:600;font-size:.88rem;color:var(--ink);}
+.demo-card-email{font-size:.76rem;color:var(--ink-dim);margin-top:2px;}
+.demo-card-date{font-size:.7rem;color:var(--ink-faint);white-space:nowrap;flex-shrink:0;}
+.dm-label{font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-faint);margin-bottom:2px;font-weight:600;}
+.dm-val{font-size:.82rem;color:var(--ink);font-weight:500;}
+.demo-badge{font-size:.7rem;font-weight:600;padding:3px 9px;white-space:nowrap;}
+.demo-badge.bekleyen{background:rgba(217,164,65,.12);color:var(--amber);}
+.demo-badge.incelendi{background:rgba(95,182,164,.12);color:var(--teal);}
 .demo-card-actions{display:flex;gap:8px;padding:0 18px 12px;}
-.btn-incele{background:#16a34a;color:#fff;border:none;font-family:var(--font);font-size:.74rem;font-weight:600;padding:5px 12px;cursor:pointer;border-radius:4px;}
+.btn-incele{background:#16a34a;color:#fff;border:none;font-family:'Inter',sans-serif;font-size:.74rem;font-weight:600;padding:5px 12px;cursor:pointer;}
 .btn-incele:hover{opacity:.85;}
-.demo-not{font-size:.78rem;color:var(--text-muted);padding:0 18px 8px;font-style:italic;}
+.demo-not{font-size:.78rem;color:var(--ink-dim);padding:0 18px 8px;font-style:italic;}
 
-.empty { text-align: center; padding: 60px; color: var(--text-muted); font-size: 14px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); }
-.loading-txt { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; }
-
-@media (max-width: 640px) {
-  .panel-nav { padding: 0 16px; }
-  .panel-main { padding: 24px 16px 60px; }
-  .stats { grid-template-columns: repeat(2,1fr); }
-  .msg-header { grid-template-columns: 36px 1fr; }
-  .msg-meta-col { display: none; }
-  .msg-body-inner { padding: 14px 16px; }
-  .msg-actions { padding: 10px 16px; }
+@media(max-width:640px){
+  .panel-nav{padding:0 16px;}
+  .panel-main{padding:24px 16px 60px;}
+  .stats{grid-template-columns:repeat(2,1fr);}
+  .login-card{padding:36px 24px;}
 }
 </style>
 </head>
 <body>
 
-<!-- GİRİŞ -->
 <div class="login-wrap" id="login-screen">
   <div class="login-card">
-    <div class="login-logo">FA</div>
+    <div class="login-mark">FA</div>
     <div class="login-title">Admin Girişi</div>
     <div class="login-sub">Finans Akademi yönetim paneli</div>
     <input class="login-input" type="password" id="pw" placeholder="••••••••">
@@ -139,30 +135,27 @@ body { background: var(--bg); }
   </div>
 </div>
 
-<!-- PANEL -->
 <div class="panel" id="panel">
   <nav class="panel-nav">
     <div class="panel-logo">
       <div class="panel-logo-mark">FA</div>
-      Admin Panel
+      Finans Akademi Admin
     </div>
     <div class="nav-right">
-      <a href="index.html" class="nav-site-link" target="_blank">↗ Siteyi Gör</a>
-      <button class="logout-btn" id="logout-btn">Çıkış</button>
+      <a href="index.html" class="nav-site-link">← Siteye Git</a>
+      <button class="logout-btn" id="logout-btn">Çıkış Yap</button>
     </div>
   </nav>
 
   <div class="panel-main">
-    <!-- SEKMELİ NAVİGASYON -->
-    <div style="display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:28px;">
-      <button class="admin-tab active" id="tab-mesaj" onclick="switchAdminTab('mesaj')">✉ Mesajlar</button>
-      <button class="admin-tab" id="tab-abone" onclick="switchAdminTab('abone')">👥 Aboneler</button>
-      <button class="admin-tab" id="tab-demo" onclick="switchAdminTab('demo')">Budget Flow Demo</button>
+    <div class="admin-tabs">
+      <button class="admin-tab active" id="tab-mesaj" onclick="switchTab('mesaj')">Mesajlar</button>
+      <button class="admin-tab" id="tab-abone" onclick="switchTab('abone')">Aboneler</button>
+      <button class="admin-tab" id="tab-demo" onclick="switchTab('demo')">Budget Flow Demo</button>
     </div>
 
-    <!-- MESAJLAR SEKMESİ -->
+    <!-- MESAJLAR -->
     <div id="section-mesaj">
-      <!-- İSTATİSTİKLER -->
       <div class="stats">
         <div class="stat"><div class="stat-n" id="s-toplam">—</div><div class="stat-l">Toplam</div></div>
         <div class="stat"><div class="stat-n" id="s-bugun">—</div><div class="stat-l">Bugün</div></div>
@@ -176,285 +169,204 @@ body { background: var(--bg); }
           <button class="refresh-btn" id="refresh-btn">↻ Yenile</button>
         </div>
       </div>
-      <div class="msg-list" id="msg-list">
-        <div class="loading-txt">Yükleniyor...</div>
-      </div>
+      <div class="msg-list" id="msg-list"><div class="loading-txt">Yükleniyor...</div></div>
     </div>
 
-    <!-- ABONELER SEKMESİ -->
+    <!-- ABONELER -->
     <div id="section-abone" style="display:none;">
       <div class="stats">
         <div class="stat"><div class="stat-n" id="a-toplam">—</div><div class="stat-l">Toplam</div></div>
         <div class="stat"><div class="stat-n" id="a-bekleyen">—</div><div class="stat-l">Bekleyen</div></div>
         <div class="stat"><div class="stat-n" id="a-aktif">—</div><div class="stat-l">Onaylı</div></div>
       </div>
-      <div class="toolbar">
-        <div class="toolbar-title">Onay Bekleyenler</div>
-        <div class="toolbar-right">
-          <button class="refresh-btn" onclick="yuklAboneler()">↻ Yenile</button>
-        </div>
-      </div>
-      <div id="abone-bekleyen" style="margin-bottom:32px;"><div class="loading-txt">Yükleniyor...</div></div>
-      <div class="toolbar" style="margin-top:16px;">
-        <div class="toolbar-title">Onaylı Aboneler</div>
-      </div>
+      <div class="toolbar"><div class="toolbar-title">Onay Bekleyenler</div><div class="toolbar-right"><button class="refresh-btn" onclick="yuklAboneler()">↻ Yenile</button></div></div>
+      <div id="abone-bekleyen" style="margin-bottom:24px;"><div class="loading-txt">Yükleniyor...</div></div>
+      <div class="toolbar" style="margin-top:8px;"><div class="toolbar-title">Onaylı Aboneler</div></div>
       <div id="abone-aktif"><div class="loading-txt">Yükleniyor...</div></div>
     </div>
 
-    <!-- BUDGET FLOW DEMO TALEPLERİ -->
+    <!-- BUDGET FLOW DEMO -->
     <div id="section-demo" style="display:none;">
       <div class="stats">
         <div class="stat"><div class="stat-n" id="d-toplam">—</div><div class="stat-l">Toplam</div></div>
         <div class="stat"><div class="stat-n" id="d-bekleyen">—</div><div class="stat-l">Bekleyen</div></div>
         <div class="stat"><div class="stat-n" id="d-incelendi">—</div><div class="stat-l">İncelendi</div></div>
       </div>
-      <div class="toolbar">
-        <div class="toolbar-title">Demo Talepleri</div>
-        <div class="toolbar-right">
-          <button class="refresh-btn" onclick="yuklDemoTalepler()">↻ Yenile</button>
-        </div>
-      </div>
+      <div class="toolbar"><div class="toolbar-title">Demo Talepleri</div><div class="toolbar-right"><button class="refresh-btn" onclick="yuklDemoTalepler()">↻ Yenile</button></div></div>
       <div id="demo-list"><div class="loading-txt">Yükleniyor...</div></div>
     </div>
-
   </div>
 </div>
 
 <script>
 var SIFRE = 'finans2026';
-var SUPABASE_URL = 'https://kiaguwpfdzffibmltdnl.supabase.co';
-var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
+var SB = 'https://kiaguwpfdzffibmltdnl.supabase.co';
+var KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
 var tumData = [];
 
-function esc(s) {
-  if(!s) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function h(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function api(path){
+  return fetch(SB+path,{headers:{'apikey':KEY,'Authorization':'Bearer '+KEY}}).then(function(r){return r.json();});
+}
+function patch(path,body){
+  return fetch(SB+path,{method:'PATCH',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(body)});
+}
+function del(path){
+  return fetch(SB+path,{method:'DELETE',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY}});
 }
 
-function giris() {
-  var val = document.getElementById('pw').value;
-  if(val === SIFRE) {
+function giris(){
+  var v = document.getElementById('pw').value;
+  var err = document.getElementById('login-err');
+  if(v === SIFRE){
     sessionStorage.setItem('fa_ok','1');
-    goster();
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('panel').style.display='block';
+    yukle();
   } else {
-    var err = document.getElementById('pw-err');
-    if(err) { err.style.display='block'; }
-    document.getElementById('pw').value = '';
+    err.style.display='block';
+    document.getElementById('pw').value='';
     document.getElementById('pw').focus();
   }
 }
 
-function cikis() {
+function cikis(){
   sessionStorage.removeItem('fa_ok');
   location.reload();
 }
 
-function goster() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('panel').style.display = 'block';
-  document.getElementById('logout-btn').addEventListener('click', cikis);
-  document.getElementById('refresh-btn').addEventListener('click', yukle);
-  document.getElementById('export-btn').addEventListener('click', csvIndir);
-  switchAdminTab('mesaj');
-  yukle();
-}
-
-function switchAdminTab(tab) {
+function switchTab(tab){
   ['mesaj','abone','demo'].forEach(function(t){
-    var tb = document.getElementById('tab-'+t);
-    var sc = document.getElementById('section-'+t);
-    if(tb) tb.classList.toggle('active', tab===t);
-    if(sc) sc.style.display = tab===t ? '' : 'none';
+    document.getElementById('tab-'+t).classList.toggle('active',t===tab);
+    document.getElementById('section-'+t).style.display=t===tab?'':'none';
   });
   if(tab==='mesaj') yukle();
   if(tab==='abone') yuklAboneler();
   if(tab==='demo') yuklDemoTalepler();
 }
 
-async function yukle() {
-  try {
-    var r = await fetch(SUPABASE_URL+'/rest/v1/iletisim?select=*&order=created_at.desc', {
-      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
-    });
-    tumData = await r.json();
-    updateStats(tumData);
-    renderMessages(tumData);
-  } catch(e) {
-    document.getElementById('msg-list').innerHTML = '<div class="loading-txt">Yükleme hatası.</div>';
-  }
+// ── MESAJLAR ──
+async function yukle(){
+  try{
+    tumData = await api('/rest/v1/iletisim?select=*&order=created_at.desc');
+    var now=new Date();
+    document.getElementById('s-toplam').textContent=tumData.length;
+    document.getElementById('s-bugun').textContent=tumData.filter(function(d){return new Date(d.created_at).toDateString()===now.toDateString();}).length;
+    document.getElementById('s-hafta').textContent=tumData.filter(function(d){return now-new Date(d.created_at)<7*86400000;}).length;
+    document.getElementById('s-ay').textContent=tumData.filter(function(d){var t=new Date(d.created_at);return t.getMonth()===now.getMonth()&&t.getFullYear()===now.getFullYear();}).length;
+    var el=document.getElementById('msg-list');
+    if(!tumData.length){el.innerHTML='<div class="empty-txt">Henüz mesaj yok.</div>';return;}
+    el.innerHTML=tumData.map(function(m){
+      var dt=new Date(m.created_at);
+      var tarih=dt.toLocaleDateString('tr-TR')+' '+dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+      var ini=(m.ad_soyad||'??').split(' ').map(function(w){return w[0]||'';}).join('').toUpperCase().slice(0,2);
+      return '<div class="msg-card" onclick="this.querySelector(\'.msg-body\').classList.toggle(\'open\')">'+
+        '<div class="msg-header"><div class="msg-avatar">'+ini+'</div>'+
+        '<div class="msg-info"><span class="msg-name">'+h(m.ad_soyad)+'</span><span class="msg-email">'+h(m.email)+'</span>'+(m.konu?'<span class="msg-subject">'+h(m.konu)+'</span>':'')+'</div>'+
+        '<span class="msg-date">'+tarih+'</span></div>'+
+        '<div class="msg-body"><p>'+h(m.mesaj)+'</p>'+
+        '<div class="msg-actions"><a href="mailto:'+h(m.email)+'" class="action-btn">Yanıtla</a></div></div></div>';
+    }).join('');
+  }catch(e){document.getElementById('msg-list').innerHTML='<div class="empty-txt">Yükleme hatası.</div>';}
 }
 
-function updateStats(data) {
-  var now = new Date();
-  var bug = data.filter(function(d){ var t=new Date(d.created_at); return t.toDateString()===now.toDateString(); }).length;
-  var haf = data.filter(function(d){ var t=new Date(d.created_at); return (now-t)<7*86400000; }).length;
-  var ay  = data.filter(function(d){ var t=new Date(d.created_at); return t.getMonth()===now.getMonth()&&t.getFullYear()===now.getFullYear(); }).length;
-  document.getElementById('s-toplam').textContent = data.length;
-  document.getElementById('s-bugun').textContent  = bug;
-  document.getElementById('s-hafta').textContent  = haf;
-  document.getElementById('s-ay').textContent     = ay;
+function csvIndir(){
+  var rows=[['ID','Ad Soyad','Email','Konu','Mesaj','Tarih']];
+  tumData.forEach(function(m){rows.push([m.id,m.ad_soyad,m.email,m.konu||'',m.mesaj,m.created_at]);});
+  var csv=rows.map(function(r){return r.map(function(c){return '"'+(c||'').toString().replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download='mesajlar.csv';a.click();
 }
 
-function renderMessages(data) {
-  var el = document.getElementById('msg-list');
-  if(!data.length){ el.innerHTML='<div class="empty-txt">Henüz mesaj yok.</div>'; return; }
-  el.innerHTML = data.map(function(m){
-    var dt = new Date(m.created_at);
-    var tarih = dt.toLocaleDateString('tr-TR')+' '+dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
-    var initials = m.ad_soyad ? m.ad_soyad.split(' ').map(function(w){return w[0];}).join('').toUpperCase().slice(0,2) : '??';
-    return '<div class="msg-card" onclick="this.querySelector('.msg-body').classList.toggle('open')">'+
-      '<div class="msg-header">'+
-        '<div class="msg-avatar">'+initials+'</div>'+
-        '<div class="msg-info">'+
-          '<span class="msg-name">'+esc(m.ad_soyad)+'</span>'+
-          '<span class="msg-email">'+esc(m.email)+'</span>'+
-          (m.konu?'<span class="msg-subject">'+esc(m.konu)+'</span>':'')+
-        '</div>'+
-        '<span class="msg-date">'+tarih+'</span>'+
-      '</div>'+
-      '<div class="msg-body"><p>'+esc(m.mesaj)+'</p>'+
-        '<div class="msg-actions">'+
-          '<a href="mailto:'+esc(m.email)+'?subject=Re: '+esc(m.konu||'Mesajınız')+'" class="action-btn">Yanıtla</a>'+
-        '</div>'+
-      '</div>'+
-    '</div>';
+// ── ABONELER ──
+async function yuklAboneler(){
+  try{
+    var data=await api('/rest/v1/aboneler?select=*&order=created_at.desc');
+    var bek=data.filter(function(d){return !d.aktif;});
+    var akt=data.filter(function(d){return d.aktif;});
+    document.getElementById('a-toplam').textContent=data.length;
+    document.getElementById('a-bekleyen').textContent=bek.length;
+    document.getElementById('a-aktif').textContent=akt.length;
+    renderAboneler('abone-bekleyen',bek,false);
+    renderAboneler('abone-aktif',akt,true);
+  }catch(e){document.getElementById('abone-bekleyen').innerHTML='<div class="empty-txt">Yükleme hatası.</div>';}
+}
+
+function renderAboneler(elId,list,isAktif){
+  var el=document.getElementById(elId);
+  if(!list.length){el.innerHTML='<div class="empty-txt">'+(isAktif?'Onaylı abone yok.':'Bekleyen talep yok.')+'</div>';return;}
+  el.innerHTML=list.map(function(a){
+    var dt=new Date(a.created_at);
+    var tarih=dt.toLocaleDateString('tr-TR')+' '+dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+    var badge=isAktif?'<span class="badge-aktif">Onaylı</span>':'<span class="badge-bekleyen">Bekliyor</span>';
+    var actions=isAktif
+      ?'<button class="btn-kaldir" onclick="aboneGuncelle('+a.id+',false)">Pasife Al</button>'
+      :'<button class="btn-onayla" onclick="aboneGuncelle('+a.id+',true)">Onayla</button><button class="btn-reddet" onclick="aboneSil('+a.id+')">Reddet</button>';
+    return '<div class="abone-row"><div class="abone-info"><div class="abone-name">'+h(a.ad_soyad)+' '+badge+'</div><div class="abone-email">'+h(a.email)+'</div><div class="abone-date">'+tarih+'</div></div><div class="abone-actions">'+actions+'</div></div>';
   }).join('');
 }
 
-function csvIndir() {
-  var rows = [['ID','Ad Soyad','Email','Konu','Mesaj','Tarih']];
-  tumData.forEach(function(m){
-    rows.push([m.id,m.ad_soyad,m.email,m.konu||'',m.mesaj,m.created_at]);
-  });
-  var csv = rows.map(function(r){ return r.map(function(c){ return '"'+(c||'').toString().replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
-  var a = document.createElement('a');
-  a.href = 'data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
-  a.download = 'mesajlar.csv';
-  a.click();
-}
-
-async function yuklAboneler() {
-  try {
-    var r = await fetch(SUPABASE_URL+'/rest/v1/aboneler?select=*&order=created_at.desc', {
-      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
-    });
-    var data = await r.json();
-    var bekleyen = data.filter(function(d){return !d.aktif;});
-    var aktif = data.filter(function(d){return d.aktif;});
-    document.getElementById('a-toplam').textContent = data.length;
-    document.getElementById('a-bekleyen').textContent = bekleyen.length;
-    document.getElementById('a-aktif').textContent = aktif.length;
-    renderAboneler('abone-bekleyen', bekleyen, false);
-    renderAboneler('abone-aktif', aktif, true);
-  } catch(e) {
-    document.getElementById('abone-bekleyen').innerHTML = '<div class="empty-txt">Yükleme hatası.</div>';
-  }
-}
-
-function renderAboneler(elId, list, isAktif) {
-  var el = document.getElementById(elId);
-  if(!list.length){ el.innerHTML='<div class="empty-txt">'+(isAktif?'Onaylı abone yok.':'Bekleyen talep yok.')+'</div>'; return; }
-  el.innerHTML = list.map(function(a){
-    var dt = new Date(a.created_at);
-    var tarih = dt.toLocaleDateString('tr-TR')+' '+dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
-    var actions = isAktif
-      ? '<button class="btn-kaldir" onclick="aboneGuncelle('+a.id+',false)">Pasife Al</button>'
-      : '<button class="btn-onayla" onclick="aboneGuncelle('+a.id+',true)">✓ Onayla</button><button class="btn-reddet" onclick="aboneSil('+a.id+')">✕ Reddet</button>';
-    var badge = isAktif ? '<span class="badge-aktif">Onaylı</span>' : '<span class="badge-bekleyen">Bekliyor</span>';
-    return '<div class="abone-row">'+
-      '<div class="abone-info">'+
-        '<div class="abone-name">'+esc(a.ad_soyad)+' '+badge+'</div>'+
-        '<div class="abone-email">'+esc(a.email)+'</div>'+
-        '<div class="abone-date">'+tarih+'</div>'+
-      '</div>'+
-      '<div class="abone-actions">'+actions+'</div>'+
-    '</div>';
-  }).join('');
-}
-
-async function aboneGuncelle(id, aktif) {
-  await fetch(SUPABASE_URL+'/rest/v1/aboneler?id=eq.'+id, {
-    method:'PATCH',
-    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-    body:JSON.stringify({aktif:aktif})
-  });
+async function aboneGuncelle(id,aktif){
+  await patch('/rest/v1/aboneler?id=eq.'+id,{aktif:aktif});
   yuklAboneler();
 }
 
-async function aboneSil(id) {
-  if(!confirm('Bu abone talebini silmek istiyor musunuz?')) return;
-  await fetch(SUPABASE_URL+'/rest/v1/aboneler?id=eq.'+id, {
-    method:'DELETE',
-    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
-  });
+async function aboneSil(id){
+  if(!confirm('Bu talebi silmek istiyor musunuz?'))return;
+  await del('/rest/v1/aboneler?id=eq.'+id);
   yuklAboneler();
 }
 
-async function yuklDemoTalepler() {
-  try {
-    var r = await fetch(SUPABASE_URL+'/rest/v1/demo_talepler?select=*&order=created_at.desc', {
-      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
-    });
-    var data = await r.json();
-    document.getElementById('d-toplam').textContent = data.length;
-    document.getElementById('d-bekleyen').textContent = data.filter(function(d){return d.durum==='bekliyor';}).length;
-    document.getElementById('d-incelendi').textContent = data.filter(function(d){return d.durum==='incelendi';}).length;
-    renderDemoTalepler(data);
-  } catch(e) {
-    document.getElementById('demo-list').innerHTML = '<div class="empty-txt">Yükleme hatası.</div>';
-  }
+// ── DEMO TALEPLERİ ──
+async function yuklDemoTalepler(){
+  try{
+    var data=await api('/rest/v1/demo_talepler?select=*&order=created_at.desc');
+    document.getElementById('d-toplam').textContent=data.length;
+    document.getElementById('d-bekleyen').textContent=data.filter(function(d){return d.durum==='bekliyor';}).length;
+    document.getElementById('d-incelendi').textContent=data.filter(function(d){return d.durum==='incelendi';}).length;
+    var el=document.getElementById('demo-list');
+    if(!data.length){el.innerHTML='<div class="empty-txt">Henüz demo talebi yok.</div>';return;}
+    el.innerHTML=data.map(function(d){
+      var dt=new Date(d.created_at);
+      var tarih=dt.toLocaleDateString('tr-TR')+' '+dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+      var badge=d.durum==='incelendi'?'<span class="demo-badge incelendi">İncelendi</span>':'<span class="demo-badge bekleyen">Bekliyor</span>';
+      var next=d.durum==='bekliyor'?'incelendi':'bekliyor';
+      var lbl=d.durum==='bekliyor'?'İncelendi Olarak İşaretle':'Bekleyene Al';
+      var not_=d.not_ek?'<div class="demo-not">Not: '+h(d.not_ek)+'</div>':'';
+      return '<div class="demo-card">'+
+        '<div class="demo-card-top"><div><div class="demo-card-name">'+h(d.ad_soyad)+'</div><div class="demo-card-email">'+h(d.email)+(d.telefon?' · '+h(d.telefon):'')+'</div></div>'+
+        '<div style="display:flex;align-items:center;gap:8px;">'+badge+'<span class="demo-card-date">'+tarih+'</span></div></div>'+
+        '<div class="demo-card-body">'+
+          '<div><div class="dm-label">Firma</div><div class="dm-val">'+h(d.firma_adi)+'</div></div>'+
+          '<div><div class="dm-label">Vergi No</div><div class="dm-val">'+h(d.vergi_no)+'</div></div>'+
+          '<div><div class="dm-label">Sektör</div><div class="dm-val">'+h(d.sektor)+'</div></div>'+
+          '<div><div class="dm-label">Kullanıcı</div><div class="dm-val">'+h(d.kullanici_sayisi)+'</div></div>'+
+          '<div><div class="dm-label">Departman</div><div class="dm-val">'+h(d.departman_sayisi)+'</div></div>'+
+        '</div>'+not_+
+        '<div class="demo-card-actions"><button class="btn-incele" onclick="demoDurumGuncelle('+d.id+',\''+next+'\')">'+lbl+'</button><a href="mailto:'+h(d.email)+'" class="action-btn">Yanıtla</a></div></div>';
+    }).join('');
+  }catch(e){document.getElementById('demo-list').innerHTML='<div class="empty-txt">Yükleme hatası.</div>';}
 }
 
-function renderDemoTalepler(list) {
-  var el = document.getElementById('demo-list');
-  if(!list.length){ el.innerHTML='<div class="empty-txt">Henüz demo talebi yok.</div>'; return; }
-  el.innerHTML = list.map(function(d){
-    var dt = new Date(d.created_at);
-    var tarih = dt.toLocaleDateString('tr-TR')+' '+dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
-    var badge = d.durum==='incelendi'
-      ? '<span class="demo-badge incelendi">İncelendi</span>'
-      : '<span class="demo-badge bekleyen">Bekliyor</span>';
-    var nextDurum = d.durum==='bekliyor' ? 'incelendi' : 'bekliyor';
-    var btnLabel = d.durum==='bekliyor' ? 'İncelendi Olarak İşaretle' : 'Bekleyene Al';
-    var notHtml = d.not_ek ? '<div class="demo-not">Not: '+esc(d.not_ek)+'</div>' : '';
-    return '<div class="demo-card">'+
-      '<div class="demo-card-top">'+
-        '<div>'+
-          '<div class="demo-card-name">'+esc(d.ad_soyad)+'</div>'+
-          '<div class="demo-card-email">'+esc(d.email)+(d.telefon?' · '+esc(d.telefon):'')+'</div>'+
-        '</div>'+
-        '<div style="display:flex;align-items:center;gap:8px;">'+badge+'<span class="demo-card-date">'+tarih+'</span></div>'+
-      '</div>'+
-      '<div class="demo-card-body">'+
-        '<div><div class="dm-label">Firma</div><div class="dm-val">'+esc(d.firma_adi)+'</div></div>'+
-        '<div><div class="dm-label">Vergi No</div><div class="dm-val">'+esc(d.vergi_no)+'</div></div>'+
-        '<div><div class="dm-label">Sektör</div><div class="dm-val">'+esc(d.sektor)+'</div></div>'+
-        '<div><div class="dm-label">Kullanıcı</div><div class="dm-val">'+esc(d.kullanici_sayisi)+'</div></div>'+
-        '<div><div class="dm-label">Departman</div><div class="dm-val">'+esc(d.departman_sayisi)+'</div></div>'+
-      '</div>'+
-      notHtml+
-      '<div class="demo-card-actions">'+
-        '<button class="btn-incele" onclick="demoDurumGuncelle('+d.id+',''+nextDurum+'')">'+btnLabel+'</button>'+
-        '<a href="mailto:'+esc(d.email)+'" class="action-btn">Yanıtla</a>'+
-      '</div>'+
-    '</div>';
-  }).join('');
-}
-
-async function demoDurumGuncelle(id, durum) {
-  await fetch(SUPABASE_URL+'/rest/v1/demo_talepler?id=eq.'+id, {
-    method:'PATCH',
-    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-    body:JSON.stringify({durum:durum})
-  });
+async function demoDurumGuncelle(id,durum){
+  await patch('/rest/v1/demo_talepler?id=eq.'+id,{durum:durum});
   yuklDemoTalepler();
 }
 
-// ─── INIT ───
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('giris-btn').addEventListener('click', giris);
-  document.getElementById('pw').addEventListener('keydown', function(e){ if(e.key==='Enter') giris(); });
-  if(sessionStorage.getItem('fa_ok') === '1') goster();
+// ── INIT ──
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('giris-btn').addEventListener('click',giris);
+  document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')giris();});
+  document.getElementById('logout-btn').addEventListener('click',cikis);
+  document.getElementById('refresh-btn').addEventListener('click',yukle);
+  document.getElementById('export-btn').addEventListener('click',csvIndir);
+  if(sessionStorage.getItem('fa_ok')==='1'){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('panel').style.display='block';
+    yukle();
+  }
 });
 </script>
 </body>
