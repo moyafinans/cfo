@@ -759,7 +759,7 @@ footer{
             <div class="f-row2">
               <div class="f-field">
                 <label class="f-label">Sektör <span class="req">*</span></label>
-                <select id="fSektor" class="f-select">
+                <select id="fSektor" class="f-select" onchange="sektorDegisti()">
                   <option value="">Seçiniz</option>
                   <option>Üretim</option>
                   <option>Ticaret / Perakende</option>
@@ -774,10 +774,15 @@ footer{
                   <option>Diğer</option>
                 </select>
                 <div class="f-err" id="eSektor">Seçiniz</div>
+              <div id="sektorDigerWrap" style="display:none;margin-top:10px;">
+                <input id="fSektorDiger" type="text" class="f-input" placeholder="Sektörünüzü yazınız">
+                <div class="f-err" id="eSektorDiger">Bu alan zorunludur</div>
+              </div>
               </div>
               <div class="f-field">
-                <label class="f-label">Telefon</label>
+                <label class="f-label">Telefon <span class="req">*</span></label>
                 <input id="fTel" type="tel" class="f-input" placeholder="+90 5xx xxx xx xx">
+                <div class="f-err" id="eTel">Zorunlu alan</div>
               </div>
             </div>
             <div class="f-row2">
@@ -868,6 +873,19 @@ function clearForm(){
   document.querySelectorAll('.f-input,.f-select,.f-textarea').forEach(function(el){ el.classList.remove('err'); });
   document.querySelectorAll('.f-err').forEach(function(el){ el.style.display='none'; });
   document.getElementById('fMsg').style.display='none';
+  document.getElementById('fSektorDiger').classList.remove('err');
+  document.getElementById('eSektorDiger').style.display='none';
+}
+
+function sektorDegisti(){
+  var v = document.getElementById('fSektor').value;
+  var wrap = document.getElementById('sektorDigerWrap');
+  wrap.style.display = v === 'Diğer' ? 'block' : 'none';
+  if(v !== 'Diğer'){
+    document.getElementById('fSektorDiger').value = '';
+    document.getElementById('fSektorDiger').classList.remove('err');
+    document.getElementById('eSektorDiger').style.display = 'none';
+  }
 }
 
 function showErr(id){ document.getElementById('e'+id).style.display='block'; document.getElementById('f'+id).classList.add('err'); }
@@ -890,6 +908,14 @@ function submitDemo(){
   if(firma.length < 2){ showErr('Firma'); ok=false; }
   if(vergi.length < 5){ showErr('Vergi'); ok=false; }
   if(!sektor){ showErr('Sektor'); ok=false; }
+  // Diğer sektör kontrolü
+  var sektorFinal = sektor;
+  if(sektor === 'Diğer'){
+    var sektorDiger = document.getElementById('fSektorDiger').value.trim();
+    if(!sektorDiger){ document.getElementById('eSektorDiger').style.display='block'; document.getElementById('fSektorDiger').classList.add('err'); ok=false; }
+    else { sektorFinal = sektorDiger; }
+  }
+  if(!tel){ showErr('Tel'); ok=false; }
   if(!kullanici){ showErr('Kullanici'); ok=false; }
   if(!departman){ showErr('Departman'); ok=false; }
   if(!ok) return;
@@ -910,7 +936,7 @@ function submitDemo(){
       email: email,
       firma_adi: firma,
       vergi_no: vergi,
-      sektor: sektor,
+      sektor: sektorFinal,
       kullanici_sayisi: kullanici,
       departman_sayisi: departman,
       telefon: tel||null,
