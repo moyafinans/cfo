@@ -389,6 +389,16 @@ footer{
   .brand h1 { font-size: 1rem; }
 }
 
+
+.sidebar-back{
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:500;color:var(--ink-dim);
+  text-decoration:none;padding:10px 20px;
+  border-bottom:1px solid var(--line);
+  transition:color .15s;
+}
+.sidebar-back:hover{color:var(--gold);}
+.sidebar-back svg{width:12px;height:12px;flex-shrink:0;}
 </style>
 </head>
 <body><script>
@@ -408,6 +418,10 @@ footer{
 
   <!-- SIDEBAR -->
   <nav class="sidebar" id="sidebar">
+    <a href="index.html" class="sidebar-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Finans Akademi
+    </a>
     <div class="brand" onclick="toggleSidebar()" id="brand-toggle">
       <div class="mark">FP&A · Eğitim Modülü</div>
       <h1>Bütçe Defteri</h1>
