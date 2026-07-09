@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bütçe Defteri — Hazırlama, Planlama, Takip & Revizyon</title>
+<title>Bütçe Notları — Hazırlama, Planlama, Takip & Revizyon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -38,6 +38,17 @@ body{
   display:grid;
   grid-template-columns:280px 1fr;
   min-height:100vh;
+  transition:grid-template-columns .25s ease;
+}
+.shell.collapsed{
+  grid-template-columns:0px 1fr;
+}
+.shell.collapsed .sidebar{
+  overflow:hidden;
+  width:0;
+  min-width:0;
+  padding:0;
+  border-right:none;
 }
 @media (max-width: 880px){
   .shell{grid-template-columns:1fr;}
@@ -399,6 +410,30 @@ footer{
 }
 .sidebar-back:hover{color:var(--gold);}
 .sidebar-back svg{width:12px;height:12px;flex-shrink:0;}
+
+/* Budget Flow Pro banner */
+.bf-banner{
+  background:linear-gradient(135deg,rgba(200,146,46,.06) 0%,rgba(200,146,46,.03) 100%);
+  border:1px solid rgba(200,146,46,.2);
+  border-left:3px solid var(--gold);
+  padding:16px 20px;
+  margin:28px 0;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;
+}
+.bf-banner-text .bf-tag{
+  font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--gold);margin-bottom:4px;
+}
+.bf-banner-text p{font-size:13px;color:var(--ink-dim);line-height:1.6;}
+.bf-banner-text p strong{color:var(--ink);}
+.bf-banner-link{
+  display:inline-block;font-size:12px;font-weight:600;
+  color:#0a0c0e;background:var(--gold);padding:8px 16px;
+  white-space:nowrap;flex-shrink:0;text-decoration:none;transition:background .15s;
+  align-self:center;
+}
+.bf-banner-link:hover{background:var(--gold-soft);}
+
 </style>
 </head>
 <body><script>
@@ -424,7 +459,7 @@ footer{
     </a>
     <div class="brand" onclick="toggleSidebar()" id="brand-toggle">
       <div class="mark">FP&A · Eğitim Modülü</div>
-      <h1>Bütçe Defteri</h1>
+      <h1>Bütçe Notları</h1>
       <p>Hazırlama → Planlama → Takip → Revizyon</p>
       <button class="brand-toggle" id="menu-icon" onclick="event.stopPropagation();toggleSidebar()">☰</button>
     </div>
@@ -461,6 +496,8 @@ footer{
   <!-- MAIN -->
   <main class="main">
     <div class="topbar">
+      <button id="topbar-toggle" onclick="toggleSidebar()" title="Menüyü Aç"
+        style="display:none;background:none;border:none;color:var(--ink-dim);cursor:pointer;padding:4px 8px;font-size:16px;line-height:1;flex-shrink:0;">☰</button>
       <div class="breadcrumb">Sayfa <b id="bc-num">—</b> / 15 · <span id="bc-title">Genel Bakış</span></div>
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
     </div>
@@ -509,6 +546,17 @@ footer{
     </section>
 
     <!-- ===================== BÖLÜM I ===================== -->
+
+    
+    <!-- Budget Flow Pro — Genel Bakış Sonrası -->
+    <div class="bf-banner">
+      <div class="bf-banner-text">
+        <div class="bf-tag">Budget Flow Pro</div>
+        <p>Bu notlardaki bütçe süreçlerini Excel'siz, dijital bir platformda uygulamak ister misiniz?
+        <strong>Departman bazlı bütçe hazırlama, hiyerarşik onay akışı ve sapma analizi</strong> — hepsi tek sistemde.</p>
+      </div>
+      <a href="budget-flow.html" class="bf-banner-link">Ücretsiz Deneyin →</a>
+    </div>
 
     <section class="topic" id="h1" data-idx="1" data-title="Yıllık Bütçe Takvimi">
       <div class="topic-head"><div class="topic-num">01</div><div><h3>Yıllık Bütçe Takvimi &amp; Departman Koordinasyonu</h3><p class="topic-sub">Süreci disipline eden takvim, Eylül'de başlar.</p></div></div>
@@ -985,6 +1033,18 @@ footer{
       <div class="callout">Dikkat: rebudget kolay çıkış olmamalı, sık rebudget "bütçe önemsizdir" mesajı verir, prim sistemi önceden yazılı olmalı, YK'ya gerekçe belgesi hazır olmalı.</div>
     </section>
 
+    
+    <!-- Budget Flow Pro — Revizyon / Sapma Sonrası -->
+    <div class="bf-banner">
+      <div class="bf-banner-text">
+        <div class="bf-tag">Budget Flow Pro — Revizyon & Sapma</div>
+        <p><strong>Bütçe revizyonlarını elle takip etmek hem zaman alır hem de hata üretir.</strong>
+        Budget Flow Pro'da her revizyon otomatik versiyonlanır, kim ne değiştirdi audit log'da görünür,
+        sapma analizi gerçek zamanlı hazır olur.</p>
+      </div>
+      <a href="budget-flow.html" class="bf-banner-link">14 Gün Ücretsiz Deneyin →</a>
+    </div>
+
     <section class="topic" id="t5" data-idx="14" data-title="Departman Geri Bildirimi">
       <div class="topic-head"><div class="topic-num">05</div><div><h3>Departman Müdürlerine Bütçe Geri Bildirim Sunumları</h3><p class="topic-sub">Suçlama değil anlama — çözüm odaklı yaklaşım.</p></div></div>
 
@@ -1072,9 +1132,13 @@ footer{
 <script>
 
 function toggleSidebar() {
-  var sidebar = document.getElementById('sidebar');
-  sidebar.classList.toggle('open');
-  document.getElementById('menu-icon').textContent = sidebar.classList.contains('open') ? '✕' : '☰';
+  var shell = document.querySelector('.shell');
+  shell.classList.toggle('collapsed');
+  var collapsed = shell.classList.contains('collapsed');
+  document.getElementById('menu-icon').textContent = collapsed ? '☰' : '✕';
+  // Topbar toggle butonunu güncelle
+  var tb = document.getElementById('topbar-toggle');
+  if(tb) tb.style.display = collapsed ? 'flex' : 'none';
 }
 
 // Nav item tıklanınca mobilde sidebar'ı kapat
