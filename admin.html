@@ -120,6 +120,27 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-s
   .stats{grid-template-columns:repeat(2,1fr);}
   .login-card{padding:36px 24px;}
 }
+
+.mvc-card{background:var(--panel);border:1px solid var(--line);margin-bottom:10px;}
+.mvc-card-top{display:flex;align-items:flex-start;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);gap:12px;cursor:pointer;}
+.mvc-card-top:hover{background:rgba(207,155,63,.04);}
+.mvc-company{font-weight:700;font-size:.9rem;color:var(--ink);}
+.mvc-meta-sub{font-size:.75rem;color:var(--ink-dim);margin-top:2px;}
+.mvc-badge{font-size:.7rem;font-weight:600;padding:3px 9px;white-space:nowrap;}
+.mvc-badge.yeni{background:rgba(207,155,63,.12);color:var(--gold);}
+.mvc-badge.incelendi{background:rgba(95,182,164,.12);color:var(--teal);}
+.mvc-badge.reddedildi{background:rgba(217,104,79,.12);color:var(--red);}
+.mvc-body{display:none;padding:16px 18px;}
+.mvc-body.open{display:block;}
+.mvc-sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px 18px;margin-bottom:12px;}
+.mvc-item .mvc-k{font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);margin-bottom:3px;}
+.mvc-item .mvc-v{font-size:.82rem;color:var(--ink);}
+.mvc-long{margin-bottom:12px;}
+.mvc-long .mvc-k{font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);margin-bottom:4px;}
+.mvc-long .mvc-v{font-size:.82rem;color:var(--ink-dim);line-height:1.6;white-space:pre-wrap;}
+.mvc-sh{font-family:'JetBrains Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin:14px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+.mvc-founder{background:var(--panel-2);border:1px solid var(--line);padding:9px 13px;margin-bottom:5px;font-size:.8rem;}
+.mvc-actions{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);}
 </style>
 </head>
 <body>
@@ -152,6 +173,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-s
       <button class="admin-tab active" id="tab-mesaj" onclick="switchTab('mesaj')">Mesajlar</button>
       <button class="admin-tab" id="tab-abone" onclick="switchTab('abone')">Aboneler</button>
       <button class="admin-tab" id="tab-demo" onclick="switchTab('demo')">Budget Flow Demo</button>
+      <button class="admin-tab" id="tab-mvc" onclick="switchTab('mvc')">MvC Başvurular</button>
     </div>
 
     <!-- MESAJLAR -->
@@ -195,6 +217,20 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-s
       <div class="toolbar"><div class="toolbar-title">Demo Talepleri</div><div class="toolbar-right"><button class="refresh-btn" onclick="yuklDemoTalepler()">↻ Yenile</button></div></div>
       <div id="demo-list"><div class="loading-txt">Yükleniyor...</div></div>
     </div>
+
+    <!-- MvC BAŞVURULAR -->
+    <div id="section-mvc" style="display:none;">
+      <div class="stats">
+        <div class="stat"><div class="stat-n" id="mvc-toplam">—</div><div class="stat-l">Toplam</div></div>
+        <div class="stat"><div class="stat-n" id="mvc-yeni">—</div><div class="stat-l">Yeni</div></div>
+        <div class="stat"><div class="stat-n" id="mvc-incelendi">—</div><div class="stat-l">İncelendi</div></div>
+      </div>
+      <div class="toolbar">
+        <div class="toolbar-title">Startup Başvuruları</div>
+        <div class="toolbar-right"><button class="refresh-btn" onclick="yuklMvcBasvurular()">↻ Yenile</button></div>
+      </div>
+      <div id="mvc-list"><div class="loading-txt">Yükleniyor...</div></div>
+    </div>
   </div>
 </div>
 
@@ -237,13 +273,16 @@ function cikis(){
 }
 
 function switchTab(tab){
-  ['mesaj','abone','demo'].forEach(function(t){
-    document.getElementById('tab-'+t).classList.toggle('active',t===tab);
-    document.getElementById('section-'+t).style.display=t===tab?'':'none';
+  ['mesaj','abone','demo','mvc'].forEach(function(t){
+    var tb=document.getElementById('tab-'+t);
+    var sc=document.getElementById('section-'+t);
+    if(tb) tb.classList.toggle('active',t===tab);
+    if(sc) sc.style.display=t===tab?'':'none';
   });
   if(tab==='mesaj') yukle();
   if(tab==='abone') yuklAboneler();
   if(tab==='demo') yuklDemoTalepler();
+  if(tab==='mvc') yuklMvcBasvurular();
 }
 
 // ── MESAJLAR ──
@@ -348,6 +387,59 @@ async function yuklDemoTalepler(){
         '<div class="demo-card-actions"><button class="btn-incele" onclick="demoDurumGuncelle('+d.id+',\''+next+'\')">'+lbl+'</button><a href="mailto:'+h(d.email)+'" class="action-btn">Yanıtla</a></div></div>';
     }).join('');
   }catch(e){document.getElementById('demo-list').innerHTML='<div class="empty-txt">Yükleme hatası.</div>';}
+}
+
+
+async function yuklMvcBasvurular(){
+  try{
+    var data=await api('/rest/v1/mvc_basvurular?select=*&order=created_at.desc');
+    document.getElementById('mvc-toplam').textContent=data.length;
+    document.getElementById('mvc-yeni').textContent=data.filter(function(d){return d.durum==='yeni';}).length;
+    document.getElementById('mvc-incelendi').textContent=data.filter(function(d){return d.durum==='incelendi';}).length;
+    var el=document.getElementById('mvc-list');
+    if(!data.length){el.innerHTML='<div class="empty-txt">Henüz başvuru yok.</div>';return;}
+    el.innerHTML=data.map(function(b){
+      var dt=new Date(b.created_at);
+      var tarih=dt.toLocaleDateString('tr-TR')+' '+dt.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+      var badge=b.durum==='incelendi'?'<span class="mvc-badge incelendi">İncelendi</span>':b.durum==='reddedildi'?'<span class="mvc-badge reddedildi">Reddedildi</span>':'<span class="mvc-badge yeni">Yeni</span>';
+      var nextDurum=b.durum==='yeni'?'incelendi':'yeni';
+      var btnLbl=b.durum==='yeni'?'İncelendi Olarak İşaretle':'Yeniye Al';
+      function r(k,v){if(!v)return'';return '<div class="mvc-item"><div class="mvc-k">'+k+'</div><div class="mvc-v">'+h(v)+'</div></div>';}
+      function l(k,v){if(!v)return'';return '<div class="mvc-long"><div class="mvc-k">'+k+'</div><div class="mvc-v">'+h(v)+'</div></div>';}
+      function sh(t){return '<div class="mvc-sh">'+t+'</div>';}
+      var foundersHtml='';
+      if(b.kurucular&&b.kurucular.length){
+        foundersHtml=sh('Ekip')+b.kurucular.map(function(f){
+          return '<div class="mvc-founder">'+h(f.ad_soyad||'')+(f.rol?' · <strong>'+h(f.rol)+'</strong>':'')+(f.deneyim?' — '+h(f.deneyim):'')+(f.linkedin?' <a href="'+h(f.linkedin)+'" target="_blank" style="color:var(--gold);font-size:.74rem;">LinkedIn</a>':'')+'</div>';
+        }).join('');
+      }
+      return '<div class="mvc-card" id="mvccard_'+b.id+'">'+
+        '<div class="mvc-card-top" onclick="document.querySelector('#mvccard_'+b.id+' .mvc-body').classList.toggle('open')">'+
+          '<div><div class="mvc-company">'+h(b.sirket_adi||'—')+'</div>'+
+          '<div class="mvc-meta-sub">'+h(b.sektor||'')+(b.ulke?' · '+h(b.ulke):'')+(b.asama?' · '+h(b.asama):'')+'</div></div>'+
+          '<div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">'+badge+'<span style="font-size:.7rem;color:var(--ink-faint);">'+tarih+'</span></div>'+
+        '</div>'+
+        '<div class="mvc-body">'+
+          sh('Şirket')+
+          '<div class="mvc-sgrid">'+r('Şirket Adı',b.sirket_adi)+r('Web',b.web_sitesi)+r('Kuruluş',b.kurulus_tarihi)+r('Ülke',b.ulke)+r('Şehir',b.sehir)+r('Sektör',b.sektor)+r('Alt Kategori',b.alt_kategori)+r('Yasal Yapı',b.yasal_yapi)+'</div>'+
+          foundersHtml+
+          sh('Problem & Çözüm')+l('Problem',b.problem)+l('Çözüm',b.cozum)+r('Teknoloji',b.teknoloji)+l('Rakip Analizi',b.rakip_analizi)+
+          sh('Traction')+'<div class="mvc-sgrid">'+r('Aşama',b.asama)+r('Gelir Modeli',b.gelir_modeli)+r('Aylık Gelir',b.aylik_gelir)+r('Kullanıcı',b.kullanici_sayisi)+r('Büyüme',b.buyume_orani)+'</div>'+l('Metrikler',b.onemli_metrikler)+
+          sh('Strateji')+r('Hedef Pazar',b.hedef_pazar)+r('Hedef Müşteri',b.hedef_musteri)+l('Go-to-Market',b.go_to_market)+l('12 Ay Hedefleri',b.on_iki_ay)+l('Rekabet Avantajı',b.rekabet_avantaji)+l('Riskler',b.riskler)+
+          sh('Yatırım')+'<div class="mvc-sgrid">'+r('Aranan Tutar',b.aranan_tutar)+r('Değerleme',b.degerleme)+r('Kapanış',b.kapanis_tarihi)+r('Co-Investor',b.co_investor)+r('Nasıl Duydu',b.nasil_duydu)+'</div>'+l('Fon Kullanım',b.fon_kullanim)+l('Ek Notlar',b.ek_notlar)+
+          '<div class="mvc-actions">'+
+            '<button class="btn-incele" onclick="mvcDurumGuncelle('+b.id+',''+nextDurum+'')">'+btnLbl+'</button>'+
+            (b.web_sitesi?'<a href="'+h(b.web_sitesi)+'" target="_blank" class="action-btn">Web Sitesi</a>':'')+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }catch(e){document.getElementById('mvc-list').innerHTML='<div class="empty-txt">Yükleme hatası: '+e.message+'</div>';}
+}
+
+async function mvcDurumGuncelle(id,durum){
+  await patch('/rest/v1/mvc_basvurular?id=eq.'+id,{durum:durum});
+  yuklMvcBasvurular();
 }
 
 async function demoDurumGuncelle(id,durum){
