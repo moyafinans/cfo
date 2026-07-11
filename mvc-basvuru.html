@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MvC Startup Başvurusu — Monovest Venture Capital</title>
+<meta name="description" content="Monovest Venture Capital yatırım başvuru formu. Startupınız için yatırım sürecini başlatın.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0c0e;--surface:#111316;--surface-2:#181b1f;--border:#1e2228;--border-2:#252a32;
+  --ink:#e8e6df;--ink-dim:#7d8490;--ink-faint:#3d424a;
+  --gold:#c8922e;--gold-light:#e8c47a;--gold-dim:rgba(200,146,46,.1);
+  --teal:#4aa896;--red:#c45a42;--green:#3d9e6e;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh;}
+a{color:inherit;text-decoration:none;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(10,12,14,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-brand{display:flex;align-items:center;gap:10px;}
+.nav-mark{width:34px;height:34px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:13px;font-weight:700;color:#0a0c0e;}
+.nav-name{font-family:'Fraunces',serif;font-size:15px;font-weight:600;letter-spacing:-.2px;color:var(--ink);}
+.nav-name em{font-style:normal;color:var(--gold);}
+.nav-back{font-size:13px;color:var(--ink-dim);transition:color .15s;}
+.nav-back:hover{color:var(--gold);}
+
+/* LAYOUT */
+.page{max-width:720px;margin:0 auto;padding:48px 24px 80px;}
+
+/* HEADER */
+.page-header{text-align:center;margin-bottom:40px;}
+.page-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.page-h1{font-family:'Fraunces',serif;font-size:clamp(26px,4vw,38px);font-weight:600;letter-spacing:-.025em;line-height:1.1;color:var(--ink);margin-bottom:10px;}
+.page-h1 em{font-style:italic;font-weight:300;color:var(--gold-light);}
+.page-sub{font-size:14px;color:var(--ink-dim);max-width:480px;margin:0 auto;line-height:1.65;}
+
+/* PROGRESS */
+.progress-wrap{margin-bottom:36px;}
+.progress-bar{height:2px;background:var(--border-2);margin-bottom:16px;}
+.progress-fill{height:100%;background:var(--gold);transition:width .4s ease;}
+.steps{display:flex;gap:0;}
+.step-item{flex:1;text-align:center;cursor:pointer;padding:4px 2px;}
+.step-dot{width:28px;height:28px;border-radius:50%;border:1px solid var(--border-2);background:var(--surface);display:flex;align-items:center;justify-content:center;margin:0 auto 5px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-faint);transition:all .3s;}
+.step-item.active .step-dot{background:var(--gold);border-color:var(--gold);color:#0a0c0e;font-weight:700;}
+.step-item.done .step-dot{background:var(--green);border-color:var(--green);color:#fff;}
+.step-label{font-size:10px;color:var(--ink-faint);transition:color .3s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.step-item.active .step-label{color:var(--gold-light);}
+
+/* CARD */
+.form-card{background:var(--surface);border:1px solid var(--border);padding:36px 32px;}
+.section-title{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;color:var(--ink);margin-bottom:4px;letter-spacing:-.01em;}
+.section-desc{font-size:13px;color:var(--ink-dim);margin-bottom:28px;line-height:1.55;}
+.section-desc span{color:var(--gold);}
+
+/* FIELDS */
+.field{margin-bottom:18px;}
+.field label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-dim);margin-bottom:7px;}
+.field label .req{color:var(--gold);}
+.field input,.field select,.field textarea{width:100%;background:var(--surface-2);border:1px solid var(--border-2);color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;padding:11px 14px;outline:none;transition:border-color .15s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);}
+.field input::placeholder,.field textarea::placeholder{color:var(--ink-faint);}
+.field select option{background:var(--surface-2);}
+.field textarea{resize:vertical;min-height:90px;line-height:1.6;}
+.field-hint{font-size:11px;color:var(--ink-faint);margin-top:5px;}
+.field-count{font-size:11px;color:var(--ink-faint);text-align:right;margin-top:4px;}
+.field-err{font-size:12px;color:var(--red);margin-top:4px;display:none;}
+.field input.err,.field select.err,.field textarea.err{border-color:var(--red);}
+
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.chip{font-size:12px;font-weight:500;padding:6px 14px;border:1px solid var(--border-2);color:var(--ink-dim);background:none;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+.chip:hover{border-color:var(--gold);color:var(--gold);}
+.chip.selected{background:var(--gold-dim);border-color:var(--gold);color:var(--gold-light);}
+
+/* TOGGLES */
+.toggles{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.toggle{font-size:13px;font-weight:500;padding:9px 18px;border:1px solid var(--border-2);color:var(--ink-dim);background:none;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+.toggle:hover{border-color:var(--gold);}
+.toggle.selected{background:var(--gold);border-color:var(--gold);color:#0a0c0e;}
+
+/* DIVIDER */
+.divider{border:none;border-top:1px solid var(--border);margin:24px 0;}
+
+/* FOUNDER CARD */
+.founder-card{background:var(--surface-2);border:1px solid var(--border-2);padding:20px;margin-bottom:12px;}
+.founder-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.founder-title{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);}
+.founder-remove{background:none;border:1px solid var(--border-2);color:var(--ink-dim);font-size:11px;font-family:'Inter',sans-serif;padding:4px 10px;cursor:pointer;transition:all .15s;}
+.founder-remove:hover{border-color:var(--red);color:var(--red);}
+.add-founder-btn{width:100%;background:none;border:1px dashed var(--border-2);color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:13px;padding:12px;cursor:pointer;transition:all .15s;margin-top:4px;}
+.add-founder-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+/* NAV BUTTONS */
+.form-nav{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border);}
+.btn-back{background:none;border:1px solid var(--border-2);color:var(--ink-dim);font-family:'Inter',sans-serif;font-size:13px;font-weight:500;padding:11px 22px;cursor:pointer;transition:all .15s;}
+.btn-back:hover{border-color:var(--gold);color:var(--gold);}
+.btn-next{background:var(--gold);border:none;color:#0a0c0e;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:12px 28px;cursor:pointer;transition:background .15s;}
+.btn-next:hover{background:var(--gold-light);}
+.btn-next:disabled{opacity:.4;cursor:not-allowed;}
+.btn-submit{background:var(--gold);border:none;color:#0a0c0e;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;padding:12px 28px;cursor:pointer;transition:background .15s;}
+.btn-submit:hover{background:var(--gold-light);}
+
+/* SUBMIT MSG */
+.submit-msg{margin-top:14px;padding:12px 16px;font-size:13px;line-height:1.5;display:none;}
+.submit-msg.err{background:rgba(196,90,66,.1);border:1px solid rgba(196,90,66,.3);color:var(--red);}
+
+/* SUCCESS */
+.success-view{display:none;text-align:center;padding:48px 0;}
+.success-line{width:36px;height:2px;background:var(--gold);margin:0 auto 24px;}
+.success-h{font-family:'Fraunces',serif;font-size:24px;font-weight:600;color:var(--ink);margin-bottom:10px;}
+.success-p{font-size:14px;color:var(--ink-dim);max-width:400px;margin:0 auto;line-height:1.7;}
+.success-back{display:inline-block;margin-top:24px;font-size:13px;color:var(--gold);border:1px solid rgba(200,146,46,.3);padding:9px 20px;transition:all .15s;}
+.success-back:hover{background:var(--gold-dim);}
+
+/* SECTION HIDE */
+.form-section{display:none;}
+.form-section.active{display:block;}
+
+@media(max-width:640px){
+  nav{padding:0 18px;}
+  .page{padding:32px 14px 60px;}
+  .form-card{padding:24px 18px;}
+  .row2{grid-template-columns:1fr;}
+  .step-label{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-mark">MvC</div>
+    <span class="nav-name">Mono<em>vest</em> Capital</span>
+  </div>
+  <a href="index.html" class="nav-back">← Finans Akademi</a>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <div class="page-eyebrow">Yatırım Başvurusu</div>
+    <h1 class="page-h1">Geleceği birlikte<br><em>inşa edelim.</em></h1>
+    <p class="page-sub">6 adımda başvurunuzu tamamlayın. Ekibimiz 5–7 iş günü içinde sizinle iletişime geçecek.</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:16.67%"></div></div>
+    <div class="steps">
+      <div class="step-item active" onclick="goToStep(0)"><div class="step-dot">1</div><div class="step-label">Şirket</div></div>
+      <div class="step-item" onclick="goToStep(1)"><div class="step-dot">2</div><div class="step-label">Ekip</div></div>
+      <div class="step-item" onclick="goToStep(2)"><div class="step-dot">3</div><div class="step-label">Problem</div></div>
+      <div class="step-item" onclick="goToStep(3)"><div class="step-dot">4</div><div class="step-label">Traction</div></div>
+      <div class="step-item" onclick="goToStep(4)"><div class="step-dot">5</div><div class="step-label">Strateji</div></div>
+      <div class="step-item" onclick="goToStep(5)"><div class="step-dot">6</div><div class="step-label">Yatırım</div></div>
+    </div>
+  </div>
+
+  <div class="form-card" id="formCard">
+
+    <!-- ADIM 1: ŞİRKET -->
+    <div class="form-section active" id="step0">
+      <div class="section-title">Şirket Bilgileri</div>
+      <p class="section-desc">Şirketiniz hakkında temel bilgiler. <span>Tüm alanlar dakikalar içinde doldurulabilir.</span></p>
+      <div class="field">
+        <label>Şirket Adı <span class="req">*</span></label>
+        <input type="text" id="sirketAdi" placeholder="Şirketinizin ticari unvanı">
+        <div class="field-err" id="e_sirketAdi">Zorunlu alan</div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Web Sitesi</label>
+          <input type="url" id="webSitesi" placeholder="https://sirketiniz.com">
+        </div>
+        <div class="field">
+          <label>Kuruluş Tarihi <span class="req">*</span></label>
+          <input type="month" id="kurulusTarihi">
+          <div class="field-err" id="e_kurulusTarihi">Zorunlu alan</div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Ülke <span class="req">*</span></label>
+          <input type="text" id="ulke" placeholder="Türkiye">
+          <div class="field-err" id="e_ulke">Zorunlu alan</div>
+        </div>
+        <div class="field">
+          <label>Şehir</label>
+          <input type="text" id="sehir" placeholder="İstanbul">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Sektör <span class="req">*</span></label>
+          <select id="sektor">
+            <option value="" disabled selected>Seçiniz</option>
+            <option>Fintech</option><option>Healthtech</option><option>Edtech</option>
+            <option>SaaS / B2B</option><option>E-ticaret</option><option>Lojistik</option>
+            <option>Yapay Zeka / ML</option><option>Enerji / Cleantech</option>
+            <option>Gayrimenkul / Proptech</option><option>Tarım / Agritech</option>
+            <option>Medya / İçerik</option><option>Diğer</option>
+          </select>
+          <div class="field-err" id="e_sektor">Zorunlu alan</div>
+        </div>
+        <div class="field">
+          <label>Alt Kategori</label>
+          <input type="text" id="altKategori" placeholder="Örn. Ödeme sistemleri, Telemedicine...">
+        </div>
+      </div>
+      <div class="field">
+        <label>Yasal Yapı</label>
+        <div class="toggles">
+          <button class="toggle" data-group="yasal" data-val="Anonim Şirket">Anonim Şirket</button>
+          <button class="toggle" data-group="yasal" data-val="Limited Şirket">Limited Şirket</button>
+          <button class="toggle" data-group="yasal" data-val="Yabancı Tüzel">Yabancı Tüzel</button>
+          <button class="toggle" data-group="yasal" data-val="Kuruluş Aşaması">Kuruluş Aşaması</button>
+        </div>
+      </div>
+      <div class="form-nav">
+        <span></span>
+        <button class="btn-next" onclick="nextStep(0)">Devam →</button>
+      </div>
+    </div>
+
+    <!-- ADIM 2: EKİP -->
+    <div class="form-section" id="step1">
+      <div class="section-title">Ekip</div>
+      <p class="section-desc">Kurucu ortaklar ve kilit ekip üyeleri. <span>En az bir kurucu bilgisi zorunludur.</span></p>
+      <div id="foundersList">
+        <div class="founder-card" data-founder="0">
+          <div class="founder-header">
+            <span class="founder-title">Kurucu #1</span>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label>Ad Soyad <span class="req">*</span></label>
+              <input type="text" class="founder-name" placeholder="Ad Soyad">
+            </div>
+            <div class="field">
+              <label>LinkedIn Profili</label>
+              <input type="url" class="founder-linkedin" placeholder="https://linkedin.com/in/...">
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label>Rolü <span class="req">*</span></label>
+              <select class="founder-role">
+                <option value="" disabled selected>Seçiniz</option>
+                <option>CEO</option><option>CTO</option><option>CFO</option>
+                <option>COO</option><option>CMO</option><option>Kurucu Ortak</option><option>Diğer</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Deneyim Özeti</label>
+              <input type="text" class="founder-exp" placeholder="Önceki şirket, üniversite, vb.">
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="add-founder-btn" onclick="addFounder()">+ Kurucu Ekle</button>
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep()">← Geri</button>
+        <button class="btn-next" onclick="nextStep(1)">Devam →</button>
+      </div>
+    </div>
+
+    <!-- ADIM 3: PROBLEM & ÇÖZÜM -->
+    <div class="form-section" id="step2">
+      <div class="section-title">Problem & Çözüm</div>
+      <p class="section-desc">Çözdüğünüz problemi ve sunduğunuz çözümü net biçimde anlatın.</p>
+      <div class="field">
+        <label>Hangi Problemi Çözüyorsunuz? <span class="req">*</span></label>
+        <textarea id="problem" maxlength="500" placeholder="Müşterinizin bugün yaşadığı gerçek problem nedir? Neden önemli? Mevcut çözümler neden yetersiz?" oninput="document.getElementById('problemCount').textContent=this.value.length"></textarea>
+        <div class="field-count"><span id="problemCount">0</span> / 500</div>
+        <div class="field-err" id="e_problem">Zorunlu alan</div>
+      </div>
+      <div class="field">
+        <label>Çözümünüz Nedir? <span class="req">*</span></label>
+        <textarea id="cozum" maxlength="500" placeholder="Ürününüz / hizmetiniz bu problemi nasıl çözüyor? Neden farklı? Temel değer önermeniz ne?" oninput="document.getElementById('cozumCount').textContent=this.value.length"></textarea>
+        <div class="field-count"><span id="cozumCount">0</span> / 500</div>
+        <div class="field-err" id="e_cozum">Zorunlu alan</div>
+      </div>
+      <div class="field">
+        <label>Teknoloji Altyapısı</label>
+        <input type="text" id="teknoloji" placeholder="Örn. React Native, AWS, proprietary ML model, blockchain...">
+      </div>
+      <div class="field">
+        <label>Rakip Analizi</label>
+        <textarea id="rakipAnalizi" placeholder="Doğrudan ve dolaylı rakipler kimler? Onlardan nasıl ayrışıyorsunuz?"></textarea>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep()">← Geri</button>
+        <button class="btn-next" onclick="nextStep(2)">Devam →</button>
+      </div>
+    </div>
+
+    <!-- ADIM 4: TRACTION -->
+    <div class="form-section" id="step3">
+      <div class="section-title">Traction & Metrikler</div>
+      <p class="section-desc">Bugünkü durumunuzu rakamlarla anlatın. <span>Henüz gelir yoksa diğer metrikleri paylaşın.</span></p>
+      <div class="field">
+        <label>Şirketin Aşaması <span class="req">*</span></label>
+        <div class="toggles">
+          <button class="toggle" data-group="asama" data-val="Fikir">Fikir</button>
+          <button class="toggle" data-group="asama" data-val="MVP">MVP</button>
+          <button class="toggle" data-group="asama" data-val="Beta / Pilot">Beta / Pilot</button>
+          <button class="toggle" data-group="asama" data-val="Gelir Var">Gelir Var</button>
+          <button class="toggle" data-group="asama" data-val="Büyüme">Büyüme</button>
+        </div>
+        <div class="field-err" id="e_asama">Seçiniz</div>
+      </div>
+      <div class="field">
+        <label>Gelir Modeli <span class="req">*</span></label>
+        <div class="chips">
+          <button class="chip" data-group="gelirModeli" data-val="SaaS / Abonelik">SaaS / Abonelik</button>
+          <button class="chip" data-group="gelirModeli" data-val="İşlem Bazlı">İşlem Bazlı</button>
+          <button class="chip" data-group="gelirModeli" data-val="Reklam">Reklam</button>
+          <button class="chip" data-group="gelirModeli" data-val="Marketplace">Marketplace</button>
+          <button class="chip" data-group="gelirModeli" data-val="Lisans">Lisans</button>
+          <button class="chip" data-group="gelirModeli" data-val="Freemium">Freemium</button>
+          <button class="chip" data-group="gelirModeli" data-val="Proje Bazlı">Proje Bazlı</button>
+          <button class="chip" data-group="gelirModeli" data-val="Diğer">Diğer</button>
+        </div>
+        <div class="field-err" id="e_gelirModeli">En az bir seçenek seçiniz</div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Aylık Gelir (ARR/MRR)</label>
+          <input type="text" id="aylikGelir" placeholder="Örn. $15,000 MRR veya Henüz yok">
+        </div>
+        <div class="field">
+          <label>Aktif Kullanıcı / Müşteri</label>
+          <input type="text" id="kullaniciSayisi" placeholder="Örn. 1,200 aktif kullanıcı">
+        </div>
+      </div>
+      <div class="field">
+        <label>Aylık Büyüme Oranı</label>
+        <input type="text" id="buyumeOrani" placeholder="Örn. %15 aylık büyüme, son 3 ay ortalaması">
+      </div>
+      <div class="field">
+        <label>Önemli Metrikler / Başarılar</label>
+        <textarea id="onemliMetrikler" placeholder="Churn oranı, NPS, CAC, LTV, haber, ödül, ortaklık, pilot müşteri... ne varsa paylaşın."></textarea>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep()">← Geri</button>
+        <button class="btn-next" onclick="nextStep(3)">Devam →</button>
+      </div>
+    </div>
+
+    <!-- ADIM 5: STRATEJİ -->
+    <div class="form-section" id="step4">
+      <div class="section-title">Strateji</div>
+      <p class="section-desc">Nereye gidiyorsunuz ve nasıl oraya ulaşacaksınız?</p>
+      <div class="row2">
+        <div class="field">
+          <label>Hedef Pazar <span class="req">*</span></label>
+          <input type="text" id="hedefPazar" placeholder="TAM / SAM / SOM — Örn. Türkiye KOBİ segmenti, $2B TAM">
+          <div class="field-err" id="e_hedefPazar">Zorunlu alan</div>
+        </div>
+        <div class="field">
+          <label>Hedef Müşteri</label>
+          <input type="text" id="hedefMusteri" placeholder="Örn. 10–200 çalışanlı KOBİ finans direktörleri">
+        </div>
+      </div>
+      <div class="field">
+        <label>Go-to-Market Stratejisi <span class="req">*</span></label>
+        <textarea id="goToMarket" placeholder="Müşterilere nasıl ulaşıyorsunuz? Satış kanalları, pazarlama stratejisi, büyüme motoru nedir?"></textarea>
+        <div class="field-err" id="e_goToMarket">Zorunlu alan</div>
+      </div>
+      <div class="field">
+        <label>12 Ay Hedefleri</label>
+        <textarea id="onIkiAy" placeholder="Önümüzdeki 12 ayda neye ulaşmak istiyorsunuz? Kullanıcı, gelir, ürün veya pazar hedefleri..."></textarea>
+      </div>
+      <div class="field">
+        <label>Rekabet Avantajı <span class="req">*</span></label>
+        <textarea id="rekabetAvantaji" placeholder="Sizi rakiplerinizden kalıcı olarak ayıran ne? IP, ağ etkisi, özel veri, maliyet avantajı..."></textarea>
+        <div class="field-err" id="e_rekabetAvantaji">Zorunlu alan</div>
+      </div>
+      <div class="field">
+        <label>Temel Riskler</label>
+        <textarea id="riskler" placeholder="İşinizin önündeki en büyük riskler neler? Bunları nasıl yönetmeyi planlıyorsunuz?"></textarea>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep()">← Geri</button>
+        <button class="btn-next" onclick="nextStep(4)">Devam →</button>
+      </div>
+    </div>
+
+    <!-- ADIM 6: YATIRIM -->
+    <div class="form-section" id="step5">
+      <div class="section-title">Yatırım Talebi</div>
+      <p class="section-desc">Son adım. <span>Ne arıyorsunuz?</span></p>
+      <div class="row2">
+        <div class="field">
+          <label>Aranan Tutar <span class="req">*</span></label>
+          <input type="text" id="arananTutar" placeholder="Örn. $500,000">
+          <div class="field-err" id="e_arananTutar">Zorunlu alan</div>
+        </div>
+        <div class="field">
+          <label>Değerleme Beklentisi</label>
+          <input type="text" id="degerleme" placeholder="Örn. $5M veya Açık">
+          <div class="field-hint">Belirli bir değerleme yoksa "Açık" yazabilirsiniz.</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Fon Kullanım Planı <span class="req">*</span></label>
+        <textarea id="fonKullanim" placeholder="Yatırım tutarını hangi alanlarda, ne oranda kullanmayı planlıyorsunuz? (Örn. %40 Ürün Geliştirme, %30 Satış...)" maxlength="300" oninput="document.getElementById('fonCount').textContent=this.value.length"></textarea>
+        <div class="field-count"><span id="fonCount">0</span> / 300</div>
+        <div class="field-err" id="e_fonKullanim">Zorunlu alan</div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Hedef Kapanış Tarihi</label>
+          <input type="date" id="kapanisTarihi">
+        </div>
+        <div class="field">
+          <label>Co-Investor Durumu</label>
+          <div class="toggles">
+            <button class="toggle" data-group="coinvestor" data-val="Lead">Lead</button>
+            <button class="toggle" data-group="coinvestor" data-val="Follow">Follow</button>
+            <button class="toggle" data-group="coinvestor" data-val="Yok">Yok</button>
+          </div>
+        </div>
+      </div>
+      <hr class="divider">
+      <div class="field">
+        <label>Bizi Nasıl Duydunuz?</label>
+        <select id="nasilDuydu">
+          <option value="">Seçiniz</option>
+          <option>Network / Tanıdık</option>
+          <option>Etkinlik / Konferans</option>
+          <option>Portföy Şirketi</option>
+          <option>Sosyal Medya</option>
+          <option>Basın / Haber</option>
+          <option>Doğrudan Başvuru</option>
+          <option>Diğer</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Ek Notlar / Mesajınız</label>
+        <textarea id="ekNotlar" maxlength="400" placeholder="Eklemek istediğiniz herhangi bir bilgi, bağlantı veya mesajınız..."></textarea>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="prevStep()">← Geri</button>
+        <button class="btn-submit" id="submitBtn" onclick="submitForm()">Başvuruyu Gönder</button>
+      </div>
+      <div class="submit-msg err" id="submitMsg"></div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="form-section" id="stepSuccess">
+      <div class="success-view" style="display:block;">
+        <div class="success-line"></div>
+        <div class="success-h">Başvurunuz Alındı</div>
+        <p class="success-p">Monovest ekibi olarak başvurunuzu değerlendirmeye aldık. 5–7 iş günü içinde sizinle iletişime geçeceğiz.</p>
+        <a href="index.html" class="success-back">← Finans Akademi'ye Dön</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var SB = 'https://kiaguwpfdzffibmltdnl.supabase.co';
+var KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtpYWd1d3BmZHpmZmlibWx0ZG5sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIwOTI1OTksImV4cCI6MjA5NzY2ODU5OX0.HCtFsw6yV_5QufwOg4rLR--MXis0TO2i820ENMw1VgU';
+var currentStep = 0;
+var founderCount = 1;
+
+// Toggle/chip tek seçim
+document.addEventListener('click', function(e){
+  if(e.target.matches('.toggle[data-group]')){
+    var grp = e.target.dataset.group;
+    document.querySelectorAll('.toggle[data-group="'+grp+'"]').forEach(function(t){ t.classList.remove('selected'); });
+    e.target.classList.add('selected');
+  }
+  if(e.target.matches('.chip[data-group]')){
+    e.target.classList.toggle('selected');
+  }
+});
+
+function getToggleVal(group){
+  var el = document.querySelector('.toggle[data-group="'+group+'"].selected');
+  return el ? el.dataset.val : '';
+}
+function getChipVals(group){
+  return Array.from(document.querySelectorAll('.chip[data-group="'+group+'"].selected')).map(function(c){return c.dataset.val;}).join(', ');
+}
+function v(id){ var el=document.getElementById(id); return el ? el.value.trim() : ''; }
+
+function updateProgress(){
+  var pct = ((currentStep+1)/6)*100;
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.querySelectorAll('.step-item').forEach(function(s,i){
+    s.classList.remove('active','done');
+    if(i < currentStep) s.classList.add('done');
+    else if(i === currentStep) s.classList.add('active');
+  });
+}
+
+function showStep(idx){
+  document.querySelectorAll('.form-section').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(idx==='success'?'stepSuccess':'step'+idx).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goToStep(idx){
+  if(idx <= currentStep){
+    currentStep = idx;
+    updateProgress();
+    showStep(idx);
+  }
+}
+
+function prevStep(){
+  if(currentStep > 0){ currentStep--; updateProgress(); showStep(currentStep); }
+}
+
+function showErr(id){ var el=document.getElementById('e_'+id); if(el) el.style.display='block'; }
+function clearErr(id){ var el=document.getElementById('e_'+id); if(el) el.style.display='none'; }
+
+function nextStep(step){
+  var ok = true;
+  // Validasyonlar
+  if(step===0){
+    if(!v('sirketAdi')){ showErr('sirketAdi'); ok=false; } else clearErr('sirketAdi');
+    if(!v('kurulusTarihi')){ showErr('kurulusTarihi'); ok=false; } else clearErr('kurulusTarihi');
+    if(!v('ulke')){ showErr('ulke'); ok=false; } else clearErr('ulke');
+    if(!v('sektor')){ showErr('sektor'); ok=false; } else clearErr('sektor');
+  }
+  if(step===1){
+    var fn = document.querySelector('.founder-name');
+    if(!fn||!fn.value.trim()){ alert('En az bir kurucu adı giriniz.'); ok=false; }
+  }
+  if(step===2){
+    if(!v('problem')){ showErr('problem'); ok=false; } else clearErr('problem');
+    if(!v('cozum')){ showErr('cozum'); ok=false; } else clearErr('cozum');
+  }
+  if(step===3){
+    if(!getToggleVal('asama')){ showErr('asama'); ok=false; } else clearErr('asama');
+    if(!getChipVals('gelirModeli')){ showErr('gelirModeli'); ok=false; } else clearErr('gelirModeli');
+  }
+  if(step===4){
+    if(!v('hedefPazar')){ showErr('hedefPazar'); ok=false; } else clearErr('hedefPazar');
+    if(!v('goToMarket')){ showErr('goToMarket'); ok=false; } else clearErr('goToMarket');
+    if(!v('rekabetAvantaji')){ showErr('rekabetAvantaji'); ok=false; } else clearErr('rekabetAvantaji');
+  }
+  if(!ok) return;
+  currentStep++;
+  updateProgress();
+  showStep(currentStep);
+}
+
+function addFounder(){
+  founderCount++;
+  var list = document.getElementById('foundersList');
+  var card = document.createElement('div');
+  card.className = 'founder-card';
+  card.innerHTML =
+    '<div class="founder-header">'+
+      '<span class="founder-title">Kurucu #'+founderCount+'</span>'+
+      '<button class="founder-remove" onclick="this.closest(\'.founder-card\').remove()">Kaldır</button>'+
+    '</div>'+
+    '<div class="row2">'+
+      '<div class="field"><label>Ad Soyad <span class="req">*</span></label><input type="text" class="founder-name" placeholder="Ad Soyad"></div>'+
+      '<div class="field"><label>LinkedIn Profili</label><input type="url" class="founder-linkedin" placeholder="https://linkedin.com/in/..."></div>'+
+    '</div>'+
+    '<div class="row2">'+
+      '<div class="field"><label>Rolü <span class="req">*</span></label><select class="founder-role"><option value="" disabled selected>Seçiniz</option><option>CEO</option><option>CTO</option><option>CFO</option><option>COO</option><option>CMO</option><option>Kurucu Ortak</option><option>Diğer</option></select></div>'+
+      '<div class="field"><label>Deneyim Özeti</label><input type="text" class="founder-exp" placeholder="Önceki şirket, üniversite, vb."></div>'+
+    '</div>';
+  list.appendChild(card);
+  card.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function collectFounders(){
+  return Array.from(document.querySelectorAll('.founder-card')).map(function(c){
+    return {
+      ad_soyad: (c.querySelector('.founder-name')||{}).value||'',
+      linkedin: (c.querySelector('.founder-linkedin')||{}).value||'',
+      rol: (c.querySelector('.founder-role')||{}).value||'',
+      deneyim: (c.querySelector('.founder-exp')||{}).value||''
+    };
+  });
+}
+
+async function submitForm(){
+  // Adım 5 validasyonu
+  var ok = true;
+  if(!v('arananTutar')){ showErr('arananTutar'); ok=false; } else clearErr('arananTutar');
+  if(!v('fonKullanim')){ showErr('fonKullanim'); ok=false; } else clearErr('fonKullanim');
+  if(!ok) return;
+
+  var btn = document.getElementById('submitBtn');
+  btn.disabled=true; btn.textContent='Gönderiliyor...';
+
+  var payload = {
+    sirket_adi: v('sirketAdi'),
+    web_sitesi: v('webSitesi'),
+    kurulus_tarihi: v('kurulusTarihi'),
+    ulke: v('ulke'),
+    sehir: v('sehir'),
+    sektor: v('sektor'),
+    alt_kategori: v('altKategori'),
+    yasal_yapi: getToggleVal('yasal'),
+    kurucular: collectFounders(),
+    problem: v('problem'),
+    cozum: v('cozum'),
+    teknoloji: v('teknoloji'),
+    rakip_analizi: v('rakipAnalizi'),
+    asama: getToggleVal('asama'),
+    gelir_modeli: getChipVals('gelirModeli'),
+    aylik_gelir: v('aylikGelir'),
+    kullanici_sayisi: v('kullaniciSayisi'),
+    buyume_orani: v('buyumeOrani'),
+    onemli_metrikler: v('onemliMetrikler'),
+    hedef_pazar: v('hedefPazar'),
+    hedef_musteri: v('hedefMusteri'),
+    go_to_market: v('goToMarket'),
+    on_iki_ay: v('onIkiAy'),
+    rekabet_avantaji: v('rekabetAvantaji'),
+    riskler: v('riskler'),
+    aranan_tutar: v('arananTutar'),
+    degerleme: v('degerleme'),
+    fon_kullanim: v('fonKullanim'),
+    kapanis_tarihi: v('kapanisTarihi'),
+    co_investor: getToggleVal('coinvestor'),
+    nasil_duydu: v('nasilDuydu'),
+    ek_notlar: v('ekNotlar')
+  };
+
+  try{
+    var r = await fetch(SB+'/rest/v1/mvc_basvurular',{
+      method:'POST',
+      headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify(payload)
+    });
+    btn.disabled=false; btn.textContent='Başvuruyu Gönder';
+    if(r.status>=200&&r.status<300){
+      document.getElementById('progressWrap').style.opacity='.3';
+      showStep('success');
+    } else {
+      var msg=document.getElementById('submitMsg');
+      msg.textContent='Bir hata oluştu ('+r.status+'). Lütfen tekrar deneyin.';
+      msg.style.display='block';
+    }
+  }catch(e){
+    btn.disabled=false; btn.textContent='Başvuruyu Gönder';
+    var msg=document.getElementById('submitMsg');
+    msg.textContent='Bağlantı hatası: '+e.message;
+    msg.style.display='block';
+  }
+}
+
+updateProgress();
+</script>
+</body>
+</html>
