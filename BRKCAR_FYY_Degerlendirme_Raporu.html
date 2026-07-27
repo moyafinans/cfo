@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>BRKCAR Turizm A.Ş. — Finansal Yeniden Yapılandırma Değerlendirmesi</title>
+<style>
+  :root{
+    --ink:#14213D;
+    --ink-soft:#3A4B6B;
+    --paper:#FBFAF7;
+    --line:#D8DCE3;
+    --accent:#B5502A;
+    --accent-soft:#F3E3DA;
+    --good:#2B6E4F;
+    --good-soft:#E4F0E9;
+    --warn:#9A6A00;
+    --warn-soft:#FBF0D6;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#E9E7E1;}
+  body{
+    font-family: 'Georgia','Iowan Old Style', serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    width:277mm; min-height:190mm;
+    margin:10mm auto;
+    background:var(--paper);
+    padding:11mm 14mm 9mm 14mm;
+    box-shadow:0 2px 18px rgba(0,0,0,0.18);
+  }
+  @page{ size:A4 landscape; margin:0; }
+  @media print{
+    body{background:#fff;}
+    .page{ box-shadow:none; margin:0; width:auto; min-height:0; padding:9mm 12mm; }
+  }
+  .masthead{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-bottom:2.5px solid var(--ink);
+    padding-bottom:6px; margin-bottom:10px;
+  }
+  .masthead h1{
+    font-size:20px; letter-spacing:0.2px; margin:0 0 2px 0; font-weight:700;
+  }
+  .masthead .sub{ font-family: Arial, sans-serif; font-size:10.5px; color:var(--ink-soft); }
+  .masthead .meta{ text-align:right; font-family: Arial, sans-serif; font-size:9.5px; color:var(--ink-soft); line-height:1.5; }
+  .verdict{
+    display:flex; gap:14px; align-items:center;
+    background:var(--good-soft); border:1px solid var(--good);
+    border-radius:3px; padding:8px 14px; margin-bottom:10px;
+  }
+  .verdict .tag{
+    font-family:Arial, sans-serif; font-weight:800; font-size:11px; letter-spacing:0.5px;
+    color:#fff; background:var(--good); padding:5px 11px; border-radius:2px; white-space:nowrap;
+  }
+  .verdict p{ margin:0; font-size:12.3px; line-height:1.42; color:var(--ink); }
+  .verdict b{ color:var(--good); }
+
+  .grid{ display:grid; grid-template-columns: 1.28fr 1fr 1fr; gap:10px; margin-bottom:9px; }
+  .card{ border:1px solid var(--line); border-radius:3px; padding:8px 10px; background:#fff; }
+  .card h3{
+    font-family:Arial, sans-serif; font-size:9.5px; text-transform:uppercase; letter-spacing:0.6px;
+    color:var(--ink-soft); margin:0 0 6px 0; font-weight:700;
+  }
+
+  .kpis{ display:grid; grid-template-columns:repeat(4,1fr); gap:9px; }
+  .kpi{ border:1px solid var(--line); border-radius:3px; padding:7px 9px; background:#fff; }
+  .kpi .num{ font-family:var(--mono); font-size:18px; font-weight:700; color:var(--ink); line-height:1.05; }
+  .kpi .num.warn{ color:var(--accent); }
+  .kpi .lbl{ font-family:Arial, sans-serif; font-size:8.7px; color:var(--ink-soft); margin-top:3px; line-height:1.3; }
+
+  table{ width:100%; border-collapse:collapse; font-family:Arial, sans-serif; font-size:9.3px; }
+  th{ text-align:right; font-size:8.4px; text-transform:uppercase; letter-spacing:0.3px; color:var(--ink-soft); border-bottom:1.4px solid var(--ink); padding:3px 4px; font-weight:700;}
+  th:first-child, td:first-child{ text-align:left; }
+  td{ padding:3px 4px; border-bottom:1px solid var(--line); text-align:right; }
+  tr.tot td{ font-weight:700; border-top:1.4px solid var(--ink); border-bottom:none; }
+  .redcell{ color:var(--accent); font-weight:700; }
+  .bar-row{ display:flex; align-items:center; gap:5px; }
+  .bar-bg{ flex:1; height:6px; background:#EEE; border-radius:3px; overflow:hidden; }
+  .bar-fill{ height:100%; background:var(--accent); }
+
+  .banklist{ font-family:Arial, sans-serif; font-size:9.2px; }
+  .bankrow{ display:flex; justify-content:space-between; padding:2.5px 0; border-bottom:1px dotted var(--line); }
+  .bankrow .nm{ font-weight:700; }
+  .bankrow .vade{ color:var(--warn); font-weight:700; }
+  .bankrow .vade.ok{ color:var(--good); font-weight:400; }
+
+  .foot-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:9px; }
+  .actionlist{ font-family:Arial, sans-serif; font-size:10px; margin:0; padding-left:15px; line-height:1.55; }
+  .actionlist li{ margin-bottom:2px; }
+  .actionlist b{ color:var(--accent); }
+
+  .notebox{ font-family:Arial, sans-serif; font-size:8.4px; color:var(--ink-soft); line-height:1.5; border-top:1px solid var(--line); margin-top:8px; padding-top:5px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <div>
+      <h1>BRKCAR TURİZM SANAYİ VE TİCARET A.Ş. — Finansal Yeniden Yapılandırma Değerlendirmesi</h1>
+      <div class="sub">Araç kiralama operasyonu · Banka borç yükü ve nakit akışı sürdürülebilirlik analizi</div>
+    </div>
+    <div class="meta">
+      Rapor Tarihi: 27.07.2026<br>
+      Kaynak: Geçici vergi beyannameleri (2025 T1–T4, 2026 T1), Findeks Risk Raporu (16.07.2026), Araç filosu &amp; teminat listeleri, Kredi tablosu
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="tag">ÖNERİ: FYY</div>
+    <p><b>Finansal yeniden yapılandırma önerilir.</b> Operasyon kârlı (5 çeyrektir faaliyet karı marjı %15–29), ancak finansman gideri faaliyet karının
+    <b>%94–100'ünü</b> yiyor — bu bir iş modeli sorunu değil, vade/yapı uyumsuzluğu. Şirketin sicili temiz (Findeks: <b>0 gün gecikme</b>), teminat kapsamı güçlü
+    (rehinli araç değeri borcun <b>%121'i</b>), bu da bankalar nezdinde güçlü bir pazarlık pozisyonu sağlıyor. Erken/proaktif başvuru şart.</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>Finansman Yükü Neden Sürdürülemez — Çeyreklik Trend</h3>
+      <table>
+        <tr><th>Dönem</th><th>Net Satış</th><th>Faaliyet Karı</th><th>Finansman Gid.</th><th>Fin.Gid/Fal.Karı</th></tr>
+        <tr><td>2025 T1</td><td>28,6 M</td><td>6,76 M</td><td>6,62 M</td><td class="redcell">%97,9</td></tr>
+        <tr><td>2025 T2</td><td>38,9 M</td><td>11,30 M</td><td>11,32 M</td><td class="redcell">%100,2</td></tr>
+        <tr><td>2025 T3</td><td>42,6 M</td><td>6,65 M</td><td>6,53 M</td><td class="redcell">%98,2</td></tr>
+        <tr><td>2025 T4</td><td>72,2 M</td><td>7,31 M</td><td>6,84 M</td><td class="redcell">%93,6</td></tr>
+        <tr><td>2026 T1</td><td>43,0 M</td><td>15,12 M</td><td>14,44 M</td><td class="redcell">%95,6</td></tr>
+      </table>
+      <div style="font-family:Arial,sans-serif;font-size:8.6px;color:var(--ink-soft);margin-top:5px;">
+        2026 T1 aylık ortalama faaliyet karı ~5,0 M TL — Ağustos 2026 aylık kredi taksit yükü <b style="color:var(--accent)">11,3 M TL</b>. Operasyon kârı, taksitin yarısını dahi tek başına karşılamıyor.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Banka Riski Tırmanışı (Findeks, Nakdi Borç)</h3>
+      <table>
+        <tr><th>Dönem</th><th>Nakdi Borç</th></tr>
+        <tr><td>12/2023</td><td>84,9 M</td></tr>
+        <tr><td>12/2024</td><td>125,2 M</td></tr>
+        <tr><td>12/2025</td><td>169,1 M</td></tr>
+        <tr><td>06/2026</td><td class="redcell">214,3 M</td></tr>
+      </table>
+      <div style="font-family:Arial,sans-serif;font-size:8.6px;color:var(--ink-soft);margin-top:5px;">
+        2,5 yılda nakdi borç <b style="color:var(--accent)">%153 arttı</b>; sadece 2026'nın ilk 6 ayında <b style="color:var(--accent)">%27</b>. Gecikme: <b style="color:var(--good)">0 gün / 0 TL</b> — sicil temiz.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Yaklaşan Vade Duvarı (Genel Revize Vadesi)</h3>
+      <div class="banklist">
+        <div class="bankrow"><span class="nm">Akbank</span><span>3,1 M TL</span><span class="vade">11.08.2026</span></div>
+        <div class="bankrow"><span class="nm">Vakıfbank</span><span>6,5 M TL</span><span class="vade">06.09.2026</span></div>
+        <div class="bankrow"><span class="nm">Halkbank</span><span>72,5 M TL</span><span class="vade">30.09.2026</span></div>
+        <div class="bankrow"><span class="nm">Vakıf Katılım</span><span>2,0 M TL</span><span class="vade">27.09.2025 (geçmiş)</span></div>
+        <div class="bankrow"><span class="nm">TEB / Garanti / Y.Kredi / Diğer</span><span>132,3 M TL</span><span class="vade ok">2027 ve sonrası</span></div>
+      </div>
+      <div style="font-family:Arial,sans-serif;font-size:8.6px;color:var(--ink-soft);margin-top:5px;">
+        Halkbank tek başına toplam riskin <b style="color:var(--accent)">%33'ü</b> ve vadesi 2,5 ay sonra doluyor — önceliklendirmede ilk sırada.
+      </div>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="num warn">217,4 M</div><div class="lbl">TOPLAM BANKA RİSKİ (TL) — Findeks 16.07.2026, 19 finans kuruluşu</div></div>
+    <div class="kpi"><div class="num">256,0 M</div><div class="lbl">REHİNLİ ARAÇ TEMİNAT DEĞERİ (TL) — 157 araç, borcun %121'i (LTV ~%83)</div></div>
+    <div class="kpi"><div class="num">%75,7</div><div class="lbl">RİSK YOĞUNLAŞMASI — Halkbank+Garanti+Yapı Kredi toplam riskin çoğunu taşıyor</div></div>
+    <div class="kpi"><div class="num">632</div><div class="lbl">FİLODAKİ ARAÇ (gelir üreten) — %87'si kârlı, 85 araç zararda/atıl (~2,7 M TL zarar)</div></div>
+  </div>
+
+  <div class="foot-grid">
+    <div class="card">
+      <h3>Önerilen İlk Adımlar</h3>
+      <ol class="actionlist">
+        <li><b>Öncelik sırası:</b> Halkbank → Vakıfbank → Akbank ile Ağustos–Eylül 2026 vade duvarından önce görüşme (toplam 82 M TL, riskin %38'i).</li>
+        <li><b>Konsolidasyon teklifi:</b> Taksitli ticari kredileri (173 M TL, ortalama 12–24 ay) tek yapıda 5–7 yıla, 6–12 ay ödemesiz dönemle uzatma talebi.</li>
+        <li><b>Teminat kartı:</b> 256 M TL'lik araç teminatı zaten güçlü kapsam sağlıyor — bankalara ek teminat değil, sadece vade/ödeme planı değişikliği istendiği vurgulanmalı.</li>
+        <li><b>Nakit yaratma:</b> Zarar eden/atıl 85 aracın (filo'nun %13'ü) satışı ile hem nakit yaratılabilir hem borç azaltılabilir.</li>
+        <li><b>Danışman/hukuk:</b> Çok bankalı (19 kurum) FYY başvurusu için bağımsız denetçi + FYY hukuk danışmanı süreci başlatılmalı (Finansal Yeniden Yapılandırma Yönetmeliği kapsamında).</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Bu Değerlendirmenin Sınırları</h3>
+      <p style="font-family:Arial,sans-serif;font-size:10px;line-height:1.55;margin:0 0 6px 0;">
+      Bu rapor gelir tablosu, Findeks risk raporu, kredi takip tablosu ve araç/teminat listelerine dayanır. Nihai FYY başvurusundan önce şu belgeler netleştirilmelidir:
+      </p>
+      <ul class="actionlist" style="padding-left:15px;">
+        <li>BRKCAR A.Ş.'nin <b>güncel bilançosu</b> (öz kaynak, kısa/uzun vadeli yükümlülük ayrımı için) — henüz sağlanmadı.</li>
+        <li><b>Güncel nakit/banka pozisyonu</b> — kaç aylık nefes payı kaldığını netleştirmek için.</li>
+        <li>Rehinli araç listesindeki bazı teminatların BRKCAR dışı kişilere (ortaklar/aile) ait olması — bu araçların hukuki statüsü teyit edilmeli.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="notebox">
+    Kaynaklar: BRKCAR Turizm San. ve Tic. A.Ş. 2025 T1–T4 ve 2026 T1 geçici vergi beyannameleri · Findeks Risk Raporu (Ref. 700D20C4D90, 16.07.2026) · ARAÇ_LİSTESİ.xlsx, REHİNLİ_ARAÇ_LİSTESİ (09.05.2026) · Arac_Gelir_Gider.xlsx · 27.07.2026 tarihli kredi taksit analizi. Bu rapor bir ön değerlendirmedir, bağımsız denetim ve hukuki görüş yerine geçmez.
+  </div>
+
+</div>
+</body>
+</html>
